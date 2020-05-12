@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  proxy:
+    hostname: proxy
+    container_name: proxy
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./proxy/vhost.d:/etc/nginx/vhost.d"
+      - "./proxy/custom.conf:/etc/nginx/conf.d/custom.conf"
+      - "/usr/share/nginx/html"
+      - html:/usr/share/nginx/html
+    networks:
+      - frontend
+
+  phpmyadmin:
+    hostname: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    volumes:
+      - /sessions
+    networks:
+      - frontend
+      - backend
+    environment:
+      VIRTUAL_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
+
+networks:
+  frontend:
+    driver: bridge
+
+volumes:
+  html:

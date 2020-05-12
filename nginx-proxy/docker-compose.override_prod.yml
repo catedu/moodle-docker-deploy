@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  proxy:
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./proxy/certs:/etc/nginx/certs:ro"
+
+  ssl:
+    hostname: ssl
+    container_name: ssl
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on: [proxy]
+    volumes:
+      - "./proxy/certs:/etc/nginx/certs:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./proxy/vhost.d:/etc/nginx/vhost.d"
+      - html:/usr/share/nginx/html
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
+
+volumes:
+  html:
