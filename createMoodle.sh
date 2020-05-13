@@ -13,9 +13,8 @@
 # y una contraseña aleatoria
 
 export $(cat .env | egrep -v '^#')
-echo $MYSQL_ROOT_PASSWORD
 # create database, user and grants 
-mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --execute="CREATE DATABASE test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER pepito IDENTIFIED BY 'password'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to 'pepito'@'%'"
+mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST} --execute="CREATE DATABASE test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER pepito IDENTIFIED BY 'password'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to 'pepito'@'%'"
 
 
 
