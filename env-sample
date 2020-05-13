@@ -1,0 +1,3 @@
+# for database creation:
+MYSQL_ROOT_PASSWORD=password
+MOODLE_DB_HOST=db

@@ -8,10 +8,10 @@ services:
     volumes:
       - /sessions
     networks:
+      - frontend
       - backend
     environment:
       VIRTUAL_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
-      PMA_HOST: "${DB_HOST}"
 
 networks:
   frontend:

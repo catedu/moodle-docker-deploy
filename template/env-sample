@@ -2,7 +2,7 @@
 VIRTUAL_HOST=localhost
 SSL_EMAIL=technicalemail@example.com
 
-# for database creation:
+# for database connection:
 MYSQL_ROOT_PASSWORD=password
 MOODLE_DB_HOST=db
 MOODLE_DB_NAME=moodle
@@ -10,7 +10,7 @@ MOODLE_MYSQL_USER=dbuser
 MOODLE_MYSQL_PASSWORD=dbpassword
 
 SSL_PROXY=false
-EXTERNAL_DB=false
+EXTERNAL_DB=true
 
 MOODLE_URL=http://localhost
 
