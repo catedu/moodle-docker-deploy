@@ -3,16 +3,14 @@ VIRTUAL_HOST=localhost
 SSL_EMAIL=technicalemail@example.com
 
 # for database connection:
-MYSQL_ROOT_PASSWORD=password
 MOODLE_DB_HOST=db
 MOODLE_DB_NAME=moodle
 MOODLE_MYSQL_USER=dbuser
 MOODLE_MYSQL_PASSWORD=dbpassword
 
-SSL_PROXY=false
-EXTERNAL_DB=true
+SSL_PROXY=true
 
-MOODLE_URL=http://localhost
+MOODLE_URL=https://localhost
 
 # for installing moodle, user data:
 MOODLE_ADMIN_USER=adminuser

@@ -24,15 +24,15 @@ services:
       SSL_PROXY: "${SSL_PROXY}"
       EXTERNAL_DB: "${EXTERNAL_DB}"
     networks:
-      - frontend
+      - nginx-proxy_frontend
       - backend
     volumes:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
 
 networks:
-  frontend:
-    driver: bridge
+  nginx-proxy_frontend:
+    external: true
   backend:
     external:
       driver: bridge
