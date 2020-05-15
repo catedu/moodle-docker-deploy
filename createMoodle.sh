@@ -106,7 +106,7 @@ get_parameter(){
 
 check_url(){
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
-    NAME_IP=$(getent hosts ${1} | awk '{ print $1 }' 2>/dev/null)
+    NAME_IP=$(ping -c 1 www.google.com | gawk -F'[()]' '/PING/{print $2}')
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
 
@@ -152,6 +152,8 @@ fi
 
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
     cat > "${VIRTUALHOST}/.env" << EOF
+
+
 # for reverse nginx proxy:
 VIRTUAL_HOST="$VIRTUALHOST"
 SSL_EMAIL=soportecatedu@educa.aragon.es
