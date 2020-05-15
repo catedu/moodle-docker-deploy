@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 set -eu
 # Initial Deploy
 # Ver. 0.1 - bash
@@ -9,9 +9,7 @@ set -eu
 
 # Load env variables:
 
-set -a
-[ -f .env ] && . .env
-set +a
+export $(egrep -v '^#' .env | xargs)
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
@@ -112,7 +110,7 @@ VIRTUALHOST="${MOODLE_URL##*//}"
 
 MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 MOODLE_DB=$(echo $VIRTUALHOST | sed 's/\./_/g'| sed 's/-/_/g')
-MOODLE_MYSQL_USER=MOODLE_DB
+MOODLE_MYSQL_USER=$MOODLE_DB
 
 # check_create_dir_exist "${VIRTUALHOST}"
 
@@ -120,7 +118,7 @@ MOODLE_MYSQL_USER=MOODLE_DB
 [ -f "template/docker-compose.yml" ] && cp "template/docker-compose.yml" "${VIRTUALHOST}"
 
 # create database, user and grants
-mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY \'${MOODLE_MYSQL_PASSWORD}\'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to \'${MOODLE_MYSQL_USER}\'@'%'"
+mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY ${MOODLE_MYSQL_PASSWORD}; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to '${MOODLE_MYSQL_USER}'@'%'"
 
 
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
