@@ -28,27 +28,23 @@ MOODLE_DB_NAME="$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 |
 MOODLE_MYSQL_USER=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
-
-# Additional initial configuration (plugin related)
-DEFAULT_THEME="snap"
-BBB_SERVER_URL="http://bbb.aragon.es/bigbluebutton/"
-BBB_SECRET="thisShouldBeMySharedSecretKey"
-
 # deberíamos generar un usuario de conexión a bbdd y un nombre en base al nombre del centro
 # y una contraseña aleatoria
 
 usage () {
-    echo "###################"
-    echo "## Deploy moodle ##"
-    echo '# Use: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
-    echo "# Options:"
-    echo "#   -e -> administrator email. soportecatedu@educa.aragon.es by default"
-    echo "#   -l -> default language. es by default"
-    echo "#   -n -> Full Name Site. AEduca de Mi Centro by default"
-    echo "#   -u -> url moodle: https://sitie.domain.com"
-    echo "#   -i use internal db docker. External db by default"
-    echo "#   -h this message"
-    echo "###################"
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
+    echo "help: createMoodle.sh -h"
+}
+
+showHelp () {
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
+    echo "Options:"
+    echo "-e -> administrator email. soportecatedu@educa.aragon.es by default"
+    echo "-l -> default language. es by default"
+    echo "-n -> Full Name Site. AEduca de Mi Centro by default"
+    echo "-u -> url moodle: https://sitie.domain.com"
+    echo "-i use internal db docker. External db by default"
+    echo "-h this message"
 }
 
 get_parameter(){
@@ -71,13 +67,13 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
-                check_url "${MOODLE_URL}" ||  { echo "The URL doesn't match with the current ip"; usage; exit 1; }
+                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
             ;;
             i)
                 EXTERNAL_DB="false"
             ;;
             h)
-                usage
+                showHelp
                 exit 0
             ;;
             \?)
@@ -92,7 +88,7 @@ get_parameter(){
     done
     
     # Mandatory options
-    [ "${MOODLE_URL}" = "http://localhost" ] && { echo "You must to indicate a url to moodle"; usage; exit 1;}
+    [ "${MOODLE_URL}" = "http://localhost" ] && { echo "$(basename $0):     You must to indicate a url to moodle"; usage; exit 1;}
     
     # Arguments
     shift "$((OPTIND-1))"
@@ -179,11 +175,6 @@ MOODLE_LANG="$MOODLE_LANG"
 MOODLE_SITE_NAME="$MOODLE_SITE_NAME"
 MOODLE_SITE_FULLNAME="$MOODLE_SITE_FULLNAME"
 
-
-# for moodle initial configuration (plugin related)
-DEFAULT_THEME="$DEFAULT_THEME"
-BBB_SERVER_URL="$BBB_SERVER_URL"
-BBB_SECRET="$BBB_SECRET"
 EOF
     
 fi
