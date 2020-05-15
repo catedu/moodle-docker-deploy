@@ -18,18 +18,6 @@ set -a
 set +a
 
 
-
-
-MOODLE_URL="http://localhost"
-# MOODLE_DB_HOST=db
-EXTERNAL_DB="true"
-MOODLE_DB_NAME="$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
-MOODLE_MYSQL_USER=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-
-# deberíamos generar un usuario de conexión a bbdd y un nombre en base al nombre del centro
-# y una contraseña aleatoria
-
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
     echo "help: createMoodle.sh -h"
@@ -66,7 +54,7 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
-                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                # check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
             ;;
             i)
                 EXTERNAL_DB="false"
@@ -105,7 +93,7 @@ get_parameter(){
 
 check_url(){
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
-    NAME_IP=$(ping -c 1 www.google.com | gawk -F'[()]' '/PING/{print $2}')
+    NAME_IP=$(ping -c 1 www.google.com | awk -F'[()]' '/PING/{print $2}')
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
 
@@ -119,62 +107,44 @@ check_create_dir_exist(){
     fi
 }
 
-yq() {   docker run --rm -i -v ${PWD}:/workdir mikefarah/yq yq $@; }
-
-create_service_db(){
-    #Delete backend section
-    FILEYAML="${1}"
-    yq d -i "${FILEYAML}" networks.backend
-    
-    # Merge moodle with internal db
-    [ -f "./template/service_db_internal.yml" ] && \
-    yq merge -i "${FILEYAML}" "template/service_db_internal.yml"
-    
-}
-
 get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
-check_create_dir_exist "${VIRTUALHOST}"
+
+# generate data for mysql connection
+# db and user are the same for simplicity, taken url without _ or -
+# for example: www.pre-school.catedu.com gets converted to pre_school_catedu_com
+
+MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+MOODLE_DB=$(echo $VIRTUALHOST | sed 's/\./_/g'| sed 's/-/_/g')
+MOODLE_MYSQL_USER=MOODLE_DB
+
+# check_create_dir_exist "${VIRTUALHOST}"
 
 
 [ -f "template/docker-compose.yml" ] && cp "template/docker-compose.yml" "${VIRTUALHOST}"
 
-if [ "${EXTERNAL_DB}" = "false" ]; then
-    create_service_db "${VIRTUALHOST}/docker-compose.yml"
-    MOODLE_DB_HOST="db"
-else
-    # create database, user and grants
-    mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '"${MOODLE_MYSQL_PASSWORD}"'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to '"${MOODLE_MYSQL_USER}"'@'%'"
-    
-fi
+# create database, user and grants
+mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY \'${MOODLE_MYSQL_PASSWORD}\'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to \'${MOODLE_MYSQL_USER}\'@'%'"
+
 
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
     cat > "${VIRTUALHOST}/.env" << EOF
 
 
 # for reverse nginx proxy:
-VIRTUAL_HOST="$VIRTUALHOST"
+VIRTUAL_HOST="${VIRTUALHOST}"
 SSL_EMAIL=soportecatedu@educa.aragon.es
-
-# for database connection:
-MOODLE_DB_HOST="$MOODLE_DB_HOST"
-MOODLE_DB_NAME="$MOODLE_DB_NAME"
-MOODLE_MYSQL_USER="$MOODLE_MYSQL_USER"
-MOODLE_MYSQL_PASSWORD="$MOODLE_MYSQL_PASSWORD"
-EXTERNAL_DB="$EXTERNAL_DB"
-
 SSL_PROXY=true
-
-MOODLE_URL="$MOODLE_URL"
+MOODLE_URL="${MOODLE_URL}"
 
 # for installing moodle, user data:
-MOODLE_ADMIN_USER="$MOODLE_ADMIN_USER"
-MOODLE_ADMIN_PASSWORD="$MOODLE_ADMIN_PASSWORD"
-MOODLE_ADMIN_EMAIL="$MOODLE_ADMIN_EMAIL"
-MOODLE_LANG="$MOODLE_LANG"
-MOODLE_SITE_NAME="$MOODLE_SITE_NAME"
-MOODLE_SITE_FULLNAME="$MOODLE_SITE_FULLNAME"
+MOODLE_ADMIN_USER="${MOODLE_ADMIN_USER}"
+MOODLE_ADMIN_PASSWORD="${MOODLE_ADMIN_PASSWORD}"
+MOODLE_ADMIN_EMAIL="${MOODLE_ADMIN_EMAIL}"
+MOODLE_LANG="${MOODLE_LANG}"
+MOODLE_SITE_NAME="${MOODLE_SITE_NAME}"
+MOODLE_SITE_FULLNAME="${MOODLE_SITE_FULLNAME}"
 
 EOF
     
@@ -183,7 +153,7 @@ fi
 echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 #up_services
-(cd "${VIRTUALHOST}" && docker-compose up -d) \
+(cd "${DIRECTORY}" && docker-compose up -d) \
 && echo "DEPLOY ${MOODLE_URL} UP!" || echo "DEPLOY ${MOODLE_URL} FAIL!"
 
 # TO-DO
