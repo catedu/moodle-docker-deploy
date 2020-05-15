@@ -7,16 +7,11 @@ set -eu
 # 1- one instance: createMoodle.sh -e mail -l language -n "full_name" -u "url" [--internaldb] )
 # 2- -f file: CSV - several instances
 
-# Load database variables for database creation:
-# MYSQL_ROOT_PASSWORD
-# MOODLE_DB_HOST
-# MOODLE_ADMIN_USER="adminuser"
-# MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
-# MOODLE_ADMIN_EMAIL="admin@centro.com"
+# Load env variables:
+
 set -a
 [ -f .env ] && . .env
 set +a
-
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
