@@ -24,9 +24,9 @@ MOODLE_SITE_FULLNAME="AEduca del CPI/IES Mi Centro"
 MOODLE_URL="http://localhost"
 # MOODLE_DB_HOST=db
 EXTERNAL_DB="true"
-MOODLE_DB_NAME="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
-MOODLE_MYSQL_USER=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+MOODLE_DB_NAME="$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
+MOODLE_MYSQL_USER=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
 
 # Additional initial configuration (plugin related)
