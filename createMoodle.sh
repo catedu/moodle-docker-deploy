@@ -10,17 +10,16 @@ set -eu
 # Load database variables for database creation:
 # MYSQL_ROOT_PASSWORD
 # MOODLE_DB_HOST
+# MOODLE_ADMIN_USER="adminuser"
+# MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
+# MOODLE_ADMIN_EMAIL="admin@centro.com"
 set -a
 [ -f .env ] && . .env
 set +a
 
-MOODLE_ADMIN_USER="adminuser"
-MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
-MOODLE_ADMIN_EMAIL="admin@centro.com"
 
-MOODLE_LANG="es"
-MOODLE_SITE_NAME="AEduca"
-MOODLE_SITE_FULLNAME="AEduca del CPI/IES Mi Centro"
+
+
 MOODLE_URL="http://localhost"
 # MOODLE_DB_HOST=db
 EXTERNAL_DB="true"
@@ -88,7 +87,7 @@ get_parameter(){
     done
     
     # Mandatory options
-    [ "${MOODLE_URL}" = "http://localhost" ] && { echo "$(basename $0):     You must to indicate a url to moodle"; usage; exit 1;}
+    [ "${MOODLE_URL}" = "http://localhost" ] && { echo "$(basename $0): You must to indicate a url to moodle"; usage; exit 1;}
     
     # Arguments
     shift "$((OPTIND-1))"

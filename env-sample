@@ -1,3 +1,11 @@
 # for database creation:
 MYSQL_ROOT_PASSWORD=password
 MOODLE_DB_HOST=db
+
+# for user and moodle site creation:
+MOODLE_ADMIN_USER="adminuser"
+MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
+MOODLE_ADMIN_EMAIL="admin@centro.com"
+MOODLE_LANG="es"
+MOODLE_SITE_NAME="AEduca"
+MOODLE_SITE_FULLNAME="AEduca del CPI/IES Mi Centro"
