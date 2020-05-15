@@ -1,4 +1,4 @@
-#!/bin/bash -xv
+#!/bin/bash
 set -eu
 # Initial Deploy
 # Ver. 0.1 - bash
