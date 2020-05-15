@@ -7,9 +7,7 @@ set -eu
 # 1- one instance: createMoodle.sh -e mail -l language -n "full_name" -u "url" [--internaldb] )
 # 2- -f file: CSV - several instances
 
-
-# Inicialización de variables
-# load database variables for database creation:
+# Load database variables for database creation:
 # MYSQL_ROOT_PASSWORD
 # MOODLE_DB_HOST
 set -a
@@ -73,6 +71,7 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
+                check_url "${MOODLE_URL}" ||  { echo "The URL doesn't match with the current ip"; usage; exit 1; }
             ;;
             i)
                 EXTERNAL_DB="false"
@@ -108,6 +107,13 @@ get_parameter(){
     set -u
     MOODLE_SITE_NAME="${1}"
 }
+
+check_url(){
+    PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
+    NAME_IP=$(getent hosts ${1} | awk '{ print $1 }' 2>/dev/null)
+    [ "${PUBLIC_IP}" = "${NAME_IP}" ]
+}
+
 check_create_dir_exist(){
     if [ -d "${1}" ]; then
         echo "Caution: Deploy Duplicate!!. Directory $1 exists"
@@ -117,7 +123,9 @@ check_create_dir_exist(){
         mkdir "${1}"
     fi
 }
+
 yq() {   docker run --rm -i -v ${PWD}:/workdir mikefarah/yq yq $@; }
+
 create_service_db(){
     #Delete backend section
     FILEYAML="${1}"
@@ -140,6 +148,10 @@ check_create_dir_exist "${VIRTUALHOST}"
 if [ "${EXTERNAL_DB}" = "false" ]; then
     create_service_db "${VIRTUALHOST}/docker-compose.yml"
     MOODLE_DB_HOST="db"
+else
+    # create database, user and grants
+    mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '"${MOODLE_MYSQL_PASSWORD}"'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to '"${MOODLE_MYSQL_USER}"'@'%'"
+    
 fi
 
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
@@ -176,15 +188,11 @@ EOF
     
 fi
 
-
-
-
 echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 #up_services
-
-# create database, user and grants
-#mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* to '${MOODLE_MYSQL_USER}'@'%'"
+(cd "${VIRTUALHOST}" && docker-compose up -d) \
+&& echo "DEPLOY ${MOODLE_URL} UP!" || echo "DEPLOY ${MOODLE_URL} FAIL!"
 
 # TO-DO
 # - Mandar un correo al MOODLE_ADMIN_EMAIL????
