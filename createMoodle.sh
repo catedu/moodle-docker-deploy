@@ -28,7 +28,7 @@ showHelp () {
 }
 
 get_parameter(){
-    while getopts ":o:e:n:u:a:ih" opt; do
+    while getopts ":o:e:n:u:a:h" opt; do
         case $opt in
             e)
                 [[ "${OPTARG}" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]] || \
@@ -48,9 +48,6 @@ get_parameter(){
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
                 # check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
-            ;;
-            i)
-                EXTERNAL_DB="false"
             ;;
             h)
                 showHelp
@@ -130,6 +127,12 @@ VIRTUAL_HOST="${VIRTUALHOST}"
 SSL_EMAIL=soportecatedu@educa.aragon.es
 SSL_PROXY=true
 MOODLE_URL="${MOODLE_URL}"
+
+# for database connection:
+MOODLE_DB_HOST=db
+MOODLE_DB_NAME=moodle
+MOODLE_MYSQL_USER=dbuser
+MOODLE_MYSQL_PASSWORD=dbpassword
 
 # for installing moodle, user data:
 MOODLE_ADMIN_USER="${MOODLE_ADMIN_USER}"
