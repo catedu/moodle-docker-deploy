@@ -84,7 +84,7 @@ get_parameter(){
 
 check_url(){
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
-    NAME_IP=$(ping -c 1 www.google.com | awk -F'[()]' '/PING/{print $2}')
+    NAME_IP=$(ping -c 1 ${VIRTUALHOST} | awk -F'[()]' '/PING/{print $2}')
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
 
