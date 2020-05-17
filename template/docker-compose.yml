@@ -18,6 +18,7 @@ services:
       MOODLE_LANG: "${MOODLE_LANG}"
       MOODLE_SITE_NAME: "${MOODLE_SITE_NAME}"
       MOODLE_SITE_FULLNAME: "${MOODLE_SITE_FULLNAME}"
+      SSL_PROXY: "${SSL_PROXY}"
     networks:
       - nginx-proxy_frontend
       - backend
