@@ -126,7 +126,7 @@ if [ ! -f "${VIRTUALHOST}/.env" ]; then
 
 # for reverse nginx proxy:
 VIRTUAL_HOST="${VIRTUALHOST}"
-SSL_EMAIL=soportecatedu@educa.aragon.es
+SSL_EMAIL="${SSL_EMAIL}
 SSL_PROXY=true
 MOODLE_URL="${MOODLE_URL}"
 

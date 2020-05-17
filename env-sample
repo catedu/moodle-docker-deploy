@@ -2,8 +2,11 @@
 MYSQL_ROOT_PASSWORD=password
 MOODLE_DB_HOST=db
 
+# for https:
+SSL_EMAIL=technicalemail@localhost.com
+
 # for user and moodle site creation:
-MOODLE_ADMIN_USER="admin"
+MOODLE_ADMIN_USER="adminuser"
 MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
 MOODLE_ADMIN_EMAIL="admin@centro.com"
 MOODLE_LANG="es"

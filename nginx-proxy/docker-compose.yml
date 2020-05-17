@@ -32,6 +32,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - frontend
+  
+  phpmyadmin:
+    hostname: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    volumes:
+      - /sessions
+    networks:
+      - frontend
+      - backend
+    environment:
+      VIRTUAL_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
+      LETSENCRYPT_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
+      LETSENCRYPT_EMAIL: "${SSL_EMAIL}"
+      PMA_HOST: "${MOODLE_DB_HOST}"
 
 volumes:
   certs:
@@ -42,4 +57,6 @@ volumes:
 
 networks:
   frontend:
+    driver: bridge
+  backend:
     driver: bridge
