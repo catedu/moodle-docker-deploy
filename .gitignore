@@ -1,3 +1,13 @@
-.env
-template/.env
-www*
+*
+!createMoodle.sh
+!env-sample
+!LICENSE
+!nginx-proxy/
+!nginx-proxy/*
+nginx-proxy/.env
+!README.md
+!template/
+!template/*
+!template/init-scripts/
+!template/init-scripts/plugins-sample.sh
+!gitignore
