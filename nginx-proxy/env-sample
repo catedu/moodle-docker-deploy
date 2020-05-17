@@ -1,5 +1,4 @@
 # for phpmyadmin to connect to dabase server
-MYSQL_ROOT_PASSWORD=password
 MOODLE_DB_HOST=db
 
 
