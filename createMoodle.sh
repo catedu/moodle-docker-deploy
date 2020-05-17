@@ -95,7 +95,7 @@ check_create_dir_exist(){
         # Comment to continue (override docker-compose, for upgrade)
         exit 1
     else
-        mkdir "${1}"
+        mkdir "${1}" && cp -r template/* "${1}"
     fi
 }
 
@@ -111,9 +111,8 @@ MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold 
 MOODLE_DB=$(echo ${VIRTUALHOST} | sed 's/\./_/g'| sed 's/-/_/g')
 MOODLE_MYSQL_USER=${MOODLE_DB}
 
+# create dir and copy data:
 check_create_dir_exist "${VIRTUALHOST}"
-
-mkdir "${VIRTUALHOST}" && cp -r template/* "${VIRTUALHOST}"
 
 # create database, user and grants
 mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'%'"
