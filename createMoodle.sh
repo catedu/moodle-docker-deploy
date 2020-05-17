@@ -108,8 +108,8 @@ VIRTUALHOST="${MOODLE_URL##*//}"
 # for example: www.pre-school.catedu.com gets converted to pre_school_catedu_com
 
 MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-MOODLE_DB=$(echo $VIRTUALHOST | sed 's/\./_/g'| sed 's/-/_/g')
-MOODLE_MYSQL_USER=$MOODLE_DB
+MOODLE_DB=$(echo ${VIRTUALHOST} | sed 's/\./_/g'| sed 's/-/_/g')
+MOODLE_MYSQL_USER=${MOODLE_DB}
 
 check_create_dir_exist "${VIRTUALHOST}"
 
@@ -131,10 +131,10 @@ SSL_PROXY=true
 MOODLE_URL="${MOODLE_URL}"
 
 # for database connection:
-MOODLE_DB_HOST=db
-MOODLE_DB_NAME=moodle
-MOODLE_MYSQL_USER=dbuser
-MOODLE_MYSQL_PASSWORD=dbpassword
+MOODLE_DB_HOST=${MOODLE_DB_HOST}
+MOODLE_DB_NAME=${MOODLE_DB}
+MOODLE_MYSQL_USER=${MOODLE_MYSQL_USER}
+MOODLE_MYSQL_PASSWORD=${MOODLE_MYSQL_PASSWORD}
 
 # for installing moodle, user data:
 MOODLE_ADMIN_USER="${MOODLE_ADMIN_USER}"
