@@ -113,7 +113,7 @@ MOODLE_MYSQL_USER=${MOODLE_DB}
 
 check_create_dir_exist "${VIRTUALHOST}"
 
-mkdir "${VIRTUALHOST}" && cp template/* "${VIRTUALHOST}"
+mkdir "${VIRTUALHOST}" && cp -r template/* "${VIRTUALHOST}"
 
 # create database, user and grants
 mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'%'"
