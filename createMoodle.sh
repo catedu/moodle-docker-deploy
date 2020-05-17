@@ -9,15 +9,15 @@ set -eu
 
 # Load env variables:
 
-export $(egrep -v '^#' .env | xargs)
+export $(egrep -v '^#' .env | xargs) 
 
 usage () {
-    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
     echo "help: createMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" [-i] short_name'
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
     echo "Options:"
     echo "-e -> administrator email. soportecatedu@educa.aragon.es by default"
     echo "-l -> default language. es by default"
@@ -64,8 +64,9 @@ get_parameter(){
         esac
     done
     
+
     # Mandatory options
-    [ "${MOODLE_URL}" = "http://localhost" ] && { echo "$(basename $0): You must to indicate a url to moodle"; usage; exit 1;}
+    [ -z ${MOODLE_URL+x} ] && { echo "$(basename $0): You must to indicate a url to moodle"; usage; exit 1;}
     
     # Arguments
     shift "$((OPTIND-1))"
