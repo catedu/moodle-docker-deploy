@@ -47,7 +47,7 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
-                # check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
             ;;
             h)
                 showHelp
@@ -110,7 +110,7 @@ MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold 
 MOODLE_DB=$(echo $VIRTUALHOST | sed 's/\./_/g'| sed 's/-/_/g')
 MOODLE_MYSQL_USER=$MOODLE_DB
 
-# check_create_dir_exist "${VIRTUALHOST}"
+check_create_dir_exist "${VIRTUALHOST}"
 
 
 [ -f "template/docker-compose.yml" ] && cp "template/docker-compose.yml" "${VIRTUALHOST}"
