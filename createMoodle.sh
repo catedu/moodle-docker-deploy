@@ -84,6 +84,7 @@ get_parameter(){
 
 check_url(){
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
+    VIRTUALHOST="${MOODLE_URL##*//}"
     NAME_IP=$(ping -c 1 ${VIRTUALHOST} | awk -F'[()]' '/PING/{print $2}')
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
@@ -150,7 +151,7 @@ fi
 echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 #up_services
-(cd "${DIRECTORY}" && docker-compose up -d) \
+(cd "${VIRTUALHOST}" && docker-compose up -d) \
 && echo "DEPLOY ${MOODLE_URL} UP!" || echo "DEPLOY ${MOODLE_URL} FAIL!"
 
 # TO-DO
