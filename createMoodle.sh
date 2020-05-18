@@ -91,7 +91,7 @@ check_url(){
     # Mac users alternative :-)
     # VIRTUALHOST="${MOODLE_URL##*//}"
     # NAME_IP=$(ping -c 1 "${VIRTUALHOST}" | awk -F '[()]' '/PING/{print $2}')
-    NAME_IP=$(getent hosts ${1} | awk '{ print $1 }' 2>/dev/null)
+    NAME_IP=$(getent hosts ${1##*//} | awk '{ print $1 }' 2>/dev/null)
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
 
