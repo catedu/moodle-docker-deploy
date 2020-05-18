@@ -9,7 +9,11 @@ set -eu
 
 # Load env variables:
 
-export $(egrep -v '^#' .env | xargs) 
+# Alternative mode
+#export $(grep -E -v '^#' .env | xargs)
+set -a
+[ -f .env ] && . .env
+set +a
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
@@ -64,7 +68,7 @@ get_parameter(){
         esac
     done
     
-
+    
     # Mandatory options
     [ -z ${MOODLE_URL+x} ] && { echo "$(basename $0): You must to indicate a url to moodle"; usage; exit 1;}
     
@@ -84,8 +88,10 @@ get_parameter(){
 
 check_url(){
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
-    VIRTUALHOST="${MOODLE_URL##*//}"
-    NAME_IP=$(ping -c 1 ${VIRTUALHOST} | awk -F'[()]' '/PING/{print $2}')
+    # Mac users alternative :-)
+    # VIRTUALHOST="${MOODLE_URL##*//}"
+    # NAME_IP=$(ping -c 1 "${VIRTUALHOST}" | awk -F '[()]' '/PING/{print $2}')
+    NAME_IP=$(getent hosts ${1} | awk '{ print $1 }' 2>/dev/null)
     [ "${PUBLIC_IP}" = "${NAME_IP}" ]
 }
 
@@ -108,7 +114,7 @@ VIRTUALHOST="${MOODLE_URL##*//}"
 # for example: www.pre-school.catedu.com gets converted to pre_school_catedu_com
 
 MOODLE_MYSQL_PASSWORD=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
-MOODLE_DB=$(echo ${VIRTUALHOST} | sed 's/\./_/g'| sed 's/-/_/g')
+MOODLE_DB=$(echo "${VIRTUALHOST}" | sed 's/\./_/g'| sed 's/-/_/g')
 MOODLE_MYSQL_USER=${MOODLE_DB}
 
 # create dir and copy data:
