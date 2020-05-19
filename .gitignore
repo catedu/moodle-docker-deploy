@@ -9,5 +9,5 @@ nginx-proxy/.env
 !template/
 !template/*
 !template/init-scripts/
-!template/init-scripts/plugins-sample.sh
+!template/init-scripts/*
 !gitignore
