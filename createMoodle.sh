@@ -9,7 +9,7 @@ set -eu
 
 # Load env variables:
 
-#export $(grep -E -v '^#' .env | xargs)
+export $(grep -E -v '^#' .env | xargs)
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
