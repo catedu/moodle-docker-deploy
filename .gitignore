@@ -1,4 +1,5 @@
 *
+!upgradeMoodle.sh
 !createMoodle.sh
 !env-sample
 !LICENSE

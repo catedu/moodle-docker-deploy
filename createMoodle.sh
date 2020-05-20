@@ -4,12 +4,11 @@ set -eu
 # Ver. 0.1 - bash
 #
 # Two options
-# 1- one instance: createMoodle.sh -e mail -l language -n "full_name" -u "url" [--internaldb] )
+# 1- one instance: createMoodle.sh -e mail -l language -n "full_name" -u "url" )
 # 2- -f file: CSV - several instances
 
 # Load env variables:
-
-#export $(grep -E -v '^#' .env | xargs)
+export $(grep -E -v '^#' .env | xargs)
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
@@ -23,12 +22,11 @@ showHelp () {
     echo "-l -> default language. es by default"
     echo "-n -> Full Name Site. AEduca de Mi Centro by default"
     echo "-u -> url moodle: https://sitie.domain.com"
-    echo "-i use internal db docker. External db by default"
     echo "-h this message"
 }
 
 get_parameter(){
-    while getopts ":o:e:n:u:a:h" opt; do
+    while getopts ":e:l:n:u:h" opt; do
         case $opt in
             e)
                 [[ "${OPTARG}" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]] || \
@@ -157,4 +155,4 @@ echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 # TO-DO
 # - Mandar un correo al MOODLE_ADMIN_EMAIL????
-# - También deberíamos tener claro si hacemos importación de datos y como
+# - También deberíamos tener claro si hacemos importación de datos y cómo
