@@ -6,12 +6,6 @@ set -eu
 # Upgrade site by url or by install_directory.
 # upgradeMoodle.sh ( -u "url" | -d "installdir" )
 
-# Load env variables:
-export $(grep -E -v '^#' .env | xargs)
-
-# Define Backup dir dinamically by date. Change if its necessary
-BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
-
 usage () {
     echo 'usage: upgradeMoodle.sh -u "site" -d "upgrade_version"'
     echo "help: upgradeMoodle.sh -h"
@@ -57,12 +51,12 @@ get_parameter(){
     # Mandatory options
     [ -z ${TEMPLATEUDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
     [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
+    return 0
     
 }
 
 
 install_pkg() {
-    check_root
     
     if ! dpkg -s "${@:1}" >/dev/null 2>&1; then
         apt-get install -yq "${@:1}"
@@ -78,23 +72,29 @@ rollback(){
     case $STEP in
         end)
             ##Nothting to do
+            echo "$(basename $0) - exit: All ok...enjoy!!"
             return 0
         ;;
-        backup|template)
+        template)
             (cd "${WORKDIR}" && docker-compose down || true)
+            
+            echo "$(basename $0) - exit: Restore DB"
+            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}/db.sql || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
+            
             echo "$(basename $0) - exit: Restore Files"
             rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
             { echo "$(basename $0) - exit: RESTORE FILES ${MOODLE_URL} FAIL!"; return 1; }
-            echo "$(basename $0) - exit: Up services"
-            up_service
+        ;;
+        backup)
+            echo "$(basename $0) - exit: Restore Files"
+            rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
+            { echo "$(basename $0) - exit: RESTORE FILES ${MOODLE_URL} FAIL!"; return 1; }
         ;;
         stopservice)
-            echo "$(basename $0) - exit: Up services"
-            up_service
         ;;
         
         init)
-            echo "$(basename $0) - exit: Nothing to do"
+            echo "$(basename $0) - exit: I've not started yet!!"
             return 0
         ;;
         *)
@@ -102,7 +102,17 @@ rollback(){
             return 1
         ;;
     esac
+    # Commonn tasks if its possible to start
+    echo "$(basename $0) - exit: Up services"
+    up_service
 }
+
+trap 'rollback' INT TERM EXIT
+## STEPS: init, stopservice,backup,template, end
+STEP="init"
+
+# Define Backup dir dinamically by date. Change if its necessary
+BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
 
 get_parameter "$@"
 
@@ -112,9 +122,7 @@ export $(grep -E -v '^#' .env | xargs)
 # Load WORKDIR .env (override general values)
 export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
 
-trap 'rollback' INT TERM EXIT
-## STEPS: init, stopservice,backup,template
-STEP="init"
+
 install_pkg mariadb-client rsync
 
 ## Stopservice
