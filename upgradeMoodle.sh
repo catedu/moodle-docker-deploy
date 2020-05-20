@@ -6,28 +6,6 @@ set -eu
 # Upgrade site by url or by install_directory.
 # upgradeMoodle.sh ( -u "url" | -d "installdir" )
 
-## .env source
-# # for reverse nginx proxy:
-# VIRTUAL_HOST=nacho.aeducar.es
-# SSL_EMAIL=juandacorreo@gmail.com
-# SSL_PROXY=true
-# MOODLE_URL=https://nacho.aeducar.es
-
-# # for database connection:
-# MOODLE_DB_HOST=92.222.130.252
-# MOODLE_DB_NAME=nacho_aeducar_es
-# MOODLE_MYSQL_USER=nacho_aeducar_es
-# MOODLE_MYSQL_PASSWORD=cXv9MebY
-
-
-# # for installing moodle, user data:
-# MOODLE_ADMIN_USER=admin
-# MOODLE_ADMIN_PASSWORD=camb1ameperoYA
-# MOODLE_ADMIN_EMAIL=sannacho@gmail.com
-# MOODLE_LANG=es
-# MOODLE_SITE_NAME=nacho
-# MOODLE_SITE_FULLNAME=AEducAR de pruebas nacho
-
 # Load env variables:
 export $(grep -E -v '^#' .env | xargs)
 
@@ -77,8 +55,8 @@ get_parameter(){
     
     
     # Mandatory options
-    [ -z ${TEMPLATEUDIR} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
-    [ -z ${WORKDIR} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
+    [ -z ${TEMPLATEUDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
+    [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
     
 }
 
