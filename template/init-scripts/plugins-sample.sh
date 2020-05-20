@@ -14,13 +14,14 @@ echo >&2 "Plugin list downloaded!"
 
 
 echo >&2 "Installing plugins..."
-moosh plugin-install -d --release 2019051505 theme_snap
-moosh plugin-install -d --release 2019042008 mod_bigbluebuttonbn
-moosh plugin-install -d --release 2020020500 mod_hvp
-moosh plugin-install -d --release 2020043003 block_xp
+moosh plugin-install -d theme_snap
+moosh plugin-install -d mod_bigbluebuttonbn
+moosh plugin-install -d mod_hvp
+moosh plugin-install -d block_xp
 moosh plugin-install -d availability_xp 
 echo >&2 "Plugins installed!"
 
-# moosh config-set theme snap
+moosh config-set theme snap
+moosh theme-settings-import snap_settings.tar.gz
 # moosh config-set bigbluebuttonbn_server_url 2.2.2.2
 # moosh config-set bigbluebuttonbn_shared_secret thisIsMySecret
