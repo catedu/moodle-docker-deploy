@@ -26,11 +26,12 @@ get_parameter(){
                 WORKDIR="${OPTARG##*//}"
                 [ ! -d "${WORKDIR}" ] && \
                 { echo "$(basename $0): Dont exist Site to upgrade!"; usage; exit 1;}
+                WORKDIR=${WORKDIR%\/}
             ;;
             d)
                 [ ! -d "${OPTARG}" ] && \
                 { echo "$(basename $0): Check Template Upgrade Directory!"; usage; exit 1;}
-                TEMPLATEUDIR="${OPTARG}"
+                TEMPLATEUDIR="${OPTARG%\/}"
             ;;
             h)
                 showHelp
