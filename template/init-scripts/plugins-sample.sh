@@ -22,6 +22,6 @@ moosh plugin-install -d availability_xp
 echo >&2 "Plugins installed!"
 
 moosh config-set theme snap
-moosh theme-settings-import snap_settings_1558197087.tar.gz
+moosh theme-settings-import snap_settings.tar.gz
 # moosh config-set bigbluebuttonbn_server_url 2.2.2.2
 # moosh config-set bigbluebuttonbn_shared_secret thisIsMySecret
