@@ -79,7 +79,7 @@ rollback(){
             (cd "${WORKDIR}" && docker-compose down || true)
             
             echo "$(basename $0) - exit: Restore DB"
-            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}/db.sql || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
+            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
             
             echo "$(basename $0) - exit: Restore Files"
             rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
@@ -113,6 +113,7 @@ STEP="init"
 
 # Define Backup dir dinamically by date. Change if its necessary
 BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
+mkdir -p ${BACKUPDIR} || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
 get_parameter "$@"
 
@@ -132,7 +133,7 @@ STEP="stopservice"
 
 ## Backup
 echo "$(basename $0) - Backup DB..."
-mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}/db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
+mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "$(basename $0) - Backup Files..."
 rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
