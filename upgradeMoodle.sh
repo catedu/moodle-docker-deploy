@@ -4,24 +4,32 @@ set -eu
 # Ver. 0.1 - bash
 #
 # Upgrade site by url or by install_directory.
-# upgradeMoodle.sh ( -u "url" | -d "installdir" )
+# upgradeMoodle.sh [-p] [-y] ( -u "url" | -d "directory_upgrade" )
 
 usage () {
-    echo 'usage: upgradeMoodle.sh -u "site" -d "upgrade_version"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] -u "site" -d "upgrade_version"'
     echo "help: upgradeMoodle.sh -h"
 }
 
 showHelp () {
     echo 'usage: upgradeMoodle.sh -u "url" -d "upgrade_version"'
     echo "Options:"
+    echo "-p -> By defautl, moodle-code dir its delete. With -p preserve this directory"
+    echo "-y -> Yes all questions"
     echo "-u -> site to upgrade. Accept url or installdir"
     echo "-d -> directory template to upgrade"
     echo "-h this message"
 }
 
 get_parameter(){
-    while getopts ":u:d:h" opt; do
+    while getopts ":pyu:d:h" opt; do
         case $opt in
+            p)
+                PRESERVE=true
+            ;;
+            y)
+                YES=true
+            ;;
             u)
                 WORKDIR="${OPTARG##*//}"
                 [ ! -d "${WORKDIR}" ] && \
@@ -80,7 +88,7 @@ rollback(){
             (cd "${WORKDIR}" && docker-compose down || true)
             
             echo "$(basename $0) - exit: Restore DB"
-            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
+            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql > /dev/null || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
             
             echo "$(basename $0) - exit: Restore Files"
             rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
@@ -116,6 +124,10 @@ STEP="init"
 BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
 mkdir -p ${BACKUPDIR} || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
+# Parameters
+PRESERVE=false
+YES=false
+MOODLECODEDIR="moodle-code"
 get_parameter "$@"
 
 # Load general .env
@@ -128,8 +140,16 @@ export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
 install_pkg mariadb-client rsync
 
 ## Stopservice
-(cd "${WORKDIR}" && docker-compose down) && echo "$(basename $0) - stop services: Deploy ${WORKDIR} down!" || \
-{ echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} FAIL at DOWN!"; exit 1; }
+if (cd "${WORKDIR}" && docker-compose down); then
+    echo "$(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
+    elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
+    # Service stopped before
+    echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} DOWN BEFORE!"
+    exit 1
+else
+    echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} FAIL at DOWN!"
+    exit 1
+fi
 STEP="stopservice"
 
 ## Backup
@@ -141,6 +161,11 @@ rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup
 STEP="backup"
 
 ## Template
+# Delete moodle-code
+echo "Delete moodle-code by default...ok? "
+if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )); then
+    rm -rf "${WORKDIR:?}/${MOODLECODEDIR}"
+fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
 ## Upgrade .env file?
