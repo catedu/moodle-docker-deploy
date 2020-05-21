@@ -162,9 +162,9 @@ STEP="backup"
 
 ## Template
 # Delete moodle-code
-echo "Delete moodle-code by default...ok? "
 if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )); then
-    rm -rf "${WORKDIR:?}/${MOODLECODEDIR}"
+    rm -rf "${WORKDIR:?}/${MOODLECODEDIR}" && echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted !" || \
+    { echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted FAIL!"; exit 1; }
 fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
