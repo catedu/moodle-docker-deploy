@@ -26,6 +26,8 @@ services:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
       - ./init-scripts:/init-scripts
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
 networks:
   nginx-proxy_frontend:
