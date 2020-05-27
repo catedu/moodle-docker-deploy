@@ -1,12 +1,23 @@
 version: "3"
 
 services:
-  moodle:
-    image: cateduac/moodle:3.7.6-apache
+  web:
+    image: nginx:latest
     environment:
       VIRTUAL_HOST: "${VIRTUAL_HOST}"
       LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
       LETSENCRYPT_EMAIL: "${SSL_EMAIL}"
+    volumes:
+      - ./moodle-code:/usr/nginx/share/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - nginx-proxy_frontend:
+
+  moodle:
+    image: cateduac/moodle:3.7.6-nginx-fpm
+    environment:
       MOODLE_DB_HOST: "${MOODLE_DB_HOST}"
       MOODLE_DB_NAME: "${MOODLE_DB_NAME}"
       MOODLE_DB_USER: "${MOODLE_MYSQL_USER}"
@@ -20,7 +31,6 @@ services:
       MOODLE_SITE_FULLNAME: "${MOODLE_SITE_FULLNAME}"
       SSL_PROXY: "${SSL_PROXY}"
     networks:
-      - nginx-proxy_frontend
       - backend
     volumes:
       - ./moodle-data:/var/www/moodledata
