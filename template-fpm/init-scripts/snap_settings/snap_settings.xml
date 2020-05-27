@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme name="snap" component="theme_snap" version="2019051505">
+    <setting name="category_color">0</setting>
+    <setting name="category_color_palette">#990f3d</setting>
+    <setting name="coursefootertoggle">0</setting>
+    <setting name="coursepartialrender">0</setting>
+    <setting name="cover_carousel">0</setting>
+    <setting name="customcss"></setting>
+    <setting name="customisecustommenu">0</setting>
+    <setting name="customisenavbar">0</setting>
+    <setting name="customisenavbutton">0</setting>
+    <setting name="custommenutext">#ffffff</setting>
+    <setting name="deadlinestoggle">1</setting>
+    <setting name="displaydescription">1</setting>
+    <setting name="facebook">https://www.facebook.com/cpcalatayud</setting>
+    <setting name="favicon" file="b3636c46bdf6059f7b852353789945212009205f">/FAVICON1.png</setting>
+    <setting name="fc_browse_all">1</setting>
+    <setting name="fc_eight">0</setting>
+    <setting name="fc_five">0</setting>
+    <setting name="fc_four">0</setting>
+    <setting name="fc_heading">Cursos destacados</setting>
+    <setting name="fc_one">0</setting>
+    <setting name="fc_seven">0</setting>
+    <setting name="fc_six">0</setting>
+    <setting name="fc_three">0</setting>
+    <setting name="fc_two">0</setting>
+    <setting name="feedbacktoggle">1</setting>
+    <setting name="footnote">&lt;p&gt;AeducAR, plataforma educativa aragonesa.&lt;/p&gt;&lt;p&gt;&lt;img src="http://aratest.catedu.es/pluginfile.php/1/badges/badgeimage/48/f1?refresh=4467" alt="" width="100" height="100" role="presentation" class="img-responsive atto_image_button_text-bottom"&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;&lt;em style=""&gt;Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para ARASAAC (&lt;a href="http://arasaac.org" target="_blank"&gt;http://arasaac.org&lt;/a&gt;) que los distribuye bajo licencia Creative Commons (BY-NC-SA)&lt;/em&gt;&lt;em style=""&gt;.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</setting>
+    <setting name="forumpoststoggle">1</setting>
+    <setting name="fs_heading">ACCESO RÁPIDO</setting>
+    <setting name="fs_one_image" file="ca70fe6b4b9d26fb1f6f194baaa323b9f4333b9a">/familia.jpg</setting>
+    <setting name="fs_one_text">¿?</setting>
+    <setting name="fs_one_title">Acceso familiar</setting>
+    <setting name="fs_three_image" file="68d7d2c262d3cf0488fadbf1dba3cc606713fd9c">/comunicación.png</setting>
+    <setting name="fs_three_text">Vídeo-conferencia</setting>
+    <setting name="fs_three_title">Comunicación</setting>
+    <setting name="fs_two_image" file="6fb88ab9814ced61304346ac8b4191c8665b5d09">/MISCURSOS.png</setting>
+    <setting name="fs_two_text">Ir a mis cursos</setting>
+    <setting name="fs_two_title">Mis cursos</setting>
+    <setting name="headingfont">"Roboto"</setting>
+    <setting name="instagram">https://www.instagram.com/cpcalatayud/</setting>
+    <setting name="lazyload_mod_page">1</setting>
+    <setting name="leftnav">list</setting>
+    <setting name="linkedin"></setting>
+    <setting name="logo" file="3d4884a4901b3a76b24a592a48673ef4bed1f41a">/aeducar1.png</setting>
+    <setting name="messagestoggle">1</setting>
+    <setting name="navbarbg">#ffffff</setting>
+    <setting name="navbarbuttoncolor">#ffffff</setting>
+    <setting name="navbarbuttonlink">#990f3d</setting>
+    <setting name="navbarlink">#990f3d</setting>
+    <setting name="pbb_enable">0</setting>
+    <setting name="pbb_field">user|department</setting>
+    <setting name="personalmenuadvancedfeedsenable">1</setting>
+    <setting name="personalmenuadvancedfeedsperpage">3</setting>
+    <setting name="personalmenulogintoggle">1</setting>
+    <setting name="poster" file="90859268d138710dc847926a64c2865dac00d66e">/Sardineta323.jpg</setting>
+    <setting name="resourcedisplay">card</setting>
+    <setting name="seriffont">"Georgia"</setting>
+    <setting name="showcoursegradepersonalmenu">1</setting>
+    <setting name="slide_one_image" file="14d02726d1bb471f57d8b09fa66c734aa78c2879">/aeducar1blanco.png</setting>
+    <setting name="slide_one_subtitle"></setting>
+    <setting name="slide_one_title"></setting>
+    <setting name="slide_three_image"></setting>
+    <setting name="slide_three_subtitle"></setting>
+    <setting name="slide_three_title"></setting>
+    <setting name="slide_two_image"></setting>
+    <setting name="slide_two_subtitle"></setting>
+    <setting name="slide_two_title"></setting>
+    <setting name="subtitle">AeducAr: Plataforma educativa aragonesa</setting>
+    <setting name="themecolor">#9b1415</setting>
+    <setting name="themerev">1589272453</setting>
+    <setting name="twitter">https://twitter.com/cpcalatayud</setting>
+    <setting name="youtube">https://www.youtube.com/channel/UCKtrXVe0Gn0i2T_ZNdebSGQ</setting>
+</theme>

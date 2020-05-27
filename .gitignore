@@ -1,14 +1,3 @@
-*
-!upgradeMoodle.sh
-!createMoodle.sh
-!env-sample
-!LICENSE
-!nginx-proxy/
-!nginx-proxy/*
-nginx-proxy/.env
-!README.md
-!template/
-!template/*
-!template/init-scripts/
-!template/init-scripts/*
 !gitignore
+.DS_Store
+.env
