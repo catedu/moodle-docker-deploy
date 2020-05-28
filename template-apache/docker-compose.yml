@@ -26,6 +26,8 @@ services:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
       - ./init-scripts:/init-scripts
+      - ./php-conf/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./php-conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 

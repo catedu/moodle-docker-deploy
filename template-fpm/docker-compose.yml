@@ -37,9 +37,11 @@ services:
     volumes:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
-      - phpsocket:/sock
-      - ./fpm-conf/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./fpm-conf:/usr/local/etc/php-fpm.d
+      - ./php-conf/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./php-conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./init-scripts:/init-scripts
+      - phpsocket:/sock
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
 
