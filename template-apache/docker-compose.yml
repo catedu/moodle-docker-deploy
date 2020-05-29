@@ -1,6 +1,10 @@
 version: "3"
 
 services:
+  redis:
+    image: redis
+  networks: 
+    - redis-network
   moodle:
     image: cateduac/moodle:3.7.6-apache
     environment:
@@ -22,6 +26,7 @@ services:
     networks:
       - nginx-proxy_frontend
       - backend
+      - redis-network
     volumes:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
@@ -35,4 +40,6 @@ networks:
   nginx-proxy_frontend:
     external: true
   backend:
+    driver: bridge
+  redis-network:
     driver: bridge
