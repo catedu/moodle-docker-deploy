@@ -3,8 +3,8 @@ version: "3"
 services:
   redis:
     image: redis
-  networks: 
-    - redis-network
+    networks: 
+      - redis-network
   moodle:
     image: cateduac/moodle:3.7.6-apache
     environment:
