@@ -1,6 +1,11 @@
 version: "3"
 
 services:
+  redis:
+    image: redis
+    networks: 
+      - redis-network
+
   web:
     image: nginx:latest
     environment:
@@ -34,6 +39,8 @@ services:
     networks:
       - nginx-proxy_frontend
       - backend
+      - redis-network
+
     volumes:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
@@ -49,6 +56,8 @@ networks:
   nginx-proxy_frontend:
     external: true
   backend:
+    driver: bridge
+  redis-network:
     driver: bridge
 
 volumes:
