@@ -11,13 +11,14 @@ set -eu
 export $(grep -E -v '^#' .env | xargs)
 
 usage () {
-    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -t type -u "url" short_name'
     echo "help: createMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -u "url" short_name'
+    echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -t type -u "url" short_name'
     echo "Options:"
+    echo "-t -> moodle school type. CEIP|CPI|IES"
     echo "-e -> administrator email. soportecatedu@educa.aragon.es by default"
     echo "-l -> default language. es by default"
     echo "-n -> Full Name Site. AEduca de Mi Centro by default"
@@ -47,6 +48,14 @@ get_parameter(){
                 MOODLE_URL="${OPTARG}"
                 check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
             ;;
+            t)
+                SCHOOL_TYPE=""
+                [[ "${OPTARG}" =~ ^[Cc][Ee][Ii][Pp] ]] && SCHOOL_TYPE="CEIP"
+                [[ "${OPTARG}" =~ ^[Cc][Pp][Ii] ]] && SCHOOL_TYPE="CPI"
+                [[ "${OPTARG}" =~ ^[Ii][Ee][Ss] ]] && SCHOOL_TYPE="IES"
+                [[ "${SCHOOL_TYPE}" = "" ]] && \
+                { echo "Incorrect school type..."; usage; exit 1;}
+            ;;
             h)
                 showHelp
                 exit 0
@@ -65,6 +74,7 @@ get_parameter(){
     
     # Mandatory options
     [ -z ${MOODLE_URL+x} ] && { echo "$(basename $0): You must to indicate a url to moodle"; usage; exit 1;}
+    [ -z ${SCHOOL_TYPE+x} ] && { echo "$(basename $0): You must to indicate a school type to moodle"; usage; exit 1;}
     
     # Arguments
     shift "$((OPTIND-1))"
@@ -80,7 +90,17 @@ get_parameter(){
     MOODLE_SITE_NAME="${1}"
 }
 
+create_name_dns(){
+    echo "Creating domain to moodle in Aeducar Universe: ${1##*//}"
+    (cd apiOVH && node createSubdomainIP.js "${1}") || return 1
+    sleep 1
+}
+
 check_url(){
+    
+    ## Create NAMEIP if not exists
+    getent hosts ${1##*//} >/dev/null 2>&1 || create_name_dns "${1}" || return 1
+    
     PUBLIC_IP=$(curl https://ipinfo.io/ip 2>/dev/null)
     # Mac users alternative :-)
     # VIRTUALHOST="${MOODLE_URL##*//}"
@@ -99,9 +119,14 @@ check_create_dir_exist(){
     fi
 }
 
+yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
+
 get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
+
+VERSION=$(yq r docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
+[ "$VERSION" = "" ] && echo "Unable to get version...but I continue..."
 
 # generate data for mysql connection
 # db and user are the same for simplicity, taken url without _ or -
@@ -115,7 +140,8 @@ MOODLE_MYSQL_USER=${MOODLE_DB}
 check_create_dir_exist "${VIRTUALHOST}"
 
 # create database, user and grants
-mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'%'"
+mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'%'" || \
+{ echo "Error at create $VIRTUALHOST DB..."; exit 1; }
 
 
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
@@ -143,6 +169,20 @@ MOODLE_LANG=${MOODLE_LANG}
 MOODLE_SITE_NAME=${MOODLE_SITE_NAME}
 MOODLE_SITE_FULLNAME=${MOODLE_SITE_FULLNAME}
 
+## init-scripts
+INSTALL_TYPE=new-install
+SCHOOL_TYPE=${SCHOOL_TYPE}
+VERSION=${VERSION}
+
+SMTP_HOSTS=${SMTP_HOST}
+SMTP_USER=${SMTP_USER}
+SMTP_PASSWORD=${SMTP_PASSWORD}
+SMTP_MAXBULK=${SMTP_MAXBULK}
+NO_REPLY_ADDRESS=${NO_REPLY_ADDRESS}
+
+TOOL_GENERATOR_PASSWORD=${TOOL_GENERATOR_PASSWORD}
+CRON_BROWSER_PASS=${CRON_BROWSER_PASS}
+MOODLE_MANAGER=${MOODLE_MANAGER}
 EOF
     
 fi
@@ -150,9 +190,11 @@ fi
 echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 #up_services
-(cd "${VIRTUALHOST}" && docker-compose up -d) \
-&& echo "DEPLOY ${MOODLE_URL} UP!" || echo "DEPLOY ${MOODLE_URL} FAIL!"
+if (cd "${VIRTUALHOST}" && docker-compose up -d); then
+    echo "DEPLOY ${MOODLE_URL} UP!"
+else
+    echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
+fi
 
 # TO-DO
 # - Mandar un correo al MOODLE_ADMIN_EMAIL????
-# - También deberíamos tener claro si hacemos importación de datos y cómo

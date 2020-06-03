@@ -12,3 +12,14 @@ MOODLE_ADMIN_EMAIL="admin@centro.com"
 MOODLE_LANG="es"
 MOODLE_SITE_NAME="AEducAR"
 MOODLE_SITE_FULLNAME="Plataforma AEducAR del centro"
+
+## for init scripts
+SMTP_HOSTS=smtp.host.com
+SMTP_USER=user@localhost
+SMTP_PASSWORD=password
+SMTP_MAXBULK=100
+NO_REPLY_ADDRESS=noreply@localhost
+
+TOOL_GENERATOR_PASSWORD=password
+CRON_BROWSER_PASS=cronpass
+MOODLE_MANAGER=mail@manageres

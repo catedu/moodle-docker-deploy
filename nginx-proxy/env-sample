@@ -1,9 +1,8 @@
 # for phpmyadmin to connect to dabase server
 MOODLE_DB_HOST=db
 
-
-# for https:
+# for phpmyadmin https:
 SSL_EMAIL=technicalemail@localhost.com
 
-# for phpmyadmin:
+# for phpmyadmin vhost
 PHPMYADMIN_VIRTUAL_HOST=phpmyadmin.localhost.com
