@@ -19,9 +19,9 @@ showHelp () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -t type -u "url" short_name'
     echo "Options:"
     echo "-t -> moodle school type. CEIP|CPI|IES"
-    echo "-e -> administrator email. soportecatedu@educa.aragon.es by default"
-    echo "-l -> default language. es by default"
-    echo "-n -> Full Name Site. AEduca de Mi Centro by default"
+    echo "-e -> administrator email or .env value by default"
+    echo "-l -> default language or .env value by default"
+    echo "-n -> Full Name Site. or .env value by default"
     echo "-u -> url moodle: https://sitie.domain.com"
     echo "-h this message"
 }

@@ -7,12 +7,12 @@ set -eu
 # upgradeMoodle.sh [-p] [-y] ( -u "url" | -d "directory_upgrade" )
 
 usage () {
-    echo 'usage: upgradeMoodle.sh [-p] [-y] -u "site" -d "upgrade_version"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] -u "site" -d "upgrade_version_template"'
     echo "help: upgradeMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: upgradeMoodle.sh -u "url" -d "upgrade_version"'
+    echo 'usage: upgradeMoodle.sh -u "url" -d "upgrade_version_template"'
     echo "Options:"
     echo "-p -> By defautl, moodle-code dir its delete. With -p preserve this directory"
     echo "-y -> Yes all questions"
@@ -73,15 +73,20 @@ install_pkg() {
 }
 
 up_service(){
-    (cd "${WORKDIR}" && docker-compose up -d) && \
-    { echo "DEPLOY ${MOODLE_URL} UP!"; return 0; } || { echo "DEPLOY ${MOODLE_URL} UP FAIL!"; return 1;}
+    if (cd "${WORKDIR}" && docker-compose up -d); then
+        echo "DEPLOY ${MOODLE_URL} UP!"; return 0
+    else
+        echo "DEPLOY ${MOODLE_URL} UP FAIL!"; return 1
+    fi
 }
+
+yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
 
 rollback(){
     case $STEP in
         end)
             ##Nothting to do
-            echo "$(basename $0) - exit: All ok...enjoy!!"
+            echo "$(basename $0) - exit: All ok...enjoy ${NEWVERSION} moodle!!"
             return 0
         ;;
         template)
@@ -136,6 +141,7 @@ export $(grep -E -v '^#' .env | xargs)
 # Load WORKDIR .env (override general values)
 export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
 
+NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | cut -d: -f2 | cut -d- -f1)
 
 install_pkg mariadb-client rsync
 
@@ -168,9 +174,19 @@ if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP &
 fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
-## Upgrade .env file?
 
 STEP="template"
+
+## Upgrade .env file?
+if [ "${VERSION}" = "${NEWVERSION}" ]; then
+    # update
+    sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
+else
+    # upgrade
+    sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=upgrade/g' "${WORKDIR}.env"
+fi
+
+sed  -i --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env"
 
 ## Up services
 up_service
