@@ -125,7 +125,7 @@ get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
 
-VERSION=$(yq r docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
+VERSION=$(yq r template/docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
 [ "$VERSION" = "" ] && echo "Unable to get version...but I continue..."
 
 # generate data for mysql connection
