@@ -143,6 +143,11 @@ export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
 
 NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | cut -d: -f2 | cut -d- -f1)
 
+[[ "${VERSION}" > "${NEWVERSION}" ]] && \
+{ echo "Do you want to downgrade moodle? WTF??"; exit 1; }
+[[ "${VERSION}" = "${NEWVERSION}" ]] || \
+( $YES || (read -r -p "Do you want to make UPRGADE? Its not a UPDATE...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 0
+
 install_pkg mariadb-client rsync
 
 ## Stopservice
@@ -178,7 +183,7 @@ cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy
 STEP="template"
 
 ## Upgrade .env file?
-if [ "${VERSION}" = "${NEWVERSION}" ]; then
+if [[ "${VERSION}" = "${NEWVERSION}" ]]; then
     # update
     sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
 else
