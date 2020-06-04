@@ -27,7 +27,7 @@ showHelp () {
 }
 
 get_parameter(){
-    while getopts ":e:l:n:u:h" opt; do
+    while getopts ":e:l:n:u:t:h" opt; do
         case $opt in
             e)
                 [[ "${OPTARG}" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]] || \
