@@ -92,7 +92,8 @@ get_parameter(){
 
 create_name_dns(){
     echo "Creating domain to moodle in Aeducar Universe: ${1##*//}"
-    (cd apiOVH && node createSubdomainIP.js "${1}") || return 1
+    [ -d "${APIOVH}" ] || { echo "No code to create domain: ${APIOVH}!!"; return 1; }
+    (cd "${APIOVH}" && node createSubdomainIP.js "${1}") || return 1
     sleep 1
 }
 
@@ -124,6 +125,9 @@ yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
 get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
+
+#Api Ovh generate Dir by default
+APIOVH="api-ovh"
 
 VERSION=$(yq r template/docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
 [ "$VERSION" = "" ] && echo "Unable to get version...but I continue..."
