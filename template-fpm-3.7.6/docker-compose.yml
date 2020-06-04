@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    networks: 
+      - redis-network
+
+  web:
+    image: nginx:latest
+    environment:
+      VIRTUAL_HOST: "${VIRTUAL_HOST}"
+      LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
+      LETSENCRYPT_EMAIL: "${SSL_EMAIL}"
+    volumes:
+      - ./moodle-code:/usr/nginx/share/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - phpsocket:/sock
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - nginx-proxy_frontend
+
+  moodle:
+    image: cateduac/moodle:3.7.6-nginx-fpm
+    environment:
+      MOODLE_DB_HOST: "${MOODLE_DB_HOST}"
+      MOODLE_DB_NAME: "${MOODLE_DB_NAME}"
+      MOODLE_DB_USER: "${MOODLE_MYSQL_USER}"
+      MOODLE_DB_PASSWORD: "${MOODLE_MYSQL_PASSWORD}"
+      MOODLE_URL: "${MOODLE_URL}"
+      MOODLE_ADMIN_USER: "${MOODLE_ADMIN_USER}"
+      MOODLE_ADMIN_PASSWORD: "${MOODLE_ADMIN_PASSWORD}"
+      MOODLE_ADMIN_EMAIL: "${MOODLE_ADMIN_EMAIL}"
+      MOODLE_LANG: "${MOODLE_LANG}"
+      MOODLE_SITE_NAME: "${MOODLE_SITE_NAME}"
+      MOODLE_SITE_FULLNAME: "${MOODLE_SITE_FULLNAME}"
+      SSL_PROXY: "${SSL_PROXY}"
+      TOOL_GENERATOR_PASSWORD: "${TOOL_GENERATOR_PASSWORD}"
+      SMTP_HOSTS: "${SMTP_HOSTS}"
+      SMTP_USER: "${SMTP_USER}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      SMTP_MAXBULK: "${SMTP_MAXBULK}"
+      NO_REPLY_ADDRESS: "${NO_REPLY_ADDRESS}"
+      CRON_BROWSER_PASS: "${CRON_BROWSER_PASS}"
+      MOODLE_MANAGER: "${MOODLE_MANAGER}"
+      INSTALL_TYPE: "${INSTALL_TYPE}"
+      SCHOOL_TYPE: "${SCHOOL_TYPE}"
+    networks:
+      - nginx-proxy_frontend
+      - backend
+      - redis-network
+
+    volumes:
+      - ./moodle-data:/var/www/moodledata
+      - ./moodle-code:/var/www/html
+      - ./fpm-conf:/usr/local/etc/php-fpm.d
+      - ./php-conf/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./php-conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./init-scripts:/init-scripts
+      - phpsocket:/sock
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  nginx-proxy_frontend:
+    external: true
+  backend:
+    driver: bridge
+  redis-network:
+    driver: bridge
+
+volumes:
+  phpsocket:

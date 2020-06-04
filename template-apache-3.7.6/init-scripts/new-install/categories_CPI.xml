@@ -1,0 +1,28 @@
+<categories>
+    <category idnumber='2' name='Infantil'>
+        <category idnumber='21' name='Primero'></category>
+        <category idnumber='22' name='Segundo'></category>
+        <category idnumber='23' name='Tercero'></category>
+    </category>
+    <category idnumber='3' name='Primaria'>
+        <category idnumber='31' name='Primero'></category>
+        <category idnumber='32' name='Segundo'></category>
+        <category idnumber='33' name='Tercero'></category>
+        <category idnumber='34' name='Cuarto'></category>
+        <category idnumber='35' name='Quinto'></category>
+        <category idnumber='36' name='Sexto'></category>
+        <category idnumber='37' name='Proyectos de trabajo'></category>
+    </category>
+    <category idnumber='5' name='ESO'>
+        <category idnumber='51' name='Primero'></category>
+        <category idnumber='52' name='Segundo'></category>
+        <category idnumber='53' name='Tercero'></category>
+        <category idnumber='54' name='Cuarto'></category>
+    </category>
+    <category idnumber='6' name='Bachillerato'>
+        <category idnumber='61' name='Primero'></category>
+        <category idnumber='62' name='Segundo'></category>
+        <category idnumber='60' name='Proyectos de trabajo'></category>
+    </category>
+    <category idnumber='4' name='Sala de profesorado'></category>
+</categories>
