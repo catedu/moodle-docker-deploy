@@ -12,7 +12,6 @@
 # Config smtp
 echo >&2 "Configuring smtp..."
 set -x
-moosh config-set tool_generator_users_password ${TOOL_GENERATOR_PASSWORD}
 moosh config-set smtphosts ${SMTP_HOSTS}
 moosh config-set smtpsecure 
 moosh config-set smtpauthtype LOGIN
