@@ -15,6 +15,7 @@ services:
     volumes:
       - ./moodle-code:/usr/nginx/share/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./moodle-data:/var/www/moodledata:ro
       - phpsocket:/sock
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro

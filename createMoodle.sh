@@ -122,12 +122,12 @@ check_create_dir_exist(){
 
 yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
 
+#Api Ovh generate Dir by default
+APIOVH="api-ovh"
+
 get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
-
-#Api Ovh generate Dir by default
-APIOVH="api-ovh"
 
 VERSION=$(yq r template/docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
 [ "$VERSION" = "" ] && echo "Unable to get version...but I continue..."
@@ -178,7 +178,7 @@ INSTALL_TYPE=new-install
 SCHOOL_TYPE=${SCHOOL_TYPE}
 VERSION=${VERSION}
 
-SMTP_HOSTS=${SMTP_HOST}
+SMTP_HOSTS=${SMTP_HOSTS}
 SMTP_USER=${SMTP_USER}
 SMTP_PASSWORD=${SMTP_PASSWORD}
 SMTP_MAXBULK=${SMTP_MAXBULK}
