@@ -20,6 +20,5 @@ SMTP_PASSWORD=password
 SMTP_MAXBULK=100
 NO_REPLY_ADDRESS=noreply@localhost
 
-TOOL_GENERATOR_PASSWORD=password
 CRON_BROWSER_PASS=cronpass
 MOODLE_MANAGER=mail@manageres
