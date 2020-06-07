@@ -3,11 +3,13 @@ version: "3"
 services:
   redis:
     image: redis
+    restart: always
     networks:
       - redis-network
 
   web:
     image: nginx:latest
+    restart: always
     environment:
       VIRTUAL_HOST: "${VIRTUAL_HOST}"
       LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
@@ -24,6 +26,7 @@ services:
 
   moodle:
     image: cateduac/moodle:3.8.3-nginx-fpm
+    restart: always
     environment:
       MOODLE_DB_HOST: "${MOODLE_DB_HOST}"
       MOODLE_DB_NAME: "${MOODLE_DB_NAME}"
