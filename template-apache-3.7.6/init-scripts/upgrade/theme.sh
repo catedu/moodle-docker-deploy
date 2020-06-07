@@ -10,16 +10,10 @@
 
 
 # Config theme snap, already imported via plugins.sh
-echo >&2 "Configuring theme..."
+echo >&2 "Exporting theme..."
 
 moosh config-set theme moove
-# import theme settings:
-# script needs to be in /var/www/html and name like theme_xxxx
-# it can't have info about directories: ./  so next line is not valid and I have to "hack it"
-# tar -zcf snap_settings.tar.gz -C /init-scripts/snap_settings .
-
-# find /init-scripts/snap_settings -type f -printf "%f\n" | xargs tar -zcf snap_settings.tar.gz -C /init-scripts/snap_settings
-# moosh theme-settings-import --targettheme snap snap_settings.tar.gz
-
-cp /init-scripts/themes/*tar.gz /var/www/html/
+moosh theme-settings-export --themename moove
+cp moove*.tar.gz /init-scripts/themes/
 moosh theme-settings-import --targettheme moove moove*tar.gz
+php /var/www/html/admin/cli/upgrade.php

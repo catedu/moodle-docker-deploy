@@ -23,3 +23,4 @@ moosh config-set theme moove
 
 cp /init-scripts/themes/*tar.gz /var/www/html/
 moosh theme-settings-import --targettheme moove moove*tar.gz
+cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates

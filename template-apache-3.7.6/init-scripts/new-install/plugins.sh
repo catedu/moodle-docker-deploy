@@ -22,6 +22,7 @@ echo >&2 "Plugin list downloaded!"
 
 echo >&2 "Installing plugins..."
 moosh plugin-install -d theme_moove
+moosh plugin-install -d theme_adaptable
 moosh plugin-install -d format_tiles
 moosh plugin-install -d mod_bigbluebuttonbn
 moosh plugin-install -d mod_hvp
