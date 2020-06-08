@@ -24,11 +24,12 @@ echo >&2 "Installing plugins..."
 moosh plugin-install -d theme_moove
 moosh plugin-install -d theme_adaptable
 moosh plugin-install -d format_tiles
-moosh plugin-install -d mod_bigbluebuttonbn
+moosh plugin-install -d mod_jitsi
 moosh plugin-install -d mod_hvp
 moosh plugin-install -d block_xp
 moosh plugin-install -d availability_xp
 moosh plugin-install -d report_benchmark
+moosh plugin-install -d booktool_wordimport
 # for moodle 3.8
 # moosh-plugin-install -d tool_opcache
 moosh plugin-install -d block_configurable_reports
@@ -53,5 +54,35 @@ moosh config-set reporttableui datatables block_configurable_reports
 moosh config-set sharedsqlrepository jleyva/moodle-custom_sql_report_queries block_configurable_reports
 moosh config-set sqlsecurity 1 block_configurable_reports
 moosh config-set sqlsyntaxhighlight 1 block_configurable_reports
+
+echo >&2 "Configuring jitsi..."
+moosh config-set jitsi_livebutton 1
+moosh config-set jitsi_livebutton 1
+moosh config-set jitsi_finishandreturn 1
+
+echo >&2 "Configuring h5p..."
+moosh config-set enable_save_content_state 1 mod_hvp
+moosh config-set enable_lrs_content_types 1 mod_hvp
+
+echo >&2 "Configuring format_tiles..."
+moosh config-set hovercolour "\#ff7000" format_tiles
+moosh config-set format tiles moodlecourse
+moosh config-set followthemecolour 1 format_tiles
+moosh config-set tilecolour1 "\#6e0e0f" format_tiles
+moosh config-set colourname1 "Granate\ corporativo" format_tiles
+moosh config-set tilecolour2 "\#4EA399" format_tiles
+moosh config-set colourname2 "Aguamarina" format_tiles
+moosh config-set tilecolour3 "\#854EA3" format_tiles
+moosh config-set colourname3 "Morado" format_tiles
+moosh config-set tilecolour4 "\#4A5B8C" format_tiles
+moosh config-set colourname4 "Azul" format_tiles
+moosh config-set tilecolour5 "\#4F9949" format_tiles
+moosh config-set colourname5 "Verde" format_tiles
+moosh config-set tilecolour6 "\#EA0009" format_tiles
+moosh config-set colourname6 "Rojo" format_tiles
+moosh config-set modalresources pdf,url,html format_tiles
+moosh config-set showprogresssphototiles 0 format_tiles
+moosh config-set showseczerocoursewide 1 format_tiles
+
 set -x
 echo >&2 "Plugins configurated!"
