@@ -121,6 +121,33 @@ rollback(){
     up_service
 }
 
+merge_envs(){
+    # merge_envs env1 env2
+    # merge env1 env2. Results in env2, and print merged file o error
+    
+    tmpfile=$(mktemp tmpenvs.XXXXXX)
+    # Base is in general .env
+    if [ -z "${1}" ] || ! [ -f  "${1}" ]; then
+        echo "No correct first env provided to merge"
+        return 1
+    fi
+    if [ -z "${2}" ] || ! [ -f  "${2}" ]; then
+        echo "No correct second env provided to merge"
+        return 1
+    fi
+    
+    cp "${1}" "${tmpfile}" || return 1
+    
+    # .env customize deploy
+    while read -r line; do
+        if ! [[ "$line" =~ ^$|#.* ]] && [[ "$line" =~ .*=.* ]]; then
+            grep -q "${line%%=*}=" "${tmpfile}" 2>&1 >/dev/null && \
+            sed -i "s/${line%%=*}=.*/$line/" "${tmpfile}" || echo "$line" >> "${tmpfile}"
+        fi
+    done < "${2}"
+    tee ${2} < "${tmpfile}" && rm -f "${tmpfile}"
+}
+
 trap 'rollback' INT TERM EXIT
 ## STEPS: init, stopservice,backup,template, end
 STEP="init"
@@ -134,12 +161,17 @@ PRESERVE=false
 YES=false
 MOODLECODEDIR="moodle-code"
 get_parameter "$@"
+# WORKDIR -> Site Directory
+# TEMPLATEUDIR -> New template to apply
 
 # Load general .env
 export $(grep -E -v '^#' .env | xargs)
 
 # Load WORKDIR .env (override general values)
 export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
+
+# ¿¿¿¿¿Update .env with .env in TEMPLATEUPDATE??????
+
 
 NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | cut -d: -f2 | cut -d- -f1)
 
@@ -172,17 +204,18 @@ rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup
 STEP="backup"
 
 ## Template
-# Delete moodle-code
+# Delete moodle-code or not
 if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )); then
     rm -rf "${WORKDIR:?}/${MOODLECODEDIR}" && echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted !" || \
     { echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted FAIL!"; exit 1; }
 fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
-
+# Upgrade new general variables
+merge_envs ".env" "${WORKDIR}/.env"
 STEP="template"
 
-## Upgrade .env file?
+## Upgrade .env file with new INSTALL_TYPE before up services
 if [[ "${VERSION}" = "${NEWVERSION}" ]]; then
     # update
     sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
@@ -198,6 +231,3 @@ up_service
 
 STEP="end"
 
-# TO-DO
-# - Mandar un correo al MOODLE_ADMIN_EMAIL????
-# - También deberíamos tener claro si hacemos importación de datos y cómo
