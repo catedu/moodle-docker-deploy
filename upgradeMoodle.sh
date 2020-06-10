@@ -96,12 +96,12 @@ rollback(){
             mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql > /dev/null || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
             
             echo "$(basename $0) - exit: Restore Files"
-            rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
+            sudo rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
             { echo "$(basename $0) - exit: RESTORE FILES ${MOODLE_URL} FAIL!"; return 1; }
         ;;
         backup)
             echo "$(basename $0) - exit: Restore Files"
-            rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
+            sudo rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
             { echo "$(basename $0) - exit: RESTORE FILES ${MOODLE_URL} FAIL!"; return 1; }
         ;;
         stopservice)
@@ -196,7 +196,7 @@ echo "$(basename $0) - Backup DB..."
 mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "$(basename $0) - Backup Files..."
-rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
+sudo rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
 STEP="backup"
 
 ## Template
@@ -208,7 +208,7 @@ fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
 # Upgrade new general variables
-merge_envs ".env" "${WORKDIR}/.env"
+merge_envs ".env" "${WORKDIR}/.env" > /dev/null
 STEP="template"
 
 ## Upgrade .env file with new INSTALL_TYPE before up services
