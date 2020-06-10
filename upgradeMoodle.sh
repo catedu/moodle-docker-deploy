@@ -68,7 +68,7 @@ get_parameter(){
 install_pkg() {
     
     if ! dpkg -s "${@:1}" >/dev/null 2>&1; then
-        apt-get install -yq "${@:1}"
+        sudo apt-get install -yq "${@:1}"
     fi
 }
 
@@ -151,7 +151,7 @@ NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | c
 install_pkg mariadb-client rsync
 
 ## Stopservice
-if (cd "${WORKDIR}" && docker-compose down); then
+if (cd "${WORKDIR}" && docker-compose stop web moodle && echo "Y" | docker-compose rm web moodle); then
     echo "$(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
     elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
     # Service stopped before
