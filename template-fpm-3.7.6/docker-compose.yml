@@ -14,7 +14,7 @@ services:
       LETSENCRYPT_EMAIL: "${SSL_EMAIL}"
     restart: always
     volumes:
-      - ./moodle-code:/usr/nginx/share/html
+      - ./moodle-code:/usr/share/nginx/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./moodle-data:/var/www/moodledata:ro
       - phpsocket:/sock
