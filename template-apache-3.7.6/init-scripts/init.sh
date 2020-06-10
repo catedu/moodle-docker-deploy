@@ -17,7 +17,6 @@ do
 		echo >&2 "$f executing..."
 		$f
 		echo >&2 "$f executed!"
-		chmod -x "$f"
 	else
 		echo >&2 "$f skipped, no x permission"
 	fi

@@ -9,8 +9,8 @@ moosh category-create -p 6 -v 1 "Tercero"
 moosh category-create -p 6 -v 1 "Cuarto"
 moosh category-create -p 6 -v 1 "Quinto"
 moosh category-create -p 6 -v 1 "Sexto"
-moosh category-create -p 0 -v 1 "Sala de profesorado"
-moosh category-create -p 0 -v 1 "Proyectos de trabajo"
+moosh category-create -p 0 -v 1 "Sala de profesorado CEIP"
+moosh category-create -p 0 -v 1 "Proyectos de trabajo CEIP"
 
 moosh category-create -p 0 -v 1 "ESO"
 moosh category-create -p 15 -v 1 "Primero"
@@ -23,8 +23,8 @@ moosh category-create -p 20 -v 1 "Segundo"
 moosh category-create -p 0 -v 1 "Bachillerato"
 moosh category-create -p 23 -v 1 "Primero"
 moosh category-create -p 23 -v 1 "Segundo"
-moosh category-create -p 0 -v 1 "Proyectos de trabajo"
-moosh category-create -p 0 -v 1 "Sala de Profesorado"
+moosh category-create -p 0 -v 1 "Proyectos de trabajo IES"
+moosh category-create -p 0 -v 1 "Sala de Profesorado IES"
 
 moosh course-restore /init-scripts/mbzs/10_ceip.mbz 3
 moosh course-config-set course 2 shortname proyecto6_inf_primero

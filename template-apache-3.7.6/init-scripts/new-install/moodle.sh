@@ -14,6 +14,11 @@ moosh config-set forcetimezone UTC
 moosh config-set calendar_site_timeformat %H:%M
 moosh config-set calendar_startwday 1
 moosh config-set debugdisplay 0
+moosh config-set frontpage 6
+moosh config-set frontpageloggedin 5,0
+
+
+
 
 # Config smtp
 echo >&2 "Configuring smtp..."
@@ -136,6 +141,8 @@ moosh config-set allowthemechangeonurl 1
 
 # Site Policyhandler
 moosh config-set sitepolicyhandler tool_policy
+moosh config-set contactdataprotectionofficer 1 tool_dataprivacy
+moosh config-set showdataretentionsummary 0 tool_dataprivacy
 
 # Creating moodle-manager
 moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae
