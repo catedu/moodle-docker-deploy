@@ -161,17 +161,13 @@ PRESERVE=false
 YES=false
 MOODLECODEDIR="moodle-code"
 get_parameter "$@"
-# WORKDIR -> Site Directory
-# TEMPLATEUDIR -> New template to apply
+# WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
 
 # Load general .env
 export $(grep -E -v '^#' .env | xargs)
 
 # Load WORKDIR .env (override general values)
 export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
-
-# ¿¿¿¿¿Update .env with .env in TEMPLATEUPDATE??????
-
 
 NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | cut -d: -f2 | cut -d- -f1)
 
