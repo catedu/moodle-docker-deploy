@@ -46,7 +46,8 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
-                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; }
             ;;
             t)
                 SCHOOL_TYPE=""

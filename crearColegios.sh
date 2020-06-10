@@ -15,7 +15,7 @@
 ./createMoodle.sh -t CEIP -u https://ceipinfantaelena.aeducar.es "INFANTA ELENA"
 ./createMoodle.sh -t CEIP -u https://ceippedrojrubio.aeducar.es "PEDRO J.RUBIO"
 ./createMoodle.sh -t CEIP -u https://ceipelparque.aeducar.es "EL PARQUE"
-./createMoodle.sh -t CEIP -u https://www.colegranen.aeducar.es "SANTIAGO APOSTOL"
+./createMoodle.sh -t CEIP -u https://colegranen.aeducar.es "SANTIAGO APOSTOL"
 ./createMoodle.sh -t IES -u https://escueladeartehuesca.aeducar.es "ESCUELA DE ARTE"
 ./createMoodle.sh -t CEIP -u https://cpzaidin.aeducar.es "SAN JUAN BAUTISTA"
 ./createMoodle.sh -t CEIP -u https://ceipdiegoescolano.aeducar.es "DIEGO ESCOLANO"
