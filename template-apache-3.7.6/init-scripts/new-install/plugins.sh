@@ -57,8 +57,11 @@ moosh config-set sqlsyntaxhighlight 1 block_configurable_reports
 
 echo >&2 "Configuring jitsi..."
 moosh config-set jitsi_livebutton 1
-moosh config-set jitsi_livebutton 1
+moosh config-set jitsi_shareyoutube 1
+moosh config-set jitsi_id nameandsurname
 moosh config-set jitsi_finishandreturn 1
+moosh config-set jitsi_sesionname 0,1,2
+moosh config-set jitsi_domain meet.jit.si
 
 echo >&2 "Configuring h5p..."
 moosh config-set enable_save_content_state 1 mod_hvp
@@ -83,6 +86,7 @@ moosh config-set colourname6 "Rojo" format_tiles
 moosh config-set modalresources pdf,url,html format_tiles
 moosh config-set showprogresssphototiles 0 format_tiles
 moosh config-set showseczerocoursewide 1 format_tiles
+moosh config-set allowphototiles 1 format_tiles
 
 set -x
 echo >&2 "Plugins configurated!"
