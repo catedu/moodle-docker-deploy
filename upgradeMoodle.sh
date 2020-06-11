@@ -1,34 +1,35 @@
 #!/bin/bash
 set -eu
-# Initial Deploy
-# Ver. 0.1 - bash
-#
-# Upgrade site by url or by install_directory.
-# upgradeMoodle.sh [-p] [-y] ( -u "url" | -d "directory_upgrade" )
 
 usage () {
-    echo 'usage: upgradeMoodle.sh [-p] [-y] -u "site" -d "upgrade_version_template"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "url|dirsite" -d "upgrade_version_template"'
     echo "help: upgradeMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: upgradeMoodle.sh -u "url" -d "upgrade_version_template"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "url|dirsite" -d "upgrade_version_template"'
     echo "Options:"
     echo "-p -> By defautl, moodle-code dir its delete. With -p preserve this directory"
     echo "-y -> Yes all questions"
+    echo "-e -> Add or modify env site variables"
     echo "-u -> site to upgrade. Accept url or installdir"
     echo "-d -> directory template to upgrade"
     echo "-h this message"
 }
 
 get_parameter(){
-    while getopts ":pyu:d:h" opt; do
+    while getopts ":pye:u:d:h" opt; do
         case $opt in
             p)
                 PRESERVE=true
             ;;
             y)
                 YES=true
+            ;;
+            e)
+                ENVUPDATE="${OPTARG}"
+                [ ! -f "${ENVUPDATE}" ] && \
+                { echo "$(basename $0): Dont exist env file to update!"; usage; exit 1;}
             ;;
             u)
                 WORKDIR="${OPTARG##*//}"
@@ -123,7 +124,7 @@ rollback(){
 
 merge_envs(){
     # merge_envs env1 env2
-    # merge env1 env2. Results in env2, and print merged file o error
+    # Results in env1 with env2 differences, and print merged file o error
     
     tmpfile=$(mktemp tmpenvs.XXXXXX)
     # Base is in general .env
@@ -138,14 +139,17 @@ merge_envs(){
     
     cp "${1}" "${tmpfile}" || return 1
     
-    # .env customize deploy
+    # env customize deploy
     while read -r line; do
         if ! [[ "$line" =~ ^$|#.* ]] && [[ "$line" =~ .*=.* ]]; then
-            grep -q "${line%%=*}=" "${tmpfile}" 2>&1 >/dev/null && \
-            sed -i "s/${line%%=*}=.*/$line/" "${tmpfile}" || echo "$line" >> "${tmpfile}"
+            if grep -q "${line%%=*}=" "${tmpfile}" >/dev/null 2>&1; then
+                sed -i "s/${line%%=*}=.*/$line/" "${tmpfile}"
+            else
+                echo "$line" >> "${tmpfile}"
+            fi
         fi
     done < "${2}"
-    tee ${2} < "${tmpfile}" && rm -f "${tmpfile}"
+    tee ${1} < "${tmpfile}" && rm -f "${tmpfile}"
 }
 
 trap 'rollback' INT TERM EXIT
@@ -163,11 +167,11 @@ MOODLECODEDIR="moodle-code"
 get_parameter "$@"
 # WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
 
-# Load general .env
-export $(grep -E -v '^#' .env | xargs)
+# Load general .env for run backup
+set -a; [ -f .env ] && . .env; set +a
 
 # Load WORKDIR .env (override general values)
-export $(grep -E -v '^#' "${WORKDIR}/.env" | xargs)
+set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 
 NEWVERSION=$(yq r "${TEMPLATEUDIR}/docker-compose.yml" services.moodle.image | cut -d: -f2 | cut -d- -f1)
 
@@ -207,8 +211,8 @@ if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP &
 fi
 # Upgrade skel
 cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
-# Upgrade new general variables
-merge_envs ".env" "${WORKDIR}/.env" > /dev/null
+# Upgrade new general variables if its indicated
+[ -n "${ENVUPDATE+x}" ] && merge_envs "${WORKDIR}/.env" "${ENVUPDATE}" > /dev/null
 STEP="template"
 
 ## Upgrade .env file with new INSTALL_TYPE before up services

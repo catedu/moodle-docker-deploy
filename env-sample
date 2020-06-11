@@ -10,8 +10,8 @@ MOODLE_ADMIN_USER="adminuser"
 MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
 MOODLE_ADMIN_EMAIL="admin@centro.com"
 MOODLE_LANG="es"
-MOODLE_SITE_NAME="AEducAR"
-MOODLE_SITE_FULLNAME="Plataforma AEducAR de centro"
+MOODLE_SITE_NAME="Aeducar"
+MOODLE_SITE_FULLNAME="Plataforma Aeducar de centro"
 
 ## for init scripts
 SMTP_HOSTS=smtp.host.com

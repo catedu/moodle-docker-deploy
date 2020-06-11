@@ -8,7 +8,9 @@ set -eu
 # 2- -f file: CSV - several instances
 
 # Load env variables:
-export $(grep -E -v '^#' .env | xargs)
+set -a
+[ -f .env ] && . .env
+set +a
 
 usage () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -t type -u "url" short_name'
@@ -171,8 +173,8 @@ MOODLE_ADMIN_USER=${MOODLE_ADMIN_USER}
 MOODLE_ADMIN_PASSWORD=${MOODLE_ADMIN_PASSWORD}
 MOODLE_ADMIN_EMAIL=${MOODLE_ADMIN_EMAIL}
 MOODLE_LANG=${MOODLE_LANG}
-MOODLE_SITE_NAME=${MOODLE_SITE_NAME}
-MOODLE_SITE_FULLNAME=${MOODLE_SITE_FULLNAME}
+MOODLE_SITE_NAME="${MOODLE_SITE_NAME}"
+MOODLE_SITE_FULLNAME="${MOODLE_SITE_FULLNAME}"
 
 ## init-scripts
 INSTALL_TYPE=new-install
