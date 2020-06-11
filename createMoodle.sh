@@ -118,8 +118,11 @@ check_create_dir_exist(){
         echo "Caution: Deploy Duplicate!!. Directory $1 exists"
         # Comment to continue (override docker-compose, for upgrade)
         exit 1
+        elif ! [ -d ./template ]; then
+        echo "Caution: No template deploy in this Directory. Nothing to do"
+        exit 1
     else
-        mkdir "${1}" && cp -r template/* "${1}"
+        mkdir "${1}" && cp -rL template/* "${1}"
     fi
 }
 

@@ -10,7 +10,7 @@ Arquitecture de deploy moodle containers
 
 3. To create DNS dinamic with OVH provider (api-ovh), you can use api-ovh. Copy .env-sample to .env and customize your API connection with OVH. (not mandatory)
 
-4. Think and create a template directory to deploy
+4. Think and create a template directory (with this name) to deploy
 
 5. Run createMoodle.sh with this template
 
