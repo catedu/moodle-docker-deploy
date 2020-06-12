@@ -9,6 +9,15 @@ moosh category-create -p 7 -v 1 "Segundo"
 moosh category-create -p 0 -v 1 "Bachillerato"
 moosh category-create -p 10 -v 1 "Primero"
 moosh category-create -p 10 -v 1 "Segundo"
+moosh category-create -p 10 -v 1 "Bachillerato de Artes"
+moosh category-create -p 13 -v 1 "Primero"
+moosh category-create -p 13 -v 1 "Segundo"
+moosh category-create -p 10 -v 1 "Bachillerato de Ciencias"
+moosh category-create -p 16 -v 1 "Primero"
+moosh category-create -p 16 -v 1 "Segundo"
+moosh category-create -p 10 -v 1 "Bachillerato de Humanidades y CCSS"
+moosh category-create -p 19 -v 1 "Primero"
+moosh category-create -p 19 -v 1 "Segundo"
 moosh category-create -p 0 -v 1 "Proyectos de trabajo"
 moosh category-create -p 0 -v 1 "Sala de Profesorado"
 moosh course-restore /init-scripts/mbzs/3-biologia-primero-eso-ies.mbz 3
@@ -414,4 +423,332 @@ moosh course-config-set course 101 fullname "Música PMAR 2º"
 moosh course-restore /init-scripts/mbzs/107-emprendedora-pmar-segundo-ies.mbz 9
 moosh course-config-set course 102 shortname emprendedora-pmar-segundo
 moosh course-config-set course 102 fullname "Iniciación a la actividad emprendedora y empresarial 2º PMAR"
+
+moosh course-restore /init-scripts/mbzs/122-matematicasi-primero-bach-ies.mbz 17
+moosh course-config-set course 103 shortname matematicasi-primero-bach
+moosh course-config-set course 103 fullname "Matemáticas I 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/123-fisica-primero-bach-ies.mbz 17
+moosh course-config-set course 104 shortname fisica-primero-bach
+moosh course-config-set course 104 fullname "Física y Química 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/124-biologia-primero-bach-ies.mbz 17
+moosh course-config-set course 105 shortname biologia-primero-bach
+moosh course-config-set course 105 fullname "Biología y Geología 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/128-tecnologia-primero-bach-ies.mbz 17
+moosh course-config-set course 106 shortname tecnologia-primero-bach
+moosh course-config-set course 106 fullname "Tecnología Industrial 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/126-efisica-primero-bach-ies.mbz 11
+moosh course-config-set course 107 shortname efisica-primero-bach
+moosh course-config-set course 107 fullname "Educación Física 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/127-cientifica-primero-bach-ies.mbz 11
+moosh course-config-set course 108 shortname cientifica-primero-bach
+moosh course-config-set course 108 fullname "Cultura Científica 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/129-lengua-primero-bach-ies.mbz 11
+moosh course-config-set course 109 shortname lengua-primero-bach
+moosh course-config-set course 109 fullname "Lengua Castellana y Literatura I 1º Bach"
+
+moosh course-restore /init-scripts/mbzs/130-filosofia-primero-bach-ies.mbz 11
+moosh course-config-set course 110 shortname filosofia-primero-bach
+moosh course-config-set course 110 fullname "Filosofía 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/131-english-primero-bach-ies.mbz 11
+moosh course-config-set course 111 shortname english-primero-bach
+moosh course-config-set course 111 fullname "English I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/132-francais-primero-bach-ies.mbz 11
+moosh course-config-set course 112 shortname francais-primero-bach
+moosh course-config-set course 112 fullname "Français I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/133-deutsch-primero-bach-ies.mbz 11
+moosh course-config-set course 113 shortname deutsch-primero-bach
+moosh course-config-set course 113 fullname "Deutsch I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/134-tic1-primero-bach-ies.mbz 11
+moosh course-config-set course 114 shortname tic1-primero-bach
+moosh course-config-set course 114 fullname "Tecnologías de la Información y la Comunicación I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/135-religion-primero-bach-ies.mbz 11
+moosh course-config-set course 115 shortname religion-primero-bach
+moosh course-config-set course 115 fullname "Religión 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/136-ciudadania-primero-bach-ies.mbz 11
+moosh course-config-set course 116 shortname ciudadania-primero-bach
+moosh course-config-set course 116 fullname "Educación para la ciudadanía y los derechos humanos 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/137-aragon-primero-bach-ies.mbz 11
+moosh course-config-set course 117 shortname aragon-primero-bach
+moosh course-config-set course 117 fullname "Historia y Cultura de Aragón 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/138-aragones-primero-bach-ies.mbz 11
+moosh course-config-set course 118 shortname aragones-primero-bach
+moosh course-config-set course 118 fullname "Aragonés 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/139-catalan-primero-bach-ies.mbz 11
+moosh course-config-set course 119 shortname catalan-primero-bach
+moosh course-config-set course 119 fullname "Catalán 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/140-tutoria-primero-bach-ies.mbz 11
+moosh course-config-set course 120 shortname tutoria-primero-bach
+moosh course-config-set course 120 fullname "Tutoría 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/154-contemporaneo-ies.mbz 11
+moosh course-config-set course 121 shortname contemporaneo
+moosh course-config-set course 121 fullname "Historia del Mundo Contemporáneo 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/155-literaturau-primero-bach-ies.mbz 11
+moosh course-config-set course 122 shortname literaturau-primero-bach
+moosh course-config-set course 122 fullname "Literatura Universal 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/160-anatomiaa-primero-bach-ies.mbz 11
+moosh course-config-set course 123 shortname anatomiaa-primero-bach
+moosh course-config-set course 123 fullname "Anatomía Aplicada 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/141-equipo-directivo-ies.mbz 23
+moosh course-config-set course 124 shortname equipo-directivo
+moosh course-config-set course 124 fullname "Equipo directivo"
+
+moosh course-restore /init-scripts/mbzs/142-claustro-ies.mbz 23
+moosh course-config-set course 125 shortname claustro
+moosh course-config-set course 125 fullname "Claustro"
+
+moosh course-restore /init-scripts/mbzs/143-departamentos-ies.mbz 23
+moosh course-config-set course 126 shortname departamentos
+moosh course-config-set course 126 fullname "Departamentos"
+
+moosh course-restore /init-scripts/mbzs/144-ccp-ies.mbz 23
+moosh course-config-set course 127 shortname ccp
+moosh course-config-set course 127 fullname "CCP"
+
+moosh course-restore /init-scripts/mbzs/145-equipos-didacticos-ies.mbz 23
+moosh course-config-set course 128 shortname equipos-didacticos
+moosh course-config-set course 128 fullname "Equipos didácticos"
+
+moosh course-restore /init-scripts/mbzs/147-matematicasccss-primero-bach-ies.mbz 20
+moosh course-config-set course 129 shortname matematicasccss-primero-bach
+moosh course-config-set course 129 fullname "Matemáticas aplicadas a las Ciencias Sociales I 1º Bach. "
+
+moosh course-restore /init-scripts/mbzs/148-latin-primero-bach-ies.mbz 20
+moosh course-config-set course 130 shortname latin-primero-bach
+moosh course-config-set course 130 fullname "Latín I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/149-economia-primero-bach-ies.mbz 20
+moosh course-config-set course 131 shortname economia-primero-bach
+moosh course-config-set course 131 fullname "Economía 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/151-griego-primero-bach-ies.mbz 20
+moosh course-config-set course 132 shortname griego-primero-bach
+moosh course-config-set course 132 fullname "Griego I 1º Bach."
+
+moosh course-restore /init-scripts/mbzs/153-arte-primero-bach-ies.mbz 14
+moosh course-config-set course 133 shortname arte-primero-bach
+moosh course-config-set course 133 fullname "Fundamentos del Arte I 1º"
+
+moosh course-restore /init-scripts/mbzs/156-audiovisual-primero-bach-ies.mbz 14
+moosh course-config-set course 134 shortname audiovisual-primero-bach
+moosh course-config-set course 134 fullname "Cultura Audiovisual I 1º"
+
+moosh course-restore /init-scripts/mbzs/157-volumen-primero-bach-ies.mbz 14
+moosh course-config-set course 135 shortname volumen-primero-bach
+moosh course-config-set course 135 fullname "Volumen 1º"
+
+moosh course-restore /init-scripts/mbzs/158-artistico-primero-bach-ies.mbz 14
+moosh course-config-set course 136 shortname artistico-primero-bach
+moosh course-config-set course 136 fullname "Dibujo Artístico I 1º"
+
+moosh course-restore /init-scripts/mbzs/159-tecnico-primero-bach-ies.mbz 14
+moosh course-config-set course 137 shortname tecnico-primero-bach
+moosh course-config-set course 137 fullname "Dibujo Técnico I 1º"
+
+moosh course-restore /init-scripts/mbzs/161-musical-primero-bach-ies.mbz 14
+moosh course-config-set course 138 shortname musical-primero-bach
+moosh course-config-set course 138 fullname "Lenguaje y Práctica Musical 1º"
+
+moosh course-restore /init-scripts/mbzs/162-analisis-primero-bach-ies.mbz 14
+moosh course-config-set course 139 shortname analisis-primero-bach
+moosh course-config-set course 139 fullname "Análisis musical I 1º"
+
+moosh course-restore /init-scripts/mbzs/163-talleres-primero-bach-ies.mbz 14
+moosh course-config-set course 140 shortname talleres-primero-bach
+moosh course-config-set course 140 fullname "Talleres artísticos 1º "
+
+moosh course-restore /init-scripts/mbzs/164-efisica-segundo-bach-ies.mbz 12
+moosh course-config-set course 141 shortname efisica-segundo-bach
+moosh course-config-set course 141 fullname "Educación Física y vida activa 2º"
+
+moosh course-restore /init-scripts/mbzs/166-lengua-segundo-bach-ies.mbz 12
+moosh course-config-set course 142 shortname lengua-segundo-bach
+moosh course-config-set course 142 fullname "Lengua Castellana y Literatura II 2º"
+
+moosh course-restore /init-scripts/mbzs/167-filosofia-segundo-bach-ies.mbz 12
+moosh course-config-set course 143 shortname filosofia-segundo-bach
+moosh course-config-set course 143 fullname "Historia de la Filosofía 2º"
+
+moosh course-restore /init-scripts/mbzs/168-english-segundo-bach-ies.mbz 12
+moosh course-config-set course 144 shortname english-segundo-bach
+moosh course-config-set course 144 fullname "English II 2º"
+
+moosh course-restore /init-scripts/mbzs/169-francais-segundo-bach-ies.mbz 12
+moosh course-config-set course 145 shortname francais-segundo-bach
+moosh course-config-set course 145 fullname "Français II 2º"
+
+moosh course-restore /init-scripts/mbzs/170-deutsch-segundo-bach-ies.mbz 12
+moosh course-config-set course 146 shortname deutsch-segundo-bach
+moosh course-config-set course 146 fullname "Deutsch II 2º"
+
+moosh course-restore /init-scripts/mbzs/171-tic1-segundo-bach-ies.mbz 12
+moosh course-config-set course 147 shortname tic1-segundo-bach
+moosh course-config-set course 147 fullname "Tecnologías de la Información y la Comunicación II 2º"
+
+moosh course-restore /init-scripts/mbzs/173-ciudadania-segundo-bach-ies.mbz 12
+moosh course-config-set course 148 shortname ciudadania-segundo-bach
+moosh course-config-set course 148 fullname "Pensamiento, Sociedad y Ciudadanía 2º"
+
+moosh course-restore /init-scripts/mbzs/174-aragon-segundo-bach-ies.mbz 12
+moosh course-config-set course 149 shortname aragon-segundo-bach
+moosh course-config-set course 149 fullname "Historia y Cultura de Aragón II 2º"
+
+moosh course-restore /init-scripts/mbzs/175-aragones-segundo-bach-ies.mbz 12
+moosh course-config-set course 150 shortname aragones-segundo-bach
+moosh course-config-set course 150 fullname "Aragonés 2º"
+
+moosh course-restore /init-scripts/mbzs/176-catalan-segundo-bach-ies.mbz 12
+moosh course-config-set course 151 shortname catalan-segundo-bach
+moosh course-config-set course 151 fullname "Catalán 2º"
+
+moosh course-restore /init-scripts/mbzs/177-tutoria-segundo-bach-ies.mbz 12
+moosh course-config-set course 152 shortname tutoria-segundo-bach
+moosh course-config-set course 152 fullname "Tutoría 2º"
+
+moosh course-restore /init-scripts/mbzs/201-hespana-segundo-bach-ies.mbz 12
+moosh course-config-set course 153 shortname hespana-segundo-bach
+moosh course-config-set course 153 fullname "Historia de España 2º BACH"
+
+moosh course-restore /init-scripts/mbzs/206-psicologia-segundo-bach-ies.mbz 12
+moosh course-config-set course 154 shortname psicologia-segundo-bach
+moosh course-config-set course 154 fullname "Psicología 2º"
+
+moosh course-restore /init-scripts/mbzs/207-administracion-segundo-bach-ies.mbz 12
+moosh course-config-set course 155 shortname administracion-segundo-bach
+moosh course-config-set course 155 fullname "Fundamentos de Administración y Gestión 2º"
+
+moosh course-restore /init-scripts/mbzs/208-proyecto-segundo-bach-ies.mbz 12
+moosh course-config-set course 156 shortname proyecto-segundo-bach
+moosh course-config-set course 156 fullname "Proyecto de Investigación e Innovación Integrado 2º"
+
+moosh course-restore /init-scripts/mbzs/212-danza-segundo-bach-ies.mbz 12
+moosh course-config-set course 157 shortname danza-segundo-bach
+moosh course-config-set course 157 fullname "Historia de la Música y de la Danza 2º"
+
+moosh course-restore /init-scripts/mbzs/185-matematicasi-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 158 shortname matematicasi-segundo-bach-ciencias
+moosh course-config-set course 158 fullname "Matemáticas II 2º"
+
+moosh course-restore /init-scripts/mbzs/186-fisica-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 159 shortname fisica-segundo-bach-ciencias
+moosh course-config-set course 159 fullname "Física 2º"
+
+moosh course-restore /init-scripts/mbzs/187-biologia-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 160 shortname biologia-segundo-bach-ciencias
+moosh course-config-set course 160 fullname "Biología 2º"
+
+moosh course-restore /init-scripts/mbzs/188-tecnologia-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 161 shortname tecnologia-segundo-bach-ciencias
+moosh course-config-set course 161 fullname "Tecnología Industrial 2º"
+
+moosh course-restore /init-scripts/mbzs/202-geologia-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 162 shortname geologia-segundo-bach-ciencias
+moosh course-config-set course 162 fullname "Geología 2º"
+
+moosh course-restore /init-scripts/mbzs/203-dibujo-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 163 shortname dibujo-segundo-bach-ciencias
+moosh course-config-set course 163 fullname "Dibujo Técnico 2º"
+
+moosh course-restore /init-scripts/mbzs/204-quimica-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 164 shortname quimica-segundo-bach-ciencias
+moosh course-config-set course 164 fullname "Química 2º"
+
+moosh course-restore /init-scripts/mbzs/205-medio-segundo-bach-ciencias-ies.mbz 18
+moosh course-config-set course 165 shortname medio-segundo-bach-ciencias
+moosh course-config-set course 165 fullname "Ciencias de la Tierra y del Medio Ambiente 2º"
+
+moosh course-restore /init-scripts/mbzs/189-matematicasccss-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 166 shortname matematicasccss-segundo-bach-humanidades
+moosh course-config-set course 166 fullname "Matemáticas aplicadas a las Ciencias Sociales II 2º"
+
+moosh course-restore /init-scripts/mbzs/190-latin-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 167 shortname latin-segundo-bach-humanidades
+moosh course-config-set course 167 fullname "Latín II 2º"
+
+moosh course-restore /init-scripts/mbzs/192-griego-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 168 shortname griego-segundo-bach-humanidades
+moosh course-config-set course 168 fullname "Griego II 2º"
+
+moosh course-restore /init-scripts/mbzs/209-empresa-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 169 shortname empresa-segundo-bach-humanidades
+moosh course-config-set course 169 fullname "Economía de la Empresa 2º"
+
+moosh course-restore /init-scripts/mbzs/210-geografia-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 170 shortname geografia-segundo-bach-humanidades
+moosh course-config-set course 170 fullname "Geografía 2º"
+
+moosh course-restore /init-scripts/mbzs/211-arte-segundo-bach-humanidades-ies.mbz 21
+moosh course-config-set course 171 shortname arte-segundo-bach-humanidades
+moosh course-config-set course 171 fullname "Historia del Arte 2º"
+
+moosh course-restore /init-scripts/mbzs/193-arte-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 172 shortname arte-segundo-bach-artes
+moosh course-config-set course 172 fullname "Fundamentos del Arte II 2º"
+
+moosh course-restore /init-scripts/mbzs/194-audiovisual-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 173 shortname audiovisual-segundo-bach-artes
+moosh course-config-set course 173 fullname "Cultura Audiovisual 2º"
+
+moosh course-restore /init-scripts/mbzs/196-artistico-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 174 shortname artistico-segundo-bach-artes
+moosh course-config-set course 174 fullname "Dibujo Artístico II 2º"
+
+moosh course-restore /init-scripts/mbzs/197-tecnico-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 175 shortname tecnico-segundo-bach-artes
+moosh course-config-set course 175 fullname "Dibujo Técnico II 2º"
+
+moosh course-restore /init-scripts/mbzs/199-analisis-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 176 shortname analisis-segundo-bach-artes
+moosh course-config-set course 176 fullname "Análisis musical 2º"
+
+moosh course-restore /init-scripts/mbzs/214-escenicas-segundo-bac-artes-ies.mbz 15
+moosh course-config-set course 177 shortname escenicas-segundo-bac-artes
+moosh course-config-set course 177 fullname "Artes Escénicas 2º"
+
+moosh course-restore /init-scripts/mbzs/215-diseno-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 178 shortname diseno-segundo-bach-artes
+moosh course-config-set course 178 fullname "Diseño 2º"
+
+moosh course-restore /init-scripts/mbzs/216-imagen-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 179 shortname imagen-segundo-bach-artes
+moosh course-config-set course 179 fullname "Imagen y Sonido"
+
+moosh course-restore /init-scripts/mbzs/217-edicion-segundo-bach-artes-ies.mbz 15
+moosh course-config-set course 180 shortname edicion-segundo-bach-artes
+moosh course-config-set course 180 fullname "Técnicas de edición gráfico-plástica 2º"
+
+moosh course-config-set category 3 format topics
+moosh course-config-set category 4 format topics
+moosh course-config-set category 5 format topics
+moosh course-config-set category 6 format topics
+moosh course-config-set category 8 format topics
+moosh course-config-set category 9 format topics
+moosh course-config-set category 11 format topics
+moosh course-config-set category 12 format topics
+moosh course-config-set category 14 format topics
+moosh course-config-set category 15 format topics
+moosh course-config-set category 17 format topics
+moosh course-config-set category 18 format topics
+moosh course-config-set category 20 format topics
+moosh course-config-set category 21 format topics
+moosh course-config-set category 23 format topics
 
