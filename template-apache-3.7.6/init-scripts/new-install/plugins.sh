@@ -62,6 +62,9 @@ moosh config-set jitsi_id nameandsurname
 moosh config-set jitsi_finishandreturn 1
 moosh config-set jitsi_sesionname 0,1,2
 moosh config-set jitsi_domain meet.jit.si
+moosh config-set jitsi_watermarklink https://jitsi.org
+moosh config-set jitsi_channellastcam 4
+
 
 echo >&2 "Configuring h5p..."
 moosh config-set enable_save_content_state 1 mod_hvp
