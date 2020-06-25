@@ -22,6 +22,7 @@ echo >&2 "Plugin list downloaded!"
 
 echo >&2 "Installing plugins..."
 moosh plugin-install -d theme_moove
+moosh plugin-install -d theme_adaptable
 moosh plugin-install -d format_tiles
 moosh plugin-install -d mod_jitsi
 moosh plugin-install -d mod_hvp
@@ -29,7 +30,6 @@ moosh plugin-install -d block_xp
 moosh plugin-install -d availability_xp
 moosh plugin-install -d report_benchmark
 moosh plugin-install -d booktool_wordimport
-moosh plugin-install -d local_mail
 # for moodle 3.8
 # moosh-plugin-install -d tool_opcache
 moosh plugin-install -d block_configurable_reports
@@ -42,8 +42,8 @@ echo >&2 "Plugins installed!"
 echo >&2 "Configuring plugins..."
 echo >&2 "Configuring configurable_reports..."
 set +x # to get info 
-moosh config-set cron_hour 1 block_configurable_reports
-moosh config-set cron_minute 15 block_configurable_reports
+moosh config-set cron_hour 0
+moosh config-set cron_minute 0
 moosh config-set crrepository jleyva/moodle-configurable_reports_repository block_configurable_reports
 moosh config-set dbhost ${MOODLE_DB_HOST} block_configurable_reports
 moosh config-set dbname ${MOODLE_DB_NAME} block_configurable_reports
@@ -65,10 +65,10 @@ moosh config-set jitsi_domain meet.jit.si
 moosh config-set jitsi_watermarklink https://jitsi.org
 moosh config-set jitsi_channellastcam 4
 
+
 echo >&2 "Configuring h5p..."
 moosh config-set enable_save_content_state 1 mod_hvp
 moosh config-set enable_lrs_content_types 1 mod_hvp
-moosh config-set allowframembedding 1
 
 echo >&2 "Configuring format_tiles..."
 moosh config-set hovercolour "\#ff7000" format_tiles
@@ -90,16 +90,6 @@ moosh config-set modalresources pdf,url,html format_tiles
 moosh config-set showprogresssphototiles 0 format_tiles
 moosh config-set showseczerocoursewide 1 format_tiles
 moosh config-set allowphototiles 1 format_tiles
-
-echo >&2 "Configuring block_xp..."
-moosh config-set blocktitle "¡Sube\ de\ nivel\!" block_xp
-
-echo >&2 "Configuring local_mail..."
-moosh config-set maxfiles 5 local_mail
-moosh config-set maxbytes 2097152 local_mail
-moosh config-set enablebackup 1 local_mail
-moosh config-set legacynav 0 local_nav
-moosh role-update-capability student local/mail:mailsamerole prevent 1
 
 set -x
 echo >&2 "Plugins configurated!"

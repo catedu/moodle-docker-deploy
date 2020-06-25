@@ -1,0 +1,24 @@
+# for database creation:
+MYSQL_ROOT_PASSWORD=password
+MOODLE_DB_HOST=db
+
+# for https:
+SSL_EMAIL=technicalemail@localhost.com
+
+# for user and moodle site creation:
+MOODLE_ADMIN_USER="adminuser"
+MOODLE_ADMIN_PASSWORD="camb1ameperoYA"
+MOODLE_ADMIN_EMAIL="admin@centro.com"
+MOODLE_LANG="es"
+MOODLE_SITE_NAME="Aeducar"
+MOODLE_SITE_FULLNAME="Plataforma Aeducar de centro"
+
+## for init scripts
+SMTP_HOSTS=smtp.host.com
+SMTP_USER=user@localhost
+SMTP_PASSWORD=password
+SMTP_MAXBULK=100
+NO_REPLY_ADDRESS=noreply@localhost
+
+CRON_BROWSER_PASS=cronpass
+MOODLE_MANAGER=mail@manageres

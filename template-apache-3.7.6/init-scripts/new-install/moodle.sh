@@ -109,7 +109,7 @@ moosh config-set block_online_users_timetosee 10
 
 # import categories and courses
 echo >&2 "Importing categories and courses..."
-#/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
+/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
 
 # statistics
 moosh config-set enablestats 1
@@ -117,14 +117,14 @@ moosh config-set enablestats 1
 # feeds
 moosh config-set enablerssfeeds 1
 
+# activities config
+moosh config-set completiondefault 0
+
 # courses
 moosh config-set enableglobalsearch 1
 moosh config-set enablecourserequests 1
 moosh config-set courserequestnotify \$\@ALL@$
 moosh config-set searchincludeallcourses 0
-
-# Completion
-moosh config-set completiondefault 0
 
 # grades
 moosh config-set gradeexport ods,txt,xml
@@ -133,13 +133,11 @@ moosh config-set grade_aggregation 10
 moosh config-set grade_aggregations_visible 0,10,13
 moosh config-set grade_report_showquickfeedback 1
 moosh config-set grade_report_user_rangedecimals 2
-moosh config-set gradepointdefault 10
 
 # themes
 moosh config-set allowthemechangeonurl 1
 
-# Disabling messaging
-moosh config-set messaging 0
+# Change language configuration
 
 # Site Policyhandler
 moosh config-set sitepolicyhandler tool_policy
@@ -148,19 +146,4 @@ moosh config-set showdataretentionsummary 0 tool_dataprivacy
 
 # Creating moodle-manager
 moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae
-moosh role-create -a manager gestora
-moosh role-update-capability gestora enrol/flatfile:manage allow 1
-moosh role-update-capability gestora enrol/flatfile:unenrol allow 1
-moosh role-update-capability gestora repository/upload:view allow 1
-moosh role-update-capability gestora mod/forum:allowforcesubscribe allow 1
-moosh role-update-capability gestora atto/recordrtc:recordvideo allow 1
-moosh role-update-capability gestora atto/recordrtc:recordaudio allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedatarequests allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
-moosh role-update-capability gestora moodle/webservice:createmobiletoken allow 1
-moosh role-update-capability gestora block/tags:myaddinstance allow 1
-moosh role-update-capability gestora block/starredcourses:myaddinstance allow 1
-moosh role-update-capability gestora block/mentees:myaddinstance allow 1
-moosh config-set dporoles 9 tool_dataprivacy
-moosh user-assign-system-role gestorae gestora
+moosh user-assign-system-role gestorae manager

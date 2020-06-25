@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    networks:
+      - redis-network
+  moodle:
+    image: cateduac/moodle:3.7.6-apache
+    environment:
+      VIRTUAL_HOST: "${VIRTUAL_HOST}"
+      LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
+      LETSENCRYPT_EMAIL: "${SSL_EMAIL}"
+      MOODLE_DB_HOST: "${MOODLE_DB_HOST}"
+      MOODLE_DB_NAME: "${MOODLE_DB_NAME}"
+      MOODLE_DB_USER: "${MOODLE_MYSQL_USER}"
+      MOODLE_DB_PASSWORD: "${MOODLE_MYSQL_PASSWORD}"
+      MOODLE_URL: "${MOODLE_URL}"
+      MOODLE_ADMIN_USER: "${MOODLE_ADMIN_USER}"
+      MOODLE_ADMIN_PASSWORD: "${MOODLE_ADMIN_PASSWORD}"
+      MOODLE_ADMIN_EMAIL: "${MOODLE_ADMIN_EMAIL}"
+      MOODLE_LANG: "${MOODLE_LANG}"
+      MOODLE_SITE_NAME: "${MOODLE_SITE_NAME}"
+      MOODLE_SITE_FULLNAME: "${MOODLE_SITE_FULLNAME}"
+      SSL_PROXY: "${SSL_PROXY}"
+      SMTP_HOSTS: "${SMTP_HOSTS}"
+      SMTP_USER: "${SMTP_USER}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      SMTP_MAXBULK: "${SMTP_MAXBULK}"
+      NO_REPLY_ADDRESS: "${NO_REPLY_ADDRESS}"
+      CRON_BROWSER_PASS: "${CRON_BROWSER_PASS}"
+      MOODLE_MANAGER: "${MOODLE_MANAGER}"
+      MANAGER_PASSWORD: "${MANAGER_PASSWORD}"
+      INSTALL_TYPE: "${INSTALL_TYPE}"
+      SCHOOL_TYPE: "${SCHOOL_TYPE}"
+    networks:
+      - nginx-proxy_frontend
+      - backend
+      - redis-network
+    volumes:
+      - ./moodle-data:/var/www/moodledata
+      - ./moodle-code:/var/www/html
+      - ./init-scripts:/init-scripts
+      - ./php-conf/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./php-conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  nginx-proxy_frontend:
+    external: true
+  backend:
+    driver: bridge
+  redis-network:
+    driver: bridge
