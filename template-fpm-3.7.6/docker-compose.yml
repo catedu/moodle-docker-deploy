@@ -51,7 +51,6 @@ services:
       SCHOOL_TYPE: "${SCHOOL_TYPE}"
     networks:
       - nginx-proxy_frontend
-      - backend
       - redis-network
 
     volumes:
@@ -68,8 +67,6 @@ services:
 networks:
   nginx-proxy_frontend:
     external: true
-  backend:
-    driver: bridge
   redis-network:
     driver: bridge
 
