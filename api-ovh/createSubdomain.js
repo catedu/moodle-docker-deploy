@@ -1,18 +1,20 @@
 const dotenv = require('dotenv');
-const publicIp = require('public-ip');
+const os = require('os');
+// const publicIp = require('public-ip');
 dotenv.config();
 const ovh = require('ovh')({
   appKey: process.env.APP_KEY,
   appSecret: process.env.APP_SECRET,
   consumerKey: process.env.TOKEN
 });
-// change ip for host value:
-const ip = "8.8.8.8";
 
 (async () => {
+  // const ip = await publicIp.v4();
+  const interfaces = os.networkInterfaces();
+  const ip = interfaces.eno1[0].address;
   const myArgs = process.argv.slice(2);
   if (!myArgs.length) {
-    console.log(`exec: node createSubdomainIP.js https://<myDomain>.aeducar.es`)
+    console.log(`exec: node createSubdomain.js https://<myDomain>.aeducar.es`)
     process.exit(1)
   }
   /* check url belongs to aeducar.es */
@@ -22,7 +24,7 @@ const ip = "8.8.8.8";
     process.exit(1)
   }
   var subDomain = url.replace(/^https?\:\/\//i, '').replace('.aeducar.es', '');
-  console.log(`Adding subdomin ${subDomain} to zone aeducar.es...`);
+  console.log(`Adding A record ${subDomain} to zone aeducar.es with value ${ip}...`);
 
   ovh.request('POST', '/domain/zone/aeducar.es/record', {
     fieldType: 'A', // Resource record Name (type: zone.NamedResolutionFieldTypeEnum)
