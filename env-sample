@@ -21,4 +21,8 @@ SMTP_MAXBULK=100
 NO_REPLY_ADDRESS=noreply@localhost
 
 CRON_BROWSER_PASS=cronpass
+
 MOODLE_MANAGER=mail@manageres
+MANAGER_PASSWORD=myverystrongpass
+ASESORIA_PASSWORD=myverystrongpass
+ASESORIA_EMAIL=asesor@aeducar.es

@@ -19,6 +19,6 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "ovh": "^2.0.3",
-    "public-ip": "^4.0.1"
+    "os": "^0.1.1"
   }
 }

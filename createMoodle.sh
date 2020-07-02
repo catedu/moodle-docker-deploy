@@ -24,7 +24,7 @@ showHelp () {
     echo "-e -> administrator email or .env value by default"
     echo "-l -> default language or .env value by default"
     echo "-n -> Full Name Site. or .env value by default"
-    echo "-u -> url moodle: https://sitie.domain.com"
+    echo "-u -> url moodle: https://site.domain.com"
     echo "-h this message"
 }
 
@@ -96,7 +96,7 @@ get_parameter(){
 create_name_dns(){
     echo "Creating domain to moodle in Aeducar Universe: ${1##*//}"
     [ -d "${APIOVH}" ] || { echo "No code to create domain: ${APIOVH}!!"; return 1; }
-    (cd "${APIOVH}" && node createSubdomainIP.js "${1}") || return 1
+    (cd "${APIOVH}" && node createSubdomain.js "${1}") || return 1
     sleep 1
 }
 
@@ -193,6 +193,9 @@ NO_REPLY_ADDRESS="${NO_REPLY_ADDRESS}"
 CRON_BROWSER_PASS="${CRON_BROWSER_PASS}"
 MOODLE_MANAGER="${MOODLE_MANAGER}"
 MANAGER_PASSWORD="${MANAGER_PASSWORD}"
+ASESORIA_PASSWORD="${ASESORIA_PASSWORD}"
+ASESORIA_EMAIL="${ASESORIA_EMAIL}"
+
 EOF
     
 fi

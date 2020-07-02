@@ -49,6 +49,8 @@ services:
       MANAGER_PASSWORD: "${MANAGER_PASSWORD}"
       INSTALL_TYPE: "${INSTALL_TYPE}"
       SCHOOL_TYPE: "${SCHOOL_TYPE}"
+      ASESORIA_PASSWORD: "${ASESORIA_PASSWORD}"
+      ASESORIA_EMAIL: "${ASESORIA_EMAIL}"
     networks:
       - nginx-proxy_frontend
       - redis-network
