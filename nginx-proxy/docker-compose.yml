@@ -41,7 +41,6 @@ services:
       - /sessions
     networks:
       - frontend
-      - backend
     environment:
       VIRTUAL_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
       LETSENCRYPT_HOST: "${PHPMYADMIN_VIRTUAL_HOST}"
@@ -54,9 +53,9 @@ volumes:
   vhost:
   dhparam:
 
-
 networks:
   frontend:
-    driver: bridge
-  backend:
-    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

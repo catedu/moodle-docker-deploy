@@ -49,9 +49,10 @@ services:
       MANAGER_PASSWORD: "${MANAGER_PASSWORD}"
       INSTALL_TYPE: "${INSTALL_TYPE}"
       SCHOOL_TYPE: "${SCHOOL_TYPE}"
+      ASESORIA_PASSWORD: "${ASESORIA_PASSWORD}"
+      ASESORIA_EMAIL: "${ASESORIA_EMAIL}"
     networks:
       - nginx-proxy_frontend
-      - backend
       - redis-network
 
     volumes:
@@ -68,8 +69,6 @@ services:
 networks:
   nginx-proxy_frontend:
     external: true
-  backend:
-    driver: bridge
   redis-network:
     driver: bridge
 
