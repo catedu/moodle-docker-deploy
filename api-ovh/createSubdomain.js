@@ -6,12 +6,13 @@ const ovh = require('ovh')({
   appSecret: process.env.APP_SECRET,
   consumerKey: process.env.TOKEN
 });
+// change ip for host value:
+const ip = "8.8.8.8";
 
 (async () => {
-  const ip = await publicIp.v4();
   const myArgs = process.argv.slice(2);
   if (!myArgs.length) {
-    console.log(`exec: node createSubdomain.js https://<myDomain>.aeducar.es`)
+    console.log(`exec: node createSubdomainIP.js https://<myDomain>.aeducar.es`)
     process.exit(1)
   }
   /* check url belongs to aeducar.es */
