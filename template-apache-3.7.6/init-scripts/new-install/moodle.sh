@@ -62,8 +62,8 @@ moosh config-set airnotifierappname commoodlemoodlemobile
 
 # Set languages
 echo >&2 "Configuring languages..."
-# moosh config-set doclang es
-# moosh config-set lang es
+moosh config-set doclang es
+moosh config-set lang es
 moosh config-set country ES
 moosh config-set timezone Europe/Madrid
 
@@ -179,3 +179,12 @@ moosh role-update-contextlevel --system-off familiar
 moosh role-update-contextlevel --category-off familiar
 moosh role-update-contextlevel --activity-off familiar
 moosh role-update-contextlevel --block-off familiar
+moosh role-update-capability familiar moodle/user:readuserblogs allow 1
+moosh role-update-capability familiar moodle/user:readuserposts allow 1
+moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow 1
+moosh role-update-capability familiar moodle/user:editprofile allow 1
+moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
+
+echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
+echo >&2 "The first one will work... "
+moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
