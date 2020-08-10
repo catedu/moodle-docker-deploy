@@ -75,7 +75,7 @@ moosh config-set hovercolour "\#ff7000" format_tiles
 moosh config-set format tiles moodlecourse
 moosh config-set followthemecolour 1 format_tiles
 moosh config-set tilecolour1 "\#6e0e0f" format_tiles
-moosh config-set colourname1 "Granate\ corporativo" format_tiles
+moosh config-set colourname1 "Granate corporativo" format_tiles
 moosh config-set tilecolour2 "\#4EA399" format_tiles
 moosh config-set colourname2 "Aguamarina" format_tiles
 moosh config-set tilecolour3 "\#854EA3" format_tiles
@@ -92,7 +92,7 @@ moosh config-set showseczerocoursewide 1 format_tiles
 moosh config-set allowphototiles 1 format_tiles
 
 echo >&2 "Configuring block_xp..."
-moosh config-set blocktitle "¡Sube\ de\ nivel\!" block_xp
+moosh config-set blocktitle "¡Sube de nivel!" block_xp
 
 echo >&2 "Configuring local_mail..."
 moosh config-set maxfiles 5 local_mail

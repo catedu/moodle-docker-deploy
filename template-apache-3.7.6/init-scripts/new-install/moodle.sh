@@ -62,8 +62,8 @@ moosh config-set airnotifierappname commoodlemoodlemobile
 
 # Set languages
 echo >&2 "Configuring languages..."
-# moosh config-set doclang es
-# moosh config-set lang es
+moosh config-set doclang es
+moosh config-set lang es
 moosh config-set country ES
 moosh config-set timezone Europe/Madrid
 
@@ -147,6 +147,7 @@ moosh config-set contactdataprotectionofficer 1 tool_dataprivacy
 moosh config-set showdataretentionsummary 0 tool_dataprivacy
 
 # Creating moodle-manager
+echo >&2 "Creating moodle-manager gestorae and giving grants..."
 moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae
 moosh role-create -a manager gestora
 moosh role-update-capability gestora enrol/flatfile:manage allow 1
@@ -166,5 +167,24 @@ moosh config-set dporoles 9 tool_dataprivacy
 moosh user-assign-system-role gestorae gestora
 
 # Creating moodle-asesoria-admin
+echo >&2 "Creating moodle-manager gestorae and giving grants..."
 moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria
 moosh config-set siteadmins 2,4
+
+# Creating parent role
+echo >&2 "Creating parent role and configuring it..."
+moosh role-create -d "Los familiares solo pueden acceder ciertos datos del progreso de sus hijos" -n "Familiar" familiar
+moosh role-update-contextlevel --course-off familiar
+moosh role-update-contextlevel --system-off familiar
+moosh role-update-contextlevel --category-off familiar
+moosh role-update-contextlevel --activity-off familiar
+moosh role-update-contextlevel --block-off familiar
+moosh role-update-capability familiar moodle/user:readuserblogs allow 1
+moosh role-update-capability familiar moodle/user:readuserposts allow 1
+moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow 1
+moosh role-update-capability familiar moodle/user:editprofile allow 1
+moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
+
+echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
+echo >&2 "The first one will work... "
+moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"

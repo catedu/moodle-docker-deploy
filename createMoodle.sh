@@ -56,6 +56,7 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^[Cc][Ee][Ii][Pp] ]] && SCHOOL_TYPE="CEIP"
                 [[ "${OPTARG}" =~ ^[Cc][Pp][Ii] ]] && SCHOOL_TYPE="CPI"
                 [[ "${OPTARG}" =~ ^[Ii][Ee][Ss] ]] && SCHOOL_TYPE="IES"
+                [[ "${OPTARG}" =~ ^[Vv][Aa][Cc][Ii][Oo] ]] && SCHOOL_TYPE="VACIO"
                 [[ "${SCHOOL_TYPE}" = "" ]] && \
                 { echo "Incorrect school type..."; usage; exit 1;}
             ;;
@@ -150,7 +151,7 @@ MOODLE_MYSQL_USER=${MOODLE_DB}
 check_create_dir_exist "${VIRTUALHOST}"
 
 # create database, user and grants
-mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; CREATE USER ${MOODLE_MYSQL_USER} IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'%'" || \
+mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="CREATE DATABASE ${MOODLE_DB} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER '${MOODLE_MYSQL_USER}'@'192.168.1.%' IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB}.* to '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
 { echo "Error at create $VIRTUALHOST DB..."; exit 1; }
 
 
