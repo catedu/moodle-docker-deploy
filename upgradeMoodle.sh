@@ -158,7 +158,7 @@ STEP="init"
 
 # Define Backup dir dinamically by date. Change if its necessary
 BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
-mkdir -p ${BACKUPDIR} || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
+mkdir -p "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
 # Parameters
 PRESERVE=false
@@ -188,10 +188,10 @@ if (cd "${WORKDIR}" && docker-compose stop web moodle && echo "Y" | docker-compo
     elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
     # Service stopped before
     echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} DOWN BEFORE!"
-    exit 1
+    ( $YES || (read -r -p "Do you want to continue UPDATE?...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 1
 else
     echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} FAIL at DOWN!"
-    exit 1
+    ( $YES || (read -r -p "Do you want to continue UPDATE?...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 1
 fi
 STEP="stopservice"
 
