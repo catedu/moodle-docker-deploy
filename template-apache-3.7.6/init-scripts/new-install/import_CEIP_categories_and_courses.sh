@@ -12,121 +12,121 @@ moosh category-create -p 6 -v 1 "Sexto"
 moosh category-create -p 0 -v 1 "Sala de profesorado"
 moosh category-create -p 0 -v 1 "Proyectos de trabajo"
 moosh course-restore /init-scripts/mbzs/10_ceip.mbz 3
-moosh course-config-set course 2 shortname proyecto6_inf_primero
+moosh course-config-set course 2 shortname proyecto6_primero_inf
 moosh course-config-set course 2 fullname "PROYECTO 6 1º"
 moosh course-restore /init-scripts/mbzs/11_ceip.mbz 3
-moosh course-config-set course 3 shortname proyecto4_inf_primero
+moosh course-config-set course 3 shortname proyecto4_primero_inf
 moosh course-config-set course 3 fullname "PROYECTO 4 1º"
 moosh course-restore /init-scripts/mbzs/12_ceip.mbz 3
-moosh course-config-set course 4 shortname proyecto3_inf_primero
+moosh course-config-set course 4 shortname proyecto3_primero_inf
 moosh course-config-set course 4 fullname "PROYECTO 3 1º"cd 
 moosh course-restore /init-scripts/mbzs/13_ceip.mbz 3
-moosh course-config-set course 5 shortname proyecto2_inf_primero
+moosh course-config-set course 5 shortname proyecto2_primero_inf
 moosh course-config-set course 5 fullname "PROYECTO 2 1º"
 moosh course-restore /init-scripts/mbzs/14_ceip.mbz 3
-moosh course-config-set course 6 shortname proyecto1_inf_primero
+moosh course-config-set course 6 shortname proyecto1_primero_inf
 moosh course-config-set course 6 fullname "PROYECTO 1 1º"
 moosh course-restore /init-scripts/mbzs/2_ceip.mbz 3
-moosh course-config-set course 7 shortname english_inf_primero
+moosh course-config-set course 7 shortname english_primero_inf
 moosh course-config-set course 7 fullname "ENGLISH 1º"
 moosh course-restore /init-scripts/mbzs/3_ceip.mbz 3
-moosh course-config-set course 8 shortname atencione_inf_primero
+moosh course-config-set course 8 shortname atencione_primero_inf
 moosh course-config-set course 8 fullname "ATENCIÓN EDUCATIVA 1º"
 moosh course-restore /init-scripts/mbzs/4_ceip.mbz 3
-moosh course-config-set course 9 shortname religion_inf_primero
+moosh course-config-set course 9 shortname religion_primero_inf
 moosh course-config-set course 9 fullname "RELIGIÓN 1º"
 moosh course-restore /init-scripts/mbzs/5_ceip.mbz 3
-moosh course-config-set course 10 shortname aleman_inf_primero
+moosh course-config-set course 10 shortname aleman_primero_inf
 moosh course-config-set course 10 fullname "DEUTSCH 1º"
 moosh course-restore /init-scripts/mbzs/6_ceip.mbz 3
-moosh course-config-set course 11 shortname frances_inf_primero
+moosh course-config-set course 11 shortname frances_primero_inf
 moosh course-config-set course 11 fullname "FRANÇAIS 1º"
 moosh course-restore /init-scripts/mbzs/7_ceip.mbz 3
-moosh course-config-set course 12 shortname proyecto5_inf_primero
+moosh course-config-set course 12 shortname proyecto5_primero_inf
 moosh course-config-set course 12 fullname "PROYECTO 5 1º"
 moosh course-restore /init-scripts/mbzs/8_ceip.mbz 3
-moosh course-config-set course 13 shortname aragones_inf_primero
+moosh course-config-set course 13 shortname aragones_primero_inf
 moosh course-config-set course 13 fullname "ARAGONÉS 1º"
 moosh course-restore /init-scripts/mbzs/9_ceip.mbz 3
-moosh course-config-set course 14 shortname catalan_inf_primero
+moosh course-config-set course 14 shortname catalan_primero_inf
 moosh course-config-set course 14 fullname "CATALÁN 1º"
 moosh course-restore /init-scripts/mbzs/10_ceip.mbz 4
-moosh course-config-set course 15 shortname proyecto6_inf_segundo
+moosh course-config-set course 15 shortname proyecto6_segundo_inf
 moosh course-config-set course 15 fullname "PROYECTO 6 2º"
 moosh course-restore /init-scripts/mbzs/11_ceip.mbz 4
-moosh course-config-set course 16 shortname proyecto4_inf_segundo
+moosh course-config-set course 16 shortname proyecto4_segundo_inf
 moosh course-config-set course 16 fullname "PROYECTO 4 2º"
 moosh course-restore /init-scripts/mbzs/12_ceip.mbz 4
-moosh course-config-set course 17 shortname proyecto3_inf_segundo
+moosh course-config-set course 17 shortname proyecto3_segundo_inf
 moosh course-config-set course 17 fullname "PROYECTO 3 2º"
 moosh course-restore /init-scripts/mbzs/13_ceip.mbz 4
-moosh course-config-set course 18 shortname proyecto2_inf_segundo
+moosh course-config-set course 18 shortname proyecto2_segundo_inf
 moosh course-config-set course 18 fullname "PROYECTO 2 2º"
 moosh course-restore /init-scripts/mbzs/14_ceip.mbz 4
-moosh course-config-set course 19 shortname proyecto1_inf_segundo
+moosh course-config-set course 19 shortname proyecto1_segundo_inf
 moosh course-config-set course 19 fullname "PROYECTO 1 2º"
 moosh course-restore /init-scripts/mbzs/2_ceip.mbz 4
-moosh course-config-set course 20 shortname english_inf_segundo
+moosh course-config-set course 20 shortname english_segundo_inf
 moosh course-config-set course 20 fullname "ENGLISH 2º"
 moosh course-restore /init-scripts/mbzs/3_ceip.mbz 4
-moosh course-config-set course 21 shortname atencione_inf_segundo
+moosh course-config-set course 21 shortname atencione_segundo_inf
 moosh course-config-set course 21 fullname "ATENCIÓN EDUCATIVA 2º"
 moosh course-restore /init-scripts/mbzs/4_ceip.mbz 4
-moosh course-config-set course 22 shortname religion_inf_segundo
+moosh course-config-set course 22 shortname religion_segundo_inf
 moosh course-config-set course 22 fullname "RELIGIÓN 2º"
 moosh course-restore /init-scripts/mbzs/5_ceip.mbz 4
-moosh course-config-set course 23 shortname aleman_inf_segundo
+moosh course-config-set course 23 shortname aleman_segundo_inf
 moosh course-config-set course 23 fullname "DEUTSCH 2º"
 moosh course-restore /init-scripts/mbzs/6_ceip.mbz 4
-moosh course-config-set course 24 shortname frances_inf_segundo
+moosh course-config-set course 24 shortname frances_segundo_inf
 moosh course-config-set course 24 fullname "FRANÇAIS 2º"
 moosh course-restore /init-scripts/mbzs/7_ceip.mbz 4
-moosh course-config-set course 25 shortname proyecto5_inf_segundo
+moosh course-config-set course 25 shortname proyecto5_segundo_inf
 moosh course-config-set course 25 fullname "PROYECTO 5 2º"
 moosh course-restore /init-scripts/mbzs/8_ceip.mbz 4
-moosh course-config-set course 26 shortname aragones_inf_segundo
+moosh course-config-set course 26 shortname aragones_segundo_inf
 moosh course-config-set course 26 fullname "ARAGONÉS 2º"
 moosh course-restore /init-scripts/mbzs/9_ceip.mbz 4
-moosh course-config-set course 27 shortname catalan_inf_segundo
+moosh course-config-set course 27 shortname catalan_segundo_inf
 moosh course-config-set course 27 fullname "CATALÁN 2º"
 moosh course-restore /init-scripts/mbzs/10_ceip.mbz 5
-moosh course-config-set course 28 shortname proyecto6_inf_tercero
+moosh course-config-set course 28 shortname proyecto6_tercero_inf
 moosh course-config-set course 28 fullname "PROYECTO 6 3º"
 moosh course-restore /init-scripts/mbzs/11_ceip.mbz 5
-moosh course-config-set course 29 shortname proyecto4_inf_tercero
+moosh course-config-set course 29 shortname proyecto4_tercero_inf
 moosh course-config-set course 29 fullname "PROYECTO 4 3º"
 moosh course-restore /init-scripts/mbzs/12_ceip.mbz 5
-moosh course-config-set course 30 shortname proyecto3_inf_tercero
+moosh course-config-set course 30 shortname proyecto3_tercero_inf
 moosh course-config-set course 30 fullname "PROYECTO 3 3º"
 moosh course-restore /init-scripts/mbzs/13_ceip.mbz 5
-moosh course-config-set course 31 shortname proyecto2_inf_tercero
+moosh course-config-set course 31 shortname proyecto2_tercero_inf
 moosh course-config-set course 31 fullname "PROYECTO 2 3º"
 moosh course-restore /init-scripts/mbzs/14_ceip.mbz 5
-moosh course-config-set course 32 shortname proyecto1_inf_tercero
+moosh course-config-set course 32 shortname proyecto1_tercero_inf
 moosh course-config-set course 32 fullname "PROYECTO 1 3º"
 moosh course-restore /init-scripts/mbzs/2_ceip.mbz 5
-moosh course-config-set course 33 shortname english_inf_tercero
+moosh course-config-set course 33 shortname english_tercero_inf
 moosh course-config-set course 33 fullname "ENGLISH 3º"
 moosh course-restore /init-scripts/mbzs/3_ceip.mbz 5
-moosh course-config-set course 34 shortname atencione_inf_tercero
+moosh course-config-set course 34 shortname atencione_tercero_inf
 moosh course-config-set course 34 fullname "ATENCIÓN EDUCATIVA 3º"
 moosh course-restore /init-scripts/mbzs/4_ceip.mbz 5
-moosh course-config-set course 35 shortname religion_inf_tercero
+moosh course-config-set course 35 shortname religion_tercero_inf
 moosh course-config-set course 35 fullname "RELIGIÓN 3º"
 moosh course-restore /init-scripts/mbzs/5_ceip.mbz 5
-moosh course-config-set course 36 shortname aleman_inf_tercero
+moosh course-config-set course 36 shortname aleman_tercero_inf
 moosh course-config-set course 36 fullname "DEUTSCH 3º"
 moosh course-restore /init-scripts/mbzs/6_ceip.mbz 5
-moosh course-config-set course 37 shortname frances_inf_tercero
+moosh course-config-set course 37 shortname frances_tercero_inf
 moosh course-config-set course 37 fullname "FRANÇAIS 3º"
 moosh course-restore /init-scripts/mbzs/7_ceip.mbz 5
-moosh course-config-set course 38 shortname proyecto5_inf_tercero
+moosh course-config-set course 38 shortname proyecto5_tercero_inf
 moosh course-config-set course 38 fullname "PROYECTO 5 3º"
 moosh course-restore /init-scripts/mbzs/8_ceip.mbz 5
-moosh course-config-set course 39 shortname aragones_inf_tercero
+moosh course-config-set course 39 shortname aragones_tercero_inf
 moosh course-config-set course 39 fullname "ARAGONÉS 3º"
 moosh course-restore /init-scripts/mbzs/9_ceip.mbz 5
-moosh course-config-set course 40 shortname catalan_inf_tercero
+moosh course-config-set course 40 shortname catalan_tercero_inf
 moosh course-config-set course 40 fullname "CATALÁN 3º"
 moosh course-restore /init-scripts/mbzs/41_ceip.mbz 7
 moosh course-config-set course 41 shortname lengua_primero_prim
