@@ -9,6 +9,7 @@ Arquitecture de deploy moodle containers
 2. Copy .env-sample to .env in nginx-proxy customize your proxy and phpmyadmin connection
 
 3. To create DNS dinamic with OVH provider (api-ovh), you can use api-ovh. Copy .env-sample to .env and customize your API connection with OVH. (not mandatory)
+3.1. It's necessary to run npm install in api-ovh directory for dependences
 
 4. Think and create a template directory (with this name) to deploy
 

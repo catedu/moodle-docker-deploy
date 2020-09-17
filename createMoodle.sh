@@ -49,7 +49,7 @@ get_parameter(){
                 { echo "Incorrect url format..."; usage; exit 1;}
                 MOODLE_URL="${OPTARG}"
                 #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
-                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; }
+                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; exit 1; }
             ;;
             t)
                 SCHOOL_TYPE=""
@@ -98,7 +98,7 @@ create_name_dns(){
     echo "Creating domain to moodle in Aeducar Universe: ${1##*//}"
     [ -d "${APIOVH}" ] || { echo "No code to create domain: ${APIOVH}!!"; return 1; }
     (cd "${APIOVH}" && node createSubdomain.js "${1}") || return 1
-    sleep 1
+    sleep 10
 }
 
 check_url(){

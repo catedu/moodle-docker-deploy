@@ -60,7 +60,7 @@ get_parameter(){
     
     # Mandatory options
     [ -z ${TEMPLATEUDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
-    [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
+    [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory to upgrade"; usage; exit 1;}
     return 0
     
 }
@@ -197,7 +197,7 @@ STEP="stopservice"
 
 ## Backup
 echo "$(basename $0) - Backup DB..."
-mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
+mysqldump --user root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "$(basename $0) - Backup Files..."
 sudo rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
@@ -206,11 +206,11 @@ STEP="backup"
 ## Template
 # Delete moodle-code or not
 if ! $PRESERVE && ( $YES || (read -r -p "Delete ${MOODLECODEDIR}? [s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )); then
-    rm -rf "${WORKDIR:?}/${MOODLECODEDIR}" && echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted !" || \
+    sudo rm -rf "${WORKDIR:?}/${MOODLECODEDIR}" && echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted !" || \
     { echo "$(basename $0) - Clean: ${MOODLECODEDIR} Deleted FAIL!"; exit 1; }
 fi
 # Upgrade skel
-cp -rf ${TEMPLATEUDIR}/* "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
+rsync -av --copy-links "${TEMPLATEUDIR}"/ "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
 # Upgrade new general variables if its indicated
 [ -n "${ENVUPDATE+x}" ] && merge_envs "${WORKDIR}/.env" "${ENVUPDATE}" > /dev/null
 STEP="template"
@@ -230,4 +230,3 @@ sed  -i --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env
 up_service
 
 STEP="end"
-
