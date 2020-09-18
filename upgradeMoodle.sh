@@ -157,7 +157,7 @@ trap 'rollback' INT TERM EXIT
 STEP="init"
 
 # Define Backup dir dinamically by date. Change if its necessary
-BACKUPDIR=$(date +%Y-%m-%d--%H-%M)
+BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)"
 mkdir -p "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
 # Parameters
