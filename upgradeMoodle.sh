@@ -143,7 +143,7 @@ merge_envs(){
     while read -r line; do
         if ! [[ "$line" =~ ^$|#.* ]] && [[ "$line" =~ .*=.* ]]; then
             if grep -q "${line%%=*}=" "${tmpfile}" >/dev/null 2>&1; then
-                sed -i "s/${line%%=*}=.*/$line/" "${tmpfile}"
+                sed -iu "s/${line%%=*}=.*/$line/" "${tmpfile}"
             else
                 echo "$line" >> "${tmpfile}"
             fi
@@ -218,15 +218,16 @@ STEP="template"
 ## Upgrade .env file with new INSTALL_TYPE before up services
 if [[ "${VERSION}" = "${NEWVERSION}" ]]; then
     # update
-    sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
+    sed  -iu --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
 else
     # upgrade
-    sed  -i --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=upgrade/g' "${WORKDIR}.env"
+    sed  -iu --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=upgrade/g' "${WORKDIR}.env"
 fi
 
-sed  -i --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env"
+sed  -iu --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env"
 
-sync
+# Load  .env (changes)
+set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 
 ## Up services
 up_service
