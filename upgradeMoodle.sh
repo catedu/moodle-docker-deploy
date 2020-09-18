@@ -226,6 +226,8 @@ fi
 
 sed  -i --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env"
 
+sync
+
 ## Up services
 up_service
 
