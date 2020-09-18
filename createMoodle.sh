@@ -203,6 +203,17 @@ fi
 
 echo "DEPLOY ${MOODLE_URL} CREATED!"
 
+# Update enviroment variables in execution to run docker-compose...
+# Docker-compose help:
+# When you set the same environment variable in multiple files, here’s the priority used:
+# Compose file
+# Shell environment variables
+# Environment file
+# Dockerfile
+# Variable is not defined
+
+set -a; [ -f "${VIRTUALHOST}/.env" ] && . "${VIRTUALHOST}/.env"; set +a
+
 #up_services
 if (cd "${VIRTUALHOST}" && docker-compose up -d); then
     echo "DEPLOY ${MOODLE_URL} UP!"
@@ -211,4 +222,4 @@ else
 fi
 
 # TO-DO
-# - Mandar un correo al MOODLE_ADMIN_EMAIL????
+# - Send email to MOODLE_ADMIN_EMAIL????
