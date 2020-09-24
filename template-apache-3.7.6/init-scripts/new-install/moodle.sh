@@ -190,6 +190,12 @@ moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10
 echo >&2 "Importing categories and courses..."
 /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
 
+
+#Actualizaciones realizadas a inicio de curso tras la primera creación de instancias
+
+moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','Apta, No apta','Escala Aeducar1');"
+
+echo >&2 "Creando usuarios estudiantes del 1 al 10"
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante1" --lastname "Uno" estudiante1
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante2" --lastname "Dos" estudiante2
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante3" --lastname "Tres" estudiante3
@@ -201,19 +207,8 @@ moosh user-create --password estudiante --email alumnado@education.catedu.es --d
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante9" --lastname "Nueve" estudiante9
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante10" --lastname "Diez" estudiante10
 
-
-#Actualizaciones realizadas a inicio de curso tras la primera creación de instancias
-
-moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','Apta, No apta','Escala Aeducar1');"
-
-
-
-
-
-
-
-
-
+echo >&2 "Permitir a todos los profesores instalar módulos hp5"
+moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
 
 
 #Actualizaciones realizadas el 17-09-20 y traidas para nuevas creaciones: ampliar tamaño de subida archivo por defecto a 50MB (el servidor se amplía hasta 192) y añadir bloque Acceso Familias
