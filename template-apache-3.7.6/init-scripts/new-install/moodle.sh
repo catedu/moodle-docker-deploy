@@ -106,11 +106,6 @@ moosh config-set showuseridentity username
 moosh config-set block_online_users_timetosee 10
 # moosh config-set guestloginbutton 1
 
-
-# import categories and courses
-echo >&2 "Importing categories and courses..."
-/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
-
 # statistics
 moosh config-set enablestats 1
 
@@ -169,7 +164,7 @@ moosh user-assign-system-role gestorae gestora
 # Creating moodle-asesoria-admin
 echo >&2 "Creating moodle-manager gestorae and giving grants..."
 moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria
-moosh config-set siteadmins 2,5
+moosh config-set siteadmins 2,4
 
 # Creating parent role
 echo >&2 "Creating parent role and configuring it..."
@@ -191,6 +186,9 @@ echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\2
 echo >&2 "The first one will work... "
 moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
 
+# import categories and courses
+echo >&2 "Importing categories and courses..."
+/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
 
 #Actualizaciones realizadas a inicio de curso tras la primera creación de instancias
 
