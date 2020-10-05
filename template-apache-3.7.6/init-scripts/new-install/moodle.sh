@@ -207,9 +207,10 @@ moosh user-create --password estudiante --email alumnado@education.catedu.es --d
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante9" --lastname "Nueve" estudiante9
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante10" --lastname "Diez" estudiante10
 
-echo >&2 "Permitir a todos los profesores instalar módulos hp5"
+echo >&2 "Permitir a todos los profesores instalar módulos h5p"
 moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
-
+moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
+moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
 
 #Updates made on 09-17-20 and brought for new creations: expand the default file upload size to 50MB (the server expands to 192) and add Family Access block
 echo >&2 "set value of max_file_size by default in courses"
