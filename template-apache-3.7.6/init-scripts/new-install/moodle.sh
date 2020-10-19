@@ -182,6 +182,11 @@ moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow
 moosh role-update-capability familiar moodle/user:editprofile allow 1
 moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
 
+# Prohibit to write to each other
+echo >&2 "Prohibit to write to each other"
+moosh role-update-capability student moodle/user:viewdetails prohibit 1
+moosh role-update-capability student local/mail:mailsamerole prohibit 1
+
 echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
 echo >&2 "The first one will work... "
 moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
