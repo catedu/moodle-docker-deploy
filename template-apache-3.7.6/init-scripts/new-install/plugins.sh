@@ -99,7 +99,11 @@ moosh config-set maxfiles 5 local_mail
 moosh config-set maxbytes 2097152 local_mail
 moosh config-set enablebackup 1 local_mail
 moosh config-set legacynav 0 local_nav
-moosh role-update-capability student local/mail:mailsamerole prevent 1
+
+# Prohibit to write to each other
+echo >&2 "Prohibit to write to each other"
+moosh role-update-capability student moodle/user:viewdetails prohibit 1
+moosh role-update-capability student local/mail:mailsamerole prohibit 1
 
 set -x
 echo >&2 "Plugins configurated!"
