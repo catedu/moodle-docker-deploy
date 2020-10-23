@@ -392,3 +392,7 @@ moosh course-config-set course 127 fullname "PROYECTO  5"
 moosh course-restore /init-scripts/mbzs/10_ceip.mbz 14
 moosh course-config-set course 128 shortname proyecto_prim_6
 moosh course-config-set course 128 fullname "PROYECTO  6"
+
+echo >&2 "Configuring easy password policy..."
+moosh config-set minpasswordlength 4
+moosh config-set minpasswordupper 0
