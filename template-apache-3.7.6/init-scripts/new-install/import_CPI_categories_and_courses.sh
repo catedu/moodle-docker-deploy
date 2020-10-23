@@ -1148,3 +1148,7 @@ moosh course-config-set category 31 format topics
 moosh course-config-set category 33 format topics
 moosh course-config-set category 34 format topics
 moosh course-config-set category 36 format topics
+
+echo >&2 "Configuring easy password policy..."
+moosh config-set minpasswordlength 4
+moosh config-set minpasswordupper 0
