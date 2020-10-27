@@ -21,18 +21,31 @@ const ovh = require('ovh')({
   var subDomain = url.replace(/^https?\:\/\//i, '').replace('.aeducar.es', '');
   console.log(`Removing A record ${subDomain} to zone aeducar.es `);
 
-  ovh.request('DELETE', `/domain/zone/aeducar.es/record/${subDomain}`, function (error, credential) {
+
+  ovh.request('GET', '/domain/zone/aeducar.es/record', {
+    fieldType: 'A', // Resource record Name (type: zone.NamedResolutionFieldTypeEnum)
+    subDomain// Resource record subdomain (type: string)
+  }, function (error, data) {
+
     if (error) {
       console.log(error)
       process.exit(1)
     }
-    console.log(credential);
-    ovh.request('POST', '/domain/zone/aeducar.es/refresh', function (error, result) {
+    ovh.request('DELETE', `/domain/zone/aeducar.es/record/${data[0]}`, function (error, credential) {
       if (error) {
         console.log(error)
         process.exit(1)
       }
-      console.log(`DNS refreshed!`);
+      ovh.request('POST', '/domain/zone/aeducar.es/refresh', function (error, result) {
+        if (error) {
+          console.log(error)
+          process.exit(1)
+        }
+        console.log(`DNS refreshed!`);
+      });
     });
   });
+
+
+
 })();
