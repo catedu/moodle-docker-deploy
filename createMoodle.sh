@@ -221,5 +221,8 @@ else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
 fi
 
+#make repository dir 
+[ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown www-data:www-data ${VIRTUALHOST}/moodle-data/repository/cursosministerio 
+
 # TO-DO
 # - Send email to MOODLE_ADMIN_EMAIL????
