@@ -221,9 +221,11 @@ else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
 fi
 
-#make repository dir 
+#make repository dir and mount it
 [ ! -d ${VIRTUALHOST}/moodle-data/repository ] && sudo mkdir ${VIRTUALHOST}/moodle-data/repository && sudo chown www-data:www-data ${VIRTUALHOST}/moodle-data/repository
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown www-data:www-data ${VIRTUALHOST}/moodle-data/repository/cursosministerio 
+
+! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio 
 
 # TO-DO
 # - Send email to MOODLE_ADMIN_EMAIL????
