@@ -222,6 +222,7 @@ else
 fi
 
 #make repository dir 
+sleep 10
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown www-data:www-data ${VIRTUALHOST}/moodle-data/repository/cursosministerio 
 
 # TO-DO
