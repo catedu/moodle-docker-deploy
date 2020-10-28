@@ -268,3 +268,8 @@ moosh config-set  message_provider_tool_messageinbound_messageprocessingsuccess_
 moosh config-set  message_provider_tool_monitor_notification_loggedin    popup   message
 moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup   message
 
+#Update capability student configuration for avoiding emails between them
+moosh role-update-capability student moodle/user:viewdetails prohibit 1
+moosh role-update-capability student local/mail:mailsamerole prohibit 1
+
+
