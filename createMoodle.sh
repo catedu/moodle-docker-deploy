@@ -98,7 +98,7 @@ create_name_dns(){
     echo "Creating domain to moodle in Aeducar Universe: ${1##*//}"
     [ -d "${APIOVH}" ] || { echo "No code to create domain: ${APIOVH}!!"; return 1; }
     (cd "${APIOVH}" && node createSubdomain.js "${1}") || return 1
-    sleep 10
+    sleep 40
 }
 
 check_url(){
