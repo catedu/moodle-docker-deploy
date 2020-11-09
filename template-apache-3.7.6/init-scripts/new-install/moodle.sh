@@ -272,4 +272,8 @@ moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup 
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
 moosh role-update-capability student local/mail:mailsamerole prohibit 1
 
-
+echo >&2 "Installing unoconv package"
+sudo apt-get update
+sudo apt-get install unoconv -y
+sudo mkdir ../.config
+sudo chown -R www-data:www-data ../.config
