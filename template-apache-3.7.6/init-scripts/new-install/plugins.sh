@@ -34,6 +34,10 @@ moosh plugin-install -d local_mail
 # moosh-plugin-install -d tool_opcache
 moosh plugin-install -d block_configurable_reports
 moosh plugin-install -d report_coursestats # this one (last one) fails, needs to get activated on screen
+moosh plugin-install -d report_coursesize
+moosh plugin-install -d atto_wiris
+moosh plugin-install -d filter_wiris
+
 echo >&2 "Plugins installed!"
 
 
@@ -104,6 +108,20 @@ moosh config-set legacynav 0 local_nav
 echo >&2 "Prohibit to write to each other"
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
 moosh role-update-capability student local/mail:mailsamerole prohibit 1
+
+echo >&2 "Configuring filter_wiris..."
+moosh config-set editor_enable '1' filter_wiris
+moosh config-set chem_editor_enable '1' filter_wiris
+moosh config-set allow_editorplugin_active_course '0' filter_wiris
+moosh config-set imageservicehost 'www.wiris.net' filter_wiris
+moosh config-set imageservicepath '/demo/editor/render' filter_wiris
+moosh config-set imageserviceprotocol 'https' filter_wiris
+moosh config-set rendertype 'php' filter_wiris
+moosh config-set imageformat 'svg' filter_wiris
+moosh config-set pluginperformance '1' filter_wiris
+moosh config-set editormodalwindowfullscreen '0' filter_wiris
+moosh config-set access_provider_enabled '0' filter_wiris
+sudo chmod o-w filter/wiris
 
 set -x
 echo >&2 "Plugins configurated!"
