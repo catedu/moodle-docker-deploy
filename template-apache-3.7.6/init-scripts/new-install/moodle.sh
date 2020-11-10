@@ -221,6 +221,13 @@ echo >&2 "Adding Mentees block (Acceso Familias)"
 moosh block-add category 1 mentees site-index side-pre 0
 moosh sql-run "update mdl_block_instances SET parentcontextid=1, configdata='Tzo4OiJzdGRDbGFzcyI6MTp7czo1OiJ0aXRsZSI7czoxNToiQWNjZXNvIEZhbWlsaWFzIjt9' WHERE blockname='mentees'"
 
+echo >&2 "Blocking firstname and lastname edition"
+moosh config-set field_lock_firstname unlockedifempty auth_manual
+moosh config-set field_lock_lastname unlockedifempty auth_manual
+
+echo >&2 "Blocking guest users watching forum messages"
+moosh role-update-capability guest mod/forum:viewdiscussion prohibit 1
+
 #Update default notification configuration for users. Popup instead of email.
 echo >&2 "Updating default notification preferences"
 moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
