@@ -37,6 +37,7 @@ moosh plugin-install -d report_coursestats # this one (last one) fails, needs to
 moosh plugin-install -d report_coursesize
 moosh plugin-install -d atto_wiris
 moosh plugin-install -d filter_wiris
+moosh plugin-install -d block_grade_me
 
 echo >&2 "Plugins installed!"
 
