@@ -124,5 +124,11 @@ moosh config-set editormodalwindowfullscreen '0' filter_wiris
 moosh config-set access_provider_enabled '0' filter_wiris
 sudo chmod o-w filter/wiris
 
+echo >&2 "Configuring block_grade_me..."
+moosh config-set block_grade_me_maxcourses 10
+moosh config-set block_grade_me_enableassign 1
+moosh config-set block_grade_me_enableassignment 1
+moosh config-set block_grade_me_enablequiz 1
+
 set -x
 echo >&2 "Plugins configurated!"
