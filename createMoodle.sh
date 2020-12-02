@@ -222,9 +222,10 @@ else
 fi
 
 #make repository dir and mount it
-[ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodlez-data/repository/mbzs
+[ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
 ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio 
+
 
 # TO-DO
 # - Send email to MOODLE_ADMIN_EMAIL????
