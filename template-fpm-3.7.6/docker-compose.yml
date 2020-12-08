@@ -20,6 +20,11 @@ services:
       - phpsocket:/sock
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200m"
+        max-file: "5"
     networks:
       - nginx-proxy_frontend
 
@@ -51,10 +56,14 @@ services:
       SCHOOL_TYPE: "${SCHOOL_TYPE}"
       ASESORIA_PASSWORD: "${ASESORIA_PASSWORD}"
       ASESORIA_EMAIL: "${ASESORIA_EMAIL}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200m"
+        max-file: "5"
     networks:
       - nginx-proxy_frontend
       - redis-network
-
     volumes:
       - ./moodle-data:/var/www/moodledata
       - ./moodle-code:/var/www/html
