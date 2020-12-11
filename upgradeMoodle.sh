@@ -15,6 +15,8 @@ showHelp () {
     echo "-u -> site to upgrade. Accept url or installdir"
     echo "-d -> directory template to upgrade"
     echo "-h this message"
+    echo "Backup moodle site and DB to upgrade in /var/backup_upgrade/ "
+    
 }
 
 get_parameter(){
@@ -156,16 +158,16 @@ trap 'rollback' INT TERM EXIT
 ## STEPS: init, stopservice,backup,template, end
 STEP="init"
 
-# Define Backup dir dinamically by date. Change if its necessary
-BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)"
-mkdir -p "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
-
 # Parameters
 PRESERVE=false
 YES=false
 MOODLECODEDIR="moodle-code"
 get_parameter "$@"
 # WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
+
+# Define Backup dir dinamically by date. Change if its necessary
+BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
+sudo mkdir -p "${BACKUPDIR}" && chown debian:debian "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
 # Load general .env for run backup
 set -a; [ -f .env ] && . .env; set +a
