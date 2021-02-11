@@ -20,11 +20,11 @@ usage () {
 showHelp () {
     echo 'usage: createMoodle.sh [-e mail_admin] [-l es|fr|..] [-n "full_name"] -t type -u "url" short_name'
     echo "Options:"
-    echo "-t -> moodle school type. CEIP|CPI|IES"
+    echo "-t -> moodle school type. CEIP|CPI|IES|FPD"
     echo "-e -> administrator email or .env value by default"
     echo "-l -> default language or .env value by default"
     echo "-n -> Full Name Site. or .env value by default"
-    echo "-u -> url moodle: https://site.domain.com"
+    echo "-u -> url moodle: https://site.domain.com IGNORED when school type is FPD " 
     echo "-h this message"
 }
 
@@ -45,17 +45,23 @@ get_parameter(){
                 MOODLE_SITE_FULLNAME="${OPTARG}"
             ;;
             u)
-                [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
-                { echo "Incorrect url format..."; usage; exit 1;}
-                MOODLE_URL="${OPTARG}"
-                #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
-                check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; exit 1; }
+                if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+                then
+                    MOODLE_URL="https://www.adistanciafparagon.es/"
+                else
+                    [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
+                    { echo "Incorrect url format..."; usage; exit 1;}
+                    MOODLE_URL="${OPTARG}"
+                    #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                    check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; exit 1; }
+                fi
             ;;
             t)
                 SCHOOL_TYPE=""
                 [[ "${OPTARG}" =~ ^[Cc][Ee][Ii][Pp] ]] && SCHOOL_TYPE="CEIP"
                 [[ "${OPTARG}" =~ ^[Cc][Pp][Ii] ]] && SCHOOL_TYPE="CPI"
                 [[ "${OPTARG}" =~ ^[Ii][Ee][Ss] ]] && SCHOOL_TYPE="IES"
+                [[ "${OPTARG}" =~ ^[Ff][Pp][Dd] ]] && SCHOOL_TYPE="FPD"
                 [[ "${OPTARG}" =~ ^[Vv][Aa][Cc][Ii][Oo] ]] && SCHOOL_TYPE="VACIO"
                 [[ "${SCHOOL_TYPE}" = "" ]] && \
                 { echo "Incorrect school type..."; usage; exit 1;}
