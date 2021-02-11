@@ -9,7 +9,7 @@ usage () {
 showHelp () {
     echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "url|dirsite" -d "upgrade_version_template"'
     echo "Options:"
-    echo "-p -> By defautl, moodle-code dir its delete. With -p preserve this directory"
+    echo "-p -> By default, moodle-code dir its delete. With -p preserve this directory"
     echo "-y -> Yes all questions"
     echo "-e -> Add or modify env site variables"
     echo "-u -> site to upgrade. Accept url or installdir"
