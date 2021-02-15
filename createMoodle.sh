@@ -24,7 +24,7 @@ showHelp () {
     echo "-e -> administrator email or .env value by default"
     echo "-l -> default language or .env value by default"
     echo "-n -> Full Name Site. or .env value by default"
-    echo "-u -> url moodle: https://site.domain.com IGNORED when school type is FPD " 
+    echo "-u -> url moodle: https://site.domain.com IGNORED when school type is FPD "
     echo "-h this message"
 }
 
@@ -130,6 +130,7 @@ check_create_dir_exist(){
         exit 1
     else
         mkdir "${1}" && cp -rL template/* "${1}"
+        ## Active read permisssion new-install?
     fi
 }
 
@@ -230,7 +231,7 @@ fi
 #make repository dir and mount it
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio 
+! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
 
 
 # TO-DO

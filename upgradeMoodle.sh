@@ -2,17 +2,17 @@
 set -eu
 
 usage () {
-    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "url|dirsite" -d "upgrade_version_template"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "dirsite" -d "upgrade_version_template"'
     echo "help: upgradeMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "url|dirsite" -d "upgrade_version_template"'
+    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "dirsite" -d "upgrade_version_template"'
     echo "Options:"
     echo "-p -> By default, moodle-code dir its delete. With -p preserve this directory"
     echo "-y -> Yes all questions"
     echo "-e -> Add or modify env site variables"
-    echo "-u -> site to upgrade. Accept url or installdir"
+    echo "-u -> site to upgrade. Only accept installdir"
     echo "-d -> directory template to upgrade"
     echo "-h this message"
     echo "Backup moodle site and DB to upgrade in /var/backup_upgrade/ "
