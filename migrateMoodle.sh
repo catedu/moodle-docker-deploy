@@ -166,8 +166,7 @@ rollback(){
     up_service
 }
 
-trap 'rollback' INT TERM EXIT
-## STEPS: init, stopservice,backup,template, end
+## STEPS: init, stopservice,backup,migrate,upremoteservice, end
 STEP="init"
 
 # Parameters
@@ -180,6 +179,7 @@ CURSOSMIN=false
 
 get_parameter "$@"
 # WORKDIR -> Site Directory
+trap 'rollback' INT TERM EXIT
 
 # Test If Destination Directory exists
 remote_command "[ -d $REMOTEROOT/$WORKDIR ]" && { echo "$(basename $0) - rsync data: $WORKDIR exists at destination!"; exit 1; }

@@ -154,7 +154,6 @@ merge_envs(){
     tee ${1} < "${tmpfile}" && rm -f "${tmpfile}"
 }
 
-trap 'rollback' INT TERM EXIT
 ## STEPS: init, stopservice,backup,template, end
 STEP="init"
 
@@ -164,6 +163,7 @@ YES=false
 MOODLECODEDIR="moodle-code"
 get_parameter "$@"
 # WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
+trap 'rollback' INT TERM EXIT
 
 # Define Backup dir dinamically by date. Change if its necessary
 BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
