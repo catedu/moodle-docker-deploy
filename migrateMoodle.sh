@@ -145,8 +145,10 @@ rollback(){
             remote_command "[ -d ${REMOTEROOT}/${WORKDIR} ] && sudo rm -rf ${REMOTEROOT}/${WORKDIR}" || \
             { echo "# - ERROR: delete WORKDIR in destination fail!...continue"; }
             
-            remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
-            { echo "# - ERROR: at Drop DB an USER in SERVERDB destination..."; }
+            if [ -n "${DBSERVER}" ]; then
+                remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
+                { echo "# - ERROR: at Drop DB an USER in SERVERDB destination..."; }
+            fi
         ;;
         stopservice)
         ;;
@@ -190,10 +192,13 @@ remote_command "[ -d $REMOTEROOT/$WORKDIR ]" && { echo "# $(basename $0) - rsync
 BACKUPDIR="/var/backup_migrate/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
 sudo mkdir -p "${BACKUPDIR}" && sudo chown debian:debian "${BACKUPDIR}" || { echo "# $(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
-# Load general .env for run backup
-set -a; [ -f .env ] && . .env; set +a
+# # Load general .env for run backup
+# set -a; [ -f .env ] && . .env; set +a
+## set -o allexport
+## source .env
+##set +o allexport
 
-# Load WORKDIR .env (override general values)
+# Load WORKDIR .env
 set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 
 ## END Parameters
@@ -215,7 +220,7 @@ STEP="stopservice"
 
 ## Backup
 echo "# $(basename $0) - Backup DB..."
-mysqldump --user root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "# $(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
+mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "# $(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "# $(basename $0) - Backup Files..."
 if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" /proc/mounts >/dev/null; then
@@ -272,12 +277,18 @@ STEP="upremoteservice"
 
 ## Clean origin
 if [ -n "${DBSERVER}" ]; then
-    # Disable DB access to user in source server
+    # Disable DB access to user in DB server if I can!....its my DB server?
+    MYMOODLE_DB_SERVER=$(grep 'MOODLE_DB_HOST=' ${LOCALROOT}/.env | cut -d '=' -f2)
     echo "# $(basename $0) - Disable DB in source DB server"
-    mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="REVOKE ALL PRIVILEGES, GRANT OPTION FROM '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
-    { echo "# - ERROR at revoke DB privilegies to user in source DB server"; }
-    
-    echo "# $(basename $0) - INFO: Remember DELETE DB in source server"
+    if [ "${MOODLE_DB_HOST}" = "${MYMOODLE_DB_SERVER}" ]; then
+        MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' ${LOCALROOT}/.env | cut -d '=' -f2)
+        
+        mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="REVOKE ALL PRIVILEGES, GRANT OPTION FROM '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
+        { echo "# - ERROR at revoke DB privilegies to user in source DB server"; }
+    else
+        echo "# - INFO: I Cant Revoke Priviligies in ${MOODLE_DB_HOST}"
+    fi
+    echo "# - INFO: Remember DELETE DB in source server"
     
 fi
 echo "# $(basename $0) - Deleting source moodle..."

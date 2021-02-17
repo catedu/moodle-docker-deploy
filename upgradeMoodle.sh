@@ -96,7 +96,7 @@ rollback(){
             (cd "${WORKDIR}" && docker-compose down || true)
             
             echo "$(basename $0) - exit: Restore DB"
-            mysqldump --user root --password=${MYSQL_ROOT_PASSWORD} --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql > /dev/null || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
+            mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql > /dev/null || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
             
             echo "$(basename $0) - exit: Restore Files"
             sudo rsync -a "${BACKUPDIR}/${WORKDIR}/" "${WORKDIR}/" || \
@@ -169,8 +169,8 @@ trap 'rollback' INT TERM EXIT
 BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
 sudo mkdir -p "${BACKUPDIR}" && chown debian:debian "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
 
-# Load general .env for run backup
-set -a; [ -f .env ] && . .env; set +a
+# # Load general .env for run backup
+# set -a; [ -f .env ] && . .env; set +a
 
 # Load WORKDIR .env (override general values)
 set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
@@ -199,7 +199,7 @@ STEP="stopservice"
 
 ## Backup
 echo "$(basename $0) - Backup DB..."
-mysqldump --user root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
+mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "$(basename $0) - Backup Files..."
 sudo rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "$(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
