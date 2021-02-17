@@ -47,7 +47,13 @@ get_parameter(){
             u)
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
-                    MOODLE_URL="https://www.adistanciafparagon.es/"
+                    # commented for testing purpose
+                    # MOODLE_URL="https://www.adistanciafparagon.es/"
+                    [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
+                    { echo "Incorrect url format..."; usage; exit 1;}
+                    MOODLE_URL="${OPTARG}"
+                    #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
+                    check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; exit 1; }
                 else
                     [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                     { echo "Incorrect url format..."; usage; exit 1;}
