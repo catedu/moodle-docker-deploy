@@ -206,7 +206,7 @@ set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 install_pkg mariadb-client rsync
 
 ## Stopservice
-if (cd "${WORKDIR}" && docker-compose stop web moodle && echo "Y" | docker-compose rm web moodle); then
+if (cd "${WORKDIR}" && docker-compose stop web moodle redis && echo "Y" | docker-compose rm web moodle redis); then
     echo "# $(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
     elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
     # Service stopped before
