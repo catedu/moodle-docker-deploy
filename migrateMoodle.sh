@@ -254,7 +254,7 @@ if [ -n "${DBSERVER}" ]; then
     
     # Restore DB in DB server destination
     scp -o StrictHostKeyChecking=no -i ${IDENTITY_FILE} ${BACKUPDIR}/${WORKDIR}_db.sql "${REMOTEUSER}@${NEWSERVER}:/tmp/" > /dev/null && \
-    remote_command "mysql --user root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" < /tmp/${WORKDIR}_db.sql" || { echo "# - ERROR: Restore DB in remote server ${MOODLE_DB_HOST_DESTINATION} of ${WORKDIR} FAIL!"; exit 1; }
+    remote_command "mysql --user root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" < /tmp/${WORKDIR}_db.sql" || { echo "# - ERROR: Restore DB in remote server ${MOODLE_DB_HOST_DESTINATION} of ${WORKDIR} FAIL!"; exit 1; }
     remote_command "rm -f /tmp/${WORKDIR}_db.sql" || true
     
     
