@@ -142,11 +142,15 @@ rollback(){
             echo "# $(basename $0) - exit: CLEAN BACKUP FAIL!"
             
             echo "# $(basename $0) - exit (backup): Remove moodle and db in destination"
+            if  remote_command "grep \"${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio\" /proc/mounts >/dev/null"; then
+                CURSOSMIN=true
+                remote_command "sudo umount \"${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio\""
+            fi
             remote_command "[ -d ${REMOTEROOT}/${WORKDIR} ] && sudo rm -rf ${REMOTEROOT}/${WORKDIR}" || \
             { echo "# - ERROR: delete WORKDIR in destination fail!...continue"; }
             
             if [ -n "${DBSERVER}" ]; then
-                remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
+                remote_command "mysql --user=root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
                 { echo "# - ERROR: at Drop DB an USER in SERVERDB destination..."; }
             fi
         ;;
@@ -245,7 +249,7 @@ if [ -n "${DBSERVER}" ]; then
     
     ### OJO QUE NO TENEMOS PERMISO....SOLO DESDE LA MAQUINA MOODLE CORRESPONDIENTE!
     # create database, user and grants
-    remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER '${MOODLE_MYSQL_USER}'@'192.168.1.%' IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB_NAME}.* to '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
+    remote_command "mysql --user=root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER '${MOODLE_MYSQL_USER}'@'192.168.1.%' IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB_NAME}.* to '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
     { echo "# - ERROR at create $WORKDIR DB..."; exit 1; }
     
     # Restore DB in DB server destination
