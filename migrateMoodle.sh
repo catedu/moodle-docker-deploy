@@ -233,7 +233,7 @@ echo "# $(basename $0) - Migrate Moodle..."
 sudo rsync -az --rsync-path="sudo rsync" -e "ssh -o StrictHostKeyChecking=no -i ${IDENTITY_FILE}" "${WORKDIR%\/}" "${REMOTEUSER}@${NEWSERVER}:${REMOTEROOT}/" || { echo "# $(basename $0) - migrate moodle dir: rsync moodle-dir ${WORKDIR} FAIL!"; exit 1; }
 
 if $CURSOSMIN; then
-    remote_command "[ -d ${REMOTEROOT}/zz_cursos_cidead ] && [ -d ${REMOTEROOT}/zz_cursos_cidead ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio ] && sudo mount -o bind ${REMOTEROOT}/zz_cursos_cidead ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" || { echo "# - INFOR Fail to mount cursos_cidead in remote...continue!"; }
+    remote_command "[ -d ${REMOTEROOT}/zz_cursos_cidead ] && [ -d ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio ] && sudo mount -o bind ${REMOTEROOT}/zz_cursos_cidead ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" || { echo "# - INFOR Fail to mount cursos_cidead in remote...continue!"; }
 fi
 
 if [ -n "${DBSERVER}" ]; then
@@ -278,13 +278,14 @@ if [ -n "${DBSERVER}" ]; then
     echo "# $(basename $0) - Disable DB in source DB server"
     if [ "${MOODLE_DB_HOST}" = "${MYMOODLE_DB_SERVER}" ]; then
         MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' ${LOCALROOT}/.env | cut -d '=' -f2)
-        
-        mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="REVOKE ALL PRIVILEGES, GRANT OPTION FROM '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
-        { echo "# - ERROR at revoke DB privilegies to user in source DB server"; }
+        mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
+        echo "# - ERROR at Delete DB and User in DB server"
+        # mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="REVOKE ALL PRIVILEGES, GRANT OPTION FROM '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
+        # { echo "# - ERROR at revoke DB privilegies to user in source DB server"; }
     else
-        echo "# - INFO: I Cant Revoke Priviligies in ${MOODLE_DB_HOST}"
+        echo "# - INFO: I CANT DELETE DB ${MOODLE_DB_NAME} and USER ${MOODLE_MYSQL_USER} in ${MOODLE_DB_HOST}"
     fi
-    echo "# - INFO: Remember DELETE DB in source server"
+    #echo "# - INFO: Remember DELETE DB in source server"
     
 fi
 echo "# $(basename $0) - Deleting source moodle..."
