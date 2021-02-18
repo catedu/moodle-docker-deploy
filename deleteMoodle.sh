@@ -105,13 +105,13 @@ sudo rm -rf "${WORKDIR}" ||  echo "# - ERROR to clean source moodle directory"
 if ${DELETEDB} ; then
     # Check if I can!....its my DB server?
     MYMOODLE_DB_SERVER=$(grep 'MOODLE_DB_HOST=' ${LOCALROOT}/.env | cut -d '=' -f2)
-    echo "# $(basename $0) - Disable DB in source DB server"
+    echo "# $(basename $0) - Delete DB and USER in source DB server"
     if [ "${MOODLE_DB_HOST}" = "${MYMOODLE_DB_SERVER}" ]; then
-        MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' ${LOCALROOT}/.env | cut -d '=' -f2)
+        MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' ${LOCALROOT}/.env | cut -d '"' -f2)
         mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
         echo "# - ERROR at Delete DB and User in DB server"
     else
-        echo "# - INFO: I Cant Delete in ${MOODLE_DB_HOST}!"
+        echo "# - INFO: I CANT DELETE DB ${MOODLE_DB_NAME} and USER ${MOODLE_MYSQL_USER} in ${MOODLE_DB_HOST}!"
     fi
     
 fi
