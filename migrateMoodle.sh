@@ -206,12 +206,8 @@ set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 install_pkg mariadb-client rsync
 
 ## Stopservice
-if (cd "${WORKDIR}" && docker-compose stop web moodle redis && echo "Y" | docker-compose rm web moodle redis); then
+if (cd "${WORKDIR}" && docker-compose down); then
     echo "# $(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
-    elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
-    # Service stopped before
-    echo "# $(basename $0) - stop services: DEPLOY ${WORKDIR} DOWN BEFORE!"
-    ( $YES || (read -r -p "Do you want to continue MIGRATE?...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 1
 else
     echo "# $(basename $0) - stop services: DEPLOY ${WORKDIR} FAIL at DOWN!"
     ( $YES || (read -r -p "Do you want to continue MIGRATE?...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 1
