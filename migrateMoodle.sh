@@ -103,10 +103,10 @@ change_dns(){
         echo "# $(basename $0) - Delete old local DNS..."
         (cd "${APIOVH}" && node deleteSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to delete DNS..."
         echo "# $(basename $0) - Create new remote DNS..."
-        remote_command "cd ${REMOTEROOT}/${APIOVH} && node createSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to create DNS..."
+        remote_command "cd \"${REMOTEROOT}/${APIOVH}\" && node createSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to create DNS..."
     else
         echo "# $(basename $0) - Delete remote DNS..."
-        remote_command "cd ${REMOTEROOT}/${APIOVH} && node deleteSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to delete DNS remote..."
+        remote_command "cd \"${REMOTEROOT}/${APIOVH}\" && node deleteSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to delete DNS remote..."
         echo "# $(basename $0) - Create local DNS..."
         (cd "${APIOVH}" && node createSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to create DNS..."
     fi
@@ -114,10 +114,8 @@ change_dns(){
 }
 
 up_remote_service(){
-    remote_command "cd '${REMOTEROOT}/${WORKDIR}/' && docker-compose up -d"
+    remote_command "cd \"${REMOTEROOT}/${WORKDIR}/\" && docker-compose up -d"
 }
-
-yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
 
 rollback(){
     case $STEP in
@@ -150,7 +148,7 @@ rollback(){
             { echo "# - ERROR: delete WORKDIR in destination fail!...continue"; }
             
             if [ -n "${DBSERVER}" ]; then
-                remote_command "mysql --user=root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
+                remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
                 { echo "# - ERROR: at Drop DB an USER in SERVERDB destination..."; }
             fi
         ;;
@@ -220,42 +218,42 @@ STEP="stopservice"
 
 ## Backup
 echo "# $(basename $0) - Backup DB..."
-mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "# $(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
+mysqldump --lock-tables=false --user "${MOODLE_MYSQL_USER}" --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > "${BACKUPDIR}/${WORKDIR}_db.sql" || { echo "# $(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "# $(basename $0) - Backup Files..."
 if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" /proc/mounts >/dev/null; then
     CURSOSMIN=true
     sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio"
 fi
-sudo rsync -a "${WORKDIR%\/}" ${BACKUPDIR} || { echo "# $(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
+sudo rsync -a "${WORKDIR%\/}" "${BACKUPDIR}" || { echo "# $(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
 
 STEP="backup"
 
 ### MIGRATE ###
 ## Migrate moodle dir
 echo "# $(basename $0) - Migrate Moodle..."
-sudo rsync -az --rsync-path="sudo rsync" -e "ssh -o StrictHostKeyChecking=no -i ${IDENTITY_FILE}" "${WORKDIR%\/}" "${REMOTEUSER}@${NEWSERVER}:${REMOTEROOT}/" || { echo "# $(basename $0) - migrate moodle dir: rsync moodle-dir ${WORKDIR} FAIL!"; exit 1; }
+sudo rsync -az --rsync-path="sudo rsync" -e "ssh -o StrictHostKeyChecking=no -i \"${IDENTITY_FILE}\"" "${WORKDIR%\/}" "${REMOTEUSER}@${NEWSERVER}:${REMOTEROOT}/" || { echo "# $(basename $0) - migrate moodle dir: rsync moodle-dir ${WORKDIR} FAIL!"; exit 1; }
 
 if $CURSOSMIN; then
-    remote_command "[ -d ${REMOTEROOT}/zz_cursos_cidead ] && [ -d ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio ] && sudo mount -o bind ${REMOTEROOT}/zz_cursos_cidead ${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" || { echo "# - INFOR Fail to mount cursos_cidead in remote...continue!"; }
+    remote_command "[ -d \"${REMOTEROOT}/zz_cursos_cidead\" ] && [ -d \"${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio\" ] && sudo mount -o bind \"${REMOTEROOT}/zz_cursos_cidead\" \"${REMOTEROOT}/${WORKDIR}/moodle-data/repository/cursosministerio\"" || { echo "# - INFOR Fail to mount cursos_cidead in remote...continue!"; }
 fi
 
 if [ -n "${DBSERVER}" ]; then
     echo "# $(basename $0) - Recreating DB in destination server ${DBSERVER}..."
     ## Create DB
     # Read .env variables in moodle destination
-    MYSQL_ROOT_PASSWORD_DESTINATION=$(remote_command "grep 'MYSQL_ROOT_PASSWORD=' ${REMOTEROOT}/.env | cut -d '=' -f2")
-    MOODLE_DB_HOST_DESTINATION=$(remote_command "grep 'MOODLE_DB_HOST=' ${REMOTEROOT}/.env | cut -d '=' -f2")
+    MYSQL_ROOT_PASSWORD_DESTINATION=$(remote_command "grep 'MYSQL_ROOT_PASSWORD=' ${REMOTEROOT}/.env | cut -d '=' -f2 | tr -d '\"'")
+    MOODLE_DB_HOST_DESTINATION=$(remote_command "grep 'MOODLE_DB_HOST=' ${REMOTEROOT}/.env | cut -d '=' -f2 | tr -d '\"'")
     
     ### OJO QUE NO TENEMOS PERMISO....SOLO DESDE LA MAQUINA MOODLE CORRESPONDIENTE!
     # create database, user and grants
-    remote_command "mysql --user=root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER '${MOODLE_MYSQL_USER}'@'192.168.1.%' IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB_NAME}.* to '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
+    remote_command "mysql --user=root --password=\"${MYSQL_ROOT_PASSWORD_DESTINATION}\" --host=\"${MOODLE_DB_HOST_DESTINATION}\" --execute=\"CREATE DATABASE ${MOODLE_DB_NAME} DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER '${MOODLE_MYSQL_USER}'@'192.168.1.%' IDENTIFIED BY '${MOODLE_MYSQL_PASSWORD}'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON ${MOODLE_DB_NAME}.* to '${MOODLE_MYSQL_USER}'@'192.168.1.%'\"" || \
     { echo "# - ERROR at create $WORKDIR DB..."; exit 1; }
     
     # Restore DB in DB server destination
-    scp -o StrictHostKeyChecking=no -i ${IDENTITY_FILE} ${BACKUPDIR}/${WORKDIR}_db.sql "${REMOTEUSER}@${NEWSERVER}:/tmp/" > /dev/null && \
-    remote_command "mysql --user root --password=${MYSQL_ROOT_PASSWORD_DESTINATION} --host=\"${MOODLE_DB_HOST_DESTINATION}\" < /tmp/${WORKDIR}_db.sql" || { echo "# - ERROR: Restore DB in remote server ${MOODLE_DB_HOST_DESTINATION} of ${WORKDIR} FAIL!"; exit 1; }
-    remote_command "rm -f /tmp/${WORKDIR}_db.sql" || true
+    scp -o StrictHostKeyChecking=no -i "${IDENTITY_FILE}" "${BACKUPDIR}/${WORKDIR}_db.sql" "${REMOTEUSER}@${NEWSERVER}:/tmp/" > /dev/null && \
+    remote_command "mysql --user root --password='${MYSQL_ROOT_PASSWORD_DESTINATION}' --host='${MOODLE_DB_HOST_DESTINATION}' < '/tmp/${WORKDIR}_db.sql'" || { echo "# - ERROR: Restore DB in remote server ${MOODLE_DB_HOST_DESTINATION} of ${WORKDIR} FAIL!"; exit 1; }
+    remote_command "rm -f '/tmp/${WORKDIR}_db.sql'" || true
     
     
     # Update env at destination
@@ -277,18 +275,16 @@ STEP="upremoteservice"
 
 ## Clean origin
 if [ -n "${DBSERVER}" ]; then
-    # Disable DB access to user in DB server if I can!....its my DB server?
-    MYMOODLE_DB_SERVER=$(grep 'MOODLE_DB_HOST=' ${LOCALROOT}/.env | cut -d '=' -f2)
-    echo "# $(basename $0) - Disable DB in source DB server"
+    # Delete DB and USER in DB server if I can!....its my DB server?
+    MYMOODLE_DB_SERVER=$(grep 'MOODLE_DB_HOST=' "${LOCALROOT}/.env" | cut -d '=' -f2 | tr -d '"')
+    echo "# $(basename $0) - Delete DB and USER in source DB server"
     if [ "${MOODLE_DB_HOST}" = "${MYMOODLE_DB_SERVER}" ]; then
-        MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' ${LOCALROOT}/.env | cut -d '"' -f2)
+        MYSQL_ROOT_PASSWORD=$(grep 'MYSQL_ROOT_PASSWORD=' "${LOCALROOT}/.env" | cut -d '=' -f2 | tr -d '"')
         mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST}" --execute="DROP DATABASE ${MOODLE_DB_NAME}; DROP USER '${MOODLE_MYSQL_USER}'@'192.168.1.%'" || \
         echo "# - ERROR at Delete DB and User in DB server"
     else
         echo "# - INFO: I CANT DELETE DB ${MOODLE_DB_NAME} and USER ${MOODLE_MYSQL_USER} in ${MOODLE_DB_HOST}"
     fi
-    #echo "# - INFO: Remember DELETE DB in source server"
-    
 fi
 echo "# $(basename $0) - Deleting source moodle..."
 sudo rm -rf "${WORKDIR}" || { echo "# - ERROR to clean source moodle directory"; exit 1; }
