@@ -18,26 +18,35 @@ moosh plugin-list >/dev/null
 echo >&2 "Plugin list downloaded!"
 
 
-# INSTALL PLUGINS (them is installed in theme.sh)
+# INSTALL PLUGINS (theme is installed in theme.sh)
 
 echo >&2 "Installing plugins..."
-moosh plugin-install -d theme_moove
-moosh plugin-install -d format_tiles
-moosh plugin-install -d mod_jitsi
-moosh plugin-install -d mod_hvp
-moosh plugin-install -d block_xp
-moosh plugin-install -d availability_xp
-moosh plugin-install -d report_benchmark
-moosh plugin-install -d booktool_wordimport
-moosh plugin-install -d local_mail
-# for moodle 3.8
-# moosh-plugin-install -d tool_opcache
-moosh plugin-install -d block_configurable_reports
-moosh plugin-install -d report_coursestats # this one (last one) fails, needs to get activated on screen
-moosh plugin-install -d report_coursesize
-moosh plugin-install -d atto_wiris
-moosh plugin-install -d filter_wiris
-moosh plugin-install -d block_grade_me
+echo "Moodle's version: ${VERSION}"
+VERSION_MINOR=$(echo ${VERSION} | cut -d. -f1,2)
+echo "Moodle's minor version: ${VERSION_MINOR}"
+
+PLUGINS=( 
+        "theme_moove" 
+        "format_tiles"
+        "mod_jitsi"
+        "mod_hvp"
+        "block_xp"
+        "availability_xp"
+        "report_benchmark"
+        "booktool_wordimport"
+        "local_mail"
+        "block_configurable_reports"
+        "report_coursestats" # this one (last one) fails, needs to get activated on screen
+        "report_coursesize"
+        "atto_wiris"
+        "filter_wiris"
+        "block_grade_me"
+        # for moodle 3.8 "tool_opcache"
+)
+for PLUGIN in "${PLUGINS[@]}"
+do
+    moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
+done
 
 echo >&2 "Plugins installed!"
 
