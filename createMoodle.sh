@@ -47,13 +47,7 @@ get_parameter(){
             u)
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
-                    # commented for testing purpose
-                    # MOODLE_URL="https://www.adistanciafparagon.es/"
-                    [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
-                    { echo "Incorrect url format..."; usage; exit 1;}
-                    MOODLE_URL="${OPTARG}"
-                    #check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; usage; exit 1; }
-                    check_url "${MOODLE_URL}" ||  { echo "$(basename $0): The URL doesn't match with the current ip"; exit 1; }
+                    MOODLE_URL="https://www.adistanciafparagon.es"
                 else
                     [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                     { echo "Incorrect url format..."; usage; exit 1;}
@@ -140,7 +134,7 @@ check_create_dir_exist(){
     fi
 }
 
-yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"; }
+yq() { docker run --rm -i -v "${PWD}":/workdir mikefarah/yq "$@"; }
 
 #Api Ovh generate Dir by default
 APIOVH="api-ovh"
@@ -149,8 +143,8 @@ get_parameter "$@"
 
 VIRTUALHOST="${MOODLE_URL##*//}"
 
-VERSION=$(yq r template/docker-compose.yml services.moodle.image | cut -d: -f2 | cut -d- -f1)
-[ "$VERSION" = "" ] && echo "Unable to get version...but I continue..."
+VERSION=$(yq e .services.moodle.image template/docker-compose.yml | cut -d: -f2 | cut -d- -f1)
+[ "$VERSION" = "" ] && echo "Unable to get version...but I continue..." || echo "Version: ${VERSION}"
 
 # generate data for mysql connection
 # db and user are the same for simplicity, taken url without _ or -
@@ -237,7 +231,12 @@ fi
 #make repository dir and mount it
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
 [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then        
+        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_ministerio /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+    else
+        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+fi
 
 
 # TO-DO
