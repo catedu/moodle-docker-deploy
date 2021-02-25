@@ -25,10 +25,10 @@ STUDIES=( )
 COURSES=( )
 # procedures
 set_studies_to_centre(){
-    echo "**setting studies ${2} to ${1}"
+    echo "** Setting studies ${2} to centre ${1}"
     for STUDY in "${STUDIES[@]}"
     do
-        echo "Processing study: $STUDY"
+        echo "*** Processing study: $STUDY"
         ID_STUDY=`echo $STUDY | cut -d "-" -f 1`
         NAME_STUDY=`echo $STUDY | cut -d "-" -f 2-3`
         CATEGORY_STUDY=`moosh category-create -p ${1} -v 1 -d "${ID_STUDY}" "${NAME_STUDY}"`
@@ -191,22 +191,22 @@ set_studies_to_centre(){
             ;;
             "643-IFC301 - Administración de Sistemas Informáticos en Red")
                 COURSES=( 
-                        "5283-Formación y orientación laboral  ( Distancia )
-                        5274-Fundamentos de hardware.  ( Distancia )
-                        5275-Gestión de bases de datos.  ( Distancia )
-                        5272-Implantación de sistemas operativos.  ( Distancia )
-                        5286-Lengua extranjera profesional: inglés 1  ( Distancia )
-                        5276-Lenguajes de marcas y sistemas de gestión de información.  ( Distancia )
-                        5273-Planificación y administración de redes.  ( Distancia )
-                        5054-Administración de sistemas gestores de bases de datos. ( Distancia )
-                        5051-Administración de sistemas operativos. ( Distancia )
-                        5058-Empresa e iniciativa emprendedora ( Distancia )
-                        5059-Formación en centros de trabajo ( Distancia )
-                        5053-Implantación de aplicaciones web. ( Distancia )
-                        5061-Lengua extranjera profesional: inglés 2 ( Distancia )
-                        5056-Proyecto de administración de sistemas informáticos en red.  ( Distancia )
-                        5055-Seguridad y alta disponibilidad. ( Distancia )
-                        5052-Servicios de red e Internet. ( Distancia )"
+                        "5283-Formación y orientación laboral  ( Distancia )"
+                        "5274-Fundamentos de hardware.  ( Distancia )"
+                        "5275-Gestión de bases de datos.  ( Distancia )"
+                        "5272-Implantación de sistemas operativos.  ( Distancia )"
+                        "5286-Lengua extranjera profesional: inglés 1  ( Distancia )"
+                        "5276-Lenguajes de marcas y sistemas de gestión de información.  ( Distancia )"
+                        "5273-Planificación y administración de redes.  ( Distancia )"
+                        "5054-Administración de sistemas gestores de bases de datos. ( Distancia )"
+                        "5051-Administración de sistemas operativos. ( Distancia )"
+                        "5058-Empresa e iniciativa emprendedora ( Distancia )"
+                        "5059-Formación en centros de trabajo ( Distancia )"
+                        "5053-Implantación de aplicaciones web. ( Distancia )"
+                        "5061-Lengua extranjera profesional: inglés 2 ( Distancia )"
+                        "5056-Proyecto de administración de sistemas informáticos en red.  ( Distancia )"
+                        "5055-Seguridad y alta disponibilidad. ( Distancia )"
+                        "5052-Servicios de red e Internet. ( Distancia )"
                     )
             ;;
             "681-IFC302 - Desarrollo de Aplicaciones Multiplataforma")
@@ -384,20 +384,27 @@ set_studies_to_centre(){
 }
 
 set_modules_to_study(){
-    echo "****setting courses ${2} to category ${1}"
+    echo "**** Setting courses ${2} to category ${1}"
     for COURSE in "${COURSES[@]}"
     do
-        COURSE_ID=`moosh course-restore /init-scripts/mbzs/3-biologia-primero-eso-ies.mbz ${1}`
-        COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
-        moosh course-config-set course ${COURSE_ID} shortname to-do
-        moosh course-config-set course ${COURSE_ID} fullname "${COURSE}"
+        COD_ENSENANZA=`echo "${COURSE}" | cut -d '-' -f 1`
+        if [ ! -f "/var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz" ]; then
+            echo "***** The course /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz doesn't exist"
+        else
+            echo "***** Loading /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz course to category ${1}"
+            COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz ${1}`
+            COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
+            moosh course-config-set course ${COURSE_ID} shortname to-do
+            moosh course-config-set course ${COURSE_ID} fullname "${COURSE}"
+        fi
+        
     done    
 }
 
 # main
 for CENTRE in "${CENTRES[@]}"
 do
-    echo "Processing centre: $CENTRE"
+    echo "* Processing centre: $CENTRE"
     ID_CENTRE=`echo "${CENTRE}" | cut -d '-' -f 1`
     NAME_CENTRE=`echo "${CENTRE}" | cut -d '-' -f 2`
     CATEGORY_IES=`moosh category-create -p 0 -v 1 -d "${ID_CENTRE}" "${NAME_CENTRE}"`
