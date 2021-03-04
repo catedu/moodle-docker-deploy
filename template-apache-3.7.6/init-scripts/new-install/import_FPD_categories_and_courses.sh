@@ -394,7 +394,7 @@ set_modules_to_study(){
             echo "***** Loading /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz course to category ${1}"
             COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz ${1}`
             COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
-            moosh course-config-set course ${COURSE_ID} shortname to-do
+            moosh course-config-set course ${COURSE_ID} shortname ${COD_ENSENANZA}
             moosh course-config-set course ${COURSE_ID} fullname "${COURSE}"
         fi
         
