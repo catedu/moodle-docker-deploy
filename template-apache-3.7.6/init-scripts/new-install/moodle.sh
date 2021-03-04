@@ -167,20 +167,25 @@ moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --di
 moosh config-set siteadmins 2,4
 
 # Creating parent role
-echo >&2 "Creating parent role and configuring it..."
-moosh role-create -d "Los familiares solo pueden acceder ciertos datos del progreso de sus hijos" -n "Familiar" familiar
-moosh role-update-contextlevel --course-off familiar
-moosh role-update-contextlevel --system-off familiar
-moosh role-update-contextlevel --category-off familiar
-moosh role-update-contextlevel --activity-off familiar
-moosh role-update-contextlevel --block-off familiar
-moosh role-update-capability familiar moodle/user:viewalldetails allow 1
-moosh role-update-capability familiar moodle/user:viewdetails allow 1
-moosh role-update-capability familiar moodle/user:readuserblogs allow 1
-moosh role-update-capability familiar moodle/user:readuserposts allow 1
-moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow 1
-moosh role-update-capability familiar moodle/user:editprofile allow 1
-moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "For FP distancia we doesn't create parent role"
+    else
+        echo "Creating parent role and configuring it..."
+        moosh role-create -d "Los familiares solo pueden acceder ciertos datos del progreso de sus hijos" -n "Familiar" familiar
+        moosh role-update-contextlevel --course-off familiar
+        moosh role-update-contextlevel --system-off familiar
+        moosh role-update-contextlevel --category-off familiar
+        moosh role-update-contextlevel --activity-off familiar
+        moosh role-update-contextlevel --block-off familiar
+        moosh role-update-capability familiar moodle/user:viewalldetails allow 1
+        moosh role-update-capability familiar moodle/user:viewdetails allow 1
+        moosh role-update-capability familiar moodle/user:readuserblogs allow 1
+        moosh role-update-capability familiar moodle/user:readuserposts allow 1
+        moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow 1
+        moosh role-update-capability familiar moodle/user:editprofile allow 1
+        moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
+fi
 
 echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
 echo >&2 "The first one will work... "
@@ -207,19 +212,18 @@ moosh user-create --password estudiante --email alumnado@education.catedu.es --d
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante9" --lastname "Nueve" estudiante9
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante10" --lastname "Diez" estudiante10
 
-echo >&2 "Permitir a todos los profesores instalar módulos h5p"
-moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
-moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
-moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
-
 #Updates made on 09-17-20 and brought for new creations: expand the default file upload size to 50MB (the server expands to 192) and add Family Access block
 echo >&2 "set value of max_file_size by default in courses"
 moosh config-set maxbytes 52428800
 
-
-echo >&2 "Adding Mentees block (Acceso Familias)"
-moosh block-add category 1 mentees site-index side-pre 0
-moosh sql-run "update mdl_block_instances SET parentcontextid=1, configdata='Tzo4OiJzdGRDbGFzcyI6MTp7czo1OiJ0aXRsZSI7czoxNToiQWNjZXNvIEZhbWlsaWFzIjt9' WHERE blockname='mentees'"
+if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
+    then
+        echo "FP a distancia doesn't requiere Mentees block"
+    else
+        echo >&2 "Adding Mentees block (Acceso Familias)"
+        moosh block-add category 1 mentees site-index side-pre 0
+        moosh sql-run "update mdl_block_instances SET parentcontextid=1, configdata='Tzo4OiJzdGRDbGFzcyI6MTp7czo1OiJ0aXRsZSI7czoxNToiQWNjZXNvIEZhbWlsaWFzIjt9' WHERE blockname='mentees'"
+fi
 
 echo >&2 "Blocking firstname and lastname edition"
 moosh config-set field_lock_firstname unlockedifempty auth_manual
@@ -230,8 +234,6 @@ moosh role-update-capability guest mod/forum:viewdiscussion prohibit 1
 
 #Update default notification configuration for users. Popup instead of email.
 echo >&2 "Updating default notification preferences"
-moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
-moosh config-set  message_provider_local_mail_mail_loggedoff    popup   message
 moosh config-set  message_provider_mod_assign_assign_notification_loggedin    popup   message
 moosh config-set  message_provider_mod_assign_assign_notification_loggedoff    popup   message
 moosh config-set  message_provider_mod_feedback_message_loggedin    popup   message
@@ -242,10 +244,6 @@ moosh config-set  message_provider_mod_forum_digests_loggedin    popup   message
 moosh config-set  message_provider_mod_forum_digests_loggedoff    popup   message
 moosh config-set  message_provider_mod_forum_posts_loggedin    popup,airnotifier  message
 moosh config-set  message_provider_mod_forum_posts_loggedoff    popup,airnotifier  message
-moosh config-set  message_provider_mod_hvp_confirmation_loggedin    popup,airnotifier  message
-moosh config-set  message_provider_mod_hvp_confirmation_loggedoff    popup,airnotifier  message
-moosh config-set  message_provider_mod_hvp_submission_loggedin    popup   message
-moosh config-set  message_provider_mod_hvp_submission_loggedoff    popup   message
 moosh config-set  message_provider_mod_lesson_graded_essay_loggedin    popup,airnotifier  message
 moosh config-set  message_provider_mod_lesson_graded_essay_loggedoff    popup,airnotifier  message
 moosh config-set  message_provider_mod_quiz_attempt_overdue_loggedin    popup,airnotifier  message
@@ -277,7 +275,6 @@ moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup 
 
 #Update capability student configuration for avoiding emails between them
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
-moosh role-update-capability student local/mail:mailsamerole prohibit 1
 
 echo >&2 "Installing unoconv package"
 sudo apt-get update
