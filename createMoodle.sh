@@ -229,13 +229,17 @@ else
 fi
 
 #make repository dir and mount it
-[ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
-[ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then        
-        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_ministerio /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+    then
+        echo "copying mbzs to virtual host folder... (be pacient)"
+        [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio 
+        sudo cp /var/moodle-docker-deploy/zz_cursos_ministerio/*.mbz ${VIRTUALHOST}/moodle-data/repository/cursosministerio
+        sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+        echo "copied mbzs to virtual host."
     else
-        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+        [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
+        [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio        
 fi
 
 
