@@ -144,7 +144,7 @@ get_parameter "$@"
 VIRTUALHOST="${MOODLE_URL##*//}"
 
 VERSION=$(yq e .services.moodle.image template/docker-compose.yml | cut -d: -f2 | cut -d- -f1)
-[ "$VERSION" = "" ] && echo "Unable to get version...but I continue..." || echo "Version: ${VERSION}"
+[ "$VERSION" = "" ] && { echo "Unable to get version...exit..."; exit 1;} || echo "Version: ${VERSION}"
 
 # generate data for mysql connection
 # db and user are the same for simplicity, taken url without _ or -
@@ -230,16 +230,16 @@ fi
 
 #make repository dir and mount it
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then
-        echo "copying mbzs to virtual host folder... (be pacient)"
-        [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio 
-        sudo cp /var/moodle-docker-deploy/zz_cursos_ministerio/*.mbz ${VIRTUALHOST}/moodle-data/repository/cursosministerio
-        sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-        echo "copied mbzs to virtual host."
-    else
-        [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
-        [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-        ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio        
+then
+    echo "copying mbzs to virtual host folder... (be pacient)"
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio
+    sudo cp /var/moodle-docker-deploy/zz_cursos_ministerio/*.mbz ${VIRTUALHOST}/moodle-data/repository/cursosministerio
+    sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+    echo "copied mbzs to virtual host."
+else
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+    ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
 fi
 
 
