@@ -281,3 +281,7 @@ sudo apt-get update
 sudo apt-get install unoconv -y
 sudo mkdir ../.config
 sudo chown -R www-data:www-data ../.config
+
+echo >&2 "Updating default HTTP configuration"
+moosh config-set getremoteaddrconf 1
+
