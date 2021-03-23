@@ -16,10 +16,11 @@ actions_asociated_to_plugin(){
     echo "Actions for plugin ${1}..."
     case ${1} in
         "mod_hvp")
-            echo "Permitir a todos los profesores instalar módulos h5p"
-            moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
-            moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
-            moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
+            #Comento las siguientes líneas ya que han desaparecido esas capacidades.
+            #echo "Permitir a todos los profesores instalar módulos h5p"
+            #moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
+            #moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
+            #moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
             echo "Updating default notification preferences for h5p"
             moosh config-set  message_provider_mod_hvp_confirmation_loggedin    popup,airnotifier  message
             moosh config-set  message_provider_mod_hvp_confirmation_loggedoff    popup,airnotifier  message
