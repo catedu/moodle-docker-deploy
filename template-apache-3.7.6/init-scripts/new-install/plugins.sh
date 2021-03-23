@@ -99,6 +99,7 @@ actions_asociated_to_plugin(){
         "mod_pdfannotator")
             echo "Configuring mod_pdfannotator..."
             moosh -n config-set usevotes 1 mod_pdfannotator
+            ;;
         *)
             echo "No additional actions for plugin ${1}"
             ;;
