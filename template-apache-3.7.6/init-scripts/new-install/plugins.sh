@@ -96,6 +96,9 @@ actions_asociated_to_plugin(){
             echo "Configuring block_xp..."
             moosh config-set blocktitle "¡Sube de nivel!" block_xp
             ;;
+        "mod_pdfannotator")
+            echo "Configuring mod_pdfannotator..."
+            moosh -n config-set usevotes 1 mod_pdfannotator
         *)
             echo "No additional actions for plugin ${1}"
             ;;
@@ -157,6 +160,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_wiris"
                 "filter_wiris"
                 "block_grade_me"
+                "quizaccess_onesession"
+                "mod_choicegroup"
+                "mod_pdfannotator"
+
                 # for moodle 3.8 "tool_opcache"
         )
 fi
