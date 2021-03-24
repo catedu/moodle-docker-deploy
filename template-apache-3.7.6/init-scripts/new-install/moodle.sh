@@ -143,8 +143,8 @@ moosh config-set showdataretentionsummary 0 tool_dataprivacy
 
 # Creating moodle-manager
 echo >&2 "Creating moodle-manager gestorae and giving grants..."
-moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae
-moosh role-create -a manager gestora
+GESTORAE_USER_ID=`moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae`
+GESTORAE_ROLE_ID=`moosh role-create -a manager gestora`
 moosh role-update-capability gestora enrol/flatfile:manage allow 1
 moosh role-update-capability gestora enrol/flatfile:unenrol allow 1
 moosh role-update-capability gestora repository/upload:view allow 1
@@ -163,16 +163,17 @@ moosh user-assign-system-role gestorae gestora
 
 # Creating moodle-asesoria-admin
 echo >&2 "Creating moodle-manager gestorae and giving grants..."
-moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria
+ASESORIA_USER_ID=`moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria`
+# 2 admin 4 asesoria
 moosh config-set siteadmins 2,4
 
 # Creating parent role
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
-        echo "For FP distancia we doesn't create parent role"
+        echo "For FP distancia we don't create parent role"
     else
         echo "Creating parent role and configuring it..."
-        moosh role-create -d "Los familiares solo pueden acceder ciertos datos del progreso de sus hijos" -n "Familiar" familiar
+        FAMILIAR_ROLE_ID=`moosh role-create -d "Los familiares solo pueden acceder ciertos datos del progreso de sus hijos" -n "Familiar" familiar`
         moosh role-update-contextlevel --course-off familiar
         moosh role-update-contextlevel --system-off familiar
         moosh role-update-contextlevel --category-off familiar
@@ -185,11 +186,12 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability familiar moodle/user:viewuseractivitiesreport allow 1
         moosh role-update-capability familiar moodle/user:editprofile allow 1
         moosh role-update-capability familiar tool/policy:acceptbehalf allow 1
-fi
 
-echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
-echo >&2 "The first one will work... "
-moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
+        echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
+        echo >&2 "The first one will work... "
+        # 9 gestora 10 familiar
+        moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
+fi
 
 # import categories and courses
 echo >&2 "Importing categories and courses..."
@@ -276,8 +278,14 @@ moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup 
 #Update capability student configuration for avoiding emails between them
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
 
-echo >&2 "Installing unoconv package"
-sudo apt-get update
-sudo apt-get install unoconv -y
-sudo mkdir ../.config
-sudo chown -R www-data:www-data ../.config
+#unoconv
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
+    else
+        echo "Installing unoconv package"
+        sudo apt-get update
+        sudo apt-get install unoconv -y
+        sudo mkdir ../.config
+        sudo chown -R www-data:www-data ../.config
+fi
