@@ -21,6 +21,20 @@ moosh config-set theme moove
 # find /init-scripts/snap_settings -type f -printf "%f\n" | xargs tar -zcf snap_settings.tar.gz -C /init-scripts/snap_settings
 # moosh theme-settings-import --targettheme snap snap_settings.tar.gz
 
-cp /init-scripts/themes/*tar.gz /var/www/html/
-moosh theme-settings-import --targettheme moove moove*tar.gz
-cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
+
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
+        moosh theme-settings-import --targettheme moove moove*tar.gz
+        cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
+        cp /init-scripts/themes/fpdist/inc_start.mustache /var/www/html/theme/moove/templates
+        cp /init-scripts/themes/fpdist/header.mustache /var/www/html/theme/moove/templates
+        cp /init-scripts/themes/fpdist/footer.mustache /var/www/html/theme/moove/templates
+        cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
+        moosh config-set frontpage none
+    else
+        cp /init-scripts/themes/*tar.gz /var/www/html/        
+        moosh theme-settings-import --targettheme moove moove*tar.gz
+        cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
+fi
+echo >&2 "Theme configured."
