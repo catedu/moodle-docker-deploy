@@ -18,10 +18,11 @@ actions_asociated_to_plugin(){
     echo "Actions for plugin ${1}..."
     case ${1} in
         "mod_hvp")
-            echo "Permitir a todos los profesores instalar módulos h5p"
-            moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
-            moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
-            moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
+            #Comento las siguientes líneas ya que han desaparecido esas capacidades.
+            #echo "Permitir a todos los profesores instalar módulos h5p"
+            #moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
+            #moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
+            #moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
             echo "Updating default notification preferences for h5p"
             moosh config-set  message_provider_mod_hvp_confirmation_loggedin    popup,airnotifier  message
             moosh config-set  message_provider_mod_hvp_confirmation_loggedoff    popup,airnotifier  message
@@ -105,6 +106,10 @@ actions_asociated_to_plugin(){
             echo "Configuring block_xp..."
             moosh config-set blocktitle "¡Sube de nivel!" block_xp
             ;;
+        "mod_pdfannotator")
+            echo "Configuring mod_pdfannotator..."
+            moosh -n config-set usevotes 1 mod_pdfannotator
+            ;;
         *)
             echo "No additional actions for plugin ${1}"
             ;;
@@ -151,6 +156,9 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_wiris"
                 "filter_wiris"
                 "block_grade_me" # 02/03/2021 block_grade_me is not available for 3.10
+                "quizaccess_onesession"
+                "mod_choicegroup"
+                "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
     else
@@ -170,6 +178,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_wiris"
                 "filter_wiris"
                 "block_grade_me"
+                "quizaccess_onesession"
+                "mod_choicegroup"
+                "mod_pdfannotator"
+
                 # for moodle 3.8 "tool_opcache"
         )
 fi

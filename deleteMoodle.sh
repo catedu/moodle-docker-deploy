@@ -11,9 +11,9 @@ showHelp () {
     echo "Options:"
     echo "-y -> Yes all questions"
     echo "-b -> By default, DB its not removed to new DB Server. With -b, remove DB"
-    echo "-u -> Site to upgrade. Only accept installdir"
+    echo "-u -> Site to delete. Only accept installdir"
     echo "-h this message"
-    echo "Backup moodle site and DB in /var/backup_migrate/ "
+    echo "Backup moodle site and DB in /var/backup_delete/ "
 }
 
 get_parameter(){

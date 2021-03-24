@@ -289,3 +289,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         sudo mkdir ../.config
         sudo chown -R www-data:www-data ../.config
 fi
+
+echo >&2 "Updating default HTTP configuration"
+moosh config-set getremoteaddrconf 1
