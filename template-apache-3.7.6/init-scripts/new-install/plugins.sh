@@ -12,6 +12,8 @@
 #export $(grep -E -v '^#' /init-scripts/.env | xargs)
 
 #
+# Functions
+# 
 actions_asociated_to_plugin(){
     echo "Actions for plugin ${1}..."
     case ${1} in
@@ -73,20 +75,27 @@ actions_asociated_to_plugin(){
             ;;
         "format_tiles")
             echo "Configuring format_tiles..."
-            moosh config-set hovercolour "\#ff7000" format_tiles
-            moosh config-set followthemecolour 1 format_tiles
-            moosh config-set tilecolour1 "\#6e0e0f" format_tiles
-            moosh config-set colourname1 "Granate corporativo" format_tiles
-            moosh config-set tilecolour2 "\#4EA399" format_tiles
-            moosh config-set colourname2 "Aguamarina" format_tiles
-            moosh config-set tilecolour3 "\#854EA3" format_tiles
-            moosh config-set colourname3 "Morado" format_tiles
-            moosh config-set tilecolour4 "\#4A5B8C" format_tiles
-            moosh config-set colourname4 "Azul" format_tiles
-            moosh config-set tilecolour5 "\#4F9949" format_tiles
-            moosh config-set colourname5 "Verde" format_tiles
-            moosh config-set tilecolour6 "\#EA0009" format_tiles
-            moosh config-set colourname6 "Rojo" format_tiles
+
+            if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+                then
+                    echo "TO-DO"
+                else
+                    moosh config-set hovercolour "\#ff7000" format_tiles
+                    moosh config-set followthemecolour 1 format_tiles
+                    moosh config-set tilecolour1 "\#6e0e0f" format_tiles
+                    moosh config-set colourname1 "Granate corporativo" format_tiles
+                    moosh config-set tilecolour2 "\#4EA399" format_tiles
+                    moosh config-set colourname2 "Aguamarina" format_tiles
+                    moosh config-set tilecolour3 "\#854EA3" format_tiles
+                    moosh config-set colourname3 "Morado" format_tiles
+                    moosh config-set tilecolour4 "\#4A5B8C" format_tiles
+                    moosh config-set colourname4 "Azul" format_tiles
+                    moosh config-set tilecolour5 "\#4F9949" format_tiles
+                    moosh config-set colourname5 "Verde" format_tiles
+                    moosh config-set tilecolour6 "\#EA0009" format_tiles
+                    moosh config-set colourname6 "Rojo" format_tiles
+            fi
+            
             moosh config-set modalresources pdf,url,html format_tiles
             moosh config-set showprogresssphototiles 0 format_tiles
             moosh config-set showseczerocoursewide 1 format_tiles
@@ -102,6 +111,10 @@ actions_asociated_to_plugin(){
     esac
     echo "Done with actions asociated to plugin ${1}."
 }
+
+#
+# main
+#
 
 # GET PLUGIN LIST
 
