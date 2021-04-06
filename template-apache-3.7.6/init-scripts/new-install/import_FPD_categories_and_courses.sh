@@ -40,10 +40,10 @@ set_studies_to_centre(){
     do
         echo "*** Processing study: $STUDY"
         ID_STUDY=`echo $STUDY | cut -d "-" -f 1`
-        NAME_STUDY=`echo $STUDY | cut -d "-" -f 2-3`
+        NAME_STUDY=`echo $STUDY | cut -d "-" -f 2`
         CATEGORY_STUDY=`moosh category-create -p ${1} -v 1 -d "${ID_STUDY}" "${NAME_STUDY}"`
         case $STUDY in
-            "639-ADG201 - Gestión Administrativa ")
+            "ADG201-Gestión Administrativa ")
                 COURSES=( 
                         "639t-Coordinación ciclo"
                         "5364-Comunicación empresarial y atención al cliente" 
@@ -60,7 +60,7 @@ set_studies_to_centre(){
                         "5118-Tratamiento de la documentación contable" 
                     )
             ;;
-            "627-ADG301 - Administración y Finanzas")
+            "ADG301-Administración y Finanzas")
                 COURSES=( 
                         "627t-Coordinación ciclo"
                         "5297-Comunicación y atención al cliente"
@@ -79,7 +79,7 @@ set_studies_to_centre(){
                         "5149-Simulación empresarial"
                     )
             ;;
-            "750-ADG302 - ADG302 - Asistencia a la Dirección")
+            "ADG302-Asistencia a la Dirección")
                 COURSES=(
                         "750t-Coordinación ciclo"
                         "7855-Comunicación y atención al cliente"
@@ -98,7 +98,7 @@ set_studies_to_centre(){
                         "10793-Segunda lengua extranjera: Italiano"
                     )
             ;;
-            "83-COM301 - Comercio Internacional")
+            "COM301-Comercio Internacional")
                 COURSES=(
                         "83t-Coordinación ciclo"
                         "5417-Formación y Orientación Laboral"
@@ -117,7 +117,7 @@ set_studies_to_centre(){
                         "5158-Sistema de información de mercados"
                     )
             ;;
-            "738-COM302 - Gestión de Ventas y Espacios Comerciales")
+            "COM302-Gestión de Ventas y Espacios Comerciales")
                 COURSES=(
                         "738t-Coordinación ciclo"
                         "8412-Formación y orientación laboral"
@@ -136,7 +136,7 @@ set_studies_to_centre(){
                         "7920-Técnicas de venta y negociación"
                     )
             ;;
-            "85-COM303 - Transporte y Logística")
+            "COM303-Transporte y Logística")
                 COURSES=(
                         "85t-Coordinación ciclo"
                         "5430-Formación y orientación laboral"
@@ -154,7 +154,7 @@ set_studies_to_centre(){
                         "5204-Proyecto de transporte y logística"
                     )
             ;;
-            "624-ELE202 - Instalaciones Eléctricas y Automáticas")
+            "ELE202-Instalaciones Eléctricas y Automáticas")
                 COURSES=(
                         "624t-Coordinación ciclo"
                         "5335-Automatismos industriales"
@@ -171,7 +171,7 @@ set_studies_to_centre(){
                         "4984-Máquinas eléctricas"
                     )
             ;;
-            "645-HOT301 - Agencias de Viajes y Gestión de Eventos")
+            "HOT301-Agencias de Viajes y Gestión de Eventos")
                 COURSES=( 
                         "645t-Coordinación ciclo"
                         "5456-Destinos turísticos"
@@ -190,7 +190,7 @@ set_studies_to_centre(){
                         "5237-Venta de servicios turísticos"
                     )
             ;;
-            "627-IFC201 - Sistemas Microinformáticos y Redes")
+            "IFC201-Sistemas Microinformáticos y Redes")
                 COURSES=( 
                         "627t-Coordinación ciclo"
                         "5349-Aplicaciones ofimáticas"
@@ -208,7 +208,7 @@ set_studies_to_centre(){
                         "4991-Sistemas operativos en red"
                     )
             ;;
-            "643-IFC301 - Administración de Sistemas Informáticos en Red")
+            "IFC301-Administración de Sistemas Informáticos en Red")
                 COURSES=( 
                         "643t-Coordinación ciclo"
                         "5283-Formación y orientación laboral "
@@ -229,7 +229,7 @@ set_studies_to_centre(){
                         "5052-Servicios de red e Internet."
                     )
             ;;
-            "681-IFC302 - Desarrollo de Aplicaciones Multiplataforma")
+            "IFC302-Desarrollo de Aplicaciones Multiplataforma")
                 COURSES=( 
                         "681t-Coordinación ciclo"
                         "5290-Bases de datos"
@@ -250,7 +250,7 @@ set_studies_to_centre(){
                         "5071-Sistemas de gestión empresarial"
                     )
             ;;
-            "682-IFC303 - Desarrollo de Aplicaciones WEB")
+            "IFC303-Desarrollo de Aplicaciones WEB")
                 COURSES=( 
                         "682t-Coordinación ciclo"
                         "5180-Bases de datos"
@@ -270,7 +270,7 @@ set_studies_to_centre(){
                         "5087-Proyecto de desarrollo de aplicaciones Web"
                     )
             ;;
-            "745-IMS302 - Producción de Audiovisuales y Espectáculos ")
+            "IMS302-Producción de Audiovisuales y Espectáculos ")
                 COURSES=( 
                         "745t-Coordinación ciclo"
                         "9333-Formación y orientación laboral"
@@ -289,7 +289,7 @@ set_studies_to_centre(){
                         "7951-Proyecto de producción de audiovisuales y espectáculos"
                     )
             ;;
-            "122-QUI301 - Laboratorio de Análisis y de Control de Calidad")
+            "QUI301-Laboratorio de Análisis y de Control de Calidad")
                 COURSES=( 
                         "122t-Coordinación ciclo"
                         "5256-Análisis químicos"
@@ -308,7 +308,7 @@ set_studies_to_centre(){
                         "5039-Proyecto de laboratorio de análisis y de control de calidad"
                     )
             ;;
-            "630-SAN202 - Farmacia y Parafarmacia")
+            "SAN202-Farmacia y Parafarmacia")
                 COURSES=( 
                         "630t-Coordinación ciclo"
                         "5324-Anatomofisiología  y Patología básicas"
@@ -325,7 +325,7 @@ set_studies_to_centre(){
                         "4972-Promoción de la salud "
                     )
             ;;
-            "618-SAN203 - Emergencias Sanitarias")
+            "SAN203-Emergencias Sanitarias")
                 COURSES=( 
                         "618t-Coordinación ciclo"
                         "5319-Anatomofisiología y patología básicas"
@@ -343,7 +343,7 @@ set_studies_to_centre(){
                         "4959-Tele emergencia"
                     )
             ;;
-            "687-SSC201 - Atención a Personas en situación de Dependencia")
+            "SSC201-Atención a Personas en situación de Dependencia")
                 COURSES=( 
                         "687t-Coordinación ciclo"
                         "5381-Apoyo domiciliario"
@@ -361,7 +361,7 @@ set_studies_to_centre(){
                         "5135-Teleasistencia"
                     )
             ;;
-            "140-SSC302 - Educación Infantil (Formación Profesional)")
+            "SSC302-Educación Infantil (Formación Profesional)")
                 COURSES=( 
                         "140t-Coordinación ciclo"
                         "5433-Autonomía personal y salud infantil."
@@ -381,7 +381,7 @@ set_studies_to_centre(){
                         "5215-Proyecto de atención a la infancia."
                     )
             ;;
-            "768-SSC303 - Integración Social")
+            "SSC303-Integración Social")
                 COURSES=( 
                         "768t-Coordinación ciclo"
                         "7878-Apoyo a la intervención educativa"
@@ -493,85 +493,85 @@ do
     CATEGORY_IES=`moosh category-create -p 0 -v 1 -d "${ID_CENTRE}" "${NAME_CENTRE}"`
     case $CENTRE in
         "22002521-IES SIERRA DE GUARA")
-            STUDIES=( "639-ADG201 - Gestión Administrativa " )
+            STUDIES=( "ADG201-Gestión Administrativa " )
         ;;
         "44003211-IES SANTA EMERENCIANA")
-            STUDIES=("639-ADG201 - Gestión Administrativa ")
+            STUDIES=("ADG201-Gestión Administrativa ")
         ;;
         "50010511-IES TIEMPOS MODERNOS")
-            STUDIES=("639-ADG201 - Gestión Administrativa ")
+            STUDIES=("ADG201-Gestión Administrativa ")
         ;;
         "50010314-CPIFP LOS ENLACES")
             STUDIES=( 
-                    "627-IFC201 - Sistemas Microinformáticos y Redes" 
-                    "738-COM302 - Gestión de Ventas y Espacios Comerciales" 
-                    "85-COM303 - Transporte y Logística" 
-                    "682-IFC303 - Desarrollo de Aplicaciones WEB" 
-                    "745-IMS302 - Producción de Audiovisuales y Espectáculos " 
+                    "IFC201-Sistemas Microinformáticos y Redes" 
+                    "COM302-Gestión de Ventas y Espacios Comerciales" 
+                    "COM303-Transporte y Logística" 
+                    "IFC303-Desarrollo de Aplicaciones WEB" 
+                    "IMS302-Producción de Audiovisuales y Espectáculos " 
                 )
         ;;
         "50018829-CPIFP CORONA DE ARAGÓN")
             STUDIES=( 
-                    "83-COM301 - Comercio Internacional"
-                    "750-ADG302 - Asistencia a la Dirección" 
-                    "79-ADG301 - Administración y Finanzas" 
-                    "122-QUI301 - Laboratorio de Análisis y de Control de Calidad" 
+                    "COM301-Comercio Internacional"
+                    "ADG302-Asistencia a la Dirección" 
+                    "ADG301-Administración y Finanzas" 
+                    "QUI301-Laboratorio de Análisis y de Control de Calidad" 
                 )
         ;;
         "22010712-CPIFP PIRÁMIDE")
             STUDIES=( 
-                    "624-ELE202 - Instalaciones Eléctricas y Automáticas"
+                    "ELE202-Instalaciones Eléctricas y Automáticas"
                 )
         ;;
         "50010156-IES MIRALBUENO")
             STUDIES=( 
-                    "645-HOT301 - Agencias de Viajes y Gestión de Eventos"
+                    "HOT301-Agencias de Viajes y Gestión de Eventos"
                 )
         ;;
         "50010144-IES PABLO SERRANO")
             STUDIES=( 
-                    "643-IFC301 - Administración de Sistemas Informáticos en Red"
+                    "IFC301-Administración de Sistemas Informáticos en Red"
                 )
         ;;
         "44010537-CPIFP BAJO ARAGÓN")
             STUDIES=( 
-                    "681-IFC302 - Desarrollo de Aplicaciones Multiplataforma"
+                    "IFC302-Desarrollo de Aplicaciones Multiplataforma"
                 )
         ;;
         "50009567-IES RÍO GÁLLEGO")
             STUDIES=( 
-                    "630-SAN202 - Farmacia y Parafarmacia"
-                    "618-SAN203 - Emergencias Sanitarias"
+                    "SAN202-Farmacia y Parafarmacia"
+                    "SAN203-Emergencias Sanitarias"
                 )
         ;;
         "44003235-IES VEGA DEL TURIA")
             STUDIES=( 
-                    "618-SAN203 - Emergencias Sanitarias"
+                    "SAN203-Emergencias Sanitarias"
                 )
         ;;
         "50008460-IES LUIS BUÑUEL")
             STUDIES=( 
-                    "687-SSC201 - Atención a Personas en situación de Dependencia"
+                    "SSC201-Atención a Personas en situación de Dependencia"
                 )
         ;;
         "22002491-CPIFP MONTEARAGON")
             STUDIES=( 
-                    "687-SSC201 - Atención a Personas en situación de Dependencia"
+                    "SSC201-Atención a Personas en situación de Dependencia"
                 )
         ;;
         "22004611-IES MARTÍNEZ VARGAS")
             STUDIES=( 
-                    "140-SSC302 - Educación Infantil (Formación Profesional)"
+                    "SSC302-Educación Infantil (Formación Profesional)"
                 )
         ;;
         "50009348-IES AVEMPACE")
             STUDIES=( 
-                    "140-SSC302 - Educación Infantil (Formación Profesional)"
+                    "SSC302-Educación Infantil (Formación Profesional)"
                 )
         ;;
         "50008642-IES MARÍA MOLINER")
             STUDIES=( 
-                    "768-SSC303 - Integración Social"
+                    "SSC303-Integración Social"
                 )
         ;;
     esac
