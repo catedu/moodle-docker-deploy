@@ -284,10 +284,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
     else
         echo "Installing unoconv package"
-        sudo apt-get update
-        sudo apt-get install unoconv -y
-        sudo mkdir ../.config
-        sudo chown -R www-data:www-data ../.config
+        apt-get update
+        apt-get install unoconv -y
+        mkdir ../.config
+        chown -R www-data:www-data ../.config
 fi
 
 echo >&2 "Updating default HTTP configuration"
