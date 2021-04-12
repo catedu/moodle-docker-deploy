@@ -10,7 +10,7 @@
 
 
 # Config theme snap, already imported via plugins.sh
-echo >&2 "Configuring theme..."
+echo "Configuring theme..."
 
 moosh config-set theme moove
 # import theme settings:
@@ -24,6 +24,7 @@ moosh config-set theme moove
 
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
+        echo "... for FPD..."
         cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
         moosh theme-settings-import --targettheme moove moove*tar.gz
         cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
@@ -33,6 +34,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
         moosh config-set frontpage none
     else
+        echo "... for not FPD..."
         cp /init-scripts/themes/*tar.gz /var/www/html/        
         moosh theme-settings-import --targettheme moove moove*tar.gz
         cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
