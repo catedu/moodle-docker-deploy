@@ -153,8 +153,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "report_coursestats" # this one (last one) fails, needs to get activated on screen
                                     # 02/03/2021 report_coursestats is not available for 3.10
                 "report_coursesize" # 02/03/2021 report_coursesize is not available for 3.10
-                "atto_wiris"
-                "filter_wiris"
                 "block_grade_me" # 02/03/2021 block_grade_me is not available for 3.10
                 "quizaccess_onesession"
                 "mod_choicegroup"
