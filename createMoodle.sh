@@ -165,10 +165,14 @@ mysql --user="root" --password="${MYSQL_ROOT_PASSWORD}" --host="${MOODLE_DB_HOST
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 then
     cp template/php-conf/uploads.ini.FPD template/php-conf/uploads.ini
+    rm 
 else
     cp template/php-conf/uploads.ini.RESTO template/php-conf/uploads.ini
 fi
+rm template/php-conf/uploads.ini.FPD
+rm template/php-conf/uploads.ini.RESTO
 
+#
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
     cat > "${VIRTUALHOST}/.env" << EOF
 
