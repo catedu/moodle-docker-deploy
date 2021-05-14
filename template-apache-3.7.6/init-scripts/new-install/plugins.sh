@@ -108,7 +108,7 @@ actions_asociated_to_plugin(){
             ;;
         "mod_pdfannotator")
             echo "Configuring mod_pdfannotator..."
-            moosh -n config-set usevotes 1 mod_pdfannotator
+            moosh config-set usevotes 1 mod_pdfannotator
             ;;
         *)
             echo "No additional actions for plugin ${1}"
@@ -159,6 +159,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "mod_pdfannotator"
+		"mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
     else
@@ -180,8 +181,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "block_grade_me"
                 "quizaccess_onesession"
                 "mod_choicegroup"
+	        "mod_pdfannotator"
                 "mod_pdfannotator"
-
                 # for moodle 3.8 "tool_opcache"
         )
 fi
@@ -190,6 +191,7 @@ for PLUGIN in "${PLUGINS[@]}"
 do
     moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
 done
+
 
 echo >&2 "Plugins installed!"
 
