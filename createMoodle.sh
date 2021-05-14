@@ -170,9 +170,10 @@ else
 fi
 if [ -f "${VIRTUALHOST}/php-conf/uploads.ini.FPD" ]; then
     rm "${VIRTUALHOST}/php-conf/uploads.ini.FPD"
+fi
 if [ -f "${VIRTUALHOST}/php-conf/uploads.ini.RESTO" ]; then
     rm "${VIRTUALHOST}/php-conf/uploads.ini.RESTO"
-
+fi
 #
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
     cat > "${VIRTUALHOST}/.env" << EOF
