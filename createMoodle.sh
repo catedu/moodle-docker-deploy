@@ -168,8 +168,10 @@ then
 else
     cp template/php-conf/uploads.ini.RESTO template/php-conf/uploads.ini
 fi
-rm template/php-conf/uploads.ini.FPD
-rm template/php-conf/uploads.ini.RESTO
+if [ -f "${VIRTUALHOST}/php-conf/uploads.ini.FPD" ]; then
+    rm "${VIRTUALHOST}/php-conf/uploads.ini.FPD"
+if [ -f "${VIRTUALHOST}/php-conf/uploads.ini.RESTO" ]; then
+    rm "${VIRTUALHOST}/php-conf/uploads.ini.RESTO"
 
 #
 if [ ! -f "${VIRTUALHOST}/.env" ]; then
