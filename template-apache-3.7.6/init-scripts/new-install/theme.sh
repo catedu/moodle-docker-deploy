@@ -35,6 +35,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh config-set frontpage none
         # set the default img for courses in lists. Doesn't modify course header
         cp /init-scripts/themes/fpdist/img/default_course.jpg /var/www/html/theme/moove/pix/ 
+        # soporte
+        cp /init-scripts/themes/fpdist/soporte/index.php /var/www/html/soporte/index.php
     else
         echo "... for not FPD..."
         cp /init-scripts/themes/*tar.gz /var/www/html/        
