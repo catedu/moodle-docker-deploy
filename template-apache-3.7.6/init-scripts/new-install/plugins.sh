@@ -174,12 +174,12 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "block_configurable_reports"
                 "report_coursestats" # this one (last one) fails, needs to get activated on screen
                 "report_coursesize"
-                "atto_wiris"
-                "filter_wiris"
+                # "atto_wiris"
+                # "filter_wiris"
                 "block_grade_me"
                 "quizaccess_onesession"
                 "mod_choicegroup"
-	        "mod_pdfannotator"
+	            "mod_pdfannotator"
                 "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
