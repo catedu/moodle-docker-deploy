@@ -42,6 +42,7 @@ set_studies_to_centre(){
         ID_STUDY=`echo $STUDY | cut -d "-" -f 1`
         NAME_STUDY=`echo $STUDY | cut -d "-" -f 2`
         CATEGORY_STUDY=`moosh category-create -p ${1} -v 1 -d "${ID_STUDY}" "${NAME_STUDY}"`
+        moosh cohort-create -d "${ID_STUDY}" -i ${2}-${ID_STUDY} -c ${CATEGORY_STUDY} "${ID_STUDY}"
         case $STUDY in
             "ADG201-Gestión Administrativa ")
                 COURSES=( 
@@ -504,6 +505,7 @@ do
         "50010314-CPIFP LOS ENLACES")
             STUDIES=( 
                     "IFC201-Sistemas Microinformáticos y Redes" 
+                    "COM301-Comercio Internacional"
                     "COM302-Gestión de Ventas y Espacios Comerciales" 
                     "COM303-Transporte y Logística" 
                     "IFC303-Desarrollo de Aplicaciones WEB" 
@@ -512,7 +514,6 @@ do
         ;;
         "50018829-CPIFP CORONA DE ARAGÓN")
             STUDIES=( 
-                    "COM301-Comercio Internacional"
                     "ADG302-Asistencia a la Dirección" 
                     "ADG301-Administración y Finanzas" 
                     "QUI301-Laboratorio de Análisis y de Control de Calidad" 
