@@ -42,7 +42,7 @@ set_studies_to_centre(){
         ID_STUDY=`echo $STUDY | cut -d "-" -f 1`
         NAME_STUDY=`echo $STUDY | cut -d "-" -f 2`
         CATEGORY_STUDY=`moosh category-create -p ${1} -v 1 -d "${ID_STUDY}" "${NAME_STUDY}"`
-        moosh cohort-create -d "${ID_STUDY}" -i ${2}-${ID_STUDY} -c ${CATEGORY_STUDY} "${ID_STUDY}"
+        moosh cohort-create -d "${COD_CENTRE}-${ID_STUDY}" -i ${COD_CENTRE}-${ID_STUDY} -c ${1} "${COD_CENTRE}-${ID_STUDY}"
         case $STUDY in
             "ADG201-Gestión Administrativa ")
                 COURSES=( 
@@ -428,15 +428,24 @@ set_modules_to_study(){
         echo "***** Setting course ${COURSE} to study category ${1} (cod_centre ${2} cod_study ${3})"
         COD_ENSENANZA=`echo "${COURSE}" | cut -d '-' -f 1`
         NAME_ENSENANZA=`echo "${COURSE}" | cut -d '-' -f 2`
+        COURSE_ID=""
+        
         if [ ! -f "/var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz" ]; then
-            echo "***+** The course /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz doesn't exist, creating empty course ${COURSE} into category ${1}"
-            moosh course-create --category ${1} --fullname "${NAME_ENSENANZA}" --description "${COURSE}" "${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}"
+            echo "***** The course /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz doesn't exist, creating empty course ${COURSE} into category ${1}"
+            COURSE_ID=`moosh course-create --category ${1} --fullname "${NAME_ENSENANZA}" --description "${COURSE}" "${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}"`
         else
-            echo "***+** Loading /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz course to category ${1}"
+            echo "***** Loading /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz course to category ${1}"
             COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz ${1}`
             COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
             moosh course-config-set course ${COURSE_ID} shortname "${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}"
             moosh course-config-set course ${COURSE_ID} fullname "${NAME_ENSENANZA}"
+        fi
+
+        # si el cod_ensenanza contiene una t matricular en el curso a través de la cohorte
+        if [[ ${COD_ENSENANZA} == *t ]]; 
+        then
+            echo "****** Enrolling the cohort ${COD_CENTRE}-${COD_STUDY} into the course_id ${COURSE_ID}  "
+            moosh cohort-enrol -c ${COURSE_ID} "${COD_CENTRE}-${COD_STUDY}"
         fi
         
     done    
@@ -448,10 +457,10 @@ set_modules_to_study(){
 
 # Creo la categoría general con los 3 cursos que colgarán de ella
 ID_CATEGORY=`moosh category-create -p 0 -v 1 -d "general" "General"`
-
+# TODO: crear cohorte
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/ayuda.mbz" ]; then
     echo "creating empty course ayuda"
-    moosh course-create --category ${ID_CATEGORY} --fullname "Curso de ayuda" --description "Curso de ayuda" ayuda
+    COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de ayuda" --description "Curso de ayuda" ayuda`
 else
     echo "restoring course ayuda"
     COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/ayuda.mbz ${ID_CATEGORY}`
@@ -459,10 +468,11 @@ else
     moosh course-config-set course ${COURSE_ID} shortname ayuda
     moosh course-config-set course ${COURSE_ID} fullname "Curso de ayuda"
 fi
-
+# TODO: asignar curso a cohorte
+# TODO: crear cohorte
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/profesorado.mbz" ]; then
     echo "creating empty course profesorado"
-    moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de profesorado" --description "Curso de Sala de profesorado" profesorado
+    COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de profesorado" --description "Curso de Sala de profesorado" profesorado`
 else
     echo "restoring profesorado course"
     COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/profesorado.mbz ${ID_CATEGORY}`
@@ -470,10 +480,11 @@ else
     moosh course-config-set course ${COURSE_ID} shortname profesorado
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de profesorado"
 fi
-
+# TODO: asignar curso a cohorte
+# TODO: crear cohorte
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/coordinacion.mbz" ]; then
     echo "creating empty course coordinacion"
-    moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de coordinacion" --description "Curso de Sala de coordinacion" coordinacion
+    COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de coordinacion" --description "Curso de Sala de coordinacion" coordinacion`
 else
     echo "restoring coordinación course"
     COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/coordinacion.mbz ${ID_CATEGORY}`
@@ -481,7 +492,7 @@ else
     moosh course-config-set course ${COURSE_ID} shortname coordinacion
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de coordinación"
 fi
-
+# TODO: asignar curso a cohorte
 moosh course-config-set category ${ID_CATEGORY} format topics
 
 # creo la estructura de centros > ciclos > módulos
