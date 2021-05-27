@@ -57,6 +57,12 @@ services:
       VERSION: "${VERSION}"
       ASESORIA_PASSWORD: "${ASESORIA_PASSWORD}"
       ASESORIA_EMAIL: "${ASESORIA_EMAIL}"
+      FPD_PASSWORD: "${FPD_PASSWORD}"
+      FPD_EMAIL: "${FPD_EMAIL}"
+      APP_PASSWORD: "${APP_PASSWORD}"     
+      BLACKBOARD_URL: "${BLACKBOARD_URL}"
+      BLACKBOARD_KEY: "${BLACKBOARD_KEY}"
+      BLACKBOARD_SECRET: "${BLACKBOARD_SECRET}"
     logging:
       driver: "json-file"
       options:
