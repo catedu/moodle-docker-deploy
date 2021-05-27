@@ -164,8 +164,8 @@ moosh user-assign-system-role gestorae gestora
 # Creating moodle-asesoria-admin
 echo >&2 "Creating moodle-manager gestorae and giving grants..."
 ASESORIA_USER_ID=`moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria`
-# 2 admin 4 asesoria
-moosh config-set siteadmins 2,4
+# 2 es admin 
+moosh config-set siteadmins 2,${ASESORIA_USER_ID}
 
 # Creating parent role
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
@@ -189,8 +189,16 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
         echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
         echo >&2 "The first one will work... "
-        # 9 gestora 10 familiar
+        # 9 gestora 10 familiar TODO: cambiar 9,10 por la variable correspondiente
         moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
+fi
+
+# Create FPD needed users
+if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
+    then
+        FPD_ADMIN_USER_ID=`moosh user-create --password ${FPD_PASSWORD} --email ${FPD_EMAIL} --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2`
+        moosh config-set siteadmins 2,${ASESORIA_USER_ID},${FPD_ADMIN_USER_ID}
+        FPD_APP_USER_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname demoapp --lastname demoapp demoapp`
 fi
 
 # import categories and courses
