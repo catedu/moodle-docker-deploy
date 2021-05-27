@@ -157,7 +157,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "mod_pdfannotator"
-		"mod_pdfannotator"
+		        "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
     else
@@ -189,7 +189,6 @@ for PLUGIN in "${PLUGINS[@]}"
 do
     moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
 done
-
 
 echo >&2 "Plugins installed!"
 
