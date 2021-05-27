@@ -457,7 +457,10 @@ set_modules_to_study(){
 
 # Creo la categoría general con los 3 cursos que colgarán de ella
 ID_CATEGORY=`moosh category-create -p 0 -v 1 -d "general" "General"`
-# TODO: crear cohorte
+
+moosh cohort-create -d "alumnado" -i alumnado -c ${ID_CATEGORY} "alumnado"
+moosh cohort-create -d "profesorado" -i profesorado -c ${ID_CATEGORY} "profesorado"
+moosh cohort-create -d "coordinacion" -i coordinacion -c ${ID_CATEGORY} "coordinacion"
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/ayuda.mbz" ]; then
     echo "creating empty course ayuda"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de ayuda" --description "Curso de ayuda" ayuda`
@@ -468,8 +471,10 @@ else
     moosh course-config-set course ${COURSE_ID} shortname ayuda
     moosh course-config-set course ${COURSE_ID} fullname "Curso de ayuda"
 fi
-# TODO: asignar curso a cohorte
-# TODO: crear cohorte
+moosh cohort-enrol -c ${COURSE_ID} "alumnado"
+moosh cohort-enrol -c ${COURSE_ID} "profesorado"
+moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
+
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/profesorado.mbz" ]; then
     echo "creating empty course profesorado"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de profesorado" --description "Curso de Sala de profesorado" profesorado`
@@ -480,8 +485,9 @@ else
     moosh course-config-set course ${COURSE_ID} shortname profesorado
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de profesorado"
 fi
-# TODO: asignar curso a cohorte
-# TODO: crear cohorte
+moosh cohort-enrol -c ${COURSE_ID} "profesorado"
+moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
+
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/coordinacion.mbz" ]; then
     echo "creating empty course coordinacion"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de coordinacion" --description "Curso de Sala de coordinacion" coordinacion`
@@ -492,7 +498,8 @@ else
     moosh course-config-set course ${COURSE_ID} shortname coordinacion
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de coordinación"
 fi
-# TODO: asignar curso a cohorte
+moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
+
 moosh course-config-set category ${ID_CATEGORY} format topics
 
 # creo la estructura de centros > ciclos > módulos
