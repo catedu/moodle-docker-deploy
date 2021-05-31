@@ -36,7 +36,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # set the default img for courses in lists. Doesn't modify course header
         cp /init-scripts/themes/fpdist/img/default_course.jpg /var/www/html/theme/moove/pix/ 
         # soporte
+        mkdir /var/www/html/soporte/
         cp /init-scripts/themes/fpdist/soporte/index.php /var/www/html/soporte/index.php
+        # marketing
+        cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
     else
         echo "... for not FPD..."
         cp /init-scripts/themes/*tar.gz /var/www/html/        
