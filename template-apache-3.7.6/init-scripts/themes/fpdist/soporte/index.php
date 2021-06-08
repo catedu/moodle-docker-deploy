@@ -2,15 +2,15 @@
     <html  dir="ltr" lang="es" xml:lang="es">
     <head>
         <title>FP a distancia - Aragón</title>
-        <link rel="shortcut icon" href="https://test.adistanciafparagon.es/pluginfile.php/1/theme_moove/favicon/1615997395/FAVICON11.ico" />
+        <link rel="shortcut icon" href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/pluginfile.php/1/theme_moove/favicon/1615997395/FAVICON11.ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="moodle, FP a distancia - Aragón" />
-        <link rel="stylesheet" type="text/css" href="https://test.adistanciafparagon.es/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://test.adistanciafparagon.es/theme/styles.php/moove/1615997395_1/all" />
+        <link rel="stylesheet" type="text/css" href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/theme/styles.php/moove/1615997395_1/all" />
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-        <link rel="stylesheet" href="https://test.adistanciafparagon.es/theme/moove/style/aragon/aragon-wrapper.css" type="text/css">
+        <link rel="stylesheet" href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/theme/moove/style/aragon/aragon-wrapper.css" type="text/css">
         
         
     </head>
@@ -27,8 +27,8 @@
                 <div class="d-flex flex-wrap">
                     <div id="page-navbar">
                         <nav>
-                            <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://test.adistanciafparagon.es/" >Página Principal</a></li>
-                                <li class="breadcrumb-item"><a href="https://test.adistanciafparagon.es/soporte/" >Soporte</a></li>
+                            <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/" >Página Principal</a></li>
+                                <li class="breadcrumb-item"><a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/soporte/" >Soporte</a></li>
                             </ol>    
                         </nav>
                     </div>
@@ -41,9 +41,10 @@
                                     <!--span class="notifications" id="user-notifications"></span-->
                                     <div role="main">
                                         <span id="maincontent"></span>
-                                        <form action="#" method="post" id="form_soporte">
+                                        <form action="accion.php" method="post" id="form_soporte" name="form_soporte" >
                                             <div class="settingsform">
                                                 <h2>Soporte</h2>
+                                                <p>La respuesta le llegará de XXX</p>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc aliquet bibendum enim facilisis. Turpis massa tincidunt dui ut ornare lectus sit. Gravida neque convallis a cras semper auctor neque. Amet massa vitae tortor condimentum lacinia quis. Nunc consequat interdum varius sit amet. Odio euismod lacinia at quis. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ullamcorper morbi tincidunt ornare massa eget egestas. Sed lectus vestibulum mattis ullamcorper velit. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien</p>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc aliquet bibendum enim facilisis. Turpis massa tincidunt dui ut ornare lectus sit. Gravida neque convallis a cras semper auctor neque. Amet massa vitae tortor condimentum lacinia quis. Nunc consequat interdum varius sit amet. Odio euismod lacinia at quis. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ullamcorper morbi tincidunt ornare massa eget egestas. Sed lectus vestibulum mattis ullamcorper velit. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien</p>
                                                 <fieldset>
@@ -51,12 +52,12 @@
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="rol">Rol</label>
+                                                            <label for="rol">Rol <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-select defaultsnext">
-                                                                <select  id="rol" name="rol" class="custom-select">
-                                                                    <option value="-" selected>Selecciona una opción</option>
+                                                                <select  id="rol" name="rol" class="custom-select" required>
+                                                                    <option value="" selected>Selecciona una opción</option>
                                                                     <option value="e" >Estudiante</option>
                                                                     <option value="p" >Profesorado</option>
                                                                     <option value="c" >Coordinadores/as</option>
@@ -68,22 +69,22 @@
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="nombre_solicitante">Nombre solicitante</label>
+                                                            <label for="nombre_solicitante">Nombre solicitante <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="text" name="nombre_solicitante" value="" size="30" id="nombre_solicitante" class="form-control text-ltr" >
+                                                                <input type="text" name="nombre_solicitante" value="" size="30" id="nombre_solicitante" class="form-control text-ltr" required>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="pape_solicitante">1er apellido solicitante</label>
+                                                            <label for="pape_solicitante">1er apellido solicitante <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="text" name="pape_solicitante" value="" size="30" id="pape_solicitante" class="form-control text-ltr" >
+                                                                <input type="text" name="pape_solicitante" value="" size="30" id="pape_solicitante" class="form-control text-ltr" required >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -101,23 +102,23 @@
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="email_solicitante">E-mail solicitante</label>
+                                                            <label for="email_solicitante">E-mail solicitante <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="email" name="email_solicitante" value="" size="30" id="email_solicitante" class="form-control text-ltr" >
+                                                                <input type="email" name="email_solicitante" req value="" size="30" id="email_solicitante" class="form-control text-ltr" required>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="ciclo">Ciclo</label>
+                                                            <label for="ciclo">Ciclo <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-select defaultsnext">
-                                                                <select  id="ciclo" name="ciclo" class="custom-select">
-                                                                    <option value="-">Selecciona el centro</option>
+                                                                <select  id="ciclo" name="ciclo" class="custom-select" required>
+                                                                    <option value="">Selecciona el centro</option>
                                                                     <option value="CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma ">CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma </option>
 
                                                                     <option value="CPIFP Corona de Aragón : Administración y Finanzas (ADFI)">CPIFP Corona de Aragón : Administración y Finanzas (ADFI)</option>
@@ -171,12 +172,12 @@
                                                     <!-- -->
                                                     <div class="form-item row">
                                                         <div class="form-label col-sm-3 text-sm-right">
-                                                            <label for="motivo">Motivo/Problema</label>
+                                                            <label for="motivo">Motivo/Problema <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-select defaultsnext">
-                                                                <select  id="motivo" name="motivo" class="custom-select">
-                                                                    <option value="-" selected>Selecciona una opción</option>
+                                                                <select  id="motivo" name="motivo" class="custom-select" required>
+                                                                    <option value="" selected>Selecciona una opción</option>
                                                                     <option value="1" >Plataforma caída</option>
                                                                     <option value="2" >Acceso a plataforma. Problemas con el usuario y contraseña</option>
                                                                     <option value="3" >Acceso a los contenidos o módulos</option>
@@ -190,7 +191,7 @@
                                                     <div id="capaDocente">
                                                         <div class="form-item row">
                                                             <div class="form-label col-sm-3 text-sm-right">
-                                                                <label for="nombre_docente">Nombre de docente a crear</label>
+                                                                <label for="nombre_docente">Nombre de docente a crear <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                             </div>
                                                             <div class="form-setting col-sm-9">
                                                                 <div class="form-text defaultsnext">
@@ -201,7 +202,7 @@
                                                         <!-- -->
                                                         <div class="form-item row">
                                                             <div class="form-label col-sm-3 text-sm-right">
-                                                                <label for="pape_docente">1er apellido de docente a crear</label>
+                                                                <label for="pape_docente">1er apellido de docente a crear <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                             </div>
                                                             <div class="form-setting col-sm-9">
                                                                 <div class="form-text defaultsnext">
@@ -223,7 +224,18 @@
                                                         <!-- -->
                                                         <div class="form-item row">
                                                             <div class="form-label col-sm-3 text-sm-right">
-                                                                <label for="email_docente">E-mail de docente a crear</label>
+                                                                <label for="dni_docente">DNI/NIE de docente a crear <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
+                                                            </div>
+                                                            <div class="form-setting col-sm-9">
+                                                                <div class="form-text defaultsnext">
+                                                                    <input type="text" name="dni_docente" value="" size="30" id="dni_docente" class="form-control text-ltr" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- -->
+                                                        <div class="form-item row">
+                                                            <div class="form-label col-sm-3 text-sm-right">
+                                                                <label for="email_docente">E-mail de docente a crear <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                             </div>
                                                             <div class="form-setting col-sm-9">
                                                                 <div class="form-text defaultsnext">
@@ -234,7 +246,7 @@
                                                         <!-- -->
                                                         <div class="form-item row">
                                                             <div class="form-label col-sm-3 text-sm-right">
-                                                                <label for="modulo1_docente">Módulo 1</label>
+                                                                <label for="modulo1_docente">Módulo 1 <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
                                                             </div>
                                                             <div class="form-setting col-sm-9">
                                                                 <div class="form-text defaultsnext">
@@ -300,8 +312,19 @@
             function repaint(rol, motivo){
                 if(rol == "c" && motivo == "4"){
                     capaDocente.style.display = 'block';
+                    document.getElementById("nombre_docente").required = true;
+                    document.getElementById("pape_docente").required = true;
+                    document.getElementById("dni_docente").required = true;
+                    document.getElementById("email_docente").required = true;
+                    document.getElementById("modulo1_docente").required = true;
+
                 }else{
                     capaDocente.style.display = 'none';
+                    document.getElementById("nombre_docente").required = false;
+                    document.getElementById("pape_docente").required = false;
+                    document.getElementById("dni_docente").required = false;
+                    document.getElementById("email_docente").required = false;
+                    document.getElementById("modulo1_docente").required = false;
                 }
             }
 
@@ -322,6 +345,55 @@
             var capaDocente = document.getElementById('capaDocente');
 
             repaint();
+            var comprobacionesPreEnvio = function(event) {
+                event.preventDefault();
+                var enviar = true;
+                var errores = "";
+                
+                rol = document.getElementById('rol').value;
+                motivo = document.getElementById('motivo').value;
+                if(rol == "c" && motivo == "4"){
+                    //nombre_docente
+                    var nombreDocente = document.getElementById("nombre_docente").value;
+                    if(nombreDocente == ""){
+                        enviar = false;
+                        errores = errores + "- El nombre del docente a crear es obligatorio\n";
+                    }
+                    //pape_docente
+                    var papeDocente = document.getElementById("pape_docente").value;
+                    if(papeDocente == ""){
+                        enviar = false;
+                        errores = errores + "- El 1er apellido del docente a crear es obligatorio\n";
+                    }
+                    //dni_docente
+                    var dniDocente = document.getElementById("dni_docente").value;
+                    if(dniDocente == ""){
+                        enviar = false;
+                        errores = errores + "- El DNI/NIE del docente a crear es obligatorio\n";
+                    }
+                    //email_docente
+                    var emailDocente = document.getElementById("email_docente").value;
+                    if(emailDocente == ""){
+                        enviar = false;
+                        errores = errores + "- El email del docente a crear es obligatorio\n";
+                    }
+                    //modulo1_docente
+                    var modulo1Docente = document.getElementById("modulo1_docente").value;
+                    if(modulo1Docente == ""){
+                        enviar = false;
+                        errores = errores + "- Debe indicar al menos 1 módulo a asignar al nuevo docente\n";
+                    }
+                }                
+
+                if( ! errores ){
+                    miFormulario.submit();
+                }else{
+                    alert( errores )
+                }
+
+            };
+            var miFormulario = document.getElementById("form_soporte");
+            miFormulario.addEventListener("submit", comprobacionesPreEnvio, true);
 
         </script>
     </body>
