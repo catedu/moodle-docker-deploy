@@ -44,6 +44,7 @@
                                         <form action="accion.php" method="post" id="form_soporte" name="form_soporte" >
                                             <div class="settingsform">
                                                 <h2>Soporte</h2>
+                                                <p class="box py-3 generalbox alert alert-error alert alert-danger">Asegúrese de introducir su correo electrónico correctamente o no recibirá respuesta a su incidencia.</p>
                                                 <p>La respuesta le llegará de XXX</p>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc aliquet bibendum enim facilisis. Turpis massa tincidunt dui ut ornare lectus sit. Gravida neque convallis a cras semper auctor neque. Amet massa vitae tortor condimentum lacinia quis. Nunc consequat interdum varius sit amet. Odio euismod lacinia at quis. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ullamcorper morbi tincidunt ornare massa eget egestas. Sed lectus vestibulum mattis ullamcorper velit. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien</p>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc aliquet bibendum enim facilisis. Turpis massa tincidunt dui ut ornare lectus sit. Gravida neque convallis a cras semper auctor neque. Amet massa vitae tortor condimentum lacinia quis. Nunc consequat interdum varius sit amet. Odio euismod lacinia at quis. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ullamcorper morbi tincidunt ornare massa eget egestas. Sed lectus vestibulum mattis ullamcorper velit. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien</p>
@@ -119,14 +120,14 @@
                                                             <div class="form-select defaultsnext">
                                                                 <select  id="ciclo" name="ciclo" class="custom-select" required>
                                                                     <option value="">Selecciona el centro</option>
-                                                                    <option value="CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma ">CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma </option>
+                                                                    <option value="CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma">CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma </option>
 
                                                                     <option value="CPIFP Corona de Aragón : Administración y Finanzas (ADFI)">CPIFP Corona de Aragón : Administración y Finanzas (ADFI)</option>
-                                                                    <option value="CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC) ">CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC) </option>
+                                                                    <option value="CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC)">CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC) </option>
                                                                     <option value="CPIFP Corona de Aragón : Asistencia a la dirección">CPIFP Corona de Aragón : Asistencia a la dirección</option>
                                                                     <option value="CPIFP Corona de Aragón : Oferta Parcial">CPIFP Corona de Aragón : Oferta Parcial</option>
 
-                                                                    <option value="CPIFP Los Enlaces : Comercio Internacional ">CPIFP Los Enlaces : Comercio Internacional </option>
+                                                                    <option value="CPIFP Los Enlaces : Comercio Internacional">CPIFP Los Enlaces : Comercio Internacional </option>
                                                                     <option value="CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)">CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)</option>
                                                                     <option value="CPIFP Los Enlaces : Sistemas Microinformáticos (SMR)">CPIFP Los Enlaces : Sistemas Microinformáticos (SMR)</option>
                                                                     <option value="CPIFP Los Enlaces : Transporte y Logística (TL)">CPIFP Los Enlaces : Transporte y Logística (TL)</option>
@@ -152,19 +153,19 @@
 
                                                                     <option value="IES Pablo Serrano : Administración de Sistemas Informáticos en Red (ASIR)">IES Pablo Serrano : Administración de Sistemas Informáticos en Red (ASIR)</option>
 
-                                                                    <option value="IES Río Gállego : Farmacia y Parafarmacia ">IES Río Gállego : Farmacia y Parafarmacia </option>
+                                                                    <option value="IES Río Gállego : Farmacia y Parafarmacia">IES Río Gállego : Farmacia y Parafarmacia </option>
                                                                     <option value="IES Río Gállego : Emergencias Sanitarias">IES Río Gállego : Emergencias Sanitarias</option>
                                                                     <option value="IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia">IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia</option>
 
-                                                                    <option value="IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana  ">IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana  </option>
-                                                                    <option value="IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana ">IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana </option>
+                                                                    <option value="IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana">IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana  </option>
+                                                                    <option value="IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana">IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana </option>
 
                                                                     <option value="IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara">IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara</option>
 
                                                                     <option value="IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos">IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos</option>
 
-                                                                    <option value="IES Vega del Turia  : Emergencias sanitarias (Vega del Turia)">IES Vega del Turia  : Emergencias sanitarias (Vega del Turia)</option>
-                                                                    <option value="IES Vega del Turia  : Oferta Parcial Emergencias Sanitarias (IES Vega del Turia)">IES Vega del Turia  : Oferta Parcial Emergencias Sanitarias (IES Vega del Turia)</option>
+                                                                    <option value="IES Vega del Turia: Emergencias sanitarias">IES Vega del Turia  : Emergencias sanitarias (Vega del Turia)</option>
+                                                                    <option value="IES Vega del Turia: Oferta Parcial Emergencias Sanitarias">IES Vega del Turia  : Oferta Parcial Emergencias Sanitarias (IES Vega del Turia)</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -189,6 +190,16 @@
                                                     </div>
                                                     <!-- -->
                                                     <div id="capaDocente">
+                                                        <div class="form-item row">
+                                                            <div class="form-label col-sm-3 text-sm-right">
+                                                                <label for="cod_coordinacion">Código de coordinación <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
+                                                            </div>
+                                                            <div class="form-setting col-sm-9">
+                                                                <div class="form-text defaultsnext">
+                                                                    <input type="text" name="cod_coordinacion" value="" size="30" id="cod_coordinacion" class="form-control text-ltr" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="form-item row">
                                                             <div class="form-label col-sm-3 text-sm-right">
                                                                 <label for="nombre_docente">Nombre de docente a crear <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>

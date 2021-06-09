@@ -38,6 +38,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # soporte
         mkdir /var/www/html/soporte/
         cp /init-scripts/themes/fpdist/soporte/index.php /var/www/html/soporte/index.php
+        cp /init-scripts/themes/fpdist/soporte/accion.php /var/www/html/soporte/accion.php
+        cp /init-scripts/themes/fpdist/soporte/secret.php /var/www/html/soporte/secret.php
         # marketing
         cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
     else
