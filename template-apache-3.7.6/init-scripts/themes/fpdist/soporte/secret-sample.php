@@ -1,4 +1,7 @@
 <?php
+//////////////////////////////
+// Renombrar a secret.php una vez puestos los valores adecuados
+//////////////////////////////
 //credenciales de redmine
 $userRedmine = "";
 $passRedmine = "";

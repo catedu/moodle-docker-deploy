@@ -196,7 +196,7 @@
                                                             </div>
                                                             <div class="form-setting col-sm-9">
                                                                 <div class="form-text defaultsnext">
-                                                                    <input type="text" name="cod_coordinacion" value="" size="30" id="cod_coordinacion" class="form-control text-ltr" >
+                                                                    <input type="password" name="cod_coordinacion" value="" size="30" id="cod_coordinacion" class="form-control text-ltr" >
                                                                 </div>
                                                             </div>
                                                         </div>

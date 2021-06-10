@@ -5,106 +5,106 @@
     // Funciones
     //////////////////////////////
     function asignarIncidenciaA($rol, $motivo, $ciclo){
-        echo 'rol: ' . $rol . ', motivo: ' . $motivo . ', ciclo: ' . $ciclo . ', codeCoordinacion: ' . $codeCoordinacion . ', idUserAdmin: ' . $idUserAdmin . ', $userRedmine: '. $userRedmine .'<br/>';
+              
         if($motivo == "1"){//"Plataforma caída";
-            return $idUserAdmin;
+            return $GLOBALS["idUserAdmin"];
         }
         // 2-"Acceso a plataforma. Problemas con el usuario y contraseña";
         // 3-"Acceso a los contenidos o módulos";
         elseif($motivo == "2" || $motivo == "3" ){
             switch ($rol) {
                 case "CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma":
-                    return $idUserCoordinacion_CPIFP_Bajo_Aragon_DAM;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Bajo_Aragon_DAM"];
                     break;
                 case "CPIFP Corona de Aragón : Administración y Finanzas (ADFI)":
-                    return $idUserCoordinacion_CPIFP_Corona_de_Aragon_ADFI;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_ADFI"];
                     break;
                 case "CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC)":
-                    return $idUserCoordinacion_CPIFP_Corona_de_Aragon_LACC;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_LACC"];
                     break;
                 case "CPIFP Corona de Aragón : Asistencia a la dirección":
-                    return $idUserCoordinacion_CPIFP_Corona_de_Aragon_AD;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_AD"];
                     break;
                 case "CPIFP Corona de Aragón : Oferta Parcial":
-                    return $idUserCoordinacion_CPIFP_Corona_de_Aragon_OP;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_OP"];
                     break;
                 case "CPIFP Los Enlaces : Comercio Internacional":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_CI;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_CI"];
                     break;
                 case "CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_DAW;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_DAW"];
                     break;
                 case "CPIFP Los Enlaces : Sistemas Microinformáticos (SMR)":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_SMR;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_SMR"];
                     break;
                 case "CPIFP Los Enlaces : Transporte y Logística (TL)":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_TL;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_TL"];
                     break;
                 case "CPIFP Los Enlaces : Gestión de ventas y espacios comerciales":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_GVEC;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_GVEC"];
                     break;
                 case "CPIFP Los Enlaces : Producción de audiovisuales y espectáculos":
-                    return $idUserCoordinacion_CPIFP_Los_Enlaces_PAE;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_PAE"];
                     break;
                 case "CPIFP Montearagón : Atención a Personas en Situación de Dependencia (APSD)_IES Montearagón":
-                    return $idUserCoordinacion_CPIFP_Montearagon_APSD;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Montearagon_APSD"];
                     break;
                 case "CPIFP Montearagón : Oferta Parcial  Atención a Personas en Situación de Dependencia (APSD)":
-                    return $idUserCoordinacion_CPIFP_Montearagon_OP;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Montearagon_OP"];
                     break;
                 case "CPIFP Pirámide : Instalaciones Eléctricas y Automáticas":
-                    return $idUserCoordinacion_CPIFP_Piramide_IAE;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Piramide_IAE"];
                     break;
                 case "CPIFP Pirámide : Oferta_Parcial_IEA":
-                    return $idUserCoordinacion_CPIFP_Piramide_OP;
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Piramide_OP"];
                     break;
                 case "IES Avempace : Educación Infantil (IES Avempace)":
-                    return $idUserCoordinacion_IES_Avempace_EI;
+                    return $GLOBALS["idUserCoordinacion_IES_Avempace_EI"];
                     break;
                 case "IES Luis Buñuel : Atención a Personas en Situación de Dependencia_(APSD)_IES Luis Buñuel":
-                    return $idUserCoordinacion_IES_Luis_Bunuel_APSD;
+                    return $GLOBALS["idUserCoordinacion_IES_Luis_Bunuel_APSD"];
                     break;
                 case "IES Luis Buñuel : Oferta_Parcial_ASPSD":
-                    return $idUserCoordinacion_IES_Luis_Bunuel_OP;
+                    return $GLOBALS["idUserCoordinacion_IES_Luis_Bunuel_OP"];
                     break;
                 case "IES María Moliner : Integración social":
-                    return $idUserCoordinacion_IES_Maria_Moliner_IS;
+                    return $GLOBALS["idUserCoordinacion_IES_Maria_Moliner_IS"];
                     break;
                 case "IES Martínez Vargas  : Educación Infantil (IES Martínez Vargas)":
-                    return $idUserCoordinacion_IES_Martinez_Vargas_EI;
+                    return $GLOBALS["idUserCoordinacion_IES_Martinez_Vargas_EI"];
                     break;
                 case "IES Miralbueno : Agencias de viajes y gestión de eventos(AVGE)":
-                    return $idUserCoordinacion_IES_Miralbueno_AVGE;
+                    return $GLOBALS["idUserCoordinacion_IES_Miralbueno_AVGE"];
                     break;
                 case "IES Pablo Serrano : Administración de Sistemas Informáticos en Red (ASIR)":
-                    return $idUserCoordinacion_IES_Pablo_Serrano_ASIR;
+                    return $GLOBALS["idUserCoordinacion_IES_Pablo_Serrano_ASIR"];
                     break;
                 case "IES Río Gállego : Farmacia y Parafarmacia":
-                    return $idUserCoordinacion_IES_Rio_Gallego_FP;
+                    return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_FP"];
                     break;
                 case "IES Río Gállego : Emergencias Sanitarias":
-                    return $idUserCoordinacion_IES_Rio_Gallego_ES;
+                    return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_ES"];
                     break;
                 case "IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia":
-                    return $idUserCoordinacion_IES_Rio_Gallego_OP;
+                    return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_OP"];
                     break;
                 case "IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana":
-                    return $idUserCoordinacion_IES_Santa_Emerenciana_GA;
+                    return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_GA"];
                     break;
                 case "IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana":
-                    return $idUserCoordinacion_IES_Santa_Emerenciana_OP;
+                    return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_OP"];
                     break;
                 case "IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara":
-                    return $idUserCoordinacion_IES_Sierra_de_Guara_GA;
+                    return $GLOBALS["idUserCoordinacion_IES_Sierra_de_Guara_GA"];
                     break;
                 case "IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos":
-                    return $idUserCoordinacion_IES_Tiempos_Modernos_GA;
+                    return $GLOBALS["idUserCoordinacion_IES_Tiempos_Modernos_GA"];
                     break;
                 case "IES Vega del Turia: Emergencias sanitarias":
-                    return $idUserCoordinacion_IES_Vega_del_Turia_ES;
+                    return $GLOBALS["idUserCoordinacion_IES_Vega_del_Turia_ES"];
                     break;
                 case "IES Vega del Turia: Oferta Parcial Emergencias Sanitarias":
-                    return $idUserCoordinacion_IES_Vega_del_Turia_OP;
+                    return $GLOBALS["idUserCoordinacion_IES_Vega_del_Turia_OP"];
                     break;
             }
         }
@@ -188,14 +188,15 @@
             $accesoPermitido = false;
         }
     }
+    echo 'rol: ' . $rol . ', motivo: ' . $motivo . ', ciclo: ' . $ciclo . ', codeCoordinacion: ' . $codeCoordinacion . ', idUserAdmin: ' . $idUserAdmin . ', $userRedmine: '. $userRedmine .'<br/>';
 
-    //////////////////////////////
-    // Creo variables iniciales
-    //////////////////////////////
     if($accesoPermitido){
+        //////////////////////////////
+        // Creo variables iniciales
+        //////////////////////////////
         $date = date('d-m-Y H:i:s');
 
-        $body = 'Hola ' . $nombre_solicitante . ',<br/>';
+        $body = 'Hola ' . $nombre_solicitante . ' ' . $pape_solicitante . ',<br/>';
         $body .= 'su incidencia realizada el ' . $date . ' ha sido recogida en nuestro sistema. La misma contiene la siguiente información:<br/>';
         $body .= '<ul>';
         $body .= '<li><b>Rol</b>: ' . procesaRol($rol) . '</li>';
@@ -220,22 +221,23 @@
         $body .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
         $body .= 'Saludos<br/><br/>';
         $body .= 'FP distancia Aragón';
-    //////////////////////////////
-    // Contacto con RedMine para crear la incidencia
-    //////////////////////////////
 
+        //////////////////////////////
+        // Contacto con RedMine para crear la incidencia
+        //////////////////////////////
         $url = "https://soportearagon.catedu.es/issues.json";
+        $asignarA = asignarIncidenciaA($rol, $motivo, $ciclo);
+
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
         curl_setopt($curl, CURLOPT_POST, 1);
-        $asignarA = asignarIncidenciaA($rol, $motivo, $ciclo);
         echo '$asignarA: ' . $asignarA . '</br>';
         $issue =  '
         <?xml version="1.0"?>
         <issue>
         <project_id>'.$projectId.'</project_id>
-        <subject>PROBANDO ANDO: '.procesaMotivo($motivo).'</subject>
-        <description>'.$body.'</description>
+        <subject>'.procesaMotivo($motivo).'</subject>
+        <description><![CDATA['.$body.']]></description>
         <priority_id>2</priority_id>
         <custom_fields type="array">
             <custom_field id="1" name="owner-email">
@@ -273,7 +275,7 @@
         if( $exitoCreandoIncidencia ){
             
             $toUser = new stdClass();
-            $toUser->email = "fp@catedu.es";
+            $toUser->email = $email_solicitante;
             $toUser->firstname = $nombre_solicitante;
             $toUser->lastname = $pape_solicitante;
             $toUser->maildisplay = true;
