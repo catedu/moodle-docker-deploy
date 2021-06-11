@@ -25,9 +25,6 @@
                 case "CPIFP Corona de Aragón : Asistencia a la dirección":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_AD"];
                     break;
-                case "CPIFP Corona de Aragón : Oferta Parcial":
-                    return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_OP"];
-                    break;
                 case "CPIFP Los Enlaces : Comercio Internacional":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_CI"];
                     break;
@@ -49,23 +46,14 @@
                 case "CPIFP Montearagón : Atención a Personas en Situación de Dependencia (APSD)_IES Montearagón":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Montearagon_APSD"];
                     break;
-                case "CPIFP Montearagón : Oferta Parcial  Atención a Personas en Situación de Dependencia (APSD)":
-                    return $GLOBALS["idUserCoordinacion_CPIFP_Montearagon_OP"];
-                    break;
                 case "CPIFP Pirámide : Instalaciones Eléctricas y Automáticas":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Piramide_IAE"];
-                    break;
-                case "CPIFP Pirámide : Oferta_Parcial_IEA":
-                    return $GLOBALS["idUserCoordinacion_CPIFP_Piramide_OP"];
                     break;
                 case "IES Avempace : Educación Infantil (IES Avempace)":
                     return $GLOBALS["idUserCoordinacion_IES_Avempace_EI"];
                     break;
                 case "IES Luis Buñuel : Atención a Personas en Situación de Dependencia_(APSD)_IES Luis Buñuel":
                     return $GLOBALS["idUserCoordinacion_IES_Luis_Bunuel_APSD"];
-                    break;
-                case "IES Luis Buñuel : Oferta_Parcial_ASPSD":
-                    return $GLOBALS["idUserCoordinacion_IES_Luis_Bunuel_OP"];
                     break;
                 case "IES María Moliner : Integración social":
                     return $GLOBALS["idUserCoordinacion_IES_Maria_Moliner_IS"];
@@ -85,14 +73,8 @@
                 case "IES Río Gállego : Emergencias Sanitarias":
                     return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_ES"];
                     break;
-                case "IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia":
-                    return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_OP"];
-                    break;
                 case "IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana":
                     return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_GA"];
-                    break;
-                case "IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana":
-                    return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_OP"];
                     break;
                 case "IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara":
                     return $GLOBALS["idUserCoordinacion_IES_Sierra_de_Guara_GA"];
@@ -102,9 +84,6 @@
                     break;
                 case "IES Vega del Turia: Emergencias sanitarias":
                     return $GLOBALS["idUserCoordinacion_IES_Vega_del_Turia_ES"];
-                    break;
-                case "IES Vega del Turia: Oferta Parcial Emergencias Sanitarias":
-                    return $GLOBALS["idUserCoordinacion_IES_Vega_del_Turia_OP"];
                     break;
             }
         }

@@ -125,7 +125,6 @@
                                                                     <option value="CPIFP Corona de Aragón : Administración y Finanzas (ADFI)">CPIFP Corona de Aragón : Administración y Finanzas (ADFI)</option>
                                                                     <option value="CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC)">CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC) </option>
                                                                     <option value="CPIFP Corona de Aragón : Asistencia a la dirección">CPIFP Corona de Aragón : Asistencia a la dirección</option>
-                                                                    <option value="CPIFP Corona de Aragón : Oferta Parcial">CPIFP Corona de Aragón : Oferta Parcial</option>
 
                                                                     <option value="CPIFP Los Enlaces : Comercio Internacional">CPIFP Los Enlaces : Comercio Internacional </option>
                                                                     <option value="CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)">CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)</option>
@@ -135,15 +134,12 @@
                                                                     <option value="CPIFP Los Enlaces : Producción de audiovisuales y espectáculos">CPIFP Los Enlaces : Producción de audiovisuales y espectáculos</option>
 
                                                                     <option value="CPIFP Montearagón : Atención a Personas en Situación de Dependencia (APSD)_IES Montearagón">CPIFP Montearagón : Atención a Personas en Situación de Dependencia (APSD)_IES Montearagón</option>
-                                                                    <option value="CPIFP Montearagón : Oferta Parcial  Atención a Personas en Situación de Dependencia (APSD)">CPIFP Montearagón : Oferta Parcial  Atención a Personas en Situación de Dependencia (APSD)</option>
 
                                                                     <option value="CPIFP Pirámide : Instalaciones Eléctricas y Automáticas">CPIFP Pirámide : Instalaciones Eléctricas y Automáticas</option>
-                                                                    <option value="CPIFP Pirámide : Oferta_Parcial_IEA">CPIFP Pirámide : Oferta_Parcial_IEA</option>
 
                                                                     <option value="IES Avempace : Educación Infantil (IES Avempace)">IES Avempace : Educación Infantil (IES Avempace)</option>
 
                                                                     <option value="IES Luis Buñuel : Atención a Personas en Situación de Dependencia_(APSD)_IES Luis Buñuel">IES Luis Buñuel : Atención a Personas en Situación de Dependencia_(APSD)_IES Luis Buñuel</option>
-                                                                    <option value="IES Luis Buñuel : Oferta_Parcial_ASPSD">IES Luis Buñuel : Oferta_Parcial_ASPSD</option>
 
                                                                     <option value="IES María Moliner : Integración social">IES María Moliner : Integración social</option>
 
@@ -155,17 +151,14 @@
 
                                                                     <option value="IES Río Gállego : Farmacia y Parafarmacia">IES Río Gállego : Farmacia y Parafarmacia </option>
                                                                     <option value="IES Río Gállego : Emergencias Sanitarias">IES Río Gállego : Emergencias Sanitarias</option>
-                                                                    <option value="IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia">IES Río Gállego : Oferta Parcial Farmacia y Parafarmacia</option>
 
                                                                     <option value="IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana">IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana  </option>
-                                                                    <option value="IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana">IES Santa Emerenciana : Oferta Parcial Gestión Administrativa IES Santa Emerenciana </option>
 
                                                                     <option value="IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara">IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara</option>
 
                                                                     <option value="IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos">IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos</option>
 
                                                                     <option value="IES Vega del Turia: Emergencias sanitarias">IES Vega del Turia  : Emergencias sanitarias (Vega del Turia)</option>
-                                                                    <option value="IES Vega del Turia: Oferta Parcial Emergencias Sanitarias">IES Vega del Turia  : Oferta Parcial Emergencias Sanitarias (IES Vega del Turia)</option>
                                                                 </select>
                                                             </div>
                                                         </div>
