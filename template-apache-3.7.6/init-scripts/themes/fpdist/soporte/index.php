@@ -280,18 +280,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- -->
-                                                        <div class="form-item row">
-                                                            <div class="form-label col-sm-3 text-sm-right">
-                                                                <label for="otros_docente">Otros</label>
-                                                            </div>
-                                                            <div class="form-setting col-sm-9">
-                                                                <div class="form-textarea">
-                                                                    <textarea  rows="8" cols="60" id="otros_docente" name="otros_docente" spellcheck="true" class="form-control text-ltr"></textarea>
-                                                                </div>
+                                                    </div> <!-- capaDocente -->
+                                                    <!-- -->
+                                                    <div class="form-item row">
+                                                        <div class="form-label col-sm-3 text-sm-right">
+                                                            <label for="otros">Otros</label>
+                                                        </div>
+                                                        <div class="form-setting col-sm-9">
+                                                            <div class="form-textarea">
+                                                                <textarea  rows="8" cols="60" id="otros" name="otros" spellcheck="true" class="form-control text-ltr"></textarea>
                                                             </div>
                                                         </div>
-                                                    </div> <!-- capaDocente -->
+                                                    </div>
                                                     <!-- -->
                                                     <!-- -->
                                                     <!-- -->

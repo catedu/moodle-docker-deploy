@@ -90,10 +90,10 @@
         // 4-"Dar de alta/baja profesorado";
         // 5-"Otros";
         elseif($motivo == "4" || $motivo == "5" ){//
-            return $idUserFP;
+            return $GLOBALS["idUserFP"];
         }
         //Por defecto lo envío a FP y que ellos decidan
-        return $idUserFP;
+        return $GLOBALS["idUserFP"];
     }
 
     function procesaRol($rol){
@@ -156,7 +156,7 @@
     $modulo1_docente = htmlspecialchars($_POST["modulo1_docente"]);
     $modulo2_docente = htmlspecialchars($_POST["modulo2_docente"]);
     $modulo3_docente = htmlspecialchars($_POST["modulo3_docente"]);
-    $otros_docente = htmlspecialchars($_POST["otros_docente"]);
+    $otros = htmlspecialchars($_POST["otros"]);
 
     //////////////////////////////
     // Si se quiere crear/borrar un nuevo docente hay que comprobar si
@@ -167,7 +167,6 @@
             $accesoPermitido = false;
         }
     }
-    echo 'rol: ' . $rol . ', motivo: ' . $motivo . ', ciclo: ' . $ciclo . ', codeCoordinacion: ' . $codeCoordinacion . ', idUserAdmin: ' . $idUserAdmin . ', $userRedmine: '. $userRedmine .'<br/>';
 
     if($accesoPermitido){
         //////////////////////////////
@@ -194,8 +193,8 @@
             $body .= '<li><b>Módulo 1</b>: ' . $modulo1_docente . '</li>';
             $body .= '<li><b>Módulo 2</b>: ' . $modulo2_docente . '</li>';
             $body .= '<li><b>Módulo 3</b>: ' . $modulo3_docente . '</li>';
-            $body .= '<li><b>Otros</b>: ' . $otros_docente . '</li>';
         }
+        $body .= '<li><b>Otros</b>: ' . $otros . '</li>';
         $body .= '</ul>';
         $body .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
         $body .= 'Saludos<br/><br/>';
@@ -206,11 +205,10 @@
         //////////////////////////////
         $url = "https://soportearagon.catedu.es/issues.json";
         $asignarA = asignarIncidenciaA($rol, $motivo, $ciclo);
-
+        echo '$asignarA: ' . $asignarA . '<br/>';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
         curl_setopt($curl, CURLOPT_POST, 1);
-        echo '$asignarA: ' . $asignarA . '</br>';
         $issue =  '
         <?xml version="1.0"?>
         <issue>
@@ -281,8 +279,8 @@
                 $body .= '<li><b>Módulo 1</b>: ' . $modulo1_docente . '</li>';
                 $body .= '<li><b>Módulo 2</b>: ' . $modulo2_docente . '</li>';
                 $body .= '<li><b>Módulo 3</b>: ' . $modulo3_docente . '</li>';
-                $body .= '<li><b>Otros</b>: ' . $otros_docente . '</li>';
             }
+            $body .= '<li><b>Otros</b>: ' . $otros . '</li>';
             $body .= '</ul>';
             $body .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
             $body .= 'Saludos<br/><br/>';
@@ -381,10 +379,10 @@ if ($rol == "c" && $motivo == "4") {
                                                 <li><b>Módulo 1</b>: <?php echo htmlentities($modulo1_docente, ENT_QUOTES, "UTF-8"); ?></li>
                                                 <li><b>Módulo 2</b>: <?php echo htmlentities($modulo2_docente, ENT_QUOTES, "UTF-8"); ?></li>
                                                 <li><b>Módulo 3</b>: <?php echo htmlentities($modulo3_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Otros</b>: <?php echo htmlentities($otros_docente, ENT_QUOTES, "UTF-8"); ?></li>
 <?php
 }
 ?>
+                                                <li><b>Otros</b>: <?php echo htmlentities($otros, ENT_QUOTES, "UTF-8"); ?></li>
                                             </ul>
                                         </div>
                                     </div>
