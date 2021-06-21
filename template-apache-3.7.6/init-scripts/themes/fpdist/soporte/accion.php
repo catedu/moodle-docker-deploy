@@ -73,8 +73,8 @@
                 case "IES Río Gállego: Emergencias Sanitarias":
                     return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_ES"];
                     break;
-                case "IES San Blas: Educación y Control Ambiental":
-                    return $GLOBALS["idUserCoordinacion_IES_San_Blas_ECA"];
+                case "CPIFP San Blas: Educación y Control Ambiental":
+                    return $GLOBALS["idUserCoordinacion_CPIFP_San_Blas_ECA"];
                     break;
                 case "IES Santa Emerenciana: Gestión Administrativa":
                     return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_GA"];

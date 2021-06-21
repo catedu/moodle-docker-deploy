@@ -151,6 +151,8 @@
 
                                                                     <option value="CPIFP Pirámide: Instalaciones Eléctricas y Automáticas">CPIFP Pirámide: Instalaciones Eléctricas y Automáticas</option>
 
+                                                                    <option value="CPIFP San Blas: Educación y Control Ambiental">CPIFP San Blas: Educación y Control Ambiental</option>
+
                                                                     <option value="IES Avempace: Educación Infantil">IES Avempace: Educación Infantil</option>
 
                                                                     <option value="IES Luis Buñuel: Atención a Personas en Situación de Dependencia">IES Luis Buñuel: Atención a Personas en Situación de Dependencia</option>
@@ -165,8 +167,6 @@
 
                                                                     <option value="IES Río Gállego: Farmacia y Parafarmacia">IES Río Gállego: Farmacia y Parafarmacia</option>
                                                                     <option value="IES Río Gállego: Emergencias Sanitarias">IES Río Gállego: Emergencias Sanitarias</option>
-
-                                                                    <option value="IES San Blas: Educación y Control Ambiental">IES San Blas: Educación y Control Ambiental</option>
 
                                                                     <option value="IES Santa Emerenciana: Gestión Administrativa">IES Santa Emerenciana: Gestión Administrativa</option>
 
