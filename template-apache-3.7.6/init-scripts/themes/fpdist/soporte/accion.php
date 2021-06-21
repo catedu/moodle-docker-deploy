@@ -13,73 +13,76 @@
         // 3-"Acceso a los contenidos o módulos";
         elseif($motivo == "2" || $motivo == "3" ){
             switch ($rol) {
-                case "CPIFP Bajo Aragón : Desarrollo de Aplicaciones Multiplataforma":
+                case "CPIFP Bajo Aragón: Desarrollo de Aplicaciones Multiplataforma":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Bajo_Aragon_DAM"];
                     break;
-                case "CPIFP Corona de Aragón : Administración y Finanzas (ADFI)":
+                case "CPIFP Corona de Aragón: Administración y Finanzas":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_ADFI"];
                     break;
-                case "CPIFP Corona de Aragón : Laboratorio de Análisis y de Control de Calidad (LACC)":
+                case "CPIFP Corona de Aragón: Laboratorio de Análisis y de Control de Calidad":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_LACC"];
                     break;
-                case "CPIFP Corona de Aragón : Asistencia a la dirección":
+                case "CPIFP Corona de Aragón: Asistencia a la dirección":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Corona_de_Aragon_AD"];
                     break;
-                case "CPIFP Los Enlaces : Comercio Internacional":
+                case "CPIFP Los Enlaces: Comercio Internacional":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_CI"];
                     break;
-                case "CPIFP Los Enlaces : Desarrollo de Aplicaciones Web (DAW)":
+                case "CPIFP Los Enlaces: Desarrollo de Aplicaciones Web":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_DAW"];
                     break;
-                case "CPIFP Los Enlaces : Sistemas Microinformáticos (SMR)":
+                case "CPIFP Los Enlaces: Sistemas Microinformáticos":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_SMR"];
                     break;
-                case "CPIFP Los Enlaces : Transporte y Logística (TL)":
+                case "CPIFP Los Enlaces: Transporte y Logística":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_TL"];
                     break;
-                case "CPIFP Los Enlaces : Gestión de ventas y espacios comerciales":
+                case "CPIFP Los Enlaces: Gestión de ventas y espacios comerciales":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_GVEC"];
                     break;
-                case "CPIFP Los Enlaces : Producción de audiovisuales y espectáculos":
+                case "CPIFP Los Enlaces: Producción de audiovisuales y espectáculos":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_PAE"];
                     break;
-                case "CPIFP Montearagón : Atención a Personas en Situación de Dependencia (APSD)_IES Montearagón":
+                case "CPIFP Montearagón: Atención a Personas en Situación de Dependencia":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Montearagon_APSD"];
                     break;
-                case "CPIFP Pirámide : Instalaciones Eléctricas y Automáticas":
+                case "CPIFP Pirámide: Instalaciones Eléctricas y Automáticas":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Piramide_IAE"];
                     break;
-                case "IES Avempace : Educación Infantil (IES Avempace)":
+                case "IES Avempace: Educación Infantil":
                     return $GLOBALS["idUserCoordinacion_IES_Avempace_EI"];
                     break;
-                case "IES Luis Buñuel : Atención a Personas en Situación de Dependencia_(APSD)_IES Luis Buñuel":
+                case "IES Luis Buñuel: Atención a Personas en Situación de Dependencia":
                     return $GLOBALS["idUserCoordinacion_IES_Luis_Bunuel_APSD"];
                     break;
-                case "IES María Moliner : Integración social":
+                case "IES María Moliner: Integración social":
                     return $GLOBALS["idUserCoordinacion_IES_Maria_Moliner_IS"];
                     break;
-                case "IES Martínez Vargas  : Educación Infantil (IES Martínez Vargas)":
+                case "IES Martínez Vargas: Educación Infantil":
                     return $GLOBALS["idUserCoordinacion_IES_Martinez_Vargas_EI"];
                     break;
-                case "IES Miralbueno : Agencias de viajes y gestión de eventos(AVGE)":
+                case "IES Miralbueno: Agencias de viajes y gestión de eventos":
                     return $GLOBALS["idUserCoordinacion_IES_Miralbueno_AVGE"];
                     break;
-                case "IES Pablo Serrano : Administración de Sistemas Informáticos en Red (ASIR)":
+                case "IES Pablo Serrano: Administración de Sistemas Informáticos en Red":
                     return $GLOBALS["idUserCoordinacion_IES_Pablo_Serrano_ASIR"];
                     break;
-                case "IES Río Gállego : Farmacia y Parafarmacia":
+                case "IES Río Gállego: Farmacia y Parafarmacia":
                     return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_FP"];
                     break;
-                case "IES Río Gállego : Emergencias Sanitarias":
+                case "IES Río Gállego: Emergencias Sanitarias":
                     return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_ES"];
                     break;
-                case "IES Santa Emerenciana : Gestión Administrativa IES Santa Emerenciana":
+                case "CPIFP San Blas: Educación y Control Ambiental":
+                    return $GLOBALS["idUserCoordinacion_CPIFP_San_Blas_ECA"];
+                    break;
+                case "IES Santa Emerenciana: Gestión Administrativa":
                     return $GLOBALS["idUserCoordinacion_IES_Santa_Emerenciana_GA"];
                     break;
-                case "IES Sierra de Guara : Gestión Administrativa IES Sierra de Guara":
+                case "IES Sierra de Guara: Gestión Administrativa":
                     return $GLOBALS["idUserCoordinacion_IES_Sierra_de_Guara_GA"];
                     break;
-                case "IES Tiempos Modernos : Gestión Administrativa IES Tiempos Modernos":
+                case "IES Tiempos Modernos: Gestión Administrativa":
                     return $GLOBALS["idUserCoordinacion_IES_Tiempos_Modernos_GA"];
                     break;
                 case "IES Vega del Turia: Emergencias sanitarias":
@@ -89,7 +92,7 @@
         }
         // 4-"Dar de alta/baja profesorado";
         // 5-"Otros";
-        elseif($motivo == "4" || $motivo == "5" ){//
+        elseif($motivo == "4" || $motivo == "5" || $motivo == "6" ){//
             return $GLOBALS["idUserFP"];
         }
         //Por defecto lo envío a FP y que ellos decidan
@@ -132,6 +135,9 @@
             case "5":
                 return "Otros";
                 break;
+            case "6":
+                return "Cambio/Actualización de materiales";
+                break;
             default:
                 return "ERROR";
         }
@@ -148,6 +154,7 @@
     $motivo = htmlspecialchars($_POST["motivo"]);
     // docente a crear
     $cod_coordinacion = htmlspecialchars($_POST["cod_coordinacion"]);
+    $tipo_modificacion = htmlspecialchars($_POST["tipo_modificacion"]);
     $nombre_docente = htmlspecialchars($_POST["nombre_docente"]);
     $pape_docente = htmlspecialchars($_POST["pape_docente"]);
     $sape_docente = htmlspecialchars($_POST["sape_docente"]);
@@ -156,6 +163,11 @@
     $modulo1_docente = htmlspecialchars($_POST["modulo1_docente"]);
     $modulo2_docente = htmlspecialchars($_POST["modulo2_docente"]);
     $modulo3_docente = htmlspecialchars($_POST["modulo3_docente"]);
+    //correcciones materiales
+    $modulo_afectado = htmlspecialchars($_POST["modulo_afectado"]);
+    $explicacion_modulo_afectado = htmlspecialchars($_POST["explicacion_modulo_afectado"]);
+    $otros_modulo_afectado = htmlspecialchars($_POST["otros_modulo_afectado"]);
+    //
     $otros = htmlspecialchars($_POST["otros"]);
 
     //////////////////////////////
@@ -163,7 +175,7 @@
     //////////////////////////////
     $accesoPermitido = true;
     if ($rol == "c" && $motivo == "4") {
-        if($cod_coordinacion != $codeCoordinacion){
+        if($cod_coordinacion != $codeCoordinacionPrivate){
             $accesoPermitido = false;
         }
     }
@@ -174,38 +186,37 @@
         //////////////////////////////
         $date = date('d-m-Y H:i:s');
 
-        $body = 'Hola ' . $nombre_solicitante . ' ' . $pape_solicitante . ',<br/>';
-        $body .= 'su incidencia realizada el ' . $date . ' ha sido recogida en nuestro sistema. La misma contiene la siguiente información:<br/>';
-        $body .= '<ul>';
-        $body .= '<li><b>Rol</b>: ' . procesaRol($rol) . '</li>';
-        $body .= '<li><b>Nombre solicitante</b>: ' . $nombre_solicitante . '</li>';
-        $body .= '<li><b>1er apellido solicitante</b>: ' . $pape_solicitante . '</li>';
-        $body .= '<li><b>2º apellido solicitante</b>: ' . $sape_solicitante . '</li>';
-        $body .= '<li><b>E-mail solicitante</b>: ' . $email_solicitante . '</li>';
-        $body .= '<li><b>Ciclo</b>: ' . $ciclo . '</li>';
-        $body .= '<li><b>Motivo/Problema</b>: ' . procesaMotivo($motivo) . '</li>';
-        if ($rol == "c" && $motivo == "4") {
-            $body .= '<li><b>Nombre de docente a crear</b>: ' . $nombre_docente . '</li>';
-            $body .= '<li><b>1er apellido de docente a crear</b>: ' . $pape_docente . '</li>';
-            $body .= '<li><b>2º apellido de docente a crear</b>: ' . $sape_docente . '</li>';
-            $body .= '<li><b>DNI/NIE de docente a crear</b>: ' . $dni_docente . '</li>';
-            $body .= '<li><b>E-mail de docente a crear</b>: ' . $email_docente . '</li>';
-            $body .= '<li><b>Módulo 1</b>: ' . $modulo1_docente . '</li>';
-            $body .= '<li><b>Módulo 2</b>: ' . $modulo2_docente . '</li>';
-            $body .= '<li><b>Módulo 3</b>: ' . $modulo3_docente . '</li>';
+        $descriptionRedmine = '*' . $nombre_solicitante . '* *' . $pape_solicitante . '* ha enviado el ' . $date . ' una incidencia con la siguiente información:\n';
+        $descriptionRedmine .= '\n';
+        $descriptionRedmine .= '- *Rol* : ' . procesaRol($rol) . '\n';
+        $descriptionRedmine .= '- *Nombre solicitante* : ' . $nombre_solicitante . '\n';
+        $descriptionRedmine .= '- *1er apellido solicitante* : ' . $pape_solicitante . '\n';
+        $descriptionRedmine .= '- *2º apellido solicitante* : ' . $sape_solicitante . '\n';
+        $descriptionRedmine .= '- *E-mail solicitante* : ' . $email_solicitante . '\n';
+        $descriptionRedmine .= '- *Ciclo* : ' . $ciclo . '\n';
+        $descriptionRedmine .= '- *Motivo/Problema* : ' . procesaMotivo($motivo) . '\n';
+        if ($motivo == "6") {
+            $descriptionRedmine .= '- *Módulo profesional afectado* : ' . $modulo_afectado . '\n';
+            $descriptionRedmine .= '- *Explicación detallada del cambio, actualización o error detectado* (Incluye la información de manera que pueda ser fácilmente identificable: URL, número de unidad del módulo, párrafo concreto, etc.): ' . $explicacion_modulo_afectado . '\n';
+            $descriptionRedmine .= '- *Otros comentarios* (Por ejemplo, puedes comentar cuál crees que sería la solución a ese error, etc.): ' . $otros_modulo_afectado . '\n';
+        }else if ($rol == "c" && $motivo == "4") {
+            $descriptionRedmine .= '- *Tipo de modificación* : ' . $tipo_modificacion . '\n';
+            $descriptionRedmine .= '- *Nombre de docente a modificar* : ' . $nombre_docente . '\n';
+            $descriptionRedmine .= '- *1er apellido de docente a modificar* : ' . $pape_docente . '\n';
+            $descriptionRedmine .= '- *2º apellido de docente a modificar* : ' . $sape_docente . '\n';
+            $descriptionRedmine .= '- *DNI\nIE de docente a modificar* : ' . $dni_docente . '\n';
+            $descriptionRedmine .= '- *E-mail de docente a modificar* : ' . $email_docente . '\n';
+            $descriptionRedmine .= '- *Módulo 1* : ' . $modulo1_docente . '\n';
+            $descriptionRedmine .= '- *Módulo 2* : ' . $modulo2_docente . '\n';
+            $descriptionRedmine .= '- *Módulo 3* : ' . $modulo3_docente . '\n';
         }
-        $body .= '<li><b>Otros</b>: ' . $otros . '</li>';
-        $body .= '</ul>';
-        $body .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
-        $body .= 'Saludos<br/><br/>';
-        $body .= 'FP distancia Aragón';
+        $descriptionRedmine .= '- *Explicación de la situación* : ' . $otros . '\n';
 
         //////////////////////////////
         // Contacto con RedMine para crear la incidencia
         //////////////////////////////
         $url = "https://soportearagon.catedu.es/issues.json";
         $asignarA = asignarIncidenciaA($rol, $motivo, $ciclo);
-        echo '$asignarA: ' . $asignarA . '<br/>';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
         curl_setopt($curl, CURLOPT_POST, 1);
@@ -214,7 +225,7 @@
         <issue>
         <project_id>'.$projectId.'</project_id>
         <subject>'.procesaMotivo($motivo).'</subject>
-        <description><![CDATA['.$body.']]></description>
+        <description><![CDATA['.$descriptionRedmine.']]></description>
         <priority_id>2</priority_id>
         <custom_fields type="array">
             <custom_field id="1" name="owner-email">
@@ -260,31 +271,36 @@
             
             $subject = 'Nueva incidencia - FP a distancia Aragón';
             
-            $body = 'Hola ' . $nombre_solicitante . ',<br/>';
-            $body .= 'su incidencia realizada el ' . $date . ' ha sido recogida en nuestro sistema con el id <strong>'. $incidenciaCreadaId .'</strong>. La misma contiene la siguiente información:<br/>';
-            $body .= '<ul>';
-            $body .= '<li><b>Rol</b>: ' . procesaRol($rol) . '</li>';
-            $body .= '<li><b>Nombre solicitante</b>: ' . $nombre_solicitante . '</li>';
-            $body .= '<li><b>1er apellido solicitante</b>: ' . $pape_solicitante . '</li>';
-            $body .= '<li><b>2º apellido solicitante</b>: ' . $sape_solicitante . '</li>';
-            $body .= '<li><b>E-mail solicitante</b>: ' . $email_solicitante . '</li>';
-            $body .= '<li><b>Ciclo</b>: ' . $ciclo . '</li>';
-            $body .= '<li><b>Motivo/Problema</b>: ' . procesaMotivo($motivo) . '</li>';
-            if ($rol == "c" && $motivo == "4") {
-                $body .= '<li><b>Nombre de docente a crear</b>: ' . $nombre_docente . '</li>';
-                $body .= '<li><b>1er apellido de docente a crear</b>: ' . $pape_docente . '</li>';
-                $body .= '<li><b>2º apellido de docente a crear</b>: ' . $sape_docente . '</li>';
-                $body .= '<li><b>DNI/NIE de docente a crear</b>: ' . $dni_docente . '</li>';
-                $body .= '<li><b>E-mail de docente a crear</b>: ' . $email_docente . '</li>';
-                $body .= '<li><b>Módulo 1</b>: ' . $modulo1_docente . '</li>';
-                $body .= '<li><b>Módulo 2</b>: ' . $modulo2_docente . '</li>';
-                $body .= '<li><b>Módulo 3</b>: ' . $modulo3_docente . '</li>';
+            $cuerpo = 'Hola ' . $nombre_solicitante . ',<br/>';
+            $cuerpo .= 'su incidencia realizada el ' . $date . ' ha sido recogida en nuestro sistema con el id <strong>'. $incidenciaCreadaId .'</strong>. La misma contiene la siguiente información:<br/>';
+            $cuerpo .= '<ul>';
+            $cuerpo .= '<li><b>Rol</b>: ' . procesaRol($rol) . '</li>';
+            $cuerpo .= '<li><b>Nombre solicitante</b>: ' . $nombre_solicitante . '</li>';
+            $cuerpo .= '<li><b>1er apellido solicitante</b>: ' . $pape_solicitante . '</li>';
+            $cuerpo .= '<li><b>2º apellido solicitante</b>: ' . $sape_solicitante . '</li>';
+            $cuerpo .= '<li><b>E-mail solicitante</b>: ' . $email_solicitante . '</li>';
+            $cuerpo .= '<li><b>Ciclo</b>: ' . $ciclo . '</li>';
+            $cuerpo .= '<li><b>Motivo/Problema</b>: ' . procesaMotivo($motivo) . '</li>';
+            if($motivo == "6"){
+                $cuerpo .= '<li><b>Módulo profesional afectado</b>: ' . $modulo_afectado . '</li>';
+                $cuerpo .= '<li><b>Explicación detallada del cambio, actualización o error detectado</b>: ' . $explicacion_modulo_afectado . '</li>';
+                $cuerpo .= '<li><b>Otros comentarios</b>: ' . $otros_modulo_afectado . '</li>';
+            }else if ($rol == "c" && $motivo == "4") {
+                $cuerpo .= '<li><b>Tipo de modificación</b>: ' . $tipo_modificacion . '</li>';
+                $cuerpo .= '<li><b>Nombre de docente a modificar</b>: ' . $nombre_docente . '</li>';
+                $cuerpo .= '<li><b>1er apellido de docente a modificar</b>: ' . $pape_docente . '</li>';
+                $cuerpo .= '<li><b>2º apellido de docente a modificar</b>: ' . $sape_docente . '</li>';
+                $cuerpo .= '<li><b>DNI/NIE de docente a modificar</b>: ' . $dni_docente . '</li>';
+                $cuerpo .= '<li><b>E-mail de docente a modificar</b>: ' . $email_docente . '</li>';
+                $cuerpo .= '<li><b>Módulo 1</b>: ' . $modulo1_docente . '</li>';
+                $cuerpo .= '<li><b>Módulo 2</b>: ' . $modulo2_docente . '</li>';
+                $cuerpo .= '<li><b>Módulo 3</b>: ' . $modulo3_docente . '</li>';
             }
-            $body .= '<li><b>Otros</b>: ' . $otros . '</li>';
-            $body .= '</ul>';
-            $body .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
-            $body .= 'Saludos<br/><br/>';
-            $body .= 'FP distancia Aragón';
+            $cuerpo .= '<li><b>Explicación de la situación</b>: ' . $otros . '</li>';
+            $cuerpo .= '</ul>';
+            $cuerpo .= 'No conteste a este correo electrónico puesto que se trata de una cuenta desatendida y automatizada<br/>';
+            $cuerpo .= 'Saludos<br/><br/>';
+            $cuerpo .= 'FP distancia Aragón';
 
             $fromUser = new stdClass();
             $fromUser->firstname = null;
@@ -293,7 +309,7 @@
             $fromUser->maildisplay = true;
             $fromUser->id = -99;
 
-            $exitoEnviandoEmail = email_to_user($toUser, $fromUser, $subject, $body);
+            $exitoEnviandoEmail = email_to_user($toUser, $fromUser, $subject, $cuerpo);
         }
     }
 ?>
@@ -312,7 +328,21 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
         <link rel="stylesheet" href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/theme/moove/style/aragon/aragon-wrapper.css" type="text/css">
         
-        
+        <!-- Matomo -->
+        <script type="text/javascript">
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="https://analytics.catedu.es/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+        </script>
+        <!-- End Matomo Code -->
     </head>
     <body  id="page-site-index" class="format-site course path-site chrome dir-ltr lang-es yui-skin-sam yui3-skin-sam test-adistanciafparagon-es pagelayout-frontpage course-1 context-2 notloggedin ">
         <section  class="ita-sectionguia aragob_header_wrapper">
@@ -359,31 +389,52 @@
 ?>
                                             <h2>Soporte</h2>
                                             <h3><?php echo $h3 ?></h3>
+                                            <div class="settingsform">
+<?php
+    if( $exitoCreandoIncidencia ){
+?>
                                             <p>La información recogida es la siguiente:</p>
                                             <ul>
-                                                <li><b>Rol</b>: <?php echo procesaRol($rol); ?></li>
-                                                <li><b>Nombre solicitante</b>: <?php echo htmlentities($nombre_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>1er apellido solicitante</b>: <?php echo htmlentities($pape_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>2º apellido solicitante</b>: <?php echo htmlentities($sape_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>E-mail solicitante</b>: <?php echo htmlentities($email_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Ciclo</b>: <?php echo htmlentities($ciclo, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Motivo/Problema</b>: <?php echo procesaMotivo($motivo); ?></li>
+                                                <li>Rol</b>: <?php echo procesaRol($rol); ?></li>
+                                                <li>Nombre solicitante</b>: <?php echo htmlentities($nombre_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>1er apellido solicitante</b>: <?php echo htmlentities($pape_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>2º apellido solicitante</b>: <?php echo htmlentities($sape_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>E-mail solicitante</b>: <?php echo htmlentities($email_solicitante, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Ciclo</b>: <?php echo htmlentities($ciclo, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Motivo/Problema</b>: <?php echo procesaMotivo($motivo); ?></li>
 <?php
-if ($rol == "c" && $motivo == "4") {
+        if ($motivo == "6"){
 ?>
-                                                <li><b>Nombre de docente a crear</b>: <?php echo htmlentities($nombre_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>1er apellido de docente a crear</b>: <?php echo htmlentities($pape_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>2º apellido de docente a crear</b>: <?php echo htmlentities($sape_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>DNI/NIE de docente a crear</b>: <?php echo htmlentities($dni_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>E-mail de docente a crear </b>: <?php echo htmlentities($email_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Módulo 1</b>: <?php echo htmlentities($modulo1_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Módulo 2</b>: <?php echo htmlentities($modulo2_docente, ENT_QUOTES, "UTF-8"); ?></li>
-                                                <li><b>Módulo 3</b>: <?php echo htmlentities($modulo3_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Módulo profesional afectado</b>: <?php echo procesaMotivo($motivo); ?></li>
+                                                <li>Explicación detallada del cambio, actualización o error detectado</b>: <?php echo procesaMotivo($motivo); ?></li>
+                                                <li>Otros comentarios</b>: <?php echo procesaMotivo($motivo); ?></li>
 <?php
-}
+        }else if ($rol == "c" && $motivo == "4") {
 ?>
-                                                <li><b>Otros</b>: <?php echo htmlentities($otros, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Tipo de modificación</b>: <?php echo htmlentities($tipo_modificacion, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Nombre de docente a modificar</b>: <?php echo htmlentities($nombre_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>1er apellido de docente a modificar</b>: <?php echo htmlentities($pape_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>2º apellido de docente a modificar</b>: <?php echo htmlentities($sape_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>DNI/NIE de docente a modificar</b>: <?php echo htmlentities($dni_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>E-mail de docente a modificar </b>: <?php echo htmlentities($email_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Módulo 1</b>: <?php echo htmlentities($modulo1_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Módulo 2</b>: <?php echo htmlentities($modulo2_docente, ENT_QUOTES, "UTF-8"); ?></li>
+                                                <li>Módulo 3</b>: <?php echo htmlentities($modulo3_docente, ENT_QUOTES, "UTF-8"); ?></li>
+<?php
+        }
+?>
+                                                <li>Explicación de la situación</b>: <?php echo htmlentities($otros, ENT_QUOTES, "UTF-8"); ?></li>
                                             </ul>
+<?php
+    }else{
+?>
+                                            <p class="box py-3 generalbox alert alert-error alert alert-danger">
+                                                Ha fallado la creación de la incidencia
+                                            </p>
+<?php
+    }
+?>
+
                                         </div>
                                     </div>
                                 </div><!-- end of .card-body -->

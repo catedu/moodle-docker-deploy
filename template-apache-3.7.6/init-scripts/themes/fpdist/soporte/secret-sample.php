@@ -7,7 +7,7 @@ $userRedmine = "";
 $passRedmine = "";
 $projectId = "";
 //codigo para los coordinadores
-$codeCoordinacion = "";
+$codeCoordinacionPrivate = "";
 //ids de los usuarios
 $idUserAdmin = "";
 $idUserFP = "";
@@ -31,6 +31,7 @@ $idUserCoordinacion_IES_Miralbueno_AVGE = "";
 $idUserCoordinacion_IES_Pablo_Serrano_ASIR = "";
 $idUserCoordinacion_IES_Rio_Gallego_FP = "";
 $idUserCoordinacion_IES_Rio_Gallego_ES = "";
+$idUserCoordinacion_CPIFP_San_Blas_ECA = "";
 $idUserCoordinacion_IES_Santa_Emerenciana_GA = "";
 $idUserCoordinacion_IES_Sierra_de_Guara_GA = "";
 $idUserCoordinacion_IES_Tiempos_Modernos_GA = "";
