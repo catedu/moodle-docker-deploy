@@ -12,8 +12,28 @@
 # Config theme snap, already imported via plugins.sh
 echo >&2 "Exporting theme..."
 
-moosh config-set theme moove
-moosh theme-settings-export --themename moove
+moosh -n config-set theme moove
+moosh -n theme-settings-export --themename moove
 cp moove*.tar.gz /init-scripts/themes/
-moosh theme-settings-import --targettheme moove moove*tar.gz
-php /var/www/html/admin/cli/upgrade.php
+moosh -n theme-settings-import --targettheme moove moove*tar.gz
+
+# Lanzamos script expect para evitar la interacción en el proceso upgrade de moodle
+echo '#!/usr/bin/expect -f' >> actualiza
+echo 'set timeout -1' >> actualiza
+echo 'spawn php /var/www/html/admin/cli/upgrade.php' >> actualiza
+echo 'expect "(para no)"' >> actualiza 
+echo 'send -- "s"' >> actualiza
+echo 'send -- "\r"' >> actualiza
+# echo 'expect "(means no)"' >> actualiza 
+# echo 'send -- "y"' >> actualiza
+# echo 'send -- "\r"' >> actualiza
+echo 'expect eof' >> actualiza
+chmod 744 actualiza
+./actualiza
+
+# Actualizar theme_moove y de format_tiles a su última versión 
+moosh -n plugin-list
+moosh -n plugin-install -d --release 2021051700 theme_moove
+moosh -n plugin-install -d --release 2020080613 format_tiles
+
+
