@@ -47,7 +47,7 @@ get_parameter(){
             u)
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
-                    MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
+                    MOODLE_URL="https://www.adistanciafparagon.es"
                 else
                     [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                     { echo "Incorrect url format..."; usage; exit 1;}
@@ -175,8 +175,10 @@ if [ -f "${VIRTUALHOST}/php-conf/uploads.ini.RESTO" ]; then
     rm "${VIRTUALHOST}/php-conf/uploads.ini.RESTO"
 fi
 #
-if [ ! -f "${VIRTUALHOST}/.env" ]; then
-    cat > "${VIRTUALHOST}/.env" << EOF
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+then
+    if [ ! -f "${VIRTUALHOST}/.env" ]; then
+        cat > "${VIRTUALHOST}/.env" << EOF
 
 
 # for reverse nginx proxy:
@@ -227,6 +229,53 @@ BLACKBOARD_SECRET="${BLACKBOARD_SECRET}"
 
 EOF
     
+    fi
+else
+    if [ ! -f "${VIRTUALHOST}/.env" ]; then
+        cat > "${VIRTUALHOST}/.env" << EOF
+
+
+# for reverse nginx proxy:
+VIRTUAL_HOST="${VIRTUALHOST}"
+SSL_EMAIL="${SSL_EMAIL}"
+SSL_PROXY=true
+MOODLE_URL="${MOODLE_URL}"
+
+# for database connection:
+MOODLE_DB_HOST="${MOODLE_DB_HOST}"
+MOODLE_DB_NAME="${MOODLE_DB}"
+MOODLE_MYSQL_USER="${MOODLE_MYSQL_USER}"
+MOODLE_MYSQL_PASSWORD="${MOODLE_MYSQL_PASSWORD}"
+
+
+# for installing moodle, user data:
+MOODLE_ADMIN_USER="${MOODLE_ADMIN_USER}"
+MOODLE_ADMIN_PASSWORD="${MOODLE_ADMIN_PASSWORD}"
+MOODLE_ADMIN_EMAIL="${MOODLE_ADMIN_EMAIL}"
+MOODLE_LANG=${MOODLE_LANG}
+MOODLE_SITE_NAME="${MOODLE_SITE_NAME}"
+MOODLE_SITE_FULLNAME="${MOODLE_SITE_FULLNAME}"
+
+## init-scripts
+INSTALL_TYPE=new-install
+SCHOOL_TYPE=${SCHOOL_TYPE}
+VERSION="${VERSION}"
+
+SMTP_HOSTS="${SMTP_HOSTS}"
+SMTP_USER="${SMTP_USER}"
+SMTP_PASSWORD="${SMTP_PASSWORD}"
+SMTP_MAXBULK=${SMTP_MAXBULK}
+NO_REPLY_ADDRESS="${NO_REPLY_ADDRESS}"
+
+CRON_BROWSER_PASS="${CRON_BROWSER_PASS}"
+MOODLE_MANAGER="${MOODLE_MANAGER}"
+MANAGER_PASSWORD="${MANAGER_PASSWORD}"
+ASESORIA_PASSWORD="${ASESORIA_PASSWORD}"
+ASESORIA_EMAIL="${ASESORIA_EMAIL}"
+
+EOF
+    
+    fi
 fi
 
 echo "DEPLOY ${MOODLE_URL} CREATED!"
