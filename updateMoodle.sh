@@ -2,19 +2,19 @@
 set -eu
 
 usage () {
-    echo 'usage: upgradeMoodle.sh [-p] [-y] [-e env-update] -u "dirsite" -d "upgrade_version_template"'
-    echo "help: upgradeMoodle.sh -h"
+    echo 'usage: updateMoodle.sh [-p] [-y] [-e env-update] -u "dirsite" -d "version_template"'
+    echo "help: updateMoodle.sh -h"
 }
 
 showHelp () {
-    echo 'usage: upgradeMoodle.sh [-y] [-e env-update] -u "dirsite" -d "upgrade_version_template"'
+    echo 'usage: updateMoodle.sh [-y] [-e env-update] -u "dirsite" -d "version_template"'
     echo "Options:"
     echo "-y -> Yes all questions"
     echo "-e -> Add or modify env site variables"
-    echo "-u -> site to upgrade. Only accept installdir"
-    echo "-d -> directory template to upgrade"
+    echo "-u -> site to update. Only accept installdir"
+    echo "-d -> directory template of actual version"
     echo "-h this message"
-    echo "Backup moodle site and DB to upgrade in /var/backup_upgrade/ "
+    echo "Backup moodle site and DB to update in /var/backup_update/ "
     
 }
 
@@ -32,7 +32,7 @@ get_parameter(){
             u)
                 WORKDIR="${OPTARG##*//}"
                 [ ! -d "${WORKDIR}" ] && \
-                { echo "$(basename $0): Does not exist Site to upgrade!"; usage; exit 1;}
+                { echo "$(basename $0): Does not exist Site to update!"; usage; exit 1;}
                 WORKDIR=${WORKDIR%\/}
             ;;
             d)
@@ -57,8 +57,8 @@ get_parameter(){
     
     
     # Mandatory options
-    [ -z ${TEMPLATEUDIR+x} ] && { echo "$(basename $0): You must to indicate a directory upgrade template"; usage; exit 1;}
-    [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory to upgrade"; usage; exit 1;}
+    [ -z ${TEMPLATEUDIR+x} ] && { echo "$(basename $0): You must to indicate a directory template of actual version"; usage; exit 1;}
+    [ -z ${WORKDIR+x} ] && { echo "$(basename $0): You must to indicate a directory to update"; usage; exit 1;}
     return 0
     
 }
@@ -154,15 +154,16 @@ STEP="init"
 
 # Parameters
 YES=false
-MOODLECODEDIR="moodle-code"
-OLDMOODLECODEDIR="oldmoodlecode"
 get_parameter "$@"
 # WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
 trap 'rollback' INT TERM EXIT
 
+
+
 # Define Backup dir dinamically by date. Change if its necessary
-BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
+BACKUPDIR="/var/backup_update/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
 sudo mkdir -p "${BACKUPDIR}" && sudo chown debian:debian "${BACKUPDIR}" || { echo "$(basename $0) - init: Problems to create ${BACKUPDIR} backup"; exit 1; }
+
 
 
 # # Load general .env for run backup
@@ -180,9 +181,10 @@ echo "new version ${NEWVERSION}"
 dpkg --compare-versions ${VERSION} gt ${NEWVERSION} && \
  { echo "Do you want to downgrade moodle? WTF??"; exit 1; }
 
-dpkg --compare-versions ${VERSION} eq ${NEWVERSION} && \
-{ echo "This is an upgrade not an update"; exit 1; }  
+dpkg --compare-versions ${VERSION} lt ${NEWVERSION} && \
+ { echo "If you want to make UPGRADE use upgradeMoodle script "; exit 1; }
  
+
 install_pkg mariadb-client rsync
 
 
@@ -199,6 +201,7 @@ else
 fi
 STEP="stopservice"
 
+
 ## Backup
 echo "$(basename $0) - Backup DB..."
 mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > ${BACKUPDIR}/${WORKDIR}_db.sql || { echo "$(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
@@ -209,33 +212,17 @@ STEP="backup"
 
 
 ## Template
-# Move moodle-code to oldmoodlecode
-sudo mkdir "${WORKDIR:?}/${OLDMOODLECODEDIR}" 
-sudo cp "${WORKDIR:?}/${MOODLECODEDIR}/config.php" "${WORKDIR:?}/${OLDMOODLECODEDIR}/config.php"
-sudo rm -rf "${WORKDIR:?}/${MOODLECODEDIR}" && echo "$(basename $0) - Clean: ${MOODLECODEDIR} Moved !" || \
-    { echo "$(basename $0) - Clean: ${MOODLECODEDIR} Moved FAIL!"; exit 1; }
-
-
-# Upgrade skel
+# ??Upgrade skel
 rsync -av --copy-links "${TEMPLATEUDIR}"/ "${WORKDIR}" || { echo "$(basename $0) - template: Copy upgrade ${WORKDIR} FAIL!"; exit 1; }
 
-#echo " paso 8: copio config.php del viejo al nuevo2"
-# Copy config.php al original
-#sudo cp "${WORKDIR:?}/${OLDMOODLECODEDIR}/config.php" "${WORKDIR:?}/${MOODLECODEDIR}"
-#sudo rm -rf "${WORKDIR:?}/${OLDMOODLECODEDIR}"
-
-
-# Upgrade new general variables if its indicated
+# Update new general variables if its indicated
 [ -n "${ENVUPDATE+x}" ] && merge_envs "${WORKDIR}/.env" "${ENVUPDATE}" > /dev/null
 
 STEP="template"
 
-## Upgrade .env file with new INSTALL_TYPE=upgrade before up services
-echo "U P G R A D E"
-sed  -iu --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=upgrade/g' "${WORKDIR}/.env"
-
-echo "cambiando la version a ${NEWVERSION} en ${WORKDIR}"
-sed  -iu --follow-symlinks "s/VERSION.*/VERSION=${NEWVERSION}/g" "${WORKDIR}/.env"
+## Update .env file with new INSTALL_TYPE before up services
+echo "U P D A T E"
+sed  -iu --follow-symlinks 's/INSTALL_TYPE.*/INSTALL_TYPE=update/g' "${WORKDIR}/.env"
 
 # Load  .env (changes)
 set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
