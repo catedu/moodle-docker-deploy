@@ -149,6 +149,7 @@ merge_envs(){
     tee ${1} < "${tmpfile}" && echo "quien soy" && whoami && rm -f "${tmpfile}" && echo "borrado fichero temporal ${tmpfile}"
 }
 
+
 ## STEPS: init, stopservice,backup,template, end
 STEP="init"
 
@@ -159,6 +160,8 @@ OLDMOODLECODEDIR="oldmoodlecode"
 get_parameter "$@"
 # WORKDIR -> Site Directory || TEMPLATEUDIR -> New template to apply
 trap 'rollback' INT TERM EXIT
+echo "Inicio actualización ${WORKDIR} a fecha: $(date)"
+
 
 # Define Backup dir dinamically by date. Change if its necessary
 BACKUPDIR="/var/backup_upgrade/$(date +%Y-%m-%d--%H-%M)__${WORKDIR}"
@@ -244,3 +247,5 @@ set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 up_service
 
 STEP="end"
+
+echo "Fin actualización ${WORKDIR} a fecha: $(date)"
