@@ -61,6 +61,7 @@ get_parameter(){
                 [[ "${OPTARG}" =~ ^[Cc][Ee][Ii][Pp] ]] && SCHOOL_TYPE="CEIP"
                 [[ "${OPTARG}" =~ ^[Cc][Pp][Ii] ]] && SCHOOL_TYPE="CPI"
                 [[ "${OPTARG}" =~ ^[Ii][Ee][Ss] ]] && SCHOOL_TYPE="IES"
+                [[ "${OPTARG}" =~ ^[Cc][Pp][Ee][Pp][Aa] ]] && SCHOOL_TYPE="CPEPA"
                 [[ "${OPTARG}" =~ ^[Ff][Pp][Dd] ]] && SCHOOL_TYPE="FPD"
                 [[ "${OPTARG}" =~ ^[Vv][Aa][Cc][Ii][Oo] ]] && SCHOOL_TYPE="VACIO"
                 [[ "${SCHOOL_TYPE}" = "" ]] && \
