@@ -50,12 +50,12 @@ moosh config-set enablemobilewebservice 1
 echo >&2 "Configuring blog..."
 moosh config-set enableblogs 1
 
-# Config mobile notifications
-echo >&2 "Configuring mobile notifications..."
-moosh config-set airnotifierurl https://messages.moodle.net
-moosh config-set airnotifierport 443
-moosh config-set airnotifiermobileappname com.moodle.moodlemobile
-moosh config-set airnotifierappname commoodlemoodlemobile
+# # Config mobile notifications
+# echo >&2 "Configuring mobile notifications..."
+# moosh config-set airnotifierurl https://messages.moodle.net
+# moosh config-set airnotifierport 443
+# moosh config-set airnotifiermobileappname com.moodle.moodlemobile
+# moosh config-set airnotifierappname commoodlemoodlemobile
 
 # If we want to set the time when students receive mails
 # moosh config-set digestmailtime 18
@@ -133,8 +133,8 @@ moosh config-set gradepointdefault 10
 # themes
 moosh config-set allowthemechangeonurl 1
 
-# Disabling messaging
-moosh config-set messaging 0
+# # Disabling messaging
+# moosh config-set messaging 0
 
 # Site Policyhandler
 moosh config-set sitepolicyhandler tool_policy
@@ -286,17 +286,32 @@ moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup 
 #Update capability student configuration for avoiding emails between them
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
 
-#unoconv
-if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then
-        echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
-    else
-        echo "Installing unoconv package"
-        apt-get update
-        apt-get install unoconv -y
-        mkdir ../.config
-        chown -R www-data:www-data ../.config
-fi
+# #unoconv
+# if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+#     then
+#         echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
+#     else
+#         echo "Installing unoconv package"
+#         apt-get update
+#         apt-get install unoconv -y
+#         mkdir ../.config
+#         chown -R www-data:www-data ../.config
+# fi
 
 echo >&2 "Updating default HTTP configuration"
 moosh config-set getremoteaddrconf 1
+
+echo >&2 "Activating Messaging in Moodle general configuration"
+moosh -n config-set messaging 1
+
+echo >&2 "Activating Mobile configuration for push notifications"
+#El centro necesitará activar las salidas de mensaje por móvil
+moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
+#moosh -n config-set airnotifierport 443
+moosh -n config-set airnotifiermobileappname "es.aragon.aeducar"
+moosh -n config-set airnotifierappname "esaragonaeducar"
+moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"
+
+#Habilitar actividades sigilosas
+echo >&2 "Activating allowstealth activities"
+moosh -n config-set allowstealth 1
