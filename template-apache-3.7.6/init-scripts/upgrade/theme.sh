@@ -36,4 +36,9 @@ moosh -n plugin-list
 moosh -n plugin-install -d --release 2021051700 theme_moove
 moosh -n plugin-install -d --release 2020080613 format_tiles
 
+# Copiar nueva plantilla footer sin div amarillo moodle
+cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
+
+
+
 
