@@ -101,14 +101,14 @@ up_service(){
 change_dns(){
     if [ "$1" = "yes" ]; then
         echo "# $(basename $0) - Delete old local DNS..."
-        (cd "${APIOVH}" && node deleteSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to delete DNS..."
+        (cd "${LOCALROOT}/${APIOVH}" && node deleteSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to delete DNS..."
         echo "# $(basename $0) - Create new remote DNS..."
         remote_command "cd \"${REMOTEROOT}/${APIOVH}\" && node createSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to create DNS..."
     else
         echo "# $(basename $0) - Delete remote DNS..."
         remote_command "cd \"${REMOTEROOT}/${APIOVH}\" && node deleteSubdomain.js \"https://${VIRTUAL_HOST}\"" || echo "# - ERROR to delete DNS remote..."
         echo "# $(basename $0) - Create local DNS..."
-        (cd "${APIOVH}" && node createSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to create DNS..."
+        (cd "${LOCALROOT}/${APIOVH}" && node createSubdomain.js "https://${VIRTUAL_HOST}") || echo "# - ERROR to create DNS..."
     fi
     
 }
