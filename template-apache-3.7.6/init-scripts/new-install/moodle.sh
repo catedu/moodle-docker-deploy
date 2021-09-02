@@ -198,7 +198,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
         FPD_ADMIN_USER_ID=`moosh user-create --password ${FPD_PASSWORD} --email ${FPD_EMAIL} --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2`
         moosh config-set siteadmins 2,${ASESORIA_USER_ID},${FPD_ADMIN_USER_ID}
-        FPD_APP_USER_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname demoapp --lastname demoapp demoapp`
+        FPD_APP_USER_STUDENT_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname student --lastname demoapp demoapp`
+        FPD_APP_USER_TEACHER_ID=`moosh user-create --password ${APP_TEACHER_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname teacher --lastname demoapp profesor1`
 fi
 
 # import categories and courses
@@ -305,12 +306,23 @@ echo >&2 "Activating Messaging in Moodle general configuration"
 moosh -n config-set messaging 1
 
 echo >&2 "Activating Mobile configuration for push notifications"
-#El centro necesitará activar las salidas de mensaje por móvil
-moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
-#moosh -n config-set airnotifierport 443
-moosh -n config-set airnotifiermobileappname "es.aragon.aeducar"
-moosh -n config-set airnotifierappname "esaragonaeducar"
-moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"
+if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
+    then
+        #El centro necesitará activar las salidas de mensaje por móvil
+        moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
+        #moosh -n config-set airnotifierport 443
+        moosh -n config-set airnotifiermobileappname "es.aragon.fpdistancia"
+        moosh -n config-set airnotifierappname "esaragonfpdistancia"
+        moosh -n config-set airnotifieraccesskey "1e6698fd71bad502044c09a4f547f65c"
+    else
+        #El centro necesitará activar las salidas de mensaje por móvil
+        moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
+        #moosh -n config-set airnotifierport 443
+        moosh -n config-set airnotifiermobileappname "es.aragon.aeducar"
+        moosh -n config-set airnotifierappname "esaragonaeducar"
+        moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"
+fi
+
 
 #Habilitar actividades sigilosas
 echo >&2 "Activating allowstealth activities"
