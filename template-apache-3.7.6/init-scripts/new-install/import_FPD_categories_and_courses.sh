@@ -10,6 +10,7 @@ CENTRES=(
         "50010314-CPIFP LOS ENLACES" 
         "50018829-CPIFP CORONA DE ARAGÓN" 
         "22010712-CPIFP PIRÁMIDE" 
+        "44003028-CPIFP SAN BLAS"
         "50010156-IES MIRALBUENO" 
         "50010144-IES PABLO SERRANO" 
         "44010537-CPIFP BAJO ARAGÓN" 
@@ -404,6 +405,11 @@ set_studies_to_centre(){
                         "7896-Sistemas aumentativos y alternativos de comunicación"
                     )
             ;;
+            "SEA301-Instalaciones Eléctricas y Automáticas")
+                COURSES=( 
+                        
+                    )
+            ;;
         esac
         # set courses to category
         set_modules_to_study ${CATEGORY_STUDY} ${COD_CENTRE} ${ID_STUDY} ${COURSES}
@@ -502,6 +508,17 @@ moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
 
 moosh course-config-set category ${ID_CATEGORY} format topics
 
+# Creo el curso que necesitan para los marketstore de la app y matriculo en el curso a los usuarios correspondientes de prueba
+echo "creando lo necesario para apps móviles"
+ID_CATEGORY=`moosh category-create -p 0 -v 1 -d "app" "NO BORRAR - APP MOVIL"`
+if [ ! -f "/var/www/moodledata/repository/cursosministerio/5373.mbz" ]; then
+    COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de verificación marketplaces NO BORRAR" --description "Curso de verificación marketplaces NO BORRAR" marketplaces`
+else
+    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/5373.mbz ${ID_CATEGORY}`
+fi
+moosh course-enrol -r teacher -i ${COURSE_ID} ${FPD_APP_USER_TEACHER_ID}
+moosh course-enrol -r student -i ${COURSE_ID} ${FPD_APP_USER_STUDENT_ID}
+
 # creo la estructura de centros > ciclos > módulos
 
 for CENTRE in "${CENTRES[@]}"
@@ -540,6 +557,11 @@ do
         "22010712-CPIFP PIRÁMIDE")
             STUDIES=( 
                     "ELE202-Instalaciones Eléctricas y Automáticas"
+                )
+        ;;
+        "44003028-CPIFP SAN BLAS")
+            STUDIES=( 
+                    "SEA301-Instalaciones Eléctricas y Automáticas"
                 )
         ;;
         "50010156-IES MIRALBUENO")
