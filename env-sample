@@ -30,6 +30,7 @@ ASESORIA_EMAIL=asesor@aeducar.es
 FPD_PASSWORD=myverystrongpass
 FPD_EMAIL=admin@sscc.es
 APP_PASSWORD=myverystrongpass
+APP_TEACHER_PASSWORD=myverystrongpass
 
 BLACKBOARD_URL=url
 BLACKBOARD_KEY=key
