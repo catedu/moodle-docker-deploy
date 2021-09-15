@@ -47,7 +47,7 @@ set_studies_to_centre(){
         case $STUDY in
             "ADG201-Gestión Administrativa ")
                 COURSES=( 
-                        "639t-Coordinación ciclo"
+                        "639t-Coordinación - Tutoría"
                         "5364-Comunicación empresarial y atención al cliente" 
                         "5373-Formación y orientación laboral" 
                         "5365-Operaciones administrativas de compra-venta" 
@@ -64,7 +64,7 @@ set_studies_to_centre(){
             ;;
             "ADG301-Administración y Finanzas")
                 COURSES=( 
-                        "627t-Coordinación ciclo"
+                        "627t-Coordinación - Tutoría"
                         "5297-Comunicación y atención al cliente"
                         "5403-Formación y Orientación Laboral"
                         "5194-Gestión de la documentación jurídica y empresarial"
@@ -83,7 +83,7 @@ set_studies_to_centre(){
             ;;
             "ADG302-Asistencia a la Dirección")
                 COURSES=(
-                        "750t-Coordinación ciclo"
+                        "750t-Coordinación - Tutoría"
                         "7855-Comunicación y atención al cliente"
                         "8491-Formación y orientación laboral"
                         "7851-Gestión de la documentación jurídica y empresarial"
@@ -102,7 +102,7 @@ set_studies_to_centre(){
             ;;
             "COM301-Comercio Internacional")
                 COURSES=(
-                        "83t-Coordinación ciclo"
+                        "83t-Coordinación - Tutoría"
                         "5417-Formación y Orientación Laboral"
                         "5409-Gestión administrativa del comercio internacional"
                         "5407-Gestión económica y financiera de la empresa"
@@ -121,7 +121,7 @@ set_studies_to_centre(){
             ;;
             "COM302-Gestión de Ventas y Espacios Comerciales")
                 COURSES=(
-                        "738t-Coordinación ciclo"
+                        "738t-Coordinación - Tutoría"
                         "8412-Formación y orientación laboral"
                         "7909-Gestión económica y financiera de la empresa"
                         "7913-Inglés"
@@ -140,7 +140,7 @@ set_studies_to_centre(){
             ;;
             "COM303-Transporte y Logística")
                 COURSES=(
-                        "85t-Coordinación ciclo"
+                        "85t-Coordinación - Tutoría"
                         "5430-Formación y orientación laboral"
                         "5426-Gestión administrativa del comercio internacional"
                         "5422-Gestión económica y financiera de la empresa de transporte y logística"
@@ -158,13 +158,13 @@ set_studies_to_centre(){
             ;;
             "ELE202-Instalaciones Eléctricas y Automáticas")
                 COURSES=(
-                        "624t-Coordinación ciclo"
+                        "624t-Coordinación - Tutoría"
                         "5335-Automatismos industriales"
                         "5337-Electrotecnia"
                         "5344-Formación y orientación laboral"
                         "5338-Instalaciones eléctricas interiores."
-                        "5342-Instalaciones solares fotovoltaicas"
-                        "4977-Electrónica"
+                        "12360-Instalaciones solares fotovoltaicas"
+                        "12359-Electrónica"
                         "4986-Empresa e iniciativa emprendedora"
                         "4987-Formación en centros de trabajo"
                         "4981-Infraestructuras comunes de telecomunicaciones en viviendas y edificios"
@@ -175,7 +175,7 @@ set_studies_to_centre(){
             ;;
             "HOT301-Agencias de Viajes y Gestión de Eventos")
                 COURSES=( 
-                        "645t-Coordinación ciclo"
+                        "645t-Coordinación - Tutoría"
                         "5456-Destinos turísticos"
                         "5463-Dirección de entidades de intermediación turística"
                         "5447-Estructura del mercado turístico"
@@ -194,7 +194,7 @@ set_studies_to_centre(){
             ;;
             "IFC201-Sistemas Microinformáticos y Redes")
                 COURSES=( 
-                        "627t-Coordinación ciclo"
+                        "627t-Coordinación - Tutoría"
                         "5349-Aplicaciones ofimáticas"
                         "5355-Formación y orientación laboral"
                         "5359-Lengua extranjera profesional: inglés 1"
@@ -212,7 +212,7 @@ set_studies_to_centre(){
             ;;
             "IFC301-Administración de Sistemas Informáticos en Red")
                 COURSES=( 
-                        "643t-Coordinación ciclo"
+                        "643t-Coordinación - Tutoría"
                         "5283-Formación y orientación laboral "
                         "5274-Fundamentos de hardware. "
                         "5275-Gestión de bases de datos. "
@@ -233,7 +233,7 @@ set_studies_to_centre(){
             ;;
             "IFC302-Desarrollo de Aplicaciones Multiplataforma")
                 COURSES=( 
-                        "681t-Coordinación ciclo"
+                        "681t-Coordinación - Tutoría"
                         "5290-Bases de datos"
                         "5293-Entornos de desarrollo"
                         "5173-Formación y Orientación Laboral"
@@ -254,7 +254,7 @@ set_studies_to_centre(){
             ;;
             "IFC303-Desarrollo de Aplicaciones WEB")
                 COURSES=( 
-                        "682t-Coordinación ciclo"
+                        "682t-Coordinación - Tutoría"
                         "5180-Bases de datos"
                         "5182-Entornos de desarrollo"
                         "5188-Formación y orientación laboral"
@@ -274,7 +274,7 @@ set_studies_to_centre(){
             ;;
             "IMS302-Producción de Audiovisuales y Espectáculos ")
                 COURSES=( 
-                        "745t-Coordinación ciclo"
+                        "745t-Coordinación - Tutoría"
                         "9333-Formación y orientación laboral"
                         "7941-Lengua extranjera profesional: Inglés 1"
                         "7929-Medios técnicos audiovisuales y escénicos"
@@ -293,7 +293,7 @@ set_studies_to_centre(){
             ;;
             "QUI301-Laboratorio de Análisis y de Control de Calidad")
                 COURSES=( 
-                        "122t-Coordinación ciclo"
+                        "122t-Coordinación - Tutoría"
                         "5256-Análisis químicos"
                         "5259-Ensayos fisicoquímicos"
                         "5260-Ensayos microbiológicos"
@@ -312,7 +312,7 @@ set_studies_to_centre(){
             ;;
             "SAN202-Farmacia y Parafarmacia")
                 COURSES=( 
-                        "630t-Coordinación ciclo"
+                        "630t-Coordinación - Tutoría"
                         "5324-Anatomofisiología  y Patología básicas"
                         "5327-Dispensación de productos farmacéuticos"
                         "5325-Disposición y venta de productos"
@@ -329,7 +329,7 @@ set_studies_to_centre(){
             ;;
             "SAN203-Emergencias Sanitarias")
                 COURSES=( 
-                        "618t-Coordinación ciclo"
+                        "618t-Coordinación - Tutoría"
                         "5319-Anatomofisiología y patología básicas"
                         "5316-Apoyo psicológico en situaciones de emergencia"
                         "5313-Atención sanitaria inicial en situaciones de emergencia"
@@ -347,7 +347,7 @@ set_studies_to_centre(){
             ;;
             "SSC201-Atención a Personas en situación de Dependencia")
                 COURSES=( 
-                        "687t-Coordinación ciclo"
+                        "687t-Coordinación - Tutoría"
                         "5381-Apoyo domiciliario"
                         "5382-Atención sanitaria"
                         "5379-Atención y apoyo psicosocial"
@@ -365,7 +365,7 @@ set_studies_to_centre(){
             ;;
             "SSC302-Educación Infantil (Formación Profesional)")
                 COURSES=( 
-                        "140t-Coordinación ciclo"
+                        "140t-Coordinación - Tutoría"
                         "5433-Autonomía personal y salud infantil."
                         "5436-Desarrollo cognitivo y motor."
                         "5432-Didáctica de la Educación Infantil."
@@ -385,7 +385,7 @@ set_studies_to_centre(){
             ;;
             "SSC303-Integración Social")
                 COURSES=( 
-                        "768t-Coordinación ciclo"
+                        "768t-Coordinación - Tutoría"
                         "7878-Apoyo a la intervención educativa"
                         "7874-Contexto de la intervención social"
                         "8339-Formación y orientación laboral"
@@ -407,7 +407,14 @@ set_studies_to_centre(){
             ;;
             "SEA301-Instalaciones Eléctricas y Automáticas")
                 COURSES=( 
-                        
+                        "757t-Coordinación - Tutoría"
+                        "12339-Estructura y dinámica del medio ambiente"
+                        "12340-Formación y orientación laboral"
+                        "12338-Gestión ambiental"
+                        "12341-Lengua extranjera profesional: inglés, 1"
+                        "12342-Medio natural"
+                        "12343-Métodos y productos cartográficos"
+                        "12344-Programas de educación ambiental"
                     )
             ;;
         esac
@@ -416,7 +423,7 @@ set_studies_to_centre(){
         # set format topics to all courses of the category
         echo "Cambio la configuración de los cursos de la categoría ${CATEGORY_STUDY} a formato topics"
         moosh course-config-set category ${CATEGORY_STUDY} format topics
-    done    
+    done
 }
 
 # Crea o restaura los cursos en la categoría dada
@@ -516,7 +523,11 @@ if [ ! -f "/var/www/moodledata/repository/cursosministerio/5373.mbz" ]; then
 else
     COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/5373.mbz ${ID_CATEGORY}`
 fi
-moosh course-enrol -r teacher -i ${COURSE_ID} ${FPD_APP_USER_TEACHER_ID}
+echo "Creando y matriculando usuarios de testeo de la APP"
+FPD_APP_USER_STUDENT_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname student --lastname demoapp demoapp`
+FPD_APP_USER_TEACHER_ID=`moosh user-create --password ${APP_TEACHER_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname teacher --lastname demoapp profesor1`
+
+moosh course-enrol -r editingteacher -i ${COURSE_ID} ${FPD_APP_USER_TEACHER_ID}
 moosh course-enrol -r student -i ${COURSE_ID} ${FPD_APP_USER_STUDENT_ID}
 
 # creo la estructura de centros > ciclos > módulos
