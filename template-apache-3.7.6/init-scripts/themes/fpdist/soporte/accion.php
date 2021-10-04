@@ -5,14 +5,14 @@
     // Funciones
     //////////////////////////////
     function asignarIncidenciaA($rol, $motivo, $ciclo){
-              
+
         if($motivo == "1"){//"Plataforma caída";
             return $GLOBALS["idUserAdmin"];
         }
         // 2-"Acceso a plataforma. Problemas con el usuario y contraseña";
         // 3-"Acceso a los contenidos o módulos";
         elseif($motivo == "2" || $motivo == "3" ){
-            switch ($rol) {
+            switch ($ciclo) {
                 case "CPIFP Bajo Aragón: Desarrollo de Aplicaciones Multiplataforma":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Bajo_Aragon_DAM"];
                     break;
