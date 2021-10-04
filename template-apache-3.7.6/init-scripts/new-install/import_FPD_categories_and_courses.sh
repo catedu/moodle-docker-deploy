@@ -97,7 +97,6 @@ set_studies_to_centre(){
                         "7869-Protocolo empresarial"
                         "7872-Proyecto de asistencia a la dirección"
                         "7863-Segunda lengua extranjera: Francés"
-                        "10793-Segunda lengua extranjera: Italiano"
                     )
             ;;
             "COM301-Comercio Internacional")
@@ -405,7 +404,7 @@ set_studies_to_centre(){
                         "7896-Sistemas aumentativos y alternativos de comunicación"
                     )
             ;;
-            "SEA301-Instalaciones Eléctricas y Automáticas")
+            "SEA301-Educación y Control Ambiental")
                 COURSES=( 
                         "757t-Coordinación - Tutoría"
                         "12339-Estructura y dinámica del medio ambiente"
@@ -572,7 +571,7 @@ do
         ;;
         "44003028-CPIFP SAN BLAS")
             STUDIES=( 
-                    "SEA301-Instalaciones Eléctricas y Automáticas"
+                    "SEA301-Educación y Control Ambiental"
                 )
         ;;
         "50010156-IES MIRALBUENO")
