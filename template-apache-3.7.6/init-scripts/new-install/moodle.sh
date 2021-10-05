@@ -196,10 +196,10 @@ fi
 # Create FPD needed users
 if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
     then
+        echo "Creating admin user for FP..."
         FPD_ADMIN_USER_ID=`moosh user-create --password ${FPD_PASSWORD} --email ${FPD_EMAIL} --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2`
         moosh config-set siteadmins 2,${ASESORIA_USER_ID},${FPD_ADMIN_USER_ID}
-        FPD_APP_USER_STUDENT_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname student --lastname demoapp demoapp`
-        FPD_APP_USER_TEACHER_ID=`moosh user-create --password ${APP_TEACHER_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname teacher --lastname demoapp profesor1`
+        # users for mobile app area created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
 fi
 
 # import categories and courses
