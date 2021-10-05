@@ -142,8 +142,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         PLUGINS=( 
                 "theme_moove" 
                 "format_tiles"
-                # "mod_jitsi" FP will use blackboard LTI
-                # "mod_hvp" is in the core of moodle >= 3.9 and FPD uses 3.10.1
                 "block_xp"
                 "availability_xp"
                 "report_benchmark" # 02/03/2021 report_benchmark is not available for 3.10
@@ -156,8 +154,12 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "block_grade_me" # 02/03/2021 block_grade_me is not available for 3.10
                 "quizaccess_onesession"
                 "mod_choicegroup"
+                "block_completion_progress"
+                "atto_fullscreen"
+                "atto_morebackcolors"
+                "atto_morefontcolors"
                 "mod_pdfannotator"
-		        "mod_pdfannotator"
+                "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
     else
@@ -179,7 +181,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 # "block_grade_me"
                 "quizaccess_onesession"
                 "mod_choicegroup"
-	            "mod_pdfannotator"
+                "mod_pdfannotator"
                 "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
