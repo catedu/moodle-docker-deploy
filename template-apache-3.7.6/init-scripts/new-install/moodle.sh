@@ -292,6 +292,15 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability student moodle/user:viewdetails prohibit 1
 fi
 
+# Set specific configuration for FPD
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        # duplicate activities
+        moosh role-update-capability teacher moodle/restore:restoretargetimport allow 1
+        moosh role-update-capability teacher moodle/backup:backuptargetimport allow 1
+        #
+fi
+
 # #unoconv
 # if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 #     then
