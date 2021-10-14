@@ -285,7 +285,12 @@ moosh config-set  message_provider_tool_monitor_notification_loggedin    popup  
 moosh config-set  message_provider_tool_monitor_notification_loggedoff    popup   message
 
 #Update capability student configuration for avoiding emails between them
-moosh role-update-capability student moodle/user:viewdetails prohibit 1
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "For FP distancia we allow students view other students profile" 
+    else
+        moosh role-update-capability student moodle/user:viewdetails prohibit 1
+fi
 
 # #unoconv
 # if [[ "${SCHOOL_TYPE}" = "FPD" ]];
@@ -313,7 +318,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         #moosh -n config-set airnotifierport 443
         moosh -n config-set airnotifiermobileappname "es.aragon.fpdistancia"
         moosh -n config-set airnotifierappname "esaragonfpdistancia"
-        moosh -n config-set airnotifieraccesskey "1e6698fd71bad502044c09a4f547f65c"
+        moosh -n config-set airnotifieraccesskey "0ed710a3d4297e7b1ef01292a9332d71"
     else
         #El centro necesitará activar las salidas de mensaje por móvil
         moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
