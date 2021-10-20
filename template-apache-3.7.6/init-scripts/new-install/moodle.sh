@@ -327,7 +327,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         #moosh -n config-set airnotifierport 443
         moosh -n config-set airnotifiermobileappname "es.aragon.fpdistancia"
         moosh -n config-set airnotifierappname "esaragonfpdistancia"
-        moosh -n config-set airnotifieraccesskey "0ed710a3d4297e7b1ef01292a9332d71"
+        moosh -n config-set airnotifieraccesskey "1e6698fd71bad502044c09a4f547f65c"
     else
         #El centro necesitará activar las salidas de mensaje por móvil
         moosh -n config-set airnotifierurl "https://bma.messages.moodle.net"
