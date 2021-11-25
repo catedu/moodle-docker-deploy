@@ -70,7 +70,7 @@ moosh config-set timezone Europe/Madrid
 
 # Config navigation
 echo >&2 "Configuring navitation..."
-moosh config-set defaulthomepage 0
+moosh config-set defaulthomepage 1
 moosh config-set searchincludeallcourses 1
 moosh config-set navshowfullcoursenames 1
 moosh config-set navshowcategories 0
@@ -91,8 +91,8 @@ moosh config-set cronclionly 0
 
 # Badges config
 echo >&2 "Configuring badges..."
-moosh config-set badges_defaultissuercontact ${MOODLE_MANAGER}
-moosh config-set badges_defaultissuername gestorae
+moosh config-set badges_defaultissuercontact ${MOODLE_ADMIN_EMAIL}
+moosh config-set badges_defaultissuername "Plataforma Aeducar"
 
 # Users config
 echo >&2 "Configuring users..."
@@ -158,6 +158,9 @@ moosh role-update-capability gestora moodle/webservice:createmobiletoken allow 1
 moosh role-update-capability gestora block/tags:myaddinstance allow 1
 moosh role-update-capability gestora block/starredcourses:myaddinstance allow 1
 moosh role-update-capability gestora block/mentees:myaddinstance allow 1
+moosh role-update-capability gestora moodle/role:manage prohibit 1 
+moosh role-update-capability gestora moodle/course:renameroles prohibit 1
+
 moosh config-set dporoles 9 tool_dataprivacy
 moosh user-assign-system-role gestorae gestora
 
