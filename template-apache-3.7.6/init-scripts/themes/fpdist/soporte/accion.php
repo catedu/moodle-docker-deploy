@@ -5,7 +5,7 @@
     // Funciones
     //////////////////////////////
     function asignarIncidenciaA($rol, $motivo, $ciclo){
-
+              
         if($motivo == "1"){//"Plataforma caída";
             return $GLOBALS["idUserAdmin"];
         }
@@ -142,6 +142,31 @@
                 return "ERROR";
         }
     }
+
+    function procesaPrioridad($motivo){
+        switch ($motivo) {
+            case "1": //Plataforma caída
+                return "2";
+                break;
+            case "2"://Acceso a plataforma. Problemas con el usuario y contraseña
+                return "2";
+                break;
+            case "3"://Acceso a los contenidos o módulos
+                return "2";
+                break;
+            case "4"://Dar de alta/baja profesorado
+                return "3";
+                break;
+            case "5"://Otros
+                return "2";
+                break;
+            case "6"://Cambio/Actualización de materiales
+                return "2";
+                break;
+            default:
+                return "ERROR";
+        }
+    }
     //////////////////////////////
     // Recojo parámetros del form
     //////////////////////////////
@@ -171,16 +196,28 @@
     $otros = htmlspecialchars($_POST["otros"]);
 
     //////////////////////////////
-    // Si se quiere crear/borrar un nuevo docente hay que comprobar si
+    // Si se quiere crear/borrar un nuevo docente hay que comprobar si se tiene el permiso
     //////////////////////////////
     $accesoPermitido = true;
+
     if ($rol == "c" && $motivo == "4") {
         if($cod_coordinacion != $codeCoordinacionPrivate){
             $accesoPermitido = false;
         }
     }
 
-    if($accesoPermitido){
+    //////////////////////////////
+    // Antes de procesar miro si campos obligatorios están rellenos para evitar envío masivo de navegadores que se saltan required
+    //////////////////////////////
+
+    $camposObligatoriosRellenos = true;
+    if($nombre_solicitante == "" || $pape_solicitante == "" || $email_solicitante == "" ){
+        $camposObligatoriosRellenos = false;
+    }
+
+
+
+    if($accesoPermitido && $camposObligatoriosRellenos ){
         //////////////////////////////
         // Creo variables iniciales
         //////////////////////////////
@@ -226,7 +263,7 @@
         <project_id>'.$projectId.'</project_id>
         <subject>'.procesaMotivo($motivo).'</subject>
         <description><![CDATA['.$descriptionRedmine.']]></description>
-        <priority_id>2</priority_id>
+        <priority_id>'.procesaPrioridad($motivo).'</priority_id>
         <custom_fields type="array">
             <custom_field id="1" name="owner-email">
                 <value>'.$email_solicitante.'</value>
@@ -379,6 +416,8 @@
     $h3 = '';
     if( !$accesoPermitido ){
         $h3 = 'Acceso no permitido a coordinación. Solicite la clave al departamento';
+    }elseif(!$camposObligatoriosRellenos){
+        $h3 =  'Debe rellenar todos los campos obligatorios. Incidencia NO procesada.';
     }elseif($exitoCreandoIncidencia && $exitoEnviandoEmail){
         $h3 =  'Incidencia ' . $incidenciaCreadaId . ' creada. Se le ha enviado un email con copia de la misma.';
     }elseif ($exitoCreandoIncidencia && !$exitoEnviandoEmail) {

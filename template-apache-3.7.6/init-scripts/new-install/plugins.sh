@@ -158,6 +158,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_fullscreen"
                 "atto_morebackcolors"
                 "atto_morefontcolors"
+                "qtype_gapfill"
                 "mod_pdfannotator"
                 "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
