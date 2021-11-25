@@ -1,9 +1,40 @@
 <?php
+    
     require_once(__DIR__ . '/../config.php');
     require_once('secret.php');
+
+    session_start();
+    echo "1: " . $_POST['captcha_challenge'];
+    echo "<br/>";
+    echo "2: " . $_SESSION['captcha_text'];
+    echo "<br/>";
+    if(isset($_POST['captcha_challenge']) && $_POST['captcha_challenge'] == $_SESSION['captcha_text']) {
+        echo '<h1>OK</h1>';
+        echo '<p>El captcha SI es correcto</p>';
+    }else{
+        echo '<h1>Error</h1>';
+        echo '<p>El captcha NO es correcto</p>';
+    }
+
     //////////////////////////////
     // Funciones
     //////////////////////////////
+    function getIPAddress() {  
+        //whether ip is from the share internet  
+         if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+                    $ip = $_SERVER['HTTP_CLIENT_IP'];  
+            }  
+        //whether ip is from the proxy  
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+         }  
+    //whether ip is from the remote address  
+        else{  
+                 $ip = $_SERVER['REMOTE_ADDR'];  
+         }  
+         return $ip;  
+    }  
+    
     function asignarIncidenciaA($rol, $motivo, $ciclo){
               
         if($motivo == "1"){//"Plataforma caída";
@@ -194,6 +225,18 @@
     $otros_modulo_afectado = htmlspecialchars($_POST["otros_modulo_afectado"]);
     //
     $otros = htmlspecialchars($_POST["otros"]);
+    //
+    $captcha = htmlspecialchars($_POST["captcha"]);
+    // Compruebo que el captcha es correcto
+    /*echo("captcha: ". $captcha);
+    echo("en sesion: ". $_SESSION["captcha"]);
+    if($captcha != ""){
+        if($captcha != $_SESSION["captcha"]){
+            echo("<br>captcha incorrecto");
+            //header("Location: ../index.php?error=captcha");
+            //exit();
+        }
+    }*/
 
     //////////////////////////////
     // Si se quiere crear/borrar un nuevo docente hay que comprobar si se tiene el permiso
@@ -222,8 +265,9 @@
         // Creo variables iniciales
         //////////////////////////////
         $date = date('d-m-Y H:i:s');
+        $ip = getIPAddress();  
 
-        $descriptionRedmine = '*' . $nombre_solicitante . '* *' . $pape_solicitante . '* ha enviado el ' . $date . ' una incidencia con la siguiente información:\n';
+        $descriptionRedmine = '*' . $nombre_solicitante . '* *' . $pape_solicitante . '* ha enviado el ' . $date . ' desde la IP ' . $ip . ' una incidencia con la siguiente información:\n';
         $descriptionRedmine .= '\n';
         $descriptionRedmine .= '- *Rol* : ' . procesaRol($rol) . '\n';
         $descriptionRedmine .= '- *Nombre solicitante* : ' . $nombre_solicitante . '\n';
@@ -248,6 +292,8 @@
             $descriptionRedmine .= '- *Módulo 3* : ' . $modulo3_docente . '\n';
         }
         $descriptionRedmine .= '- *Explicación de la situación* : ' . $otros . '\n';
+        //$descriptionRedmine .= '- *captcha en form* : ' . $captcha . '\n';
+        //$descriptionRedmine .= '- *captcha en sesion* : ' . $_SESSION["captcha"] . '\n';
 
         //////////////////////////////
         // Contacto con RedMine para crear la incidencia

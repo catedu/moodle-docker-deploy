@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
     <html  dir="ltr" lang="es" xml:lang="es">
     <head>
@@ -398,6 +401,21 @@
                                                 </fieldset>
                                                 <div class="row">
                                                     <div class="offset-sm-3 col-sm-3">
+                                                        <p>¿No puedes leer la imagen? <a href='javascript: refreshCaptcha();'>click aquí</a> para refrescar</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-item row">
+                                                    <div class="form-label col-sm-3 text-sm-right">
+                                                        <label for="captcha">Captcha <i class="icon fa slicon-exclamation text-danger fa-fw "  title="Obligatorio" aria-label="Obligatorio"></i></label>
+                                                    </div>
+                                                    <div class="form-setting col-sm-9">
+                                                        <div class="form-text defaultsnext">
+                                                            <input type="text" name="captcha" value="" size="30" id="captcha" class="form-control text-ltr" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="offset-sm-3 col-sm-3">
                                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                                     </div>
                                                 </div>
@@ -520,8 +538,13 @@
 
             repaint();
             
-            
-
+            //Refresh Captcha
+            function refreshCaptcha(){
+                var img = document.images['captcha_image'];
+                img.src = img.src.substring(
+                    0,img.src.lastIndexOf("?")
+                    )+"?rand="+Math.random()*1000;
+            }
         </script>
     </body>
 </html>
