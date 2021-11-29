@@ -1,19 +1,15 @@
 <?php
-    
+    session_start();
+
     require_once(__DIR__ . '/../config.php');
     require_once('secret.php');
 
-    session_start();
-    echo "1: " . $_POST['captcha_challenge'];
-    echo "<br/>";
-    echo "2: " . $_SESSION['captcha_text'];
-    echo "<br/>";
+    $captchaCorrecto = FALSE;
+
     if(isset($_POST['captcha_challenge']) && $_POST['captcha_challenge'] == $_SESSION['captcha_text']) {
-        echo '<h1>OK</h1>';
-        echo '<p>El captcha SI es correcto</p>';
+        $captchaCorrecto = TRUE;
     }else{
-        echo '<h1>Error</h1>';
-        echo '<p>El captcha NO es correcto</p>';
+        $captchaCorrecto = FALSE;
     }
 
     //////////////////////////////
@@ -260,7 +256,7 @@
 
 
 
-    if($accesoPermitido && $camposObligatoriosRellenos ){
+    if($accesoPermitido && $camposObligatoriosRellenos && $captchaCorrecto){
         //////////////////////////////
         // Creo variables iniciales
         //////////////////////////////
@@ -464,6 +460,8 @@
         $h3 = 'Acceso no permitido a coordinación. Solicite la clave al departamento';
     }elseif(!$camposObligatoriosRellenos){
         $h3 =  'Debe rellenar todos los campos obligatorios. Incidencia NO procesada.';
+    }elseif(!$captchaCorrecto){
+        $h3 =  'El código de captcha no es correcto. Incidencia NO procesada.';
     }elseif($exitoCreandoIncidencia && $exitoEnviandoEmail){
         $h3 =  'Incidencia ' . $incidenciaCreadaId . ' creada. Se le ha enviado un email con copia de la misma.';
     }elseif ($exitoCreandoIncidencia && !$exitoEnviandoEmail) {

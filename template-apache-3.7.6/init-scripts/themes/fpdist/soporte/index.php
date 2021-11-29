@@ -1,5 +1,9 @@
 <?php
+
+
 session_start();
+
+$sessionid = session_id();
 ?>
 <!DOCTYPE html>
     <html  dir="ltr" lang="es" xml:lang="es">
@@ -46,7 +50,7 @@ session_start();
                         <nav>
                             <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/" >Página Principal</a></li>
                                 <li class="breadcrumb-item"><a href="https://<?php echo $_SERVER['HTTP_HOST'] ?>/soporte/" >Soporte</a></li>
-                            </ol>    
+                            </ol>
                         </nav>
                     </div>
                 </div>
@@ -63,7 +67,7 @@ session_start();
                                                 <h2>Soporte</h2>
                                                 <p class="box py-3 generalbox alert alert-error alert alert-danger">Asegúrese de introducir su correo electrónico correctamente.</p>
                                                 <p>Desde el Equipo de Soporte de la Formación Profesional a Distancia del Gobierno de Aragón queremos darte el mejor servicio posible ante cualquier incidencia que puedas tener.</p>
-                                                <p>En el Bloque de <a href="#" title="Ayuda" target="_blank" >"AYUDA"</a> de este Portal , encontrarás varios enlaces con información útil que te puede ayudar a resolver las principales dudas o incidencias técnicas que te surjan.</p>
+                                                <p>En el Bloque de <a href="https://www.adistanciafparagon.es/course/view.php?id=2" title="Ayuda" target="_blank" >"AYUDA"</a> de este Portal , encontrarás varios enlaces con información útil que te puede ayudar a resolver las principales dudas o incidencias técnicas que te surjan.</p>
                                                 <p>Si no has encontrado la respuesta que buscabas, contacta con nosotros a través de este formulario. Aconsejamos que intentes explicar la situación de la manera más concreta y completa posible y que uses el correo asociado a la plataforma para reportar tu problema. Así podremos identificarte fácilmente e intentaremos resolver tu consulta en la mayor brevedad posible.</p>
                                                 <fieldset>
                                                     <div class="clearer"><!-- --></div>
@@ -401,6 +405,7 @@ session_start();
                                                 </fieldset>
                                                 <div class="row">
                                                     <div class="offset-sm-3 col-sm-3">
+                                                        <img src="captcha.php" alt="CAPTCHA" class="captcha-image">
                                                         <p>¿No puedes leer la imagen? <a href='javascript: refreshCaptcha();'>click aquí</a> para refrescar</p>
                                                     </div>
                                                 </div>
@@ -410,7 +415,7 @@ session_start();
                                                     </div>
                                                     <div class="form-setting col-sm-9">
                                                         <div class="form-text defaultsnext">
-                                                            <input type="text" name="captcha" value="" size="30" id="captcha" class="form-control text-ltr" required>
+                                                            <input type="text" name="captcha_challenge" value=""  pattern="[A-Z]{6}" id="captcha_challenge" class="form-control text-ltr" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -540,11 +545,10 @@ session_start();
             
             //Refresh Captcha
             function refreshCaptcha(){
-                var img = document.images['captcha_image'];
-                img.src = img.src.substring(
-                    0,img.src.lastIndexOf("?")
-                    )+"?rand="+Math.random()*1000;
+                document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
             }
+            
+
         </script>
     </body>
 </html>
