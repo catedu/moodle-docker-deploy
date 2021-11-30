@@ -168,18 +168,18 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "theme_moove" 
                 "format_tiles"
                 "mod_jitsi"
-                "mod_hvp"
+                #"mod_hvp" #Itsn't necessary for 3.10.4 Moodle version
                 "block_xp"
                 "availability_xp"
                 # "report_benchmark"
                 "booktool_wordimport"
-                # "local_mail"
+                "local_mail"
                 "block_configurable_reports"
                 "report_coursestats" # this one (last one) fails, needs to get activated on screen
                 # "report_coursesize"
                 # "atto_wiris"
                 # "filter_wiris"
-                # "block_grade_me"
+                # "block_grade_me" #It has some problems with 3.10.4 Moodle version. It'r installed from afterInstall.py script
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "mod_pdfannotator"
