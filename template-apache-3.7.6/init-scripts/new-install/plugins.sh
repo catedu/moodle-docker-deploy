@@ -179,11 +179,11 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 # "report_coursesize"
                 # "atto_wiris"
                 # "filter_wiris"
-                # "block_grade_me" #It has some problems with 3.10.4 Moodle version. It'r installed from afterInstall.py script
+                # "block_grade_me" #It has some problems with 3.10.4 Moodle version. It will be installed from afterInstall.py script
                 "quizaccess_onesession"
                 "mod_choicegroup"
-                "mod_pdfannotator"
-                "mod_pdfannotator"
+                "mod_pdfannotator" # is not available for moodle3.10, It will be installed from afterInstall.py script
+                "mod_pdfannotator" 
                 # for moodle 3.8 "tool_opcache"
         )
 fi
