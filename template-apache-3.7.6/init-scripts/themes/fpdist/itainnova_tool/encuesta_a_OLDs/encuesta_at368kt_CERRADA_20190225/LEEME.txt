@@ -1,0 +1,44 @@
+Encuestas Cuatrimestrales para ALumnos y Profesores.
+
+1º Debemos crear las preguntas de la encuesta.
+	Declaramos el codigo de la encuesta 201y0z0xa y 201y0z0xp. /a alumno, p profesor
+	Generamos mediante SQL las preguntas de la encuesta copiando las preguntas de la anterior encuesta.
+	INSERT INTO encuesta (XXXXX) SELECT '20190218a',XXXXXX FROM encuesta WHERE encuesta ='CODIGO DE LA ANTERIOR'
+	lo mismo para profesores.
+	INSERT INTO encuesta (XXXXX) SELECT '20190218p',XXXXXX FROM encuesta WHERE encuesta ='CODIGO DE LA ANTERIOR'
+
+2º Copiar las carpetas de las encuestas anteriores, cambiando el nombre de la carpeta en cada caso.
+ejemplo:
+sudo cp -r encuesta_at368kt_CERRADA_20190225/ ./encuesta_a
+sudo chown -R admita:admita encuesta_a
+
+
+3º Envio de la encuesta.
+ - Se debe tener los textos previos y guardarlos en la carpeta /itainnova_tool/Fragmentos_Mail/envio_encuesta y
+ /itainnova_tool/Fragmentos_Mail/envio_encuestap en los documentos body.html
+ 
+ -Para realiar el envio se utiliza el fichero envio_encuesta.php dentro de la carpeta de la encuesta.
+ Al llamarlo muestra el texto anteriormente indicado body.html y permite o hacer un envio generalizado o enviarlo personalizado
+ al indicar las direcciones de correo correspondientes, parte inferior del formulario.
+ 
+ Atencion al enlace con las encuesta debe ser actulzaido en cada caso.
+ 
+ Al ejecutar el envio se muestran las direcciones de correo a las que se ha enviado la encuesta.
+ 
+4º Encuesta
+
+Las encustas que se muestran son aquellas cuyo codigo el sistema detecte como el maximo, por ello el codigoindicado en el Punto uno de ser correlativo y comprobado.
+
+encuesta.php Anonimiza la encuesta y permite elgir ciertos campos genericos, centro, sexo...
+encuesta_ciclo.php Presenta las preguntas anteriormente cargadas en la BD y el usuario debe ir marcando los campos
+emcuesta_modulo.php Analogo al anterior con preguntas especificas.
+encuesta_modulo_fin.php Si se realiza correctamente la inscripcion muestra un mensaje.
+
+Este proceso guarda los datos en la tabla encuesta_datos, guardando un indicador por cada encuesta personalizada, el codigo de la encuesta y las respuestas realizadas.
+
+5º Informe de la encuesta.
+itainnova_tool/informe_encuesta.php muestra en un excel las respuestas.
+Debemos cambiar al principio el codigo de la encuesta DECLARE(ENCUESTA,'XXXXX').
+Deberia modificarse para que se pudiera elegir la encusta requerida.
+
+PARA LAS PRUEBAS, asegurarse del envio con varios correos, por que se da error de concatenacoin de texto y resulat embarazoso.
