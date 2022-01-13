@@ -43,6 +43,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         cp /init-scripts/themes/fpdist/soporte/secret.php /var/www/html/soporte/secret.php
         # marketing
         cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
+        # itainnova_tools
+        cp -R /init-scripts/themes/fpdist/itainnova_tools /var/www/html/
     else
         echo "... for not FPD..."
         cp /init-scripts/themes/*tar.gz /var/www/html/        
