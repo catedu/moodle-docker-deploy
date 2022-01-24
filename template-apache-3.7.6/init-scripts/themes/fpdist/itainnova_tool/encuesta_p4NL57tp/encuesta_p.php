@@ -9,7 +9,9 @@ $PAGE->set_heading($title);
 $PAGE->set_cacheable(false);
 $PAGE->navbar->ignore_active();
 $PAGE->navbar->add($title, new moodle_url(substr($PAGE->url,0,strpos($PAGE->url,'?'))));
+
 echo $OUTPUT->header();
+
 require("../libreria/class.utilidades.php");
 
 //Obtenemos los centros desde la base de datos de moodle
@@ -18,29 +20,11 @@ $sql_curso_centro =
 FROM {course_categories} centros
 INNER JOIN {course_categories} cursos on centros.id = cursos.parent
 WHERE centros.coursecount = 0
-AND cursos.id not in (57,58,59,62,63,64,65)
 ORDER BY centros.name ASC;";
 
 $estudios = $DB->get_records_sql($sql_curso_centro);
+
 ?>
-<script language="JavaScript">
-function validar(form) { //verifica que haya llenado los campos
-	valor=true;
-	if (form.genero.value=="Genero Vacio") {
-		alert("Debe rellenar el género");
-		valor=false;
-	}
-	if (form.estudios.value=="default") {
-		alert("Debe seleccionar el centro y el curso");
-		valor=false;
-	}
-	if (form.participado.value=="Vacio") {
-		alert("Debe rellenar la pregunta de participación");
-		valor=false;
-	}
-	return (valor);
-}
-</script>
 
 <div style="text-align:center;width:90%; margin:0 auto; padding-top:20px">
 	<?php	if ((!$_POST)):?>
@@ -58,30 +42,31 @@ function validar(form) { //verifica que haya llenado los campos
 		<center>
 			<div class="well" style='text-align:left;padding:10px;padding:10px;width:90%'>
 				<h4>DATOS ESTADISTICOS</h4>
-				<p>Estos datos s&oacute;lo se utilizar&aacute;n con fines estad&iacute;sticos. ITAINNOVA te garantiza la confidencialidad en el tratamiento de los mismos.
-				<form action="encuesta_p_ciclo.php" method="post" name="form_encuesta" onSubmit="return validar(this)">
+				<p>Se garantiza la confidencialidad en el tratamiento de los mismos</p>
+				<form action="encuesta_p_ciclo.php" method="post" name="form_encuesta">
 					<h2>1.- G&eacute;nero</h2>
 					<div style='margin-left:50px;'>
-						<select id='genero' name='genero' >
-							<option value="Genero Vacio">Elija G&eacute;nero...</option>
+						<select id='genero' name='genero' required >
+							<option value="">Elija G&eacute;nero...</option>
 							<option value="Hombre">Hombre</option>
 							<option value="Mujer">Mujer</option>
+							<option value="Otros">Otros</option>
 						</select>
 					</div>
 					<h2>2.- &iquest;Hab&iacute;as participado antes en alg&uacute;n tipo de formaci&oacute;n a distancia?:</h2>
 					<div style='margin-left:50px;'>
-						<select id='participado' name='participado' >
-							<option value="Vacio">...</option>
+						<select id='participado' name='participado' required >
+							<option value="">...</option>
 							<option value="Si">S&iacute;</option>
 							<option value="No">No</option>
 						</select>
 					</div>
 					<h2>3.- Centro y el curso en el que impartes:</h2>
 					<div style='margin-left:50px;'>
-						<select id='estudios' name='estudios' style="width:90%">
-							<option value="default">Elija Centro y curso...</option>
+						<select id='estudios' name='estudios' style="width:90%" required >
+							<option value="">Elija Centro y curso...</option>
 							<?php	foreach($estudios as $estudio):?>
-								<option value="<?=(($estudio->centro_id*1000)+($estudio->curso_id))?>"><?=$estudio->centro.' : '.$estudio->curso?></option>
+								<option value="<?=(($estudio->centro_id) . "-" . ($estudio->curso_id))?>"><?=$estudio->centro.': '.$estudio->curso?></option>
 							<?php endforeach;?>
 						</select>
 					</div>

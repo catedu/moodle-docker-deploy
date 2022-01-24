@@ -234,7 +234,7 @@ echo $OUTPUT->header();
 					<?php
 				}else{
 					//else if(($_POST))
-					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"3;URL=http://moodle.teleformacionfp.aragon.es\">";
+					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"3;URL=https://www.adistanciafparagon.es\">";
 					echo "<center><h1 style=\"font-size: 16pt;margin-top:5px;font-weight: bold;\">NO EXISTE M&Oacute;DULO en breve ser&aacute; redireccionado a la p&aacute;gina principal</h1></center>";
 				}
 			echo $OUTPUT->footer();

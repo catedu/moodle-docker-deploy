@@ -41,8 +41,10 @@ ORDER BY orden";
 
 if (($_POST)):
 	//Obtenemos los valores de ciclo y centro pasados por un hidden
-	$id_ciclo = (filter_var($_POST['estudios'],FILTER_SANITIZE_NUMBER_INT)%1000);
-	$id_centro = intval(filter_var($_POST['estudios'],FILTER_SANITIZE_NUMBER_INT)/1000);
+	$id_ciclo = explode("-",$_POST['estudios'])[1];
+	echo "id_ciclo: " . $id_ciclo . "<br>";
+	$id_centro = explode("-",$_POST['estudios'])[0];
+	echo "id_centro: " . $id_centro . "<br>";
 	$nombreciclo = current($DB->get_records_sql($sql_ciclo,array('id'=>$id_ciclo)))->name;
 	//Obtenemos el identificador de la última encuesta que se está realizando para los profesores
 	$encuesta = current($DB->get_records_sql($sql_get_encuesta_id))->encuesta;
@@ -130,7 +132,7 @@ endforeach;
 </div>
 <?php else: ?>
 	<META HTTP-EQUIV="Refresh" CONTENT="3;URL=https://www.adistanciafparagon.es">
-		<center><h1 style="font-size: 16pt;margin-top:5px;font-weight: bold;">NO EXISTE CICLO en breve ser&aacute; redireccionado a la p&aacute;gina principal</h1></center>
+		<h1 style="font-size: 16pt;margin-top:5px;font-weight: bold;">NO EXISTE CICLO en breve ser&aacute; redireccionado a la p&aacute;gina principal</h1>
 	<?php endif;?>
 </div>
 <?=$OUTPUT->footer()?>

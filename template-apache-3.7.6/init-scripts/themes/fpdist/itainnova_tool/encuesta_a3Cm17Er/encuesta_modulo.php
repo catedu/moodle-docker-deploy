@@ -41,7 +41,7 @@ ORDER BY orden";
 $sql_get_curso = "SELECT id,fullname, shortname
 FROM {course}
 WHERE category = :course
-AND fullname NOT LIKE 'OLD%'
+AND shortname NOT LIKE '%t'
 ORDER BY shortname";
 
 if(($_POST)):

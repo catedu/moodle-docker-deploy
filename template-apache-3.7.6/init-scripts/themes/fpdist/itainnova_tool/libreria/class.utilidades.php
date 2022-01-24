@@ -42,4 +42,4 @@
 		$mail->IsHTML(true);
 		$mail->Send();
 	}
-?>logía demuestra que no es verdad".Desde el hospital denuncian que las personas que han mentido aparecen co
+?>
