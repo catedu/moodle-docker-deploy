@@ -150,7 +150,7 @@ if(($_POST)):
 									<?php
 									$sql       = "SELECT id,fullname, shortname
 									FROM mdl_course
-									WHERE category='$ciclo'";
+									WHERE category='$ciclo' and shortname  NOT LIKE '%t'";
 									//$sqlcurso= mysql_query($sql, $conexion);
 									$sqlcurso  = $DB->get_records_sql($sql);
 									//while($rowcurso = mysql_fetch_assoc($sqlcurso)){
