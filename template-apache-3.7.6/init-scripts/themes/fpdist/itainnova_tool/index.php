@@ -140,6 +140,7 @@ $table->data = array(
 	array("Informe de Encuestas",	makeButton("informes/informe_encuesta.php", "Generar informe")),
 	array("Encuesta de satisfacci&oacute;n a <strong>alumnos</strong>",	makeButton(glob('encuesta_a*', GLOB_ONLYDIR)[0], "Ver encuesta de alumnos")),
 	array("Encuesta de satisfacci&oacute;n a <strong>profesores</strong>",	makeButton(glob('encuesta_p*', GLOB_ONLYDIR)[0], "Ver encuesta de profesores")),
+	array("Pablo probando", makeButton("informes/informe_encuesta_chart.php", "Generar informe Pablo")),
 );
 echo html_writer::table($table);
 

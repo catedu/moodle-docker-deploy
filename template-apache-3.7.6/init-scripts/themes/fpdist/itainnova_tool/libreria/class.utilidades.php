@@ -33,7 +33,10 @@
 		$mail->SMTPSecure = "tls";
 		$mail->SMTPAuth = true;
 		// credenciales usuario
-				include "./secret/crenciales.php";
+		$mail->Username = "admin.moodlefpdistancia@aragon.es";
+		$mail->Password = "xxx"; 
+		$mail->From = "admin.moodlefpdistancia@aragon.es";
+		$mail->FromName = "Administrador de Plataforma FP";
 		// correo
 		$mail->Subject = $subject;
 		$mail->AddAddress($email);

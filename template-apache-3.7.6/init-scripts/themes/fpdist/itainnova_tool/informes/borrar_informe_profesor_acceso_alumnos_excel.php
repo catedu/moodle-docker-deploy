@@ -169,7 +169,10 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 	$mail->SMTPAuth = true;
 
 	//credenciales usuario
-				include "./secret/crenciales.php";logía demuestra que no es verdad".Desde el hospital denuncian que las personas que han mentido aparecen co
+	$mail->Username = "admin.moodlefpdistancia@aragon.es";
+	$mail->Password = "xxx";
+	$mail->From = "admin.moodlefpdistancia@aragon.es";
+	$mail->FromName = "Administrador de Plataforma FP";
 	$mail->IsHTML(true);
 
 	//while($rowcurso = mysql_fetch_assoc($rescurso)){

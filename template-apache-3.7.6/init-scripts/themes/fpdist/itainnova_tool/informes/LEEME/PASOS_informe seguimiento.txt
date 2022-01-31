@@ -1,6 +1,6 @@
 ## ALUMNOS
 Hacer copia de los antiguos informes, descargar desde 
-/datos/webs/fpdistancia.aragon.es/public_html/itainnova_tool/informes/alumnos 
+/datos/webs/adistanciafparagon.es/public_html/itainnova_tool/informes/alumnos 
 a 
 Y:\COMPARTIDAS\Plataforma_Formacion\Moodle\Plataforma FP\Plataforma FP 2018-2019\Calidad e Informes seguimiento\Seguimiento\
 
@@ -28,7 +28,7 @@ Analogo debemos cambiar los permisos de alumnos.php para poder editar y realizar
 Aproximadamente 1:30
 
 PROFESORES
-Analogo a la funcionalidad anterior, pero para pruebas debemos utilizar http://fpdistancia.aragon.es/itainnova_tool/informes/profesores.php?course=555
+Analogo a la funcionalidad anterior, pero para pruebas debemos utilizar http://adistanciafparagon.es/itainnova_tool/informes/profesores.php?course=555
 indicando el codigo del curso del que deseamos enviar el informe.
 
 Aproximadamente 2:00
