@@ -137,10 +137,11 @@ echo html_writer::table($table);
 $table = new html_table();
 $table->head = array('Encuestas', ' ');
 $table->data = array(
-	array("Informe de Encuestas",	makeButton("informes/informe_encuesta.php", "Generar informe")),
-	array("Encuesta de satisfacci&oacute;n a <strong>alumnos</strong>",	makeButton(glob('encuesta_a*', GLOB_ONLYDIR)[0], "Ver encuesta de alumnos")),
-	array("Encuesta de satisfacci&oacute;n a <strong>profesores</strong>",	makeButton(glob('encuesta_p*', GLOB_ONLYDIR)[0], "Ver encuesta de profesores")),
-	array("Pablo probando", makeButton("informes/informe_encuesta_chart.php", "Generar informe Pablo")),
+	array("Informe de Encuestas en hoja de cálculo (falla)",	makeButton("informes/informe_encuesta.php", "Generar informe")),
+	array("Informe de Encuestas en HTML (en elaboración)", makeButton("informes/informe_encuesta_html.php", "Generar informe en HTML")),
+	array("Encuesta de satisfacci&oacute;n <strong>alumnado</strong>",	makeButton(glob('encuesta_a*', GLOB_ONLYDIR)[0], "Ver encuesta de alumnado")),
+	array("Envío de encuestas a <strong>alumnado</strong>", makeButton("encuesta_a3Cm17Er/encuesta_envio.php", "Enviar encuestas a alumnado")),
+	array("Encuesta de satisfacci&oacute;n a <strong>profesorado</strong>",	makeButton(glob('encuesta_p*', GLOB_ONLYDIR)[0], "Ver encuesta de profesorado")),
 );
 echo html_writer::table($table);
 
