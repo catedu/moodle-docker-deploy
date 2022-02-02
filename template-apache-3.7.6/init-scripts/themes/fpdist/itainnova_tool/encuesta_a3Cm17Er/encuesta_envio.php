@@ -89,20 +89,22 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 			//FROM {user} user
 			//WHERE user.email in ('cpina@itainnova.es')";
 			
-			// "SELECT DISTINCT user.id as id,username,firstname, lastname, email
-			// FROM 	{role_assignments} role_assignments,
-					// {user} user,
-					// {context} context
-			// WHERE roleid = 5 AND
-				// user.email NOT LIKE '%demo_alu.es' AND
-				// user.deleted = 0 AND
-				// user.suspended = 0 AND
-			 	// role_assignments.userid = user.id AND
-				// role_assignments.contextid = context.id AND
-				// context.contextlevel = 50 AND
-				// context.instanceid NOT IN (SELECT course.id FROM {course} course WHERE category in (0,18,26,27,38,52,53,58) OR shortname like '%\_TU')";
+			"SELECT DISTINCT user.id as id,username,firstname, lastname, email
+			FROM 	{role_assignments} role_assignments,
+					{user} user,
+					{context} context
+			WHERE roleid = 5 AND
+				user.email NOT LIKE '%demo_alu.es' AND
+				user.deleted = 0 AND
+				user.suspended = 0 AND
+			 	role_assignments.userid = user.id AND
+				role_assignments.contextid = context.id AND
+				context.contextlevel = 50 -- AND
+				-- username NOT LIKE 'prof%'
+				and username like 'prof251955%'
+				";
 					
-			"SELECT user.id as userid,user.username,user.firstname, user.lastname, user.email
+			/*"SELECT user.id as userid,user.username,user.firstname, user.lastname, user.email
 			FROM {user} user
 			JOIN {role_assignments} role_assignments ON user.id = role_assignments.userid
 			JOIN {context} context ON role_assignments.contextid = context.id
@@ -122,7 +124,7 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 			AND course.shortname not like '%\_TU'
 			AND course.shortname <> 'AYUDA'
 			GROUP BY userid,user.username,user.firstname,user.lastname,user.email
-			ORDER BY email";
+			ORDER BY email";*/
 
 			//Consulta para las pruebas usando cualquier usuario comentar el envio
 			//AND user.email='yoliblasara@hotmail.com'
@@ -142,10 +144,10 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 			}
 			
 			$cuerpo_correo=$_POST['editor1'];
-			
 			$listado_alumnos = $DB->get_records_sql($sqlalumnos);
 			$num_enviados = 0;
 			foreach($listado_alumnos as $alumno){
+				/*
 				//$contenido_email="Estimad@ <b>".utf8_decode($alumno->firstname." ".$alumno->lastname)."</b>: <br><br>";
 				$contenido_email=$cuerpo_correo;
 				$add=$alumno->email;
@@ -178,6 +180,45 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 				$lastinsertid = $DB->insert_record('itainnova_log', $logentry, false);
 				$num_enviados++;
 				echo "<p>$num_enviados : Enviado correctamente a $alumno->email</p>";
+				ob_flush();*/
+
+				$toUser = new stdClass();
+				$toUser->email = $alumno->email;
+				$toUser->firstname = $alumno->firstname;
+				$toUser->lastname = $alumno->lastname;
+				$toUser->maildisplay = true;
+				$toUser->id = $alumno->id; 
+
+				$fromUser = new stdClass();
+				$fromUser->firstname = null;
+				$fromUser->lastname = null;
+				$fromUser->email = '<>';
+				$fromUser->maildisplay = true;
+				$fromUser->id = -99;
+
+				$subject = "Cuestionario de satisfacción";
+				
+				$exitoEnviandoEmail = email_to_user($toUser, $fromUser, $subject, $cuerpo_correo);
+
+				if($exitoEnviandoEmail){
+					$num_enviados++;
+					echo "<p>$num_enviados : Enviado correctamente a $alumno->email</p>";
+				}else{
+					echo "<p>Error al enviar correo de ".$alumno->email."</p>\n";
+				}
+				//
+				$logentry = new stdClass();
+				$logentry->source   = basename(__FILE__);
+				$logentry->courseid = $courseid;
+				if(!$exitoEnviandoEmail){
+					$logentry->log      = 'ERROR: '.$add;
+				}else{
+					$logentry->log      = $add;
+				}
+				$logentry->logdate  = date('Y-m-d');
+				$logentry->logtime  = date('H:i:s');
+				$lastinsertid = $DB->insert_record('itainnova_log', $logentry, false);
+				
 				ob_flush();
 
 
