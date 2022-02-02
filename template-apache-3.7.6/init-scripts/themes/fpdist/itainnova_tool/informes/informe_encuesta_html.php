@@ -14,6 +14,16 @@ set_time_limit(0);
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+$PAGE->set_pagelayout('admin');
+$title = 'ITAINNOVA Tools';
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
+$PAGE->set_cacheable(false);
+$PAGE->navbar->ignore_active();
+$PAGE->navbar->add('ITAINNOVA Tools', new moodle_url('/itainnova_tool'));
+echo $OUTPUT->header();
+$coursecontext = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+
 
 if (empty($_POST)){
 	
@@ -45,9 +55,16 @@ if (empty($_POST)){
 
 	echo "<h2>Informe de la encuesta ".$idEncuesta."</h2>";
 	/************************************
+	Poner un índice
+	************************************/
+	echo "<h3>Índice</h3>\n";
+	echo "<p><a href=\"#cantidadEstudiantesMatriculados\">Cantidad de estudiantes matriculados</a></p>\n";
+	echo "<p><a href=\"#cantidadDeEncuestasRespondidas\">Cantidad de encuestas respondidas</a></p>\n";
+	echo "<p><a href=\"#cantidadEncuestasGenero\">Cantidad de encuestas por género</a></p>\n";
+	/************************************
 	Cantidad de estudiantes matriculados
 	************************************/
-	echo "<h3>Cantidad de estudiantes matriculados</h3>\n";
+	echo "<h3 id=\"cantidadEstudiantesMatriculados\">Cantidad de estudiantes matriculados</h3>\n";
 
 	$SQL = 
 		"SELECT c.id, (select cc2.name from mdl_course_categories cc2 where cc2.id = cc.parent) centro, cc.name ciclo,  c.fullname modulo, COUNT(ue.id) AS total
@@ -61,8 +78,8 @@ if (empty($_POST)){
 	$data = $DB->get_records_sql($SQL);
 
 	if(count($data) > 0){
-		echo "count($data): " . (count($data)) . "<br/>\n";
-		echo "<table >\n";
+		//echo "count($data): " . (count($data)) . "<br/>\n";
+		echo "<table  class='generaltable' >\n";
 		echo "  <tr>\n";
 		echo "    <th></th>\n";
 		echo "    <th>Centro</th>\n";
@@ -115,7 +132,7 @@ if (empty($_POST)){
 	/************************************
 	Cantidad de encuestas respondidas
 	************************************/
-	echo "<h3>Cantidad de encuestas respondidas</h3>\n";
+	echo "<h3 id=\"cantidadDeEncuestasRespondidas\" >Cantidad de encuestas respondidas</h3>\n";
 	$SQL = 
 		"SELECT count(distinct(id_encuesta)) as total
 		FROM encuesta_datos
@@ -125,9 +142,48 @@ if (empty($_POST)){
 	$data = $DB->get_records_sql($SQL);
 	if(count($data) > 0){
 		foreach ($data as $row) {
-			
 			echo "<p>Total de encuestas: " . $row->total . "</p>\n";
 		}
+	}else{
+		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
+	}
+	echo "<hr/>\n";
+	
+	/************************************
+	Cantidad de encuestas respondidas por género
+	************************************/
+	echo "<h3 id=\"cantidadEncuestasGenero\">Cantidad de encuestas respondidas por género</h3>\n";
+	$SQL = 
+		"SELECT `respuesta 2` genero, count(*) total
+		FROM encuesta_datos
+		Where encuesta = '" . $idEncuesta . "' and `codigo 2` = 'id_genero'
+		group by `respuesta 2`
+		order by fase";
+		
+	$data = $DB->get_records_sql($SQL);
+	if(count($data) > 0){
+		//echo "count($data): " . (count($data)) . "<br/>\n";
+		echo "<table >\n";
+		echo "  <tr>\n";
+		echo "    <th>#</th>\n";
+		echo "    <th>Género</th>\n";
+		echo "    <th>Cantidad</th>\n";
+		echo "  </tr>\n";
+		$i = 1;
+		foreach ($data as $row) {
+			echo "  <tr>\n";
+			echo "    <td>\n";
+			echo $i++;
+			echo "    </td>\n";
+			echo "    <td>\n";
+			echo $row->genero;
+			echo "    </td>\n";
+			echo "    <td>\n";
+			echo $row->total;
+			echo "    </td>\n";
+			echo "  </tr>\n";
+		}
+		echo "</table>\n";
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
 	}
@@ -135,7 +191,7 @@ if (empty($_POST)){
 	/************************************
 	Cantidad de encuestas por ciclo
 	************************************/
-	echo "<h3>Cantidad de estudiantes matriculados</h3>\n";
+	echo "<h3>Cantidad de encuestas cotestadas por ciclo</h3>\n";
 
 	$SQL = 
 		"SELECT `respuesta 2` id, cc.name ciclo, cc2.name centro, count(*) total
@@ -149,10 +205,10 @@ if (empty($_POST)){
 	$data = $DB->get_records_sql($SQL);
 
 	if(count($data) > 0){
-		echo "count($data): " . (count($data)) . "<br/>\n";
+		//echo "count($data): " . (count($data)) . "<br/>\n";
 		echo "<table >\n";
 		echo "  <tr>\n";
-		echo "    <th></th>\n";
+		echo "    <th>#</th>\n";
 		echo "    <th>Centro</th>\n";
 		echo "    <th>Ciclo</th>\n";
 		echo "    <th>Nº Encuestas</th>\n";
@@ -164,22 +220,68 @@ if (empty($_POST)){
 				$centroAnterior = $row->centro;
 				echo "  <tr>\n";
 				echo "    <td></td>\n";
-				echo "    <td colspan='3'>".$row->centro."</td>\n";
+				echo "    <td colspan='4'>".$row->centro."</td>\n";
 				echo "  </tr>\n";
 			}
 			echo "  <tr>\n";
-			echo "    <td>\n";
-			echo $i++;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo $row->ciclo;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo $row->total;
-			echo "    </td>\n";
+			echo "    <td>". $i++."</td>\n";
+			echo "    <td></td>\n";
+			echo "    <td>".$row->ciclo."</td>\n";
+			echo "    <td>".$row->total."</td>\n";
 			echo "  </tr>\n";
 		}
 		echo "</table>\n";
+	}else{
+		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
+	}
+	echo "<hr/>\n";
+
+	/************************************
+	Respuestas a las preguntas de la encuesta
+	************************************/
+
+	echo "<h3>Respuestas a las preguntas de la encuesta</h3>\n";
+
+	$SQL = 
+		"SELECT id, fase, orden, texto, tipo
+		FROM encuesta e
+		Where e.encuesta = '" . $idEncuesta . "' and fase > 0
+		order by fase, orden";
+
+	$data = $DB->get_records_sql($SQL);
+
+	if(count($data) > 0){
+		foreach ($data as $row) {
+			switch ($row->tipo) {
+				case "titulo":
+					echo "<h4>".$row->texto."</h4>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				case "respuesta":
+					echo "<h3>(".$row->id. ") ".$row->texto."</h3>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				case "pregunta_fin":
+					echo "<h3>".$row->texto."</h3>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				case "pregunta":
+					echo "<h3>".$row->texto."</h3>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				case "pregunta_modulo":
+					echo "<h3>".$row->texto."</h3>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				case "pregunta_texto":
+					echo "<h3>".$row->texto."</h3>\n";
+					echo "<p>".$row->tipo."</p>\n";
+					break;
+				default:
+					echo "<p>Tipo de pregunta no soportado: " . $row->tipo . "</p>\n";
+					break;
+			}
+		}
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
 	}
@@ -352,6 +454,10 @@ if (empty($_POST)){
 	*/
 	
 } //FIN POST
+
+
+
+echo $OUTPUT->footer();
 
 /*
 	* Busca iterativamente si existe una columna con el mismo valor $column
