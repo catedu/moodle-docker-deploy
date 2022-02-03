@@ -61,6 +61,7 @@ if (empty($_POST)){
 	echo "<p><a href=\"#cantidadEstudiantesMatriculados\">Cantidad de estudiantes matriculados</a></p>\n";
 	echo "<p><a href=\"#cantidadDeEncuestasRespondidas\">Cantidad de encuestas respondidas</a></p>\n";
 	echo "<p><a href=\"#cantidadEncuestasGenero\">Cantidad de encuestas por género</a></p>\n";
+	echo "<p><a href=\"#respuestasAPregDeEncuestas\">Respuestas a las preguntas de la encuesta</a></p>\n";
 	/************************************
 	Cantidad de estudiantes matriculados
 	************************************/
@@ -79,7 +80,7 @@ if (empty($_POST)){
 
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
-		echo "<table  class='generaltable' >\n";
+		echo "<table class='generaltable' >\n";
 		echo "  <tr>\n";
 		echo "    <th></th>\n";
 		echo "    <th>Centro</th>\n";
@@ -163,7 +164,7 @@ if (empty($_POST)){
 	$data = $DB->get_records_sql($SQL);
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
-		echo "<table >\n";
+		echo "<table class='generaltable' >\n";
 		echo "  <tr>\n";
 		echo "    <th>#</th>\n";
 		echo "    <th>Género</th>\n";
@@ -206,7 +207,7 @@ if (empty($_POST)){
 
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
-		echo "<table >\n";
+		echo "<table class='generaltable' >\n";
 		echo "  <tr>\n";
 		echo "    <th>#</th>\n";
 		echo "    <th>Centro</th>\n";
@@ -240,13 +241,14 @@ if (empty($_POST)){
 	Respuestas a las preguntas de la encuesta
 	************************************/
 
-	echo "<h3>Respuestas a las preguntas de la encuesta</h3>\n";
+	echo "<h3 id=\"respuestasAPregDeEncuestas\">Respuestas a las preguntas de la encuesta</h3>\n";
 
 	$SQL = 
 		"SELECT id, fase, orden, texto, tipo
 		FROM encuesta e
 		Where e.encuesta = '" . $idEncuesta . "' and fase > 0
 		order by fase, orden";
+	$SQL2 = "";
 
 	$data = $DB->get_records_sql($SQL);
 
@@ -255,27 +257,217 @@ if (empty($_POST)){
 			switch ($row->tipo) {
 				case "titulo":
 					echo "<h4>".$row->texto."</h4>\n";
-					echo "<p>".$row->tipo."</p>\n";
 					break;
+
 				case "respuesta":
-					echo "<h3>(".$row->id. ") ".$row->texto."</h3>\n";
-					echo "<p>".$row->tipo."</p>\n";
+					echo "<h5>- ".$row->texto."</h5>\n";
+					$SQL2 = 
+						"SELECT ed.`respuesta 1` respuesta, count(*) total
+						FROM encuesta_datos ed
+						WHERE ed.encuesta = '" . $idEncuesta . "' and ed.`codigo 3` = '" . $row->id . "'
+						GROUP BY ed.`respuesta 1`
+						ORDER BY ed.`respuesta 1`";
+					$data2 = $DB->get_records_sql($SQL2);
+					if(count($data2) > 0){
+						$suma = 0;
+						$votos = 0;
+						$ultimaColPuesta = 0;
+						echo "<table class='generaltable' >\n";
+						echo "  <tr>\n";
+						for ($i = 0; $i <= 10; $i++) {
+							echo "    <th>".$i."</th>\n";
+						}
+						echo "  </tr>\n";
+						echo "  <tr>\n";
+						foreach ($data2 as $row) {
+							$respuesta = $row->respuesta;
+							while($respuesta > $ultimaColPuesta ){
+								echo "    <td>-</td>\n";
+								$ultimaColPuesta++;
+							}
+							echo "    <td>".$row->total."</td>\n";
+							$ultimaColPuesta = $respuesta + 1;
+							
+							$suma += ($row->total * $row->respuesta);
+							$votos += $row-> total;
+						}
+						while($ultimaColPuesta <= 10){
+							echo "    <td>-</td>\n";
+							$ultimaColPuesta++;
+						}
+						echo "  </tr>\n";
+						echo "  <tr>\n";
+						$media = $suma / $votos;
+						echo "    <td colspan=\"11\">Media: ".round($media,2)."</td>\n";
+						echo "  </tr>\n";
+						echo "</table>\n";
+						
+					}else{
+						echo "<p>No hay datos para esta consulta: " . $SQL2 . "</p>\n";
+					}
 					break;
 				case "pregunta_fin":
-					echo "<h3>".$row->texto."</h3>\n";
-					echo "<p>".$row->tipo."</p>\n";
 					break;
+
 				case "pregunta":
-					echo "<h3>".$row->texto."</h3>\n";
-					echo "<p>".$row->tipo."</p>\n";
+					echo "<h4>".$row->texto."</h4>\n";
 					break;
+
 				case "pregunta_modulo":
-					echo "<h3>".$row->texto."</h3>\n";
+					echo "<h5>- (".$row->id. "-".$row->fase.") ".$row->texto."</h5>\n";
 					echo "<p>".$row->tipo."</p>\n";
+					$SQL2 = 
+						"SELECT concat(cc2.id, ' ', cc.id, ' ', c.id, ' ',`respuesta 1`) id , cc2.name centro, cc.name ciclo, c.fullname modulo, `respuesta 1` respuesta , count(*) total
+						FROM encuesta_datos  ed
+							JOIN mdl_course_categories AS cc ON cc.id = ed.`codigo 1`
+							JOIN mdl_course_categories AS cc2 ON cc2.id = cc.parent
+							JOIN mdl_course AS c ON c.id = ed.`codigo 2`
+						Where ed.encuesta = '" . $idEncuesta . "' and `codigo 3`= " . $row->id . "
+						group by centro, ciclo, modulo, `respuesta 1`
+						order by centro, ciclo, modulo";
+						$data2 = $DB->get_records_sql($SQL2);
+						if(count($data2) > 0){
+							$suma = 0;
+							$votos = 0;
+							$sumaModulo = 0;
+							$votosModulo = 0;
+							$sumaCiclo = 0;
+							$votosCiclo = 0;
+							$sumaCentro = 0;
+							$votosCentro = 0;
+							$ultimaColPuesta = 0;
+							//echo "count($data): " . (count($data)) . "<br/>\n";
+							echo "<table class='generaltable' >\n";
+							
+							$centroAnterior = "";
+							$cicloAnterior = "";
+							$moduloAnterior = "";
+							foreach ($data2 as $row) {
+								if( $centroAnterior != $row->centro ){
+									$centroAnterior = $row->centro;
+									while($ultimaColPuesta <= 10){
+										echo "    <td>-</td>\n";
+										$ultimaColPuesta++;
+									}
+									echo "  <tr>\n";
+									echo "    <th colspan=\"11\">".$row->centro."</th>\n";
+									echo "  </tr>\n";
+									$sumaCentro = 0;
+									$votosCentro = 0;
+								}
+								if( $cicloAnterior != $row->ciclo ){
+									$cicloAnterior = $row->ciclo;
+									while($ultimaColPuesta <= 10){
+										echo "    <td>-</td>\n";
+										$ultimaColPuesta++;
+									}
+									echo "  <tr>\n";
+									echo "    <th></th>\n";
+									echo "    <th colspan=\"10\">".$row->ciclo."</th>\n";
+									echo "  </tr>\n";
+									$sumaCiclo = 0;
+									$votosCiclo = 0;
+								}
+								if( $moduloAnterior != $row->modulo ){
+									$moduloAnterior = $row->modulo;
+									// Si de ejecución previa hay columnas por rellenar las termino
+									while($ultimaColPuesta <= 10){
+										echo "    <td>-</td>\n";
+										$ultimaColPuesta++;
+									}
+									// Muestro la media del módulo previo
+									echo "  <tr>\n";
+									$mediaModulo = $sumaModulo / $votosModulo;
+									echo "    <td colspan=\"11\">Media módulo: ".round($mediaModulo,2)."</td>\n";
+									echo "  </tr>\n";
+									// Escribo el nombre del módulo
+									echo "  <tr>\n";
+									echo "    <th></th>\n";
+									echo "    <th></th>\n";
+									echo "    <th colspan=\"9\">".$row->modulo."</th>\n";
+									echo "  </tr>\n";
+									// reseteo variables del módulo
+									$sumaModulo = 0;
+									$votosModulo = 0;
+									// Escribo columnas de 0 a 10
+									echo "  <tr>\n";
+									for ($i = 0; $i <= 10; $i++) {
+										echo "    <th>".$i."</th>\n";
+									}
+									echo "  </tr>\n";
+									//
+									echo "  <tr>\n";
+									$ultimaColPuesta = 0;
+								}
+
+								$respuesta = $row->respuesta;
+								while($respuesta > $ultimaColPuesta ){
+									echo "    <td>-</td>\n";
+									$ultimaColPuesta++;
+								}
+								echo "    <td>".$row->total."</td>\n";
+								$ultimaColPuesta = $respuesta + 1;
+								// Actualizo variables
+								$suma += ($row->total * $row->respuesta);
+								$votos += $row-> total;
+								$sumaModulo += ($row->total * $row->respuesta);
+								$votosModulo += $row-> total;
+								$sumaCiclo += ($row->total * $row->respuesta);
+								$votosCiclo += $row-> total;
+								$sumaCentro += ($row->total * $row->respuesta);
+								$votosCentro += $row-> total;
+							}
+							echo "</table>\n";
+						}else{
+							echo "<p>No hay datos para esta consulta: " . $SQL2 . "</p>\n";
+						}
 					break;
+
 				case "pregunta_texto":
-					echo "<h3>".$row->texto."</h3>\n";
-					echo "<p>".$row->tipo."</p>\n";
+					echo "<h5>- ".$row->texto."</h5>\n";
+					$SQL2 = 
+						"SELECT ed.id, cc.name ciclo, cc2.name centro, `respuesta 2` respuesta
+						FROM encuesta_datos  ed
+							JOIN mdl_course_categories AS cc ON cc.id = ed.`codigo 1`
+							JOIN mdl_course_categories AS cc2 ON cc2.id = cc.parent
+						Where ed.encuesta = '".$idEncuesta."' and `codigo 3` = ".$row->id." and `respuesta 2` <> ''
+						order by centro, ciclo";
+					$data2 = $DB->get_records_sql($SQL2);
+					if(count($data2) > 0){
+						//echo "count($data): " . (count($data)) . "<br/>\n";
+						echo "<table class='generaltable' >\n";
+						echo "  <tr>\n";
+						echo "    <th>Centro</th>\n";
+						echo "    <th>Ciclo</th>\n";
+						echo "  </tr>\n";
+						$i = 0;
+						$centroAnterior = "";
+						$cicloAnterior = "";
+						foreach ($data2 as $row) {
+							if( $centroAnterior != $row->centro ){
+								$centroAnterior = $row->centro;
+								echo "  <tr>\n";
+								echo "    <td colspan='2'>".$row->centro."</td>\n";
+								echo "  </tr>\n";
+							}
+							if( $cicloAnterior != $row->ciclo ){
+								$cicloAnterior = $row->ciclo;
+								echo "  <tr>\n";
+								echo "    <td></td>\n";
+								echo "    <td>".$row->ciclo."</td>\n";
+								echo "  </tr>\n";
+							}
+							echo "  <tr>\n";
+							echo "    <td colspan=\"2\" >\n";
+							echo "- ". $row->respuesta;
+							echo "    </td>\n";
+							echo "  </tr>\n";
+						}
+						echo "</table>\n";
+					}else{
+						echo "<p>No hay datos para esta consulta: " . $SQL2 . "</p>\n";
+					}
+
 					break;
 				default:
 					echo "<p>Tipo de pregunta no soportado: " . $row->tipo . "</p>\n";
