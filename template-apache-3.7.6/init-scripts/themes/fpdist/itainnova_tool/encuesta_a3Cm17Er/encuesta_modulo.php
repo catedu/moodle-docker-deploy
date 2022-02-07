@@ -47,7 +47,7 @@ ORDER BY shortname";
 if(($_POST)):
 	$id_encuesta       = filter_var($_POST['id_encuesta'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	foreach($_POST as $nombre_campo => $valor):
-		echo $nombre_campo.": ".$valor."<br>";
+		//echo $nombre_campo.": ".$valor."<br>";
 		//Saneamos todos los valores recibidos por el post
 		if (substr($nombre_campo,0,1)=='#'){
 			$arraycampo      =  explode('-',$nombre_campo,3);
@@ -57,7 +57,7 @@ if(($_POST)):
 			$valor           = filter_var($valor,FILTER_SANITIZE_NUMBER_INT);
 			//Insertamos únicamente si no hay datos introducidos ya según la id_encuesta, encuesta, fase... etc
 			if(!$DB->record_exists_sql($sql_check_exists,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>1,'codigo1'=> $codigo1,'codigo2'=>'','codigo3' => $codigo2)))
-			$DB->execute($sql_insert_values,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>1,'codigo1'=>$codigo1,'codigo2'=>'','codigo3'=>$codigo2,'respuesta1'=>$valor,'respuesta2'=>''));
+				$DB->execute($sql_insert_values,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>1,'codigo1'=>$codigo1,'codigo2'=>'','codigo3'=>$codigo2,'respuesta1'=>$valor,'respuesta2'=>''));
 		}elseif(($nombre_campo=='id_genero') ||($nombre_campo=='id_centro')||($nombre_campo=='id_ciclo')){
 			$arraycampo     = explode('-',$valor,4);
 			$encuesta       = filter_var($arraycampo[0],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -67,11 +67,11 @@ if(($_POST)):
 			$valorcampo     = filter_var($valorcampo,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 			if($nombre_campo=='id_ciclo')
 			$ciclo          = $valorcampo;
-			echo "ciclo: ".$ciclo."<br>";
+			//echo "ciclo: ".$ciclo."<br>";
 
 			//Si no está guardado, lo insertamos
 			if(!$DB->record_exists_sql($sql_check_exists,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>0,'codigo1'=>$codigo1,'codigo2'=>'','codigo3'=>$codigo2)))
-			$DB->execute($sql_insert_values,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>0,'codigo1'=>$codigo1,'codigo2'=>$nombre_campo,'codigo3'=>$codigo2,'respuesta1'=>-1,'respuesta2'=>$valorcampo));
+				$DB->execute($sql_insert_values,array('id_encuesta'=>$id_encuesta,'encuesta'=>$encuesta,'fase'=>0,'codigo1'=>$codigo1,'codigo2'=>$nombre_campo,'codigo3'=>$codigo2,'respuesta1'=>-1,'respuesta2'=>$valorcampo));
 		}//nombre_campo == id_genero || id_centro || id_ciclo
 	endforeach;
 	$nombreciclo = current($DB->get_records_sql($sql_nombre_ciclo,array('id_ciclo'=>$ciclo)))->name;?>
