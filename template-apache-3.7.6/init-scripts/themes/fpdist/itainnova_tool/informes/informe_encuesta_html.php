@@ -52,6 +52,14 @@ if (empty($_POST)){
 
 }else{
 	$idEncuesta = $_POST['id_encuesta'];
+	//
+	$estiloH4 = "style=\"color:white;background-color:#181023;font-weight: bold;font-size: 24px;border-top-style: solid;border-top-color: black;border-top-width: 1px;padding-top:25px;padding-left:10px;\"";
+	$estiloH5 = "style=\"color:white;background-color:#261a38;font-weight: bold;font-size: 20px; padding-top:20px;padding-left:20px;\"";
+	$estiloCentro = "style=\"color:white;background-color:#312147;font-weight: bold;font-size: 18px;\"";
+	$estiloCiclo = "style=\"color:white;background-color:#5f5370;font-weight: bold;font-size: 16px;\"";
+	$estiloModulo = "style=\"color:white;background-color:#b2a2cd;font-weight: bold;font-size: 14px;\"";
+	
+	//
 
 	echo "<h2>Informe de la encuesta ".$idEncuesta."</h2>";
 	/************************************
@@ -71,8 +79,8 @@ if (empty($_POST)){
 	$SQL = 
 		"SELECT c.id, (select cc2.name from mdl_course_categories cc2 where cc2.id = cc.parent) centro, cc.name ciclo,  c.fullname modulo, COUNT(ue.id) AS total
 		FROM mdl_course AS c 
-		JOIN mdl_enrol AS en ON en.courseid = c.id
-		JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
+		    JOIN mdl_enrol AS en ON en.courseid = c.id
+		    JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
 		JOIN mdl_course_categories AS cc ON cc.id = c.category
 		GROUP BY c.id
 		ORDER BY centro, ciclo, modulo";
@@ -82,30 +90,33 @@ if (empty($_POST)){
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
 		echo "<table class='generaltable' >\n";
+		echo "<thead>\n";
 		echo "  <tr>\n";
-		echo "    <th></th>\n";
+		echo "    <th>#</th>\n";
 		echo "    <th>Centro</th>\n";
 		echo "    <th>Ciclo</th>\n";
 		echo "    <th>Módulo</th>\n";
-		echo "    <th>Nº Matrículas</th>\n";
+		echo "    <th style=\"text-align:right;\">Nº Matrículas</th>\n";
 		echo "  </tr>\n";
+		echo "</thead>\n";
+		echo "<tbody>\n";
 		$i = 0;
 		$centroAnterior = "";
 		$cicloAnterior = "";
 		foreach ($data as $row) {
 			if( $centroAnterior != $row->centro ){
 				$centroAnterior = $row->centro;
-				echo "  <tr>\n";
+				echo "  <tr $estiloCentro>\n";
 				echo "    <td></td>\n";
-				echo "    <td colspan='4'>".$row->centro."</td>\n";
+				echo "    <td colspan='4' >".$row->centro."</td>\n";
 				echo "  </tr>\n";
 			}
 			if( $cicloAnterior != $row->ciclo ){
 				$cicloAnterior = $row->ciclo;
-				echo "  <tr>\n";
+				echo "  <tr $estiloCiclo>\n";
 				echo "    <td></td>\n";
 				echo "    <td></td>\n";
-				echo "    <td colspan='3'>".$row->ciclo."</td>\n";
+				echo "    <td colspan='3' >".$row->ciclo."</td>\n";
 				echo "  </tr>\n";
 			}
 			echo "  <tr>\n";
@@ -113,9 +124,10 @@ if (empty($_POST)){
 			echo "    <td></td>\n";
 			echo "    <td></td>\n";
 			echo "    <td>".$row->modulo."</td>\n";
-			echo "    <td>".$row->total."</td>\n";
+			echo "    <td align=\"right\">".$row->total."</td>\n";
 			echo "  </tr>\n";
 		}
+		echo "</tbody>\n";
 		echo "</table>\n";
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
@@ -157,25 +169,32 @@ if (empty($_POST)){
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
 		echo "<table class='generaltable' >\n";
+		echo "  <thead>\n";
 		echo "  <tr>\n";
-		echo "    <th>#</th>\n";
 		echo "    <th>Género</th>\n";
-		echo "    <th>Cantidad</th>\n";
+		echo "    <th style=\"text-align:right;\">Cantidad</th>\n";
 		echo "  </tr>\n";
-		$i = 1;
+		echo "  </thead>\n";
+		echo "  <tbody>\n";
+		$subtotal = 0;
 		foreach ($data as $row) {
 			echo "  <tr>\n";
 			echo "    <td>\n";
-			echo $i++;
-			echo "    </td>\n";
-			echo "    <td>\n";
 			echo $row->genero;
 			echo "    </td>\n";
-			echo "    <td>\n";
+			echo "    <td align=\"right\">\n";
 			echo $row->total;
 			echo "    </td>\n";
 			echo "  </tr>\n";
+			$subtotal += $row->total;
 		}
+		echo "  <tbody>\n";
+		echo "  <tfoot>\n";
+		echo "  <tr>\n";
+		echo "    <td>Total</td>\n";
+		echo "    <td align=\"right\">$subtotal</td>\n";
+		echo "  </tr>\n";
+		echo "  <tfoot>\n";
 		echo "</table>\n";
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
@@ -202,29 +221,41 @@ if (empty($_POST)){
 	if(count($data) > 0){
 		//echo "count($data): " . (count($data)) . "<br/>\n";
 		echo "<table class='generaltable' >\n";
+		echo "  <thead>\n";
 		echo "  <tr>\n";
 		echo "    <th>#</th>\n";
 		echo "    <th>Centro</th>\n";
 		echo "    <th>Ciclo</th>\n";
-		echo "    <th>Nº Encuestas</th>\n";
+		echo "    <th style=\"text-align:right;\">Nº Encuestas</th>\n";
 		echo "  </tr>\n";
-		$i = 0;
+		echo "  </thead>\n";
+		echo "  <tbody>\n";
+		$i = 1;
+		$subtotal = 0;
 		$centroAnterior = "";
 		foreach ($data as $row) {
 			if( $centroAnterior != $row->centro ){
 				$centroAnterior = $row->centro;
-				echo "  <tr>\n";
+				echo "  <tr $estiloCentro>\n";
 				echo "    <td></td>\n";
-				echo "    <td colspan='4'>".$row->centro."</td>\n";
+				echo "    <td colspan='4' >".$row->centro."</td>\n";
 				echo "  </tr>\n";
 			}
 			echo "  <tr>\n";
 			echo "    <td>". $i++."</td>\n";
 			echo "    <td></td>\n";
 			echo "    <td>".$row->ciclo."</td>\n";
-			echo "    <td>".$row->total."</td>\n";
+			echo "    <td align=\"right\">".$row->total."</td>\n";
 			echo "  </tr>\n";
+			$subtotal += $row->total;
 		}
+		echo "  </tbody>\n";
+		echo "  <tfoot>\n";
+		echo "  <tr>\n";
+		echo "    <td  colspan='3' align=\"right\">Total:</td>\n";
+		echo "    <td align=\"right\">$subtotal</td>\n";
+		echo "  </tr>\n";
+		echo "  </tfoot>\n";
 		echo "</table>\n";
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
@@ -250,11 +281,11 @@ if (empty($_POST)){
 		foreach ($data as $row) {
 			switch ($row->tipo) {
 				case "titulo":
-					echo "<h4>".$row->texto."</h4>\n";
+					echo "<h4 $estiloH4 >".$row->texto."</h4>\n";
 					break;
 
 				case "respuesta":
-					echo "<h5>- ".$row->texto."</h5>\n";
+					echo "<h5 $estiloH5 >- ".$row->texto."</h5>\n";
 					$SQL2 = 
 						"SELECT ed.`respuesta 1` respuesta, count(*) total
 						FROM encuesta_datos ed
@@ -276,7 +307,7 @@ if (empty($_POST)){
 						foreach ($data2 as $row) {
 							$respuesta = $row->respuesta;
 							while($respuesta > $ultimaColPuesta ){
-								echo "    <td>-</td>\n";
+								echo "    <td>0</td>\n";
 								$ultimaColPuesta++;
 							}
 							echo "    <td>".$row->total."</td>\n";
@@ -286,13 +317,13 @@ if (empty($_POST)){
 							$votos += $row-> total;
 						}
 						while($ultimaColPuesta <= 10){
-							echo "    <td>-</td>\n";
+							echo "    <td>0</td>\n";
 							$ultimaColPuesta++;
 						}
 						echo "  </tr>\n";
 						echo "  <tr>\n";
 						$media = $suma / $votos;
-						echo "    <td colspan=\"11\">Media: ".round($media,2)."</td>\n";
+						echo "    <td colspan=\"11\" align=\"right\" >Media: ".round($media,2)."</td>\n";
 						echo "  </tr>\n";
 						echo "</table>\n";
 						
@@ -304,12 +335,11 @@ if (empty($_POST)){
 					break;
 
 				case "pregunta":
-					echo "<h4>".$row->texto."</h4>\n";
+					echo "<h4 $estiloH4 >".$row->texto."</h4>\n";
 					break;
 
 				case "pregunta_modulo":
-					echo "<h5>- (".$row->id. "-".$row->fase.") ".$row->texto."</h5>\n";
-					echo "<p>".$row->tipo."</p>\n";
+					echo "<h5 $estiloH5 >- ".$row->texto."</h5>\n";
 					$SQL2 = 
 						"SELECT concat(cc2.id, ' ', cc.id, ' ', c.id, ' ',`respuesta 1`) id , cc2.name centro, cc.name ciclo, c.fullname modulo, `respuesta 1` respuesta , count(*) total
 						FROM encuesta_datos  ed
@@ -370,16 +400,18 @@ if (empty($_POST)){
 									// Pongo las columnas que faltan
 									if( !$primerModulo ){
 										while($ultimaColPuesta <= 10){
-											echo "    <td>-</td>\n";
+											echo "    <td>0</td>\n";
 											$ultimaColPuesta++;
 										}
 									}
 									$ultimaColPuesta = 0;
 									// Pongo la media del módulo
 									if( !$primerModulo ){
-										echo "  <tr>\n";
+										echo "  <tr $estiloModulo>\n";
 										$mediaModulo = $sumaModulo / $votosModulo;
-										echo "    <td colspan=\"11\">Media módulo ".$moduloAnterior.": ".round($mediaModulo,2)."</td>\n";
+										echo "    <td></td>\n";
+										echo "    <td></td>\n";
+										echo "    <td colspan=\"9\" align=\"right\" >Media módulo ".$moduloAnterior.": ".round($mediaModulo,2)."</td>\n";
 										echo "  </tr>\n";
 									}
 									$primerModulo = false;
@@ -392,9 +424,10 @@ if (empty($_POST)){
 								if($cambioCiclo){
 									// Pongo la media del ciclo
 									if( !$primerCiclo ){
-										echo "  <tr>\n";
+										echo "  <tr $estiloCiclo>\n";
 										$mediaCiclo = $sumaCiclo / $votosCiclo;
-										echo "    <td colspan=\"11\">Media ciclo ".$cicloAnterior.": ".round($mediaCiclo,2)."</td>\n";
+										echo "    <td></td>\n";
+										echo "    <td colspan=\"10\" align=\"right\" >Media ciclo ".$cicloAnterior.": ".round($mediaCiclo,2)."</td>\n";
 										echo "  </tr>\n";
 									}
 									$primerCiclo = false;
@@ -408,9 +441,9 @@ if (empty($_POST)){
 								if($cambioCentro){
 									// Pongo la media del centro
 									if( !$primerCentro ){
-										echo "  <tr>\n";
+										echo "  <tr $estiloCentro>\n";
 										$mediaCentro = $sumaCentro / $votosCentro;
-										echo "    <td colspan=\"11\">Media centro ".$centroAnterior.": ".round($mediaCentro,2)."</td>\n";
+										echo "    <td colspan=\"11\" align=\"right\" >Media centro ".$centroAnterior.": ".round($mediaCentro,2)."</td>\n";
 										echo "  </tr>\n";
 									}
 									$primerCentro = false;
@@ -420,24 +453,24 @@ if (empty($_POST)){
 									//
 									$centroAnterior = $row->centro;
 									// Escribo el nombre del Centro
-									echo "  <tr>\n";
-									echo "    <th colspan=\"11\">".$row->centro."</th>\n";
+									echo "  <tr $estiloCentro>\n";
+									echo "    <th colspan=\"11\" >".$row->centro."</th>\n";
 									echo "  </tr>\n";
 
 								}
 								if($cambioCiclo){
 									// Escribo el nombre del ciclo
-									echo "  <tr>\n";
+									echo "  <tr $estiloCiclo>\n";
 									echo "    <th></th>\n";
-									echo "    <th colspan=\"10\">".$row->ciclo."</th>\n";
+									echo "    <th colspan=\"10\" >".$row->ciclo."</th>\n";
 									echo "  </tr>\n";
 								}
 								if( $cambioModulo){
 									// Escribo nombre del módulo
-									echo "  <tr>\n";
+									echo "  <tr $estiloModulo>\n";
 									echo "    <th></th>\n";
 									echo "    <th></th>\n";
-									echo "    <th colspan=\"9\">".$row->modulo."</th>\n";
+									echo "    <th colspan=\"9\" >".$row->modulo."</th>\n";
 									echo "  </tr>\n";
 									// Pongo columnas de 0 a 10
 									echo "  <tr>\n";
@@ -451,7 +484,7 @@ if (empty($_POST)){
 								//
 								$respuesta = $row->respuesta;
 								while($respuesta > $ultimaColPuesta ){
-									echo "    <td>-</td>\n";
+									echo "    <td>0</td>\n";
 									$ultimaColPuesta++;
 								}
 								echo "    <td>".$row->total."</td>\n";
@@ -473,7 +506,7 @@ if (empty($_POST)){
 					break;
 
 				case "pregunta_texto":
-					echo "<h5>- ".$row->texto."</h5>\n";
+					echo "<h5 $estiloH5 >- ".$row->texto."</h5>\n";
 					$SQL2 = 
 						"SELECT ed.id, cc.name ciclo, cc2.name centro, `respuesta 2` respuesta
 						FROM encuesta_datos  ed
@@ -495,13 +528,13 @@ if (empty($_POST)){
 						foreach ($data2 as $row) {
 							if( $centroAnterior != $row->centro ){
 								$centroAnterior = $row->centro;
-								echo "  <tr>\n";
-								echo "    <td colspan='2'>".$row->centro."</td>\n";
+								echo "  <tr $estiloCentro >\n";
+								echo "    <td colspan='2' >".$row->centro."</td>\n";
 								echo "  </tr>\n";
 							}
 							if( $cicloAnterior != $row->ciclo ){
 								$cicloAnterior = $row->ciclo;
-								echo "  <tr>\n";
+								echo "  <tr $estiloCiclo >\n";
 								echo "    <td></td>\n";
 								echo "    <td>".$row->ciclo."</td>\n";
 								echo "  </tr>\n";
@@ -522,6 +555,7 @@ if (empty($_POST)){
 					echo "<p>Tipo de pregunta no soportado: " . $row->tipo . "</p>\n";
 					break;
 			}
+			echo "<br/><br/>\n";
 		}
 	}else{
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
