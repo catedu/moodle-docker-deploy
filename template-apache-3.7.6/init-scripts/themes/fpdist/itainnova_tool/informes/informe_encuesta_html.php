@@ -61,6 +61,7 @@ if (empty($_POST)){
 	echo "<p><a href=\"#cantidadEstudiantesMatriculados\">Cantidad de estudiantes matriculados</a></p>\n";
 	echo "<p><a href=\"#cantidadDeEncuestasRespondidas\">Cantidad de encuestas respondidas</a></p>\n";
 	echo "<p><a href=\"#cantidadEncuestasGenero\">Cantidad de encuestas por género</a></p>\n";
+	echo "<p><a href=\"#cantidadEncuestasContestadasPorCiclo\">Cantidad de encuestas contestadas por ciclo</a></p>\n";
 	echo "<p><a href=\"#respuestasAPregDeEncuestas\">Respuestas a las preguntas de la encuesta</a></p>\n";
 	/************************************
 	Cantidad de estudiantes matriculados
@@ -108,21 +109,11 @@ if (empty($_POST)){
 				echo "  </tr>\n";
 			}
 			echo "  <tr>\n";
-			echo "    <td>\n";
-			echo $i++;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo "";//$row->centro;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo "";//$row->ciclo;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo $row->modulo;
-			echo "    </td>\n";
-			echo "    <td>\n";
-			echo $row->total;
-			echo "    </td>\n";
+			echo "    <td>".$i++."</td>\n";
+			echo "    <td></td>\n";
+			echo "    <td></td>\n";
+			echo "    <td>".$row->modulo."</td>\n";
+			echo "    <td>".$row->total."</td>\n";
 			echo "  </tr>\n";
 		}
 		echo "</table>\n";
@@ -153,6 +144,7 @@ if (empty($_POST)){
 	/************************************
 	Cantidad de encuestas respondidas por género
 	************************************/
+
 	echo "<h3 id=\"cantidadEncuestasGenero\">Cantidad de encuestas respondidas por género</h3>\n";
 	$SQL = 
 		"SELECT `respuesta 2` genero, count(*) total
@@ -189,10 +181,12 @@ if (empty($_POST)){
 		echo "<p>No hay datos para esta consulta: " . $SQL . "</p>\n";
 	}
 	echo "<hr/>\n";
+
 	/************************************
 	Cantidad de encuestas por ciclo
 	************************************/
-	echo "<h3>Cantidad de encuestas cotestadas por ciclo</h3>\n";
+
+	echo "<h3 id=\"cantidadEncuestasContestadasPorCiclo\" >Cantidad de encuestas contestadas por ciclo</h3>\n";
 
 	$SQL = 
 		"SELECT `respuesta 2` id, cc.name ciclo, cc2.name centro, count(*) total
@@ -335,71 +329,126 @@ if (empty($_POST)){
 							$votosCiclo = 0;
 							$sumaCentro = 0;
 							$votosCentro = 0;
+
 							$ultimaColPuesta = 0;
-							//echo "count($data): " . (count($data)) . "<br/>\n";
-							echo "<table class='generaltable' >\n";
+
+							$primerCentro = true;
+							$primerCiclo = true;
+							$primerModulo = true;
+
+							$cambioCentro = false;
+							$cambioCiclo = false;
+							$cambioModulo = false;
 							
 							$centroAnterior = "";
 							$cicloAnterior = "";
 							$moduloAnterior = "";
+
+							
+							echo "<table class='generaltable' >\n";
 							foreach ($data2 as $row) {
+								//centro
 								if( $centroAnterior != $row->centro ){
-									$centroAnterior = $row->centro;
-									while($ultimaColPuesta <= 10){
-										echo "    <td>-</td>\n";
-										$ultimaColPuesta++;
+									$cambioCentro = true;
+								}else{
+									$cambioCentro = false;
+								}
+								//ciclo
+								if( $cicloAnterior != $row->ciclo ){
+									$cambioCiclo = true;
+								}else{
+									$cambioCiclo = false;
+								}
+								//modulo
+								if( $moduloAnterior != $row->modulo ){
+									$cambioModulo = true;
+								}else{
+									$cambioModulo = false;
+								}
+								//
+								if( $cambioModulo){
+									// Pongo las columnas que faltan
+									if( !$primerModulo ){
+										while($ultimaColPuesta <= 10){
+											echo "    <td>-</td>\n";
+											$ultimaColPuesta++;
+										}
 									}
+									$ultimaColPuesta = 0;
+									// Pongo la media del módulo
+									if( !$primerModulo ){
+										echo "  <tr>\n";
+										$mediaModulo = $sumaModulo / $votosModulo;
+										echo "    <td colspan=\"11\">Media módulo ".$moduloAnterior.": ".round($mediaModulo,2)."</td>\n";
+										echo "  </tr>\n";
+									}
+									$primerModulo = false;
+									// Resteo estadísticas a nivel de módulo
+									$sumaModulo = 0;
+									$votosModulo = 0;
+									//
+									$moduloAnterior = $row->modulo;
+								}
+								if($cambioCiclo){
+									// Pongo la media del ciclo
+									if( !$primerCiclo ){
+										echo "  <tr>\n";
+										$mediaCiclo = $sumaCiclo / $votosCiclo;
+										echo "    <td colspan=\"11\">Media ciclo ".$cicloAnterior.": ".round($mediaCiclo,2)."</td>\n";
+										echo "  </tr>\n";
+									}
+									$primerCiclo = false;
+									// Reseteo estadísticas a nivel de ciclo
+									$sumaCiclo = 0;
+									$votosCiclo = 0;
+									//
+									$cicloAnterior = $row->ciclo;
+								}
+
+								if($cambioCentro){
+									// Pongo la media del centro
+									if( !$primerCentro ){
+										echo "  <tr>\n";
+										$mediaCentro = $sumaCentro / $votosCentro;
+										echo "    <td colspan=\"11\">Media centro ".$centroAnterior.": ".round($mediaCentro,2)."</td>\n";
+										echo "  </tr>\n";
+									}
+									$primerCentro = false;
+									// Reseteo estadísticas a nivel de centro
+									$sumaCentro = 0;
+									$votosCentro = 0;
+									//
+									$centroAnterior = $row->centro;
+									// Escribo el nombre del Centro
 									echo "  <tr>\n";
 									echo "    <th colspan=\"11\">".$row->centro."</th>\n";
 									echo "  </tr>\n";
-									$sumaCentro = 0;
-									$votosCentro = 0;
+
 								}
-								if( $cicloAnterior != $row->ciclo ){
-									$cicloAnterior = $row->ciclo;
-									while($ultimaColPuesta <= 10){
-										echo "    <td>-</td>\n";
-										$ultimaColPuesta++;
-									}
+								if($cambioCiclo){
+									// Escribo el nombre del ciclo
 									echo "  <tr>\n";
 									echo "    <th></th>\n";
 									echo "    <th colspan=\"10\">".$row->ciclo."</th>\n";
 									echo "  </tr>\n";
-									$sumaCiclo = 0;
-									$votosCiclo = 0;
 								}
-								if( $moduloAnterior != $row->modulo ){
-									$moduloAnterior = $row->modulo;
-									// Si de ejecución previa hay columnas por rellenar las termino
-									while($ultimaColPuesta <= 10){
-										echo "    <td>-</td>\n";
-										$ultimaColPuesta++;
-									}
-									// Muestro la media del módulo previo
-									echo "  <tr>\n";
-									$mediaModulo = $sumaModulo / $votosModulo;
-									echo "    <td colspan=\"11\">Media módulo: ".round($mediaModulo,2)."</td>\n";
-									echo "  </tr>\n";
-									// Escribo el nombre del módulo
+								if( $cambioModulo){
+									// Escribo nombre del módulo
 									echo "  <tr>\n";
 									echo "    <th></th>\n";
 									echo "    <th></th>\n";
 									echo "    <th colspan=\"9\">".$row->modulo."</th>\n";
 									echo "  </tr>\n";
-									// reseteo variables del módulo
-									$sumaModulo = 0;
-									$votosModulo = 0;
-									// Escribo columnas de 0 a 10
+									// Pongo columnas de 0 a 10
 									echo "  <tr>\n";
 									for ($i = 0; $i <= 10; $i++) {
 										echo "    <th>".$i."</th>\n";
 									}
 									echo "  </tr>\n";
-									//
+									// Abro la fila para la respuesta
 									echo "  <tr>\n";
-									$ultimaColPuesta = 0;
 								}
-
+								//
 								$respuesta = $row->respuesta;
 								while($respuesta > $ultimaColPuesta ){
 									echo "    <td>-</td>\n";
