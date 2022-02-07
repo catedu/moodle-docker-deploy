@@ -46,6 +46,7 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 			<div  style="width:90%;margin-left:5%;margin-bottom:10px">
 				<p>Introduce las direcciones de correos electr&oacute;nicos a los que deseas enviar el mensaje <strong><u>separados por comas</u></strong>.<br><em>(Por defecto a todos los alumnos)</em></p>
 				<input style="width:100%" type="text" id="correos" name="correos" placeholder="Por defecto todos" oninput="checkCorreos()">
+				limit 0, 100
 			</div>
 			<center><button class="btn btn-default btn-lg" type="submit">Enviar <i class="fa fa-paper-plane" aria-hidden="true"></i></button></center>
 		</form>		
@@ -73,7 +74,7 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 
 		}else{
 			//POST
-			$mail = new PHPMailer();
+			/*$mail = new PHPMailer();
 
 			$mail->IsSMTP();
 			$mail->Host = "smtp.aragon.es";
@@ -82,7 +83,7 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 			// credenciales usuario
 				include "./secret/crenciales.php";
 			$mail->Subject = "Encuestas de satisfaccion";
-			$mail->IsHTML(true);
+			$mail->IsHTML(true);*/
 
 			$sqlalumnos =
 			//"SELECT DISTINCT user.id as id,username,firstname, lastname, email
@@ -99,9 +100,10 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 				user.suspended = 0 AND
 			 	role_assignments.userid = user.id AND
 				role_assignments.contextid = context.id AND
-				context.contextlevel = 50 -- AND
-				-- username NOT LIKE 'prof%'
-				and username like 'prof251955%'
+				context.contextlevel = 50
+				and username NOT LIKE 'prof%'
+				-- and username like 'prof251955%'
+				limit 0, 100
 				";
 					
 			/*"SELECT user.id as userid,user.username,user.firstname, user.lastname, user.email
@@ -211,15 +213,17 @@ if(has_capability('moodle/site:config', $coursecontext)) {
 				$logentry->source   = basename(__FILE__);
 				$logentry->courseid = $courseid;
 				if(!$exitoEnviandoEmail){
-					$logentry->log      = 'ERROR: '.$add;
+					$logentry->log      = 'ERROR: '.$alumno->email;
 				}else{
-					$logentry->log      = $add;
+					$logentry->log      = $alumno->email;
 				}
 				$logentry->logdate  = date('Y-m-d');
 				$logentry->logtime  = date('H:i:s');
 				$lastinsertid = $DB->insert_record('itainnova_log', $logentry, false);
 				
 				ob_flush();
+
+				sleep(5);
 
 
 			}
