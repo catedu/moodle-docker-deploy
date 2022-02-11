@@ -5,6 +5,7 @@
 //credenciales de redmine
 $userRedmine = "";
 $passRedmine = "";
+$apiRedmine = "";
 $projectId = "";
 //codigo para los coordinadores
 $codeCoordinacionPrivate = "";
