@@ -223,6 +223,9 @@
     $otros = htmlspecialchars($_POST["otros"]);
     //
     $captcha = htmlspecialchars($_POST["captcha"]);
+    $token = htmlspecialchars($_POST["token"]);
+    $adjunto = htmlspecialchars($_POST["adjunto"]);
+    echo("adjunto: ". $adjunto);
     // Compruebo que el captcha es correcto
     /*echo("captcha: ". $captcha);
     echo("en sesion: ". $_SESSION["captcha"]);
@@ -303,8 +306,21 @@
         <?xml version="1.0"?>
         <issue>
         <project_id>'.$projectId.'</project_id>
-        <subject>'.procesaMotivo($motivo).'</subject>
-        <description><![CDATA['.$descriptionRedmine.']]></description>
+        <subject>'.procesaMotivo($motivo).'</subject>';
+
+        if($token != ""){
+            $issue .= '
+            <uploads type="array">
+              <upload>
+                <token>' . $token . '</token>
+                <filename>' . $adjunto . '</filename>
+                <description>Fichero adjunto</description>
+                <content_type>image/png</content_type>
+              </upload>
+            </uploads>';
+        }
+
+        $issue .= '<description><![CDATA['.$descriptionRedmine.']]></description>
         <priority_id>'.procesaPrioridad($motivo).'</priority_id>
         <custom_fields type="array">
             <custom_field id="1" name="owner-email">

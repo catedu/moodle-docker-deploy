@@ -394,7 +394,8 @@ $sessionid = session_id();
                                                             <label for="adjunto">Adjunte una imagen si lo desea</label>
                                                         </div>
                                                         <div class="form-setting col-sm-9">
-                                                            <input type="file" id="adjunto" name="adjunto">
+                                                            <input type="file" id="adjunto" name="adjunto" />
+                                                            <input type="hidden" id="token" name="token" value="" />
                                                         </div>
 
                                                     </div>
@@ -582,6 +583,7 @@ $sessionid = session_id();
                     if (xhr.status == 200) {
                         //statusP.innerHTML = 'Upload copmlete!';
                         console.log("respuesta: " + xhr.responseText);
+                        document.getElementById("token").value = xhr.responseText;
                     } else {
                         //statusP.innerHTML = 'Upload error. Try again.';
                         console.log("Error: " + xhr.responseText);
