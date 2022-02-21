@@ -212,7 +212,7 @@ echo >&2 "Importing categories and courses..."
 
 #Updates made at the beginning of the course after the first creation of instances
 
-moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','Apta, No apta','Escala Aeducar1')"
+moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','No apta, Apta','Escala Aeducar1')"
 
 echo >&2 "Creando usuarios estudiantes del 1 al 10"
 moosh user-create --password estudiante --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Estudiante1" --lastname "Uno" estudiante1
