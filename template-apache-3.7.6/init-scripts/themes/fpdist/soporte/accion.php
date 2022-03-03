@@ -225,7 +225,6 @@
     $captcha = htmlspecialchars($_POST["captcha"]);
     $token = htmlspecialchars($_POST["token"]);
     $adjunto = htmlspecialchars($_POST["adjunto"]);
-    echo("adjunto: ". $adjunto);
     // Compruebo que el captcha es correcto
     /*echo("captcha: ". $captcha);
     echo("en sesion: ". $_SESSION["captcha"]);
