@@ -486,6 +486,8 @@ fi
 moosh cohort-enrol -c ${COURSE_ID} "alumnado"
 moosh cohort-enrol -c ${COURSE_ID} "profesorado"
 moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
+# Set access for guest users to the course: 0 means permitted 1 means prohibited
+moosh sql-run "UPDATE mdl_enrol set status = 0 WHERE enrol = 'guest' AND courseid = ${COURSE_ID}"
 
 if [ ! -f "/var/www/moodledata/repository/cursosministerio/profesorado.mbz" ]; then
     echo "creating empty course profesorado"
