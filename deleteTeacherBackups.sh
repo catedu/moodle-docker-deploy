@@ -1,8 +1,8 @@
 #!/bin/bash -xv
 
-for SITE in cmb7.aeducar.es; 
+for SITE in *.es; 
 do       
-	[ "$SITE" = "www.aeducar.es" ] && continue; [ "$SITE" = "moodle.catedu.es" ] && continue; [ "$SITE" = "csv-aeducar" ] && continue;
+	[ "$SITE" = "aeducar.es" ] && continue; [ "$SITE" = "moodle.catedu.es" ] && continue; [ "$SITE" = "csv-aeducar" ] && continue;
 	cd $SITE;
 	echo -e "** SITE: $SITE **\n";
 	AEDUCAR="$SITE"; AEDUCARMOODLE=${AEDUCAR//.}"_moodle_1"; 
