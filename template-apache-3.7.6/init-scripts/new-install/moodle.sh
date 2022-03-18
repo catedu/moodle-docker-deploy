@@ -301,7 +301,11 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # duplicate activities
         moosh role-update-capability teacher moodle/restore:restoretargetimport allow 1
         moosh role-update-capability teacher moodle/backup:backuptargetimport allow 1
-        #
+        # avoid changing short name, used for automations
+        moosh role-update-capability teacher moodle/course:changeshortname prohibit 1
+        moosh role-update-capability teacher moodle/course:changefullname prohibit 1
+        # avoid access to repositories
+        moosh role-update-capability teacher repository/contentbank:accessgeneralcontent prohibit 1
 fi
 
 # #unoconv

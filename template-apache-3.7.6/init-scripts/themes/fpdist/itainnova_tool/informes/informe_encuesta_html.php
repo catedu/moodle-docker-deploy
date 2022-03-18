@@ -81,7 +81,8 @@ if (empty($_POST)){
 		FROM mdl_course AS c 
 		    JOIN mdl_enrol AS en ON en.courseid = c.id
 		    JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
-		JOIN mdl_course_categories AS cc ON cc.id = c.category
+		    JOIN mdl_course_categories AS cc ON cc.id = c.category
+		WHERE ue.status = 0 -- usuarios activos
 		GROUP BY c.id
 		ORDER BY centro, ciclo, modulo";
 

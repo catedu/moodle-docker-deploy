@@ -576,7 +576,7 @@ $sessionid = session_id();
                 var xhr = new XMLHttpRequest();
 
                 // Open the connection
-                xhr.open('POST', 'https://test.adistanciafparagon.es/soporte/upload.php', true);
+                xhr.open('POST', 'https://www.adistanciafparagon.es/soporte/upload.php', true);
 
                 // Set up a handler for when the task for the request is complete
                 xhr.onload = function () {
