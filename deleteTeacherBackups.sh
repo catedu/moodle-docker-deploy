@@ -9,6 +9,7 @@ do
         cut -f1  listabackups.txt | tail -n +2 > listaids.txt;
 	ListaIDS=$(paste -s -d ' ' listaids.txt);
 	docker exec "$AEDUCARMOODLE" moosh -n file-delete $ListaIDS;
+	docker exec "$AEDUCARMOODLE" moosh -n file-delete --flush;
 	rm listabackups.txt listaids.txt
 	cd ..;
 done
