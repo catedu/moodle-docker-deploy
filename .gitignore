@@ -9,3 +9,4 @@ zz_*
 template-apache-3.7.6/init-scripts/themes/fpdist/soporte/secret.php
 template-apache-3.7.6/init-scripts/themes/fpdist/itainnova_tool/secret/credenciales.php
 sysdig-agent*
+node_exporter-*
