@@ -83,7 +83,7 @@ install_pkg() {
 }
 
 up_service(){
-    if (cd "${WORKDIR}" && docker-compose up -d); then
+    if (cd "${WORKDIR}" && docker-compose up --force-recreate -d); then
         echo "DEPLOY ${MOODLE_URL} UP!"; return 0
     else
         echo "DEPLOY ${MOODLE_URL} UP FAIL!"; return 1
