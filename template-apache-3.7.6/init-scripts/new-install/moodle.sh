@@ -202,7 +202,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         echo "Creating admin user for FP..."
         FPD_ADMIN_USER_ID=`moosh user-create --password ${FPD_PASSWORD} --email ${FPD_EMAIL} --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2`
         moosh config-set siteadmins 2,${ASESORIA_USER_ID},${FPD_ADMIN_USER_ID}
-        # users for mobile app area created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
+        # users for mobile app are created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
 fi
 
 # import categories and courses
@@ -306,6 +306,24 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher moodle/course:changefullname prohibit 1
         # avoid access to repositories
         moosh role-update-capability teacher repository/contentbank:accessgeneralcontent prohibit 1
+        # avoid un/enrolment for teachers
+        moosh role-update-capability teacher enrol/manual:config prohibit 1
+        moosh role-update-capability teacher enrol/manual:enrol prohibit 1
+        moosh role-update-capability teacher enrol/manual:manage prohibit 1
+        moosh role-update-capability teacher enrol/manual:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/manual:unenrolself prohibit 1
+        moosh role-update-capability teacher enrol/meta:config prohibit 1
+        moosh role-update-capability teacher enrol/meta:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/mnet:config prohibit 1
+        moosh role-update-capability teacher enrol/self:config prohibit 1
+        moosh role-update-capability teacher enrol/self:enrolself prohibit 1
+        moosh role-update-capability teacher enrol/self:manage prohibit 1
+        moosh role-update-capability teacher enrol/self:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/self:unenrolself prohibit 1
+        moosh role-update-capability teacher moodle/course:enrolreview prohibit 1
+        moosh role-update-capability teacher moodle/course:enrolconfig prohibit 1
+        moosh role-update-capability teacher enrol/category:config prohibit 1
+
 fi
 
 # #unoconv
