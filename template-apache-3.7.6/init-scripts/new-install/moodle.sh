@@ -348,3 +348,12 @@ fi
 #Habilitar actividades sigilosas
 echo >&2 "Activating allowstealth activities"
 moosh -n config-set allowstealth 1
+
+#Habilitar MoodleNet
+echo >&2 "Activating MoodleNet"
+moosh -n config-set enablemoodlenet 1 tool_moodlenet
+moosh -n config-set activitychooseractivefooter tool_moodlenet
+
+#Habilitar descarga de curso
+echo >&2 "Activating Course Content Download"
+moosh -n config-set downloadcoursecontentallowed 1
