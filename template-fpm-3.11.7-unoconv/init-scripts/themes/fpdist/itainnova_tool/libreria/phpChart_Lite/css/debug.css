@@ -1,0 +1,54 @@
+body {
+    margin:20px;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+pre.code-block{
+    border: 1px dotted gray;
+    padding-top: 0em;
+    padding-left: 0em;
+    padding-bottom: 0em;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    overflow:auto;
+    
+}
+    
+pre.code {
+    border: 1px dotted gray;
+    padding-top: 0em;
+    padding-left: 0em;
+    padding-bottom: 0em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size:10pt;
+    overflow:auto;
+    
+}
+    
+p {
+    margin: 2em 0;
+}
+
+div.jqplot-image-container {
+    display: none;
+    background-color: #fff;
+    border: 1px solid #999;
+    display: inline-block;
+    margin-top: 25px;
+}
+
+div.jqplot-image-container-header {
+    font-size: 1.0em;
+    font-weight: bold;
+    padding: 5px 15px;
+    background-color: #eee;
+}
+
+div.jqplot-image-container-content {
+    padding: 15px;
+}
+
+a.jqplot-image-container-close {
+    float: right;
+}
