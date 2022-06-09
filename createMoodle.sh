@@ -293,12 +293,12 @@ echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 set -a; [ -f "${VIRTUALHOST}/.env" ] && . "${VIRTUALHOST}/.env"; set +a
 
-#up_services
-if (cd "${VIRTUALHOST}" && docker-compose up -d); then
-    echo "DEPLOY ${MOODLE_URL} UP!"
-else
-    echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
-fi
+# #up_services
+# if (cd "${VIRTUALHOST}" && docker-compose up -d); then
+#     echo "DEPLOY ${MOODLE_URL} UP!"
+# else
+#     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
+# fi
 
 #make repository dir and mount it
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
@@ -314,6 +314,12 @@ else
     ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
 fi
 
+#up_services
+if (cd "${VIRTUALHOST}" && docker-compose up -d); then
+    echo "DEPLOY ${MOODLE_URL} UP!"
+else
+    echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
+fi
 
 # TO-DO
 # - Send email to MOODLE_ADMIN_EMAIL????
