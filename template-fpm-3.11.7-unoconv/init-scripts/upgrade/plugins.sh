@@ -57,8 +57,9 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh -n plugin-install -d -f "atto_fontsize"
         moosh -n plugin-install -d -f "atto_fontfamily"
         moosh -n plugin-install -d -f "atto_fullscreen"
+        moosh -n plugin-install -d -f "tool_migratehvp2h5p"
         moosh -n plugin-uninstall "atto_styles"
-fi
+        fi
 
 for PLUGIN in "${PLUGINS[@]}"
 do
