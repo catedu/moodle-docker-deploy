@@ -336,6 +336,5 @@ else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
 fi
 
-
 # TO-DO
 # - Send email to MOODLE_ADMIN_EMAIL????

@@ -110,6 +110,13 @@ actions_asociated_to_plugin(){
             echo "Configuring mod_pdfannotator..."
             moosh config-set usevotes 1 mod_pdfannotator
             ;;
+        "mod_board")
+            moosh -n config-set new_column_icon fa-plus mod_board
+            moosh -n config-set new_note_icon fa-plus mod_board
+            moosh -n config-set media_selection 1 mod_board
+            moosh -n config-set post_max_length 250 mod_board
+            moosh -n config-set history_refresh 60 mod_board
+            ;;
         *)
             echo "No additional actions for plugin ${1}"
             ;;
@@ -184,6 +191,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_choicegroup"
                 "mod_pdfannotator" # is not available for moodle3.10, It will be installed from afterInstall.py script
                 "mod_pdfannotator" 
+                "mod_board"
                 # for moodle 3.8 "tool_opcache"
         )
 fi
