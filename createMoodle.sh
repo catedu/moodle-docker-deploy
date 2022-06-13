@@ -293,25 +293,47 @@ echo "DEPLOY ${MOODLE_URL} CREATED!"
 
 set -a; [ -f "${VIRTUALHOST}/.env" ] && . "${VIRTUALHOST}/.env"; set +a
 
+#make repository dir and mount it
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+then
+    echo "setting repositories..."
+    REPOSITORIES=( 
+                "cursos_ministerio" 
+                "ftp_ministerio"
+                "ftp_ministerio_htmls"
+                "mbzs_curso_anterior"
+                "mbzs_20210920"
+                "mbzs_20220518"
+                "mbzs_ita_20210728"
+        )
+    
+    for REPOSITORY in "${REPOSITORIES[@]}"
+    do
+        echo "  creating path ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}"
+        [ ! -d ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY} ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}
+    done
+
+    echo "  setting permissions to repositories"
+    sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+    
+    for REPOSITORY in "${REPOSITORIES[@]}"
+    do
+        echo "  mounting  /var/moodle-docker-deploy/zz_${REPOSITORY} in /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}"
+        ! grep -F /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/${REPOSITORY} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_${REPOSITORY} /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}
+    done
+    echo "...repositories set"
+
+else
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
+    ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
+fi
+
 #up_services
 if (cd "${VIRTUALHOST}" && docker-compose up -d); then
     echo "DEPLOY ${MOODLE_URL} UP!"
 else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
-fi
-
-#make repository dir and mount it
-if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-then
-    echo "copying mbzs to virtual host folder... (be pacient)"
-    [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio
-    sudo cp /var/moodle-docker-deploy/zz_cursos_ministerio/*.mbz ${VIRTUALHOST}/moodle-data/repository/cursosministerio
-    sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-    echo "copied mbzs to virtual host."
-else
-    [ ! -d ${VIRTUALHOST}/moodle-data/repository/mbzs ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/mbzs
-    [ ! -d ${VIRTUALHOST}/moodle-data/repository/cursosministerio ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/cursosministerio && sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository
-    ! grep ${VIRTUALHOST} /proc/mounts >/dev/null && sudo mount -o bind /var/moodle-docker-deploy/zz_cursos_cidead /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/cursosministerio
 fi
 
 
