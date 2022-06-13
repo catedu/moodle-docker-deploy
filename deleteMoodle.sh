@@ -91,8 +91,27 @@ echo "# $(basename $0) - Backup DB..."
 mysqldump --lock-tables=false --user "${MOODLE_MYSQL_USER}" --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" > "${BACKUPDIR}/${WORKDIR}_db.sql" || { echo "# $(basename $0) - backup: Backup DB ${WORKDIR} FAIL!"; exit 1; }
 
 echo "# $(basename $0) - Backup Files..."
-if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" /proc/mounts >/dev/null; then
-    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio"
+
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursos_ministerio" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursos_ministerio"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/ftp_ministerio" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/ftp_ministerio"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/ftp_ministerio_htmls" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/ftp_ministerio_htmls"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20210920" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20210920"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220518" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220518"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_ita_20210728" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_ita_20210728"
+fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_curso_anterior" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_curso_anterior"
 fi
 sudo rsync -a "${WORKDIR%\/}" "${BACKUPDIR}" || { echo "# $(basename $0) - backup: Backup Files ${WORKDIR} FAIL!"; exit 1; }
 ## End Backup
