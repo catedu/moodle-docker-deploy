@@ -442,12 +442,12 @@ set_modules_to_study(){
         NAME_ENSENANZA=`echo "${COURSE}" | cut -d '-' -f 2`
         COURSE_ID=""
         
-        if [ ! -f "/var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz" ]; then
-            echo "***** The course /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz doesn't exist, creating empty course ${COURSE} into category ${1}"
+        if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}.mbz" ]; then
+            echo "***** The course /var/www/moodledata/repository/mbzs_curso_anterior/${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}.mbz doesn't exist, creating empty course ${COURSE} into category ${1}"
             COURSE_ID=`moosh course-create --category ${1} --fullname "${NAME_ENSENANZA}" --description "${COURSE}" "${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}"`
         else
-            echo "***** Loading /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz course to category ${1}"
-            COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/${COD_ENSENANZA}.mbz ${1}`
+            echo "***** Loading /var/www/moodledata/repository/mbzs_curso_anterior/${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}.mbz course to category ${1}"
+            COURSE_ID=`moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}.mbz ${1}`
             COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
             moosh course-config-set course ${COURSE_ID} shortname "${COD_CENTRE}-${COD_STUDY}-${COD_ENSENANZA}"
             moosh course-config-set course ${COURSE_ID} fullname "${NAME_ENSENANZA}"
@@ -459,8 +459,8 @@ set_modules_to_study(){
             echo "****** Enrolling the cohort ${COD_CENTRE}-${COD_STUDY} into the course_id ${COURSE_ID}  "
             moosh cohort-enrol -c ${COURSE_ID} "${COD_CENTRE}-${COD_STUDY}"
         fi
-        
-    done    
+
+    done
 }
 
 # 
@@ -473,12 +473,12 @@ ID_CATEGORY=`moosh category-create -p 0 -v 1 -d "general" "General"`
 moosh cohort-create -d "alumnado" -i alumnado -c ${ID_CATEGORY} "alumnado"
 moosh cohort-create -d "profesorado" -i profesorado -c ${ID_CATEGORY} "profesorado"
 moosh cohort-create -d "coordinacion" -i coordinacion -c ${ID_CATEGORY} "coordinacion"
-if [ ! -f "/var/www/moodledata/repository/cursosministerio/ayuda.mbz" ]; then
+if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/ayuda.mbz" ]; then
     echo "creating empty course ayuda"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de ayuda" --description "Curso de ayuda" ayuda`
 else
     echo "restoring course ayuda"
-    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/ayuda.mbz ${ID_CATEGORY}`
+    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/ayuda.mbz ${ID_CATEGORY}`
     COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
     moosh course-config-set course ${COURSE_ID} shortname ayuda
     moosh course-config-set course ${COURSE_ID} fullname "Curso de ayuda"
@@ -489,12 +489,12 @@ moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
 # Set access for guest users to the course: 0 means permitted 1 means prohibited
 moosh sql-run "UPDATE mdl_enrol set status = 0 WHERE enrol = 'guest' AND courseid = ${COURSE_ID}"
 
-if [ ! -f "/var/www/moodledata/repository/cursosministerio/profesorado.mbz" ]; then
+if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/profesorado.mbz" ]; then
     echo "creating empty course profesorado"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de profesorado" --description "Curso de Sala de profesorado" profesorado`
 else
     echo "restoring profesorado course"
-    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/profesorado.mbz ${ID_CATEGORY}`
+    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/profesorado.mbz ${ID_CATEGORY}`
     COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
     moosh course-config-set course ${COURSE_ID} shortname profesorado
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de profesorado"
@@ -502,12 +502,12 @@ fi
 moosh cohort-enrol -c ${COURSE_ID} "profesorado"
 moosh cohort-enrol -c ${COURSE_ID} "coordinacion"
 
-if [ ! -f "/var/www/moodledata/repository/cursosministerio/coordinacion.mbz" ]; then
+if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/coordinacion.mbz" ]; then
     echo "creating empty course coordinacion"
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de Sala de coordinacion" --description "Curso de Sala de coordinacion" coordinacion`
 else
     echo "restoring coordinación course"
-    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/coordinacion.mbz ${ID_CATEGORY}`
+    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/coordinacion.mbz ${ID_CATEGORY}`
     COURSE_ID=`echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2`
     moosh course-config-set course ${COURSE_ID} shortname coordinacion
     moosh course-config-set course ${COURSE_ID} fullname "Curso de Sala de coordinación"
@@ -519,10 +519,10 @@ moosh course-config-set category ${ID_CATEGORY} format topics
 # Creo el curso que necesitan para los marketstore de la app y matriculo en el curso a los usuarios correspondientes de prueba
 echo "creando lo necesario para apps móviles"
 ID_CATEGORY=`moosh category-create -p 0 -v 1 -d "app" "NO BORRAR - APP MOVIL"`
-if [ ! -f "/var/www/moodledata/repository/cursosministerio/5373.mbz" ]; then
+if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/marketplaces.mbz" ]; then
     COURSE_ID=`moosh course-create --category ${ID_CATEGORY} --fullname "Curso de verificación marketplaces NO BORRAR" --description "Curso de verificación marketplaces NO BORRAR" marketplaces`
 else
-    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/cursosministerio/5373.mbz ${ID_CATEGORY}`
+    COURSE_ID=`moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/marketplaces.mbz ${ID_CATEGORY}`
 fi
 echo "Creando y matriculando usuarios de testeo de la APP"
 FPD_APP_USER_STUDENT_ID=`moosh user-create --password ${APP_PASSWORD} --email alumnado@education.catedu.es --digest 2 --city Aragón --country ES --firstname student --lastname demoapp demoapp`
