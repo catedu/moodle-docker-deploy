@@ -25,26 +25,35 @@ moosh config-set theme moove
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
         echo "... for FPD..."
+        echo "  restaurando tema"
         cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
         moosh theme-settings-import --targettheme moove moove*tar.gz
+        echo "  copiando imágenes y logos"
         cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
+        echo "  copiando plantillas"
         cp /init-scripts/themes/fpdist/inc_start.mustache /var/www/html/theme/moove/templates
         cp /init-scripts/themes/fpdist/header.mustache /var/www/html/theme/moove/templates
         cp /init-scripts/themes/fpdist/footer.mustache /var/www/html/theme/moove/templates
+        echo "  copiando política de privacidad"
         cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
+        echo "  configurando página principal"
         moosh config-set frontpage none
         # set the default img for courses in lists. Doesn't modify course header
+        echo "  estableciendo imagen por defecto para los cursos"
         cp /init-scripts/themes/fpdist/img/default_course.jpg /var/www/html/theme/moove/pix/
         cp /init-scripts/themes/fpdist/img/default_coursesummary.jpg /var/www/html/theme/moove/pix/
         # soporte
+        echo "  soporte"
         mkdir /var/www/html/soporte/
         cp /init-scripts/themes/fpdist/soporte/index.php /var/www/html/soporte/index.php
         cp /init-scripts/themes/fpdist/soporte/accion.php /var/www/html/soporte/accion.php
         cp /init-scripts/themes/fpdist/soporte/secret.php /var/www/html/soporte/secret.php
         # marketing
+        echo "  marketing"
         cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
-        # itainnova_tools
-        cp -R /init-scripts/themes/fpdist/itainnova_tools /var/www/html/
+        # itainnova_tool (encuestas)
+        echo "  itainnova_tool"
+        cp -R /init-scripts/themes/fpdist/itainnova_tool /var/www/html/
     else
         echo "... for not FPD..."
         cp /init-scripts/themes/*tar.gz /var/www/html/        
