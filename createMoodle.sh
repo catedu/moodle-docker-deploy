@@ -47,7 +47,7 @@ get_parameter(){
             u)
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
-                    MOODLE_URL="https://test.adistanciafparagon.es"
+                    MOODLE_URL="https://www.adistanciafparagon.es"
                 else
                     [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                     { echo "Incorrect url format..."; usage; exit 1;}
