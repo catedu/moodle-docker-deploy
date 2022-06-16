@@ -147,29 +147,67 @@ PLUGINS=( )
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
         PLUGINS=( 
-                "theme_moove" 
                 "format_tiles"
                 "block_xp"
                 "availability_xp"
-                "report_benchmark" # 02/03/2021 report_benchmark is not available for 3.10
                 "booktool_wordimport"
-                "local_mail"
                 "block_configurable_reports"
-                "report_coursestats" # this one (last one) fails, needs to get activated on screen
-                                    # 02/03/2021 report_coursestats is not available for 3.10
-                "report_coursesize" # 02/03/2021 report_coursesize is not available for 3.10
-                "block_grade_me" # 02/03/2021 block_grade_me is not available for 3.10
+                "report_coursestats"
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "block_completion_progress"
+                "atto_fontsize"
+                "atto_fontfamily"
                 "atto_fullscreen"
-                "atto_morebackcolors"
-                "atto_morefontcolors"
                 "qtype_gapfill"
-                "mod_pdfannotator"
-                "mod_pdfannotator"
-                # for moodle 3.8 "tool_opcache"
+                "qtype_gapfill"
         )
+
+        moosh -n plugin-install -d -f --release 2020110900 "theme_moove" 
+        
+        moosh -n plugin-install -d -f --release 2021051702 "block_grade_me"
+        echo "Configuring block_grade_me..."
+        moosh config-set block_grade_me_maxcourses 10
+        moosh config-set block_grade_me_enableassign 1
+        moosh config-set block_grade_me_enableassignment 1
+        moosh config-set block_grade_me_enablequiz 1
+        
+        moosh -n plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
+        echo "Configuring mod_pdfannotator..."
+        moosh config-set usevotes 1 mod_pdfannotator
+        
+        moosh -n plugin-install -d -f --release 2017121407 "local_mail"
+        echo "Configuring local_mail..."
+        moosh config-set maxfiles 5 local_mail
+        moosh config-set maxbytes 2097152 local_mail
+        moosh config-set enablebackup 1 local_mail
+        echo "Updating default notification preferences for local_mail"
+        moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
+        moosh config-set  message_provider_local_mail_mail_loggedoff    popup   message
+
+        echo "Configuring editor atto..."
+        moosh config-set toolbar "collapse = collapse
+        style1 = title, fontsize, fontfamily, fontcolor, backcolor, bold, italic
+        list = unorderedlist, orderedlist
+        links = link
+        files = image, media, recordrtc, managefiles
+        h5p = h5p
+        style2 = underline, strike, subscript, superscript
+        align = align
+        indent = indent
+        insert = equation, charmap, table, clear
+        undo = undo
+        accessibility = accessibilitychecker, accessibilityhelper
+        other = html, fullscreen" editor_atto
+
+        moosh config-set fontselectlist "Arial=Arial, Helvetica, sans-serif;
+        Times=Times New Roman, Times, serif;
+        Courier=Courier New, Courier, mono;
+        Georgia=Georgia, Times New Roman, Times, serif;
+        Verdana=Verdana, Geneva, sans-serif;
+        Trebuchet=Trebuchet MS, Helvetica, sans-serif;
+        Escolar=Boo;" atto_fontfamily
+
     else
         PLUGINS=( 
                 "format_tiles"
@@ -207,6 +245,29 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         echo "Updating default notification preferences for local_mail"
         moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
         moosh config-set  message_provider_local_mail_mail_loggedoff    popup   message
+
+        echo "Configuring editor atto..."
+        moosh config-set toolbar "collapse = collapse
+        style1 = title, fontsize, fontfamily, backcolor, bold, italic
+        list = unorderedlist, orderedlist
+        links = link
+        files = image, media, recordrtc, managefiles
+        h5p = h5p
+        style2 = underline, strike, subscript, superscript
+        align = align
+        indent = indent
+        insert = equation, charmap, table, clear
+        undo = undo
+        accessibility = accessibilitychecker, accessibilityhelper
+        other = html, fullscreen" editor_atto
+
+        moosh config-set fontselectlist "Arial=Arial, Helvetica, sans-serif;
+        Times=Times New Roman, Times, serif;
+        Courier=Courier New, Courier, mono;
+        Georgia=Georgia, Times New Roman, Times, serif;
+        Verdana=Verdana, Geneva, sans-serif;
+        Trebuchet=Trebuchet MS, Helvetica, sans-serif;
+        Escolar=Boo;" atto_fontfamily
         
 fi
 
@@ -245,29 +306,6 @@ moosh config-set allowframembedding 1
 
 echo "Configuring format_tiles..."
 moosh config-set format tiles moodlecourse
-
-echo "Configuring editor atto..."
-moosh config-set toolbar "collapse = collapse
- style1 = title, fontsize, fontfamily, backcolor, bold, italic
- list = unorderedlist, orderedlist
- links = link
- files = image, media, recordrtc, managefiles
- h5p = h5p
- style2 = underline, strike, subscript, superscript
- align = align
- indent = indent
- insert = equation, charmap, table, clear
- undo = undo
- accessibility = accessibilitychecker, accessibilityhelper
- other = html, fullscreen" editor_atto
-
-moosh config-set fontselectlist "Arial=Arial, Helvetica, sans-serif;
-Times=Times New Roman, Times, serif;
-Courier=Courier New, Courier, mono;
-Georgia=Georgia, Times New Roman, Times, serif;
-Verdana=Verdana, Geneva, sans-serif;
-Trebuchet=Trebuchet MS, Helvetica, sans-serif;
-Escolar=Boo;" atto_fontfamily
 
 #
 moosh config-set legacynav 0 local_nav
