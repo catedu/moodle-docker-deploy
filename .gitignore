@@ -9,10 +9,3 @@ zz_*
 template*/init-scripts/themes/fpdist/soporte/secret.php
 template*/init-scripts/themes/fpdist/itainnova_tool/secret/credenciales.php
 sysdig-agent*
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/coordinadores/*.pdf
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/alumnos/*.pdf
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/profesores/*.xlsx
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/encuesta/*.xlsx
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/coordinadores/*.pdf
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/coordinadores/*.zip
-template-fpm-3.11.7-unoconv/init-scripts/themes/fpdist/itainnova_tool/informes/alumnos/*.pdf
