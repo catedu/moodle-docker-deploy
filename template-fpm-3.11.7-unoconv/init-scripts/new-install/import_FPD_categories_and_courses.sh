@@ -99,6 +99,18 @@ set_studies_to_centre(){
                         "7863-Segunda lengua extranjera: Francés"
                     )
             ;;
+            "COM201-Actividades Comerciales")
+                COURSES=(
+                        "700t-Coordinación - Tutoría"
+                        "13948-Aplicaciones informáticas para el comercio"
+                        "13947-Dinamización del punto de venta"
+                        "13946-Formación y orientación laboral"
+                        "13945-Gestión de compras"
+                        "13944-Inglés"
+                        "13943-Marketing en la actividad comercial"
+                        "13942-Procesos de venta"
+                    )
+            ;;
             "COM301-Comercio Internacional")
                 COURSES=(
                         "83t-Coordinación - Tutoría"
@@ -170,6 +182,27 @@ set_studies_to_centre(){
                         "4980-Instalaciones de distribución"
                         "4982-Instalaciones domóticas."
                         "4984-Máquinas eléctricas"
+                    )
+            ;;
+            "ELE304-Sistemas de Telecomunicaciones e Informáticos")
+                COURSES=(
+                        "97t-Coordinación - Tutoría"
+                        "13932-Configuración de infraestructuras de sistemas de telecomunicaciones"
+                        "13929-Elementos de sistemas de telecomunicaciones"
+                        "13931-Formación y orientación laboral"
+                        "13926-Gestión de proyectos de instalaciones de telecomunicaciones"
+                        "13927-Lengua Extranjera  profesional: Inglés 1"
+                        "13930-Sistemas de telefonía fija y móvil"
+                        "13928-Sistemas informáticos y redes locales"
+                        "13933-Técnicas y procesos en infraestructuras de telecomunicaciones"
+                        "13934-Empresa e iniciativa emprendedora"
+                        "13939-Formación en centros de trabajo"
+                        "13938-Lengua Extranjera profesional: Inglés 2"
+                        "13941-Proyecto de Sistemas de Telecomunicaciones e Informáticos"
+                        "13937-Redes telemáticas"
+                        "13936-Sistemas de producción audiovisual"
+                        "13935-Sistemas de radiocomunicaciones"
+                        "13940-Sistemas integrados y hogar digital"
                     )
             ;;
             "HOT301-Agencias de Viajes y Gestión de Eventos")
@@ -414,6 +447,15 @@ set_studies_to_centre(){
                         "12342-Medio natural"
                         "12343-Métodos y productos cartográficos"
                         "12344-Programas de educación ambiental"
+                        "12345-Actividades de uso público"
+                        "12346-Actividades humanas y problemática ambiental"
+                        "12347-Desenvolvimiento en el medio"
+                        "12348-Empresa e iniciativa emprendedora"
+                        "12349-Formación en centros de trabajo"
+                        "12350-Habilidades sociales"
+                        "12351-Lengua extranjera profesional: inglés, 2"
+                        "12352-Proyecto de educación y control ambiental"
+                        "12353-Técnicas de educación ambiental"
                     )
             ;;
         esac
@@ -552,6 +594,7 @@ do
         "50010314-CPIFP LOS ENLACES")
             STUDIES=( 
                     "IFC201-Sistemas Microinformáticos y Redes" 
+                    "COM201-Actividades Comerciales"
                     "COM301-Comercio Internacional"
                     "COM302-Gestión de Ventas y Espacios Comerciales" 
                     "COM303-Transporte y Logística" 
@@ -593,6 +636,7 @@ do
         ;;
         "50009567-IES RÍO GÁLLEGO")
             STUDIES=( 
+                    "ELE304-Sistemas de Telecomunicaciones e Informáticos"
                     "SAN202-Farmacia y Parafarmacia"
                     "SAN203-Emergencias Sanitarias"
                 )
