@@ -228,7 +228,7 @@ moosh user-create --password estudiante --email alumnado@education.catedu.es --d
 
 #Updates made on 09-17-20 and brought for new creations: expand the default file upload size to 50MB (the server expands to 192) and add Family Access block
 echo >&2 "set value of max_file_size by default in courses"
-moosh config-set maxbytes 52428800
+moosh config-set maxbytes 201326592
 
 if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
     then
