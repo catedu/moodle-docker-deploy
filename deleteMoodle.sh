@@ -92,6 +92,9 @@ mysqldump --lock-tables=false --user "${MOODLE_MYSQL_USER}" --password="${MOODLE
 
 echo "# $(basename $0) - Backup Files..."
 
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursosministerio"
+fi
 if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursos_ministerio" /proc/mounts >/dev/null; then
     sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/cursos_ministerio"
 fi
