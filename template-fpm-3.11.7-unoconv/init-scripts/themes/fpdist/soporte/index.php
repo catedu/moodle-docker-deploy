@@ -151,6 +151,7 @@ $sessionid = session_id();
                                                                     <option value="CPIFP Los Enlaces: Desarrollo de Aplicaciones">CPIFP Los Enlaces: Desarrollo de Aplicaciones Web</option>
                                                                     <option value="CPIFP Los Enlaces: Sistemas Microinformáticos">CPIFP Los Enlaces: Sistemas Microinformáticos</option>
                                                                     <option value="CPIFP Los Enlaces: Transporte y Logística">CPIFP Los Enlaces: Transporte y Logística</option>
+                                                                    <option value="CPIFP Los Enlaces: Actividades Comerciales">CPIFP Los Enlaces: Actividades Comerciales</option>
                                                                     <option value="CPIFP Los Enlaces: Gestión de ventas y espacios comerciales">CPIFP Los Enlaces: Gestión de ventas y espacios comerciales</option>
                                                                     <option value="CPIFP Los Enlaces: Producción de audiovisuales y espectáculos">CPIFP Los Enlaces: Producción de audiovisuales y espectáculos</option>
 
@@ -174,6 +175,7 @@ $sessionid = session_id();
 
                                                                     <option value="IES Río Gállego: Farmacia y Parafarmacia">IES Río Gállego: Farmacia y Parafarmacia</option>
                                                                     <option value="IES Río Gállego: Emergencias Sanitarias">IES Río Gállego: Emergencias Sanitarias</option>
+                                                                    <option value="IES Río Gállego: Sistemas de Telecomunicaciones e Informáticos">IES Río Gállego: Sistemas de Telecomunicaciones e Informáticos</option>
 
                                                                     <option value="IES Santa Emerenciana: Gestión Administrativa">IES Santa Emerenciana: Gestión Administrativa</option>
 
