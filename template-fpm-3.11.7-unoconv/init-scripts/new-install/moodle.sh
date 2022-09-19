@@ -325,6 +325,18 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher moodle/course:changefullname prohibit 1
         # avoid access to repositories
         moosh role-update-capability teacher repository/contentbank:accessgeneralcontent prohibit 1
+        # avoid manual unenrolments for teachers
+        moosh role-update-capability teacher enrol/cohort:config prohibit 1
+        moosh role-update-capability teacher enrol/database:config prohibit 1
+        moosh role-update-capability teacher enrol/guest:config prohibit 1
+        moosh role-update-capability teacher enrol/imsenterprise:config prohibit 1
+        moosh role-update-capability teacher enrol/lti:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/manual:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/paypal:manage prohibit 1
+        moosh role-update-capability teacher enrol/self:config prohibit 1
+        moosh role-update-capability teacher enrol/self:unenrol prohibit 1
+
+
 fi
 
 # #unoconv
