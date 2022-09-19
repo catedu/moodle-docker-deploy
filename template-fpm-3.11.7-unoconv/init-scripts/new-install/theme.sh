@@ -40,13 +40,13 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh config-set frontpage none
         # set the default img for courses in lists. Doesn't modify course header
         echo "  estableciendo imagen por defecto para los cursos"
-        cp /init-scripts/themes/fpdist/img/default_course.jpg /var/www/html/theme/moove/pix/
-        cp /init-scripts/themes/fpdist/img/default_coursesummary.jpg /var/www/html/theme/moove/pix/
+        cp /init-scripts/themes/fpdist/img/default_course.jpg /var/www/html/theme/moove/pix/default_course.jpg
+        cp /init-scripts/themes/fpdist/img/default_coursesummary.jpg /var/www/html/theme/moove/pix/default_coursesummary.jpg
         # soporte
         echo "  soporte"
         mkdir /var/www/html/soporte/
         cp -R /init-scripts/themes/fpdist/soporte /var/www/html/soporte
-        cp /var/www/html/soporte/secret-sample.php /var/www/html/soporte/secret.php 
+        cp /init-scripts/themes/fpdist/soporte/secret-sample.php /var/www/html/soporte/secret.php 
         # marketing
         echo "  marketing"
         cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
