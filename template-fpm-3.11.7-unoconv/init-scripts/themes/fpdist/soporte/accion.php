@@ -64,6 +64,9 @@
                 case "CPIFP Los Enlaces: Transporte y Logística":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_TL"];
                     break;
+                case "CPIFP Los Enlaces: Actividades Comerciales":
+                    return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_AC"];
+                    break;
                 case "CPIFP Los Enlaces: Gestión de ventas y espacios comerciales":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Los_Enlaces_GVEC"];
                     break;
@@ -99,6 +102,9 @@
                     break;
                 case "IES Río Gállego: Emergencias Sanitarias":
                     return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_ES"];
+                    break;
+                case "IES Río Gállego: Sistemas de Telecomunicaciones e Informáticos":
+                    return $GLOBALS["idUserCoordinacion_IES_Rio_Gallego_STI"];
                     break;
                 case "CPIFP San Blas: Educación y Control Ambiental":
                     return $GLOBALS["idUserCoordinacion_CPIFP_San_Blas_ECA"];
