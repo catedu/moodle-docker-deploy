@@ -335,7 +335,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher enrol/paypal:manage prohibit 1
         moosh role-update-capability teacher enrol/self:config prohibit 1
         moosh role-update-capability teacher enrol/self:unenrol prohibit 1
-
+        moosh role-update-capability teacher enrol/fee:manage prohibit 1
+        moosh role-update-capability teacher enrol/manual:manage prohibit 1
 
 fi
 
