@@ -24,7 +24,7 @@ showHelp () {
     echo "-e -> administrator email or .env value by default"
     echo "-l -> default language or .env value by default"
     echo "-n -> Full Name Site. or .env value by default"
-    echo "-u -> url moodle: https://site.domain.com IGNORED when school type is FPD "
+    echo "-u -> url moodle: https://site.domain.com For FPD just subdomains www|predesarrollo|test|gt "
     echo "-h this message"
 }
 
@@ -47,7 +47,13 @@ get_parameter(){
             u)
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
-                    MOODLE_URL="https://www.adistanciafparagon.es"
+                    MOODLE_URL=""
+                    [[ "${OPTARG}" =~ ^[Ww][Ww][Ww] ]] && MOODLE_URL="https://www.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Gg][Tt] ]] && MOODLE_URL="https://gt.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
+                    [[ "${MOODLE_URL}" = "" ]] && \
+                    { echo "Incorrect moodle url type..."; usage; exit 1;}
                 else
                     [[ "${OPTARG}" =~ ^https?://[A-Za-z0-9._]+$ ]] || \
                     { echo "Incorrect url format..."; usage; exit 1;}
@@ -303,7 +309,7 @@ then
                 "ftp_ministerio_htmls"
                 "mbzs_curso_anterior"
                 "mbzs_20210920"
-                "mbzs_20220518"
+                "mbzs_20220628"
                 "mbzs_ita_20210728"
         )
     
