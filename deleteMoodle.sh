@@ -107,6 +107,9 @@ fi
 if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220518" /proc/mounts >/dev/null; then
     sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220518"
 fi
+if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220628" /proc/mounts >/dev/null; then
+    sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_20220628"
+fi
 if grep "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_ita_20210728" /proc/mounts >/dev/null; then
     sudo umount "${LOCALROOT}/${WORKDIR}/moodle-data/repository/mbzs_ita_20210728"
 fi
