@@ -15,7 +15,7 @@
 # Functions
 # 
 actions_asociated_to_plugin(){
-    echo "Actions for plugin ${1}..."
+    echo "Executing actions associated to plugin ${1} in environment ${SCHOOL_TYPE}..."
     case ${1} in
         "mod_hvp")
             #Comento las siguientes líneas ya que han desaparecido esas capacidades.
@@ -111,11 +111,11 @@ actions_asociated_to_plugin(){
             moosh config-set usevotes 1 mod_pdfannotator
             ;;
         "mod_board")
-            moosh -n config-set new_column_icon fa-plus mod_board
-            moosh -n config-set new_note_icon fa-plus mod_board
-            moosh -n config-set media_selection 1 mod_board
-            moosh -n config-set post_max_length 250 mod_board
-            moosh -n config-set history_refresh 60 mod_board
+            moosh config-set new_column_icon fa-plus mod_board
+            moosh config-set new_note_icon fa-plus mod_board
+            moosh config-set media_selection 1 mod_board
+            moosh config-set post_max_length 250 mod_board
+            moosh config-set history_refresh 60 mod_board
             ;;
         *)
             echo "No additional actions for plugin ${1}"
@@ -162,21 +162,21 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "qtype_gapfill"
                 "qtype_gapfill"
         )
-
-        moosh -n plugin-install -d -f --release 2020110900 "theme_moove" 
         
-        moosh -n plugin-install -d -f --release 2021051702 "block_grade_me"
+        moosh plugin-install -d -f --release 2020110900 "theme_moove" 
+
+        moosh plugin-install -d -f --release 2021051702 "block_grade_me"
         echo "Configuring block_grade_me..."
         moosh config-set block_grade_me_maxcourses 10
         moosh config-set block_grade_me_enableassign 1
         moosh config-set block_grade_me_enableassignment 1
         moosh config-set block_grade_me_enablequiz 1
         
-        moosh -n plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
+        moosh plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
         echo "Configuring mod_pdfannotator..."
         moosh config-set usevotes 1 mod_pdfannotator
-        
-        moosh -n plugin-install -d -f --release 2017121407 "local_mail"
+
+        moosh plugin-install -d -f --release 2017121407 "local_mail"
         echo "Configuring local_mail..."
         moosh config-set maxfiles 5 local_mail
         moosh config-set maxbytes 2097152 local_mail
@@ -224,20 +224,20 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_fontfamily"
                 "atto_fullscreen" 
         )
-        moosh -n plugin-install -d -f --release 2020110900 "theme_moove" 
+        moosh plugin-install -d -f --release 2020110900 "theme_moove" 
         
-        moosh -n plugin-install -d -f --release 2021051702 "block_grade_me"
+        moosh plugin-install -d -f --release 2021051702 "block_grade_me"
         echo "Configuring block_grade_me..."
         moosh config-set block_grade_me_maxcourses 10
         moosh config-set block_grade_me_enableassign 1
         moosh config-set block_grade_me_enableassignment 1
         moosh config-set block_grade_me_enablequiz 1
         
-        moosh -n plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
+        moosh plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
         echo "Configuring mod_pdfannotator..."
         moosh config-set usevotes 1 mod_pdfannotator
         
-        moosh -n plugin-install -d -f --release 2017121407 "local_mail"
+        moosh plugin-install -d -f --release 2017121407 "local_mail"
         echo "Configuring local_mail..."
         moosh config-set maxfiles 5 local_mail
         moosh config-set maxbytes 2097152 local_mail
@@ -299,7 +299,7 @@ moosh config-set sqlsecurity 1 block_configurable_reports
 moosh config-set sqlsyntaxhighlight 1 block_configurable_reports
 
 #Añadir bloque de informes configurables
-moosh -n block-add course 1 configurable_reports site-index side-pre 1
+moosh block-add course 1 configurable_reports site-index side-pre 1
 
 echo "Configuring h5p..."
 moosh config-set allowframembedding 1
