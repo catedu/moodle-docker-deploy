@@ -206,8 +206,13 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 fi
 
 # import categories and courses
-echo >&2 "Importing categories and courses..."
-/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
+if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
+    then
+        echo "FP a distancia doesn't import categories and courses here. We do after installing and configuring plugins"
+    else
+        echo >&2 "Importing categories and courses..."
+        /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
+fi
 
 
 #Updates made at the beginning of the course after the first creation of instances

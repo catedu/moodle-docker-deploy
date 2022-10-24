@@ -315,7 +315,15 @@ echo "Prohibit to write to each other"
 moosh role-update-capability student moodle/user:viewdetails prohibit 1
 moosh role-update-capability student local/mail:mailsamerole prohibit 1
 
-
-
 set -x
 echo "Plugins configurated!"
+
+# import categories and courses
+if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
+    then
+        echo >&2 "Importing categories and courses..."
+        /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
+        echo >&2 "... importing categories and courses. Done!"
+    else
+        echo "For not FP a distancia doesn't import categories and courses here. We do after installing and configuring plugins"
+fi
