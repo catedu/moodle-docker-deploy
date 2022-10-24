@@ -64,7 +64,7 @@ set_studies_to_centre(){
             ;;
             "ADG301-Administración y Finanzas")
                 COURSES=( 
-                        "627t-Coordinación - Tutoría"
+                        "79t-Coordinación - Tutoría"
                         "5297-Comunicación y atención al cliente"
                         "5403-Formación y Orientación Laboral"
                         "5194-Gestión de la documentación jurídica y empresarial"
@@ -429,7 +429,7 @@ set_studies_to_centre(){
                         "7892-Atención a las unidades de convivencia"
                         "7902-Empresa e iniciativa emprendedora"
                         "7889-Formación en centros de trabajo"
-                        "7793-Formación y orientación laboral  ( Nocturno, 2º )"
+                        "7793-Formación y orientación laboral  ( Nocturno, 2º )" # duplicado. Crear pero ocultar para mantener IDs intactos
                         "7899-Habilidades sociales"
                         "7885-Lengua extranjera profesional: Inglés 2"
                         "7897-Metodología de la intervención social"
