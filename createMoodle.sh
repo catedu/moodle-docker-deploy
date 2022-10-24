@@ -52,6 +52,8 @@ get_parameter(){
                     [[ "${OPTARG}" =~ ^[Gg][Tt] ]] && MOODLE_URL="https://gt.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Cc][Ii][Ff][Pp][Aa] ]] && MOODLE_URL="https://cifpa.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Dd][Ee][Pp][Oo][Rr][Tt][Ii][Vv][Aa][Ss] ]] && MOODLE_URL="https://deportivas.adistanciafparagon.es"
                     [[ "${MOODLE_URL}" = "" ]] && \
                     { echo "Incorrect moodle url type..."; usage; exit 1;}
                 else
