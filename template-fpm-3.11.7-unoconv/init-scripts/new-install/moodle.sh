@@ -205,16 +205,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # users for mobile app area created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
 fi
 
-# import categories and courses
-if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
-    then
-        echo "FP a distancia doesn't import categories and courses here. We do after installing and configuring plugins"
-    else
-        echo >&2 "Importing categories and courses..."
-        /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
-fi
-
-
 #Updates made at the beginning of the course after the first creation of instances
 
 moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','No apta, Apta','Escala Aeducar1')"
