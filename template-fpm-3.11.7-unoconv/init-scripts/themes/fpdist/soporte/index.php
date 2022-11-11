@@ -417,7 +417,7 @@ $sessionid = session_id();
                                                 </fieldset>
                                                 <div class="row">
                                                     <div class="offset-sm-3 col-sm-3">
-                                                        <img src="captcha.php" alt="CAPTCHA" class="captcha-image">
+                                                        <img src="" alt="CAPTCHA" class="captcha-image">
                                                         <p>¿No puedes leer la imagen? <a href='javascript: refreshCaptcha();'>click aquí</a> para refrescar</p>
                                                     </div>
                                                 </div>
@@ -427,7 +427,7 @@ $sessionid = session_id();
                                                     </div>
                                                     <div class="form-setting col-sm-9">
                                                         <div class="form-text defaultsnext">
-                                                            <input type="text" name="captcha_challenge" value=""  pattern="[A-Z]{6}" id="captcha_challenge" class="form-control text-ltr" required>
+                                                            <input type="text" name="captcha_challenge" value=""  pattern="[A-Z]{6}" id="captcha_challenge" class="form-control text-ltr" desibled required>
                                                         </div>
                                                     </div>
                                                 </div>
