@@ -4,6 +4,8 @@
     require_once(__DIR__ . '/../config.php');
     require_once('secret.php');
 
+    $logFile = fopen("log.txt", 'a');
+
     $captchaCorrecto = FALSE;
 
     if(isset($_POST['captcha_challenge']) && $_POST['captcha_challenge'] == $_SESSION['captcha_text']) {
@@ -231,6 +233,10 @@
     $captcha = htmlspecialchars($_POST["captcha"]);
     $token = htmlspecialchars($_POST["token"]);
     $adjunto = htmlspecialchars($_POST["adjunto"]);
+
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: parametros del form recogidos");
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: " . print_r($_POST, true));
+
     // Compruebo que el captcha es correcto
     /*echo("captcha: ". $captcha);
     echo("en sesion: ". $_SESSION["captcha"]);
@@ -262,16 +268,15 @@
         $camposObligatoriosRellenos = false;
     }
 
-
-
     if($accesoPermitido && $camposObligatoriosRellenos && $captchaCorrecto){
         //////////////////////////////
         // Creo variables iniciales
         //////////////////////////////
         $date = date('d-m-Y H:i:s');
-        $ip = getIPAddress();  
+        $ip = getIPAddress();
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: dirección IP -- " . $ip);
 
-        $descriptionRedmine = '*' . $nombre_solicitante . '* *' . $pape_solicitante . '* ha enviado el ' . $date . ' desde la IP ' . $ip . ' una incidencia con la siguiente información:\n';
+        $descriptionRedmine = '*' . $nombre_solicitante . ' ' . $pape_solicitante . '* ha enviado el ' . $date . ' desde la IP ' . $ip . ' una incidencia con la siguiente información:\n';
         $descriptionRedmine .= '\n';
         $descriptionRedmine .= '- *Rol* : ' . procesaRol($rol) . '\n';
         $descriptionRedmine .= '- *Nombre solicitante* : ' . $nombre_solicitante . '\n';
@@ -303,54 +308,59 @@
         // Contacto con RedMine para crear la incidencia
         //////////////////////////////
         $url = "https://soportearagon.catedu.es/issues.json";
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: URL " . $url);
+
         $asignarA = asignarIncidenciaA($rol, $motivo, $ciclo);
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: incidencia asignada a " . $asignarA);
+
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        
         curl_setopt($curl, CURLOPT_POST, 1);
-        $issue =  '
-        <?xml version="1.0"?>
-        <issue>
-        <project_id>'.$projectId.'</project_id>
-        <subject>'.procesaMotivo($motivo).'</subject>';
+
+        $jsonIssue = '{"issue": {"project_id":"' . $projectId . '", "tracker":{"id":3,"name":"Soporte"}, "subject":"' . procesaMotivo($motivo) . '", "description":"' . $descriptionRedmine . '", "priority_id":"' . procesaPrioridad($motivo) . '", "custom_fields":{ "@attributes":{ "type":"array"},"custom_field":{"@attributes":{ "id":"1","name":"owner-email"}, "value":"' . $email_solicitante . '"}}, "assigned_to_id": "' . $asignarA . '"'; 
+
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: token -- " . $token);
 
         if($token != ""){
-            $issue .= '
-            <uploads type="array">
-              <upload>
-                <token>' . $token . '</token>
-                <filename>' . $adjunto . '</filename>
-                <description>Fichero adjunto</description>
-                <content_type>image/png</content_type>
-              </upload>
-            </uploads>';
+            $jsonIssue .= ', "uploads":{"@attributes":{"type":"array"},"upload":{"token":"' . $token . '","filename":"' . $adjunto . '","description":"fichero adjunto","content_type":"image/png"}}';
         }
 
-        $issue .= '<description><![CDATA['.$descriptionRedmine.']]></description>
-        <priority_id>'.procesaPrioridad($motivo).'</priority_id>
-        <custom_fields type="array">
-            <custom_field id="1" name="owner-email">
-                <value>'.$email_solicitante.'</value>
-            </custom_field>
-        </custom_fields>
-        <assigned_to_id>'. $asignarA .'</assigned_to_id>
-        </issue>';
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $issue );
+        $jsonIssue .= '} }';
+
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: JSON issue -- " . $jsonIssue);
+
+        $res_curl = curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonIssue );
+        
         // Optional Authentication:
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $userRedmine.":".$passRedmine);
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
+        $res_curl = curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        
+        $res_curl = curl_setopt($curl, CURLOPT_USERPWD, $userRedmine.":".$passRedmine);
+        
+        $res_curl = curl_setopt($curl, CURLOPT_URL, $url);
+        
+        $res_curl = curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        
         $result = curl_exec($curl);
-        curl_close($curl);
 
-        //echo 'resultado: ' . $result . '<br/><br/>';
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: result -- " . var_export(json_decode($result, true), true));
+
+        if ($result === false || $result == null) {
+            fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php : Curl error .. " . curl_error($curl));
+        }
+        curl_close($curl);
+        
         $respuesta = json_decode($result, true);
+
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: respuesta -- " . $respuesta );
+
         $incidenciaCreada = $respuesta["issue"];
-        //echo '$incidenciaCreada: '. $incidenciaCreada;
+
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: incidenciaCreada -- " . $incidenciaCreada );
+        
         $incidenciaCreadaId = $incidenciaCreada["id"];
-        //echo '$incidenciaCreadaId: '. $incidenciaCreadaId;
+
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: incidenciaCreadaId -- " . $incidenciaCreadaId );
 
         $exitoCreandoIncidencia = false;
         if (isset($incidenciaCreadaId) && $incidenciaCreadaId !== '') {
