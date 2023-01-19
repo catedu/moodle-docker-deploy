@@ -5,6 +5,9 @@
     require_once('secret.php');
 
     $logFile = fopen("log.txt", 'a');
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: -------------------------------------------------------------------------");
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: captcha_challenge (POST): " . $_POST['captcha_challenge']);
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: captcha_text (SESSION): " . $_SESSION['captcha_text']);
 
     $captchaCorrecto = FALSE;
 
@@ -236,6 +239,22 @@
 
     fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: parametros del form recogidos");
     fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: " . print_r($_POST, true));
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: captcha que se solicitaba: " . $_SESSION['captcha_text'] );
+    
+    // Quito los saltos de línea
+    //Esto para la descripción a enviar a Redmine
+    $otros2 = str_replace("\r","",$_POST['otros']);
+    $contenido_otros = explode("\n",$otros2);
+    $otros_json = "";
+    foreach($contenido_otros as $line) {
+        $otros_json .= strval($line).'\n';
+    }
+    //Esto para el resultado y el email
+    $otros = htmlspecialchars($_POST["otros"]);
+    $otros = htmlspecialchars($otros);
+
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: otros modificado: " . $otros );
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: otros_json: " . $otros_json );
 
     // Compruebo que el captcha es correcto
     /*echo("captcha: ". $captcha);
@@ -300,7 +319,7 @@
             $descriptionRedmine .= '- *Módulo 2* : ' . $modulo2_docente . '\n';
             $descriptionRedmine .= '- *Módulo 3* : ' . $modulo3_docente . '\n';
         }
-        $descriptionRedmine .= '- *Explicación de la situación* : ' . $otros . '\n';
+        $descriptionRedmine .= '- *Explicación de la situación* : ' . $otros_json . '\n';
         //$descriptionRedmine .= '- *captcha en form* : ' . $captcha . '\n';
         //$descriptionRedmine .= '- *captcha en sesion* : ' . $_SESSION["captcha"] . '\n';
 
@@ -318,7 +337,7 @@
         
         curl_setopt($curl, CURLOPT_POST, 1);
 
-        $jsonIssue = '{"issue": {"project_id":"' . $projectId . '", "tracker":{"id":3,"name":"Soporte"}, "subject":"' . procesaMotivo($motivo) . '", "description":"' . $descriptionRedmine . '", "priority_id":"' . procesaPrioridad($motivo) . '", "custom_fields":{ "@attributes":{ "type":"array"},"custom_field":{"@attributes":{ "id":"1","name":"owner-email"}, "value":"' . $email_solicitante . '"}}, "assigned_to_id": "' . $asignarA . '"'; 
+        $jsonIssue = '{"issue": {"project_id":"' . $projectId . '", "tracker":{"id":3,"name":"Soporte"}, "subject":"' . procesaMotivo($motivo) . '", "description":"' . $descriptionRedmine . '", "priority_id":"' . procesaPrioridad($motivo) . '", "custom_fields": [{ "value": "'.$email_solicitante.'", "id": "1","name": "owner-email"}],"assigned_to_id": "' . $asignarA . '"'; 
 
         fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: token -- " . $token);
 
@@ -349,6 +368,7 @@
             fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php : Curl error .. " . curl_error($curl));
         }
         curl_close($curl);
+
         
         $respuesta = json_decode($result, true);
 
@@ -361,6 +381,7 @@
         $incidenciaCreadaId = $incidenciaCreada["id"];
 
         fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: incidenciaCreadaId -- " . $incidenciaCreadaId );
+        
 
         $exitoCreandoIncidencia = false;
         if (isset($incidenciaCreadaId) && $incidenciaCreadaId !== '') {
