@@ -17,9 +17,6 @@ moosh config-set debugdisplay 0
 moosh config-set frontpage 6
 moosh config-set frontpageloggedin 5,0
 
-
-
-
 # Config smtp
 echo >&2 "Configuring smtp..."
 set -x
@@ -142,33 +139,48 @@ moosh config-set contactdataprotectionofficer 1 tool_dataprivacy
 moosh config-set showdataretentionsummary 0 tool_dataprivacy
 
 # Creating moodle-manager
-echo >&2 "Creating moodle-manager gestorae and giving grants..."
-GESTORAE_USER_ID=`moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae`
-GESTORAE_ROLE_ID=`moosh role-create -a manager gestora`
-moosh role-update-capability gestora enrol/flatfile:manage allow 1
-moosh role-update-capability gestora enrol/flatfile:unenrol allow 1
-moosh role-update-capability gestora repository/upload:view allow 1
-moosh role-update-capability gestora mod/forum:allowforcesubscribe allow 1
-moosh role-update-capability gestora atto/recordrtc:recordvideo allow 1
-moosh role-update-capability gestora atto/recordrtc:recordaudio allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedatarequests allow 1
-moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
-moosh role-update-capability gestora moodle/webservice:createmobiletoken allow 1
-moosh role-update-capability gestora block/tags:myaddinstance allow 1
-moosh role-update-capability gestora block/starredcourses:myaddinstance allow 1
-moosh role-update-capability gestora block/mentees:myaddinstance allow 1
-moosh role-update-capability gestora moodle/role:manage prohibit 1 
-moosh role-update-capability gestora moodle/course:renameroles prohibit 1
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "For FP distancia we don't create gestorae user"
+        echo "For FP distancia we don't create gestora role"
+    else
+        echo >&2 "Creating moodle-manager gestorae and giving grants..."
+        GESTORAE_USER_ID=`moosh user-create --password ${MANAGER_PASSWORD} --email ${MOODLE_MANAGER} --digest 2 --city Aragón --country ES --firstname Gestorae --lastname Aeducar gestorae`
+        GESTORAE_ROLE_ID=`moosh role-create -a manager gestora`
+        moosh role-update-capability gestora enrol/flatfile:manage allow 1
+        moosh role-update-capability gestora enrol/flatfile:unenrol allow 1
+        moosh role-update-capability gestora repository/upload:view allow 1
+        moosh role-update-capability gestora mod/forum:allowforcesubscribe allow 1
+        moosh role-update-capability gestora atto/recordrtc:recordvideo allow 1
+        moosh role-update-capability gestora atto/recordrtc:recordaudio allow 1
+        moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
+        moosh role-update-capability gestora tool/dataprivacy:managedatarequests allow 1
+        moosh role-update-capability gestora tool/dataprivacy:managedataregistry allow 1
+        moosh role-update-capability gestora moodle/webservice:createmobiletoken allow 1
+        moosh role-update-capability gestora block/tags:myaddinstance allow 1
+        moosh role-update-capability gestora block/starredcourses:myaddinstance allow 1
+        moosh role-update-capability gestora block/mentees:myaddinstance allow 1
+        moosh role-update-capability gestora moodle/role:manage prohibit 1 
+        moosh role-update-capability gestora moodle/role:manage prohibit 1 
+        moosh role-update-capability gestora moodle/role:manage prohibit 1 
+        moosh role-update-capability gestora moodle/role:manage prohibit 1 
+        moosh role-update-capability gestora moodle/role:manage prohibit 1 
+        moosh role-update-capability gestora moodle/course:renameroles prohibit 1
 
-moosh config-set dporoles 9 tool_dataprivacy
-moosh user-assign-system-role gestorae gestora
+        moosh config-set dporoles 9 tool_dataprivacy
+        moosh user-assign-system-role gestorae gestora
+fi
 
 # Creating moodle-asesoria-admin
-echo >&2 "Creating moodle-manager gestorae and giving grants..."
-ASESORIA_USER_ID=`moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria`
-# 2 es admin 
-moosh config-set siteadmins 2,${ASESORIA_USER_ID}
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "For FP distancia we don't create asesoria user"
+    else
+        echo >&2 "Creating moodle-manager gestorae and giving grants..."
+        ASESORIA_USER_ID=`moosh user-create --password ${ASESORIA_PASSWORD} --email ${ASESORIA_EMAIL} --digest 2 --city Aragón --country ES --firstname Asesoría --lastname Aeducar asesoria`
+        # 2 es admin 
+        moosh config-set siteadmins 2,${ASESORIA_USER_ID}
+fi
 
 # Creating parent role
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
@@ -192,7 +204,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
         echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
         echo >&2 "The first one will work... "
-        # 9 gestora 10 familiar TODO: cambiar 9,10 por la variable correspondiente
+        # 9 gestora 10 familiar 
+        # TODO: cambiar 9,10 por la variable correspondiente
         moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
 fi
 
@@ -200,9 +213,73 @@ fi
 if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
     then
         echo "Creating admin user for FP..."
-        FPD_ADMIN_USER_ID=`moosh user-create --password ${FPD_PASSWORD} --email ${FPD_EMAIL} --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2`
-        moosh config-set siteadmins 2,${ASESORIA_USER_ID},${FPD_ADMIN_USER_ID}
+        FPD_ADMIN_USER_ID=$(moosh user-create --password "${FPD_PASSWORD}" --email "${FPD_EMAIL}" --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2)
+        moosh config-set siteadmins 2,"${ASESORIA_USER_ID}","${FPD_ADMIN_USER_ID}"
         # users for mobile app area created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
+fi
+
+# Crear rol y usuario de inspección
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "Creating inspeccion role and configuring it..."
+        INSPECCION_ROLE_ID=$(moosh role-create -d "Los usuarios con rol de inspección tienen acceso a determinados informes" -a manager -c system,category,course,block -n "Inspeccion" inspeccion)
+        
+        # set permissions to inspeccion role
+        moosh role-import -f role-inspeccion.xml
+
+        # Creating user
+        INSPECCION_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email inspeccion@educa.aragon.es --digest 2 --city Aragón --country ES --firstname Inspección --lastname Inspección profinspector)
+
+        # Assiging user to r
+        moosh user-assign-system-role profinspector inspeccion
+fi
+
+# Crear rol de jefaturas y usuarios
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        echo "Creating jefatura-estudios role and configuring it..."
+        JEFATURA_ROLE_ID=$(moosh role-create -d "Los usuarios con rol de inspección tienen acceso a determinados informes" -a manager -c system,category,course,block -n "Jefatura de estudios" jefatura-estudios)
+
+        # Setting permissions to jefatura de estudios role
+        moosh role-import -f role-jefatura-estudios.xml
+
+        # Creating users
+        JE_SG_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES Sierra de Guara" prof_je_sg)
+        JE_SE_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES SANTA EMERENCIANA" prof_je_se)
+        JE_TM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES TIEMPOS MODERNOS" prof_je_tm)
+        JE_LE_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP LOS ENLACES" prof_je_le)
+        JE_CA_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP CORONA DE ARAGÓN" prof_je_ca)
+        JE_PI_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP PIRÁMIDE" prof_je_pi)
+        JE_SB_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP SAN BLAS" prof_je_sb)
+        JE_MI_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MIRALBUENO" prof_je_mi)
+        JE_PS_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES PABLO SERRANO" prof_je_ps)
+        JE_BA_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP BAJO ARAGÓN" prof_je_ba)
+        JE_RG_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES RÍO GÁLLEGO" prof_je_rg)
+        JE_VT_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES VEGA DEL TURIA" prof_je_vt)
+        JE_LB_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES LUIS BUÑUEL" prof_je_lb)
+        JE_MO_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP MONTEARAGON" prof_je_mo)
+        JE_MV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARTÍNEZ VARGAS" prof_je_mv)
+        JE_AV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES AVEMPACE" prof_je_av)
+        JE_MM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARÍA MOLINER" prof_je_mm)
+
+        # Settings users to role
+        moosh user-assign-system-role prof_je_sg jefatura-estudios
+        moosh user-assign-system-role prof_je_se jefatura-estudios
+        moosh user-assign-system-role prof_je_tm jefatura-estudios
+        moosh user-assign-system-role prof_je_le jefatura-estudios
+        moosh user-assign-system-role prof_je_ca jefatura-estudios
+        moosh user-assign-system-role prof_je_pi jefatura-estudios
+        moosh user-assign-system-role prof_je_sb jefatura-estudios
+        moosh user-assign-system-role prof_je_mi jefatura-estudios
+        moosh user-assign-system-role prof_je_ps jefatura-estudios
+        moosh user-assign-system-role prof_je_ba jefatura-estudios
+        moosh user-assign-system-role prof_je_rg jefatura-estudios
+        moosh user-assign-system-role prof_je_vt jefatura-estudios
+        moosh user-assign-system-role prof_je_lb jefatura-estudios
+        moosh user-assign-system-role prof_je_mo jefatura-estudios
+        moosh user-assign-system-role prof_je_mv jefatura-estudios
+        moosh user-assign-system-role prof_je_av jefatura-estudios
+        moosh user-assign-system-role prof_je_mm jefatura-estudios
 fi
 
 #Updates made at the beginning of the course after the first creation of instances
@@ -301,6 +378,18 @@ moosh config-set message_provider_tool_messageinbound_invalidrecipienthandler_lo
 moosh config-set messmailmessage_provider_tool_messageinbound_invalidrecipienthandler_loggedoff popup,airnotifier message
 moosh config-set message_provider_tool_messageinbound_messageprocessingerror_loggedoff popup,airnotifier message
 
+# Para FPD quitar insignias (enablebadges)
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        moosh config-set enablebadges 0
+fi
+
+# Para FPD quitar analítica (enableanalytics)
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        moosh config-set enableanalytics 0
+fi
+
 #Update capability student configuration for avoiding emails between them
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
@@ -332,6 +421,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher enrol/self:unenrol prohibit 1
         moosh role-update-capability teacher enrol/fee:manage prohibit 1
         moosh role-update-capability teacher enrol/manual:manage prohibit 1
+        moosh role-update-capability teacher enrol/cohort:unenrol prohibit 1
+        moosh role-update-capability teacher enrol/manual:unenrolself prohibit 1
 
 fi
 
@@ -384,5 +475,3 @@ moosh -n config-set activitychooseractivefooter tool_moodlenet
 #Habilitar descarga de curso
 echo >&2 "Activating Course Content Download"
 moosh -n config-set downloadcoursecontentallowed 1
-
-
