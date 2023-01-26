@@ -24,7 +24,7 @@ showHelp () {
     echo "-e -> administrator email or .env value by default"
     echo "-l -> default language or .env value by default"
     echo "-n -> Full Name Site. or .env value by default"
-    echo "-u -> url moodle: https://site.domain.com For FPD just subdomains www|predesarrollo|test|gt "
+    echo "-u -> url moodle: https://site.domain.com For FPD just subdomains www|predesarrollo|test|gt|cifpa|deportivas "
     echo "-h this message"
 }
 
