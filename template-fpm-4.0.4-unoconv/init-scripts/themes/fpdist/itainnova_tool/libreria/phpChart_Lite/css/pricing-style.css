@@ -1,0 +1,296 @@
+#shaon-pricing-table .pricing-table *,.pricing-table{
+font-family: 'Oswald', sans-serif;
+}
+
+
+#shaon-pricing-table .offer-tag{
+    position: absolute;
+    right: -1px;
+    top: 0;
+    width: 53px;
+    height: 40px;
+    z-index: 11;
+}
+
+/*RADIUS=============================================*/
+
+#shaon-pricing-table .left-top-radious{
+    -moz-border-radius:5px 0px 0px 0px;
+    -webkit-border-radius:5px 0px 0px 0px;
+    border-radius:5px 0px 0px 0px;    
+}
+
+#shaon-pricing-table .right-top-radious{
+    -moz-border-radius:0px 5px 0px 0px;
+    -webkit-border-radius:0px 5px 0px 0px;
+    border-radius:0px 5px 0px 0px;    
+}
+
+#shaon-pricing-table .left-bottom-radious{
+    -moz-border-radius:0px 0px 0px 5px;
+    -webkit-border-radius:0px 0px 0px 5px;
+    border-radius:0px 0px 0px 5px;
+    
+}
+
+#shaon-pricing-table .right-bottom-radious{
+    -moz-border-radius:0px 0px 5px 0px;
+    -webkit-border-radius:0px 0px 5px 0px;
+    border-radius:0px 0px 5px 0px;    
+}
+
+#shaon-pricing-table .pricing-table{
+    width: 100%;
+    margin: 20px;    
+}
+
+
+/*COLUMN================================================*/
+#shaon-pricing-table .col1, #shaon-pricing-table .col2, #shaon-pricing-table .col3{position: relative; float: left;}
+
+#shaon-pricing-table .pricing-table .col1{
+    width: 20%;
+}
+
+#shaon-pricing-table .pricing-table .col2{
+    width: 30%;
+}
+
+#shaon-pricing-table .pricing-table .col3{
+    width: 40%;
+}
+
+#shaon-pricing-table .pricing-table ul{
+    margin: 0;
+    padding: 10px 0;
+    
+}
+
+#shaon-pricing-table .pricing-table li{
+    margin: 0;
+    padding: 5px 0;
+    line-height: 25px;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #f9f9f9;
+    text-align: center;
+    font-weight: normal;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #333;
+    text-shadow: 0px 1px #fff;
+}
+
+#shaon-pricing-table .pricing-table li:first-child{
+    border-top: none;
+}
+
+#shaon-pricing-table .pricing-table li:last-child{
+    border-bottom: none;
+}
+ 
+
+#shaon-pricing-table .feature-content, #shaon-pricing-table .price-content, #shaon-pricing-table .selectePrice-content{
+    width: 99%;    
+    border: 1px solid #ccc;      
+    border-right-color: #f1f1f1; 
+    text-align: center; 
+}
+#shaon-pricing-table .feature-content  {background: #f1f1f1; } 
+#shaon-pricing-table .price-content{ background: #e5e5e5;   }
+#shaon-pricing-table .selectePrice-content  {background: #f9f9f9;position: absolute; z-index: 10;
+-webkit-box-shadow: 0px 3px 5px 1px #555;
+-moz-box-shadow: 0px 3px 5px 1px #555;
+box-shadow: 0px 3px 5px 1px #555; 
+}
+
+
+#shaon-pricing-table a.signup{
+    margin: 20px auto;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 1px #333;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 12px;
+    line-height: 26px;
+    height: 26px;
+    padding: 4px 10px; 
+    margin-bottom: 10px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    border:1px solid #c6f553;
+    text-decoration: none;
+    color: #fff;
+    
+   background: #8fc400; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhmYzQwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZmM0MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #8fc400 0%, #8fc400 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8fc400), color-stop(100%,#8fc400)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #8fc400 0%,#8fc400 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #8fc400 0%,#8fc400 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #8fc400 0%,#8fc400 100%); /* IE10+ */
+background: linear-gradient(top,  #8fc400 0%,#8fc400 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc400', endColorstr='#8fc400',GradientType=0 ); /* IE6-8 */
+
+
+-webkit-box-shadow: 0px 0px 2px 1px #555;
+-moz-box-shadow: 0px 0px 2px 1px #555;
+box-shadow: 0px 0px 2px 1px #555; 
+}
+
+
+#shaon-pricing-table a:hover.signup{    
+       color: #172000;
+       text-shadow: none;
+
+}
+
+
+#shaon-pricing-table .featureTitle, .colheader, .selectedpriceTitle{
+    height: 120px;
+    text-align: center;
+    position: relative;
+    text-transform: uppercase;
+   
+   
+
+}
+
+#shaon-pricing-table span.packName{    
+    width:100%;
+    font-size: 17px;
+    font-weight: bold;
+    top: 0px;
+    line-height: 40px;
+    height: 40px;
+    display: block;    
+}
+
+
+#shaon-pricing-table .basicPack{
+    color:#fff;
+    text-shadow: 0px 1px #333;
+background: #8fc400;
+  
+}
+
+#shaon-pricing-table .proffessionalPack{
+    color:#fff;
+    text-shadow: 0px 1px #333;
+background: #05a377;
+ 
+}
+
+#shaon-pricing-table .businessPack{
+    color:#fff;
+    text-shadow: 0px 1px #333;
+background: #28aec3;
+  
+}
+
+#shaon-pricing-table .unlimitedPack{
+    color:#fff;
+    text-shadow: 0px 1px #000;
+background: #333;
+  
+}
+
+
+
+#shaon-pricing-table span.price{
+    color: #fff;   
+    font-size: 48px;    
+    z-index: 2;
+    width:100%;
+    height: 80px;    
+    line-height: 80px;
+    display: block;
+
+}
+
+#shaon-pricing-table .basicPrice{
+    background: #a6e043; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2E2ZTA0MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4NGJhMTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #a6e043 0%, #84ba10 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a6e043), color-stop(100%,#84ba10)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #a6e043 0%,#84ba10 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #a6e043 0%,#84ba10 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #a6e043 0%,#84ba10 100%); /* IE10+ */
+background: linear-gradient(top,  #a6e043 0%,#84ba10 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e043', endColorstr='#84ba10',GradientType=0 ); /* IE6-8 */
+   
+}
+
+#shaon-pricing-table .proffessionalPrice{
+background: rgb(82,216,198); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUyZDhjNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMGFiODYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(82,216,198,1) 0%, rgba(48,171,134,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(82,216,198,1)), color-stop(100%,rgba(48,171,134,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(82,216,198,1) 0%,rgba(48,171,134,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(82,216,198,1) 0%,rgba(48,171,134,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(82,216,198,1) 0%,rgba(48,171,134,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(82,216,198,1) 0%,rgba(48,171,134,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52d8c6', endColorstr='#30ab86',GradientType=0 ); /* IE6-8 */
+
+}
+
+#shaon-pricing-table .businessPrice{
+   background: rgb(77,219,226); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRkZGJlMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0M2I0YzgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(77,219,226,1) 0%, rgba(67,180,200,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(77,219,226,1)), color-stop(100%,rgba(67,180,200,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(77,219,226,1) 0%,rgba(67,180,200,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(77,219,226,1) 0%,rgba(67,180,200,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(77,219,226,1) 0%,rgba(67,180,200,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(77,219,226,1) 0%,rgba(67,180,200,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4ddbe2', endColorstr='#43b4c8',GradientType=0 ); /* IE6-8 */
+
+}
+
+#shaon-pricing-table .unlimitedPrice{
+background: rgb(69,72,77); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzQ1NDg0ZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
+background: linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-8 */
+  
+}
+
+#shaon-pricing-table .selectedpriceTitle span{
+    color: #fff;
+    text-shadow:0px 1px #106f92;
+    border: 1px solid #2e9cc5;
+    position: absolute;
+    z-index: 3;
+    width:100%;
+    height: 80px;
+    margin-top: 0px;
+    line-height: 80px;
+    display: block;
+background: #cedbe9;
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2NlZGJlOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE3JSIgc3RvcC1jb2xvcj0iI2FhYzVkZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzYxOTljNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iIzNhODRjMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyNjU1OGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #cedbe9 0%, #aac5de 17%, #6199c7 50%, #3a84c3 51%, #26558b 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cedbe9), color-stop(17%,#aac5de), color-stop(50%,#6199c7), color-stop(51%,#3a84c3), color-stop(100%,#26558b));
+background: -webkit-linear-gradient(top,  #cedbe9 0%,#aac5de 17%,#6199c7 50%,#3a84c3 51%,#26558b 100%);
+background: -o-linear-gradient(top,  #cedbe9 0%,#aac5de 17%,#6199c7 50%,#3a84c3 51%,#26558b 100%);
+background: -ms-linear-gradient(top,  #cedbe9 0%,#aac5de 17%,#6199c7 50%,#3a84c3 51%,#26558b 100%);
+background: linear-gradient(top,  #cedbe9 0%,#aac5de 17%,#6199c7 50%,#3a84c3 51%,#26558b 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cedbe9', endColorstr='#26558b',GradientType=0 );
+  
+-webkit-box-shadow: 0px -3px 5px 1px #555;
+-moz-box-shadow: 0px -3px 5px 1px #555;
+box-shadow: 0px -3px 5px 1px #555;   
+}
+
+
