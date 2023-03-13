@@ -209,79 +209,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
 fi
 
-# Create FPD needed users
-if [[ "${SCHOOL_TYPE}" = "FPD" ]]; 
-    then
-        echo "Creating admin user for FP..."
-        FPD_ADMIN_USER_ID=$(moosh user-create --password "${FPD_PASSWORD}" --email "${FPD_EMAIL}" --digest 2 --city Aragón --country ES --firstname fp --lastname distancia admin2)
-        moosh config-set siteadmins 2,"${ASESORIA_USER_ID}","${FPD_ADMIN_USER_ID}"
-        # users for mobile app area created in import_FPD_categories_and_courses.sh in order to enrol them into the demo course for market stores
-fi
-
-# Crear rol y usuario de inspección
-if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then
-        echo "Creating inspeccion role and configuring it..."
-        INSPECCION_ROLE_ID=$(moosh role-create -d "Los usuarios con rol de inspección tienen acceso a determinados informes" -a manager -c system,category,course,block -n "Inspeccion" inspeccion)
-        
-        # set permissions to inspeccion role
-        moosh role-import -f role-inspeccion.xml
-
-        # Creating user
-        INSPECCION_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email inspeccion@educa.aragon.es --digest 2 --city Aragón --country ES --firstname Inspección --lastname Inspección profinspector)
-
-        # Assiging user to r
-        moosh user-assign-system-role profinspector inspeccion
-fi
-
-# Crear rol de jefaturas y usuarios
-if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then
-        echo "Creating jefatura-estudios role and configuring it..."
-        JEFATURA_ROLE_ID=$(moosh role-create -d "Los usuarios con rol de inspección tienen acceso a determinados informes" -a manager -c system,category,course,block -n "Jefatura de estudios" jefatura-estudios)
-
-        # Setting permissions to jefatura de estudios role
-        moosh role-import -f role-jefatura-estudios.xml
-
-        # Creating users
-        JE_SG_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@education.catedu.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES Sierra de Guara" prof_je_sg)
-        JE_SE_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES SANTA EMERENCIANA" prof_je_se)
-        JE_TM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES TIEMPOS MODERNOS" prof_je_tm)
-        JE_LE_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP LOS ENLACES" prof_je_le)
-        JE_CA_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP CORONA DE ARAGÓN" prof_je_ca)
-        JE_PI_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP PIRÁMIDE" prof_je_pi)
-        JE_SB_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP SAN BLAS" prof_je_sb)
-        JE_MI_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MIRALBUENO" prof_je_mi)
-        JE_PS_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES PABLO SERRANO" prof_je_ps)
-        JE_BA_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP BAJO ARAGÓN" prof_je_ba)
-        JE_RG_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES RÍO GÁLLEGO" prof_je_rg)
-        JE_VT_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES VEGA DEL TURIA" prof_je_vt)
-        JE_LB_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES LUIS BUÑUEL" prof_je_lb)
-        JE_MO_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CPIFP MONTEARAGON" prof_je_mo)
-        JE_MV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARTÍNEZ VARGAS" prof_je_mv)
-        JE_AV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES AVEMPACE" prof_je_av)
-        JE_MM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARÍA MOLINER" prof_je_mm)
-
-        # Settings users to role
-        moosh user-assign-system-role prof_je_sg jefatura-estudios
-        moosh user-assign-system-role prof_je_se jefatura-estudios
-        moosh user-assign-system-role prof_je_tm jefatura-estudios
-        moosh user-assign-system-role prof_je_le jefatura-estudios
-        moosh user-assign-system-role prof_je_ca jefatura-estudios
-        moosh user-assign-system-role prof_je_pi jefatura-estudios
-        moosh user-assign-system-role prof_je_sb jefatura-estudios
-        moosh user-assign-system-role prof_je_mi jefatura-estudios
-        moosh user-assign-system-role prof_je_ps jefatura-estudios
-        moosh user-assign-system-role prof_je_ba jefatura-estudios
-        moosh user-assign-system-role prof_je_rg jefatura-estudios
-        moosh user-assign-system-role prof_je_vt jefatura-estudios
-        moosh user-assign-system-role prof_je_lb jefatura-estudios
-        moosh user-assign-system-role prof_je_mo jefatura-estudios
-        moosh user-assign-system-role prof_je_mv jefatura-estudios
-        moosh user-assign-system-role prof_je_av jefatura-estudios
-        moosh user-assign-system-role prof_je_mm jefatura-estudios
-fi
-
 #Updates made at the beginning of the course after the first creation of instances
 
 moosh sql-run "INSERT INTO mdl_scale (name, scale, description) VALUES('Aptitud','No apta, Apta','Escala Aeducar1')"
@@ -423,6 +350,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher enrol/manual:manage prohibit 1
         moosh role-update-capability teacher enrol/cohort:unenrol prohibit 1
         moosh role-update-capability teacher enrol/manual:unenrolself prohibit 1
+
+        # TODO: exportar rol teacher actual y configurar a partir del xml
 
 fi
 
