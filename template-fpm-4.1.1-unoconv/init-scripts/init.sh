@@ -7,13 +7,9 @@
 #export $(grep -E -v '^#' /init-scripts/.env | xargs)
 
 FILES="/init-scripts/${INSTALL_TYPE}/moodle.sh
-# /init-scripts/${INSTALL_TYPE}/plugins.sh
-# /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
-# /init-scripts/${INSTALL_TYPE}/theme.sh"
-
-FILES="/init-scripts/${INSTALL_TYPE}/moodle.sh
-# /init-scripts/${INSTALL_TYPE}/plugins.sh
-# /init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh"
+/init-scripts/${INSTALL_TYPE}/plugins.sh
+/init-scripts/${INSTALL_TYPE}/import_${SCHOOL_TYPE}_categories_and_courses.sh
+/init-scripts/${INSTALL_TYPE}/theme.sh"
 
 for f in $FILES
 do
