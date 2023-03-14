@@ -17,21 +17,6 @@
 actions_asociated_to_plugin(){
     echo "Executing actions associated to plugin ${1} in environment ${SCHOOL_TYPE}..."
     case ${1} in
-        "mod_hvp")
-            #Comento las siguientes líneas ya que han desaparecido esas capacidades.
-            #echo "Permitir a todos los profesores instalar módulos h5p"
-            #moosh role-update-capability editingteacher mod/hvp:updatelibraries allow 1
-            #moosh role-update-capability editingteacher mod/hvp:installrecommendedh5plibraries allow 1
-            #moosh role-update-capability editingteacher mod/hvp:userestrictedlibraries allow 1
-            echo "Updating default notification preferences for h5p"
-            moosh config-set  message_provider_mod_hvp_confirmation_loggedin    popup,airnotifier  message
-            moosh config-set  message_provider_mod_hvp_confirmation_loggedoff    popup,airnotifier  message
-            moosh config-set  message_provider_mod_hvp_submission_loggedin    popup   message
-            moosh config-set  message_provider_mod_hvp_submission_loggedoff    popup   message
-            echo "Configuring h5p..."
-            moosh config-set enable_save_content_state 1 mod_hvp
-            moosh config-set enable_lrs_content_types 1 mod_hvp
-            ;;
         "local_mail")
             echo "Configuring local_mail..."
             moosh config-set maxfiles 5 local_mail
@@ -51,21 +36,6 @@ actions_asociated_to_plugin(){
             moosh config-set jitsi_domain meet.jit.si
             moosh config-set jitsi_watermarklink https://jitsi.org
             moosh config-set jitsi_channellastcam 4
-            ;;
-        "filter_wiris")
-            echo "Configuring filter_wiris..."
-            moosh config-set editor_enable '1' filter_wiris
-            moosh config-set chem_editor_enable '1' filter_wiris
-            moosh config-set allow_editorplugin_active_course '0' filter_wiris
-            moosh config-set imageservicehost 'www.wiris.net' filter_wiris
-            moosh config-set imageservicepath '/demo/editor/render' filter_wiris
-            moosh config-set imageserviceprotocol 'https' filter_wiris
-            moosh config-set rendertype 'php' filter_wiris
-            moosh config-set imageformat 'svg' filter_wiris
-            moosh config-set pluginperformance '1' filter_wiris
-            moosh config-set editormodalwindowfullscreen '0' filter_wiris
-            moosh config-set access_provider_enabled '0' filter_wiris
-            sudo chmod o-w filter/wiris
             ;;
         "block_grade_me")
             echo "Configuring block_grade_me..."
@@ -96,6 +66,8 @@ actions_asociated_to_plugin(){
                     moosh config-set colourname5 "Verde" format_tiles
                     moosh config-set tilecolour6 "\#EA0009" format_tiles
                     moosh config-set colourname6 "Rojo" format_tiles
+                    #desactivamos la navegación javascript en moodle4
+                    moosh -n config-set usejavascriptnav 0 format_tiles
             fi
             
             moosh config-set modalresources pdf,url,html format_tiles
@@ -230,45 +202,43 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
     else
         PLUGINS=( 
+                "theme_moove"
                 "format_tiles"
                 "mod_jitsi"
                 "block_xp"
                 "availability_xp"
                 "booktool_wordimport"
-                "block_configurable_reports"
-                "report_coursestats"
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "mod_board"
-                "atto_fontsize"
-                "atto_fontfamily"
+                "local_mail"
+                # "block_grade_me" #Lo dejo comentado. No está para moodle4.1
+                # "atto_fontsize" #Lo dejo comentado. No está para moodle4.1 ni 4.0
+                # "atto_fontfamily" #Lo dejo comentado. No está para moodle4.1
                 "atto_fullscreen" 
-        )
-        moosh plugin-install -d -f --release 2020110900 "theme_moove" 
-        
-        moosh plugin-install -d -f --release 2021051702 "block_grade_me"
-        echo "Configuring block_grade_me..."
-        moosh config-set block_grade_me_maxcourses 10
-        moosh config-set block_grade_me_enableassign 1
-        moosh config-set block_grade_me_enableassignment 1
-        moosh config-set block_grade_me_enablequiz 1
-        
-        moosh plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
-        echo "Configuring mod_pdfannotator..."
-        moosh config-set usevotes 1 mod_pdfannotator
-        
-        moosh plugin-install -d -f --release 2017121407 "local_mail"
-        echo "Configuring local_mail..."
-        moosh config-set maxfiles 5 local_mail
-        moosh config-set maxbytes 2097152 local_mail
-        moosh config-set enablebackup 1 local_mail
-        echo "Updating default notification preferences for local_mail"
-        moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
-        moosh config-set  message_provider_local_mail_mail_loggedoff    popup   message
+                # "mod_pdfannotator" #Lo dejo comentado. No está para moodle4.1
+                "qtype_gapfill"
+                "mod_attendance"
+                "mod_checklist"
+                "mod_checklist" #repito porque si no el último plugin no termina de instalarse ok
+        )        
+fi
 
+for PLUGIN in "${PLUGINS[@]}"
+do
+    moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
+done
+
+echo >&2 "Plugins installed!"
+
+
+#  CONFIGURE PLUGINS
+if [[ "${SCHOOL_TYPE}" != "FPD" ]];
+    then
+        echo "Configuring plugins..."
         echo "Configuring editor atto..."
         moosh config-set toolbar "collapse = collapse
-        style1 = title, fontsize, fontfamily, backcolor, bold, italic
+        style1 = title, fontsize, fontfamily, fontcolor, backcolor, bold, italic
         list = unorderedlist, orderedlist
         links = link
         files = image, media, recordrtc, managefiles
@@ -288,38 +258,23 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         Verdana=Verdana, Geneva, sans-serif;
         Trebuchet=Trebuchet MS, Helvetica, sans-serif;
         Escolar=Boo;" atto_fontfamily
-        
-fi
-
-for PLUGIN in "${PLUGINS[@]}"
-do
-    moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
-done
-
-echo >&2 "Plugins installed!"
-
-
-#  CONFIGURE PLUGINS
-
-echo "Configuring plugins..."
+fi 
 
 
 #Añadir bloque de informes configurables
 # TODO Default exception handler: No se puede encontrar registro de datos en la tabla block de la base de datos. Debug: SELECT * FROM {block} WHERE name = ?
 # moosh block-add course 1 configurable_reports site-index side-pre 1
+if [[ "${SCHOOL_TYPE}" != "FPD" ]];
+    then
+        echo "Configuring h5p..."
+        moosh config-set allowframembedding 1 # ok
 
-echo "Configuring h5p..."
-moosh config-set allowframembedding 1 # ok
-
-echo "Configuring format_tiles..."
-moosh config-set format tiles moodlecourse # ok
-
-#
-moosh config-set legacynav 0 local_nav # ok
+        echo "Configuring format_tiles..."
+        moosh config-set format tiles moodlecourse # ok
+fi 
 
 # Prohibit to write to each other
 echo "Prohibit to write to each other"
-
 moosh role-update-capability student moodle/user:viewdetails prohibit 1 # ok
 moosh role-update-capability student local/mail:mailsamerole prohibit 1 # ok
 

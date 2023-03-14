@@ -15,7 +15,8 @@ moosh config-set calendar_site_timeformat %H:%M
 moosh config-set calendar_startwday 1
 moosh config-set debugdisplay 0
 moosh config-set frontpage 6
-moosh config-set frontpageloggedin 5,0
+
+
 
 # Config smtp
 echo >&2 "Configuring smtp..."
@@ -47,26 +48,22 @@ moosh config-set enablemobilewebservice 1
 echo >&2 "Configuring blog..."
 moosh config-set enableblogs 1
 
-# # Config mobile notifications
-# echo >&2 "Configuring mobile notifications..."
-# moosh config-set airnotifierurl https://messages.moodle.net
-# moosh config-set airnotifierport 443
-# moosh config-set airnotifiermobileappname com.moodle.moodlemobile
-# moosh config-set airnotifierappname commoodlemoodlemobile
-
-# If we want to set the time when students receive mails
-# moosh config-set digestmailtime 18
-
 # Set languages
 echo >&2 "Configuring languages..."
 moosh config-set doclang es
 moosh config-set lang es
 moosh config-set country ES
 moosh config-set timezone Europe/Madrid
+if [[ "${SCHOOL_TYPE}" != "FPD" ]];
+    then
+    moosh language-install fr
+    moosh language-install ro
+    moosh language-install ar
+fi 
 
 
 # Config navigation
-echo >&2 "Configuring navitation..."
+echo >&2 "Configuring navigation..."
 moosh config-set defaulthomepage 1
 moosh config-set searchincludeallcourses 1
 moosh config-set navshowfullcoursenames 1
@@ -114,9 +111,15 @@ moosh config-set enableglobalsearch 1
 moosh config-set enablecourserequests 1
 moosh config-set courserequestnotify \$\@ALL@$
 moosh config-set searchincludeallcourses 0
+#añadido para moodle4
+moosh config-set courseenddateenabled 0 moodlecourse
+moosh config-set format topics moodlecourse
 
 # Completion
 moosh config-set completiondefault 0
+
+# assign. Añadido para moodle4
+moosh config-set enabletimelimit 1 assign
 
 # grades
 moosh config-set gradeexport ods,txt,xml
@@ -161,10 +164,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability gestora block/starredcourses:myaddinstance allow 1
         moosh role-update-capability gestora block/mentees:myaddinstance allow 1
         moosh role-update-capability gestora moodle/role:manage prohibit 1 
-        moosh role-update-capability gestora moodle/role:manage prohibit 1 
-        moosh role-update-capability gestora moodle/role:manage prohibit 1 
-        moosh role-update-capability gestora moodle/role:manage prohibit 1 
-        moosh role-update-capability gestora moodle/role:manage prohibit 1 
         moosh role-update-capability gestora moodle/course:renameroles prohibit 1
 
         moosh config-set dporoles 9 tool_dataprivacy
@@ -204,8 +203,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
         echo >&2 "Running dangerous sql commads... " $'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243'$'\360\237\222\243' 
         echo >&2 "The first one will work... "
-        # 9 gestora 10 familiar 
-        # TODO: cambiar 9,10 por la variable correspondiente
+        # 9 gestora 10 familiar TODO: cambiar 9,10 por la variable correspondiente
         moosh sql-run "INSERT INTO mdl_role_allow_assign(roleid,allowassign) VALUES(9,10)"
 fi
 
@@ -259,8 +257,6 @@ moosh config-set message_provider_mod_forum_digests_loggedin popup,airnotifier m
 moosh config-set message_provider_mod_forum_digests_loggedoff popup,airnotifier message
 moosh config-set message_provider_mod_forum_posts_loggedin popup,airnotifier message
 moosh config-set message_provider_mod_forum_posts_loggedoff popup,airnotifier message
-moosh config-set message_provider_mod_hvp_confirmation_loggedin popup,airnotifier message
-moosh config-set message_provider_mod_hvp_confirmation_loggedoff popup,airnotifier message
 moosh config-set message_provider_mod_lesson_graded_essay_loggedin popup,airnotifier message
 moosh config-set message_provider_mod_lesson_graded_essay_loggedoff popup,airnotifier message
 moosh config-set message_provider_mod_pdfannotator_forwardedquestion_loggedin email,airnotifier message
@@ -311,11 +307,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh config-set enablebadges 0
 fi
 
-# Para FPD quitar analítica (enableanalytics)
-if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-    then
-        moosh config-set enableanalytics 0
-fi
+# Quitamos analítica (enableanalytics)
+moosh config-set enableanalytics 0
 
 #Update capability student configuration for avoiding emails between them
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
@@ -355,18 +348,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
 fi
 
-# #unoconv
-# if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-#     then
-#         echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
-#     else
-#         echo "Installing unoconv package"
-#         apt-get update
-#         apt-get install unoconv -y
-#         mkdir ../.config
-#         chown -R www-data:www-data ../.config
-# fi
-
 echo >&2 "Updating default HTTP configuration"
 moosh config-set getremoteaddrconf 1
 
@@ -388,9 +369,16 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         #moosh -n config-set airnotifierport 443
         moosh -n config-set airnotifiermobileappname "es.aragon.aeducar"
         moosh -n config-set airnotifierappname "esaragonaeducar"
-        moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"
+        moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"        
 fi
 
+# Para Aeducar configuramos los enlaces de descarga de las apps. Añadido en moodle4
+if [[ "${SCHOOL_TYPE}" != "FPD" ]];
+    then
+        echo >&2 "Activating android and ios app link"
+        moosh -n config-set iosappid '1586956480' tool_mobile
+        moosh -n config-set androidappid 'es.aragon.aeducar' tool_mobile
+fi
 
 #Habilitar actividades sigilosas
 echo >&2 "Activating allowstealth activities"

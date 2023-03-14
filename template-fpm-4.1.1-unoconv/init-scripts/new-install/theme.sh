@@ -51,22 +51,18 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         echo "  marketing"
         cp /init-scripts/themes/fpdist/frontpage_marketing.mustache /var/www/html/theme/moove/templates
     else
-        echo "... for not FPD..."
+        echo "... for not FPD..."     
         cp /init-scripts/themes/*tar.gz /var/www/html/        
-        moosh plugin-list
-	    moosh plugin-install -d -f --release 2020110900 theme_moove
 	    moosh theme-settings-import --targettheme moove moove*tar.gz
-        cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
+        cp /init-scripts/themes/frontpage.mustache /var/www/html/theme/moove/templates
         cp /init-scripts/themes/booFont/* /var/www/html/theme/moove/fonts/
-        moosh config-set scss "#page-site-index.notloggedin {
-            .frontpage-marketing {
-                margin: -1em 0 2em 0;
-            }
-        }
-        .frontpage-guest-header {
-        min-height: 0px !important;
-        }
+        
+        #Quitamos la imagen de fondo de la página de login. Añadido para moodle4.
+        moosh config-set loginbgimg '' theme_moove
+        moosh config-set brandcolor '#457b9d' theme_moove
 
+        #Añadido desde madeby para moodle4
+        moosh config-set scss "
         input[value|='CC'] {
             display: none !important;
         }
@@ -77,61 +73,6 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 
         input[value|='Responder Todos'] {
             display: none !important;
-        }
-
-        /* remove search when not logged in */
-        body.notloggedin .moove-search-input { display: none;}
-
-        #mooveslideshow { display: none;}
-
-        .frontpage-guest-header #mooveslideshow {
-        margin-top: 0px !important;
-        display: block !important;
-        max-height: 450px;
-        overflow: hidden;
-        }
-        .logo img { height: 40px; }
-        #page-site-index.slideshow #loginbox {
-            display: none !important;
-        }
-
-
-        @media (min-width: 992px) {
-            a.btn-login-top {
-                display: block !important;
-                margin-top: 18px;
-            }
-        }
-
-        body.coursepresentation-cover {
-            #page {
-                padding-top: 10px !important;
-            }
-            .headerbkg { 
-                position: static !important;
-        
-            }
-        .withimage {
-            background-position: left !important;
-        }
-        }
-
-        #top-footer h3 { display: none; }
-
-        /* no remove logo for small size, if not loggedin, otherwise hide it to fit all icons */ 
-        @media (max-width: 575px) {
-            .logo img { display: none !important; }
-            body.notloggedin .logo img {
-            width: 150px !important;
-            height: auto !important;
-            position: absolute !important;
-            top: 25px !important;
-            display: block !important;
-        }
-        span.logo {
-            display: block !important;
-            width: 100%;
-        }
         }
 
         @font-face {
@@ -145,6 +86,32 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         font-weight: normal;
         font-style: normal;
         }
+        .madeby {
+            display: none;
+        }
+        .contact {
+            display: none;
+        }
+        .socialnetworks {
+            display: none;
+        }
+        .supportemail {
+            display: none;
+        }
+        .path-login {
+	    #page {
+    	    max-width: 100%;
+	    }
+	    .login-container {
+    	    .login-logo {
+        	justify-content: center;
+    	    }
+	    }
+	    .login-identityprovider-btn.facebook {
+    	    background-color: $facebook-color;
+    	    color: #fff;
+	    }
+}
         " theme_moove
 fi
 echo >&2 "Theme configured."
