@@ -27,8 +27,4 @@ do
 	fi
 done
 
-#TODO import moodle book
-#TODO config repositories
-#TODO install language packages and tune them
-
 echo All done
