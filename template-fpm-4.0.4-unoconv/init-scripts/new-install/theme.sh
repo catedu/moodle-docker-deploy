@@ -46,7 +46,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # itainnova_tools
         cp -R /init-scripts/themes/fpdist/itainnova_tools /var/www/html/
     else
-        echo "... for not FPD..."
+        echo "... for not FPD..."     
         cp /init-scripts/themes/*tar.gz /var/www/html/        
 	    moosh theme-settings-import --targettheme moove moove*tar.gz
         cp /init-scripts/themes/frontpage.mustache /var/www/html/theme/moove/templates

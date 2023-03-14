@@ -15,8 +15,6 @@ moosh config-set calendar_site_timeformat %H:%M
 moosh config-set calendar_startwday 1
 moosh config-set debugdisplay 0
 moosh config-set frontpage 6
-moosh config-set frontpageloggedin 5,0
-
 
 
 
@@ -370,7 +368,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh -n config-set airnotifieraccesskey "d1f92a7a2d7a665bd3179e8f9f6d94f7"
 fi
 
-#Configuración de los enlaces de descarga de las apps
+#Configuración de los enlaces de descarga de las apps. Añadido en moodle4
 echo >&2 "Activating android and ios app link"
 moosh -n config-set iosappid '1586956480' tool_mobile
 moosh -n config-set androidappid 'es.aragon.aeducar' tool_mobile
