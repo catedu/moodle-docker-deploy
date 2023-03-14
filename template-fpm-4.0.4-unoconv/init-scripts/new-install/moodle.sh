@@ -332,17 +332,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh role-update-capability teacher repository/contentbank:accessgeneralcontent prohibit 1
 fi
 
-# #unoconv
-# if [[ "${SCHOOL_TYPE}" = "FPD" ]];
-#     then
-#         echo "For FP distancia we don't install unoconv package" #Problemas de rendimiento, cuelgan imagen
-#     else
-#         echo "Installing unoconv package"
-#         apt-get update
-#         apt-get install unoconv -y
-#         mkdir ../.config
-#         chown -R www-data:www-data ../.config
-# fi
+
 
 echo >&2 "Updating default HTTP configuration"
 moosh config-set getremoteaddrconf 1
