@@ -311,6 +311,9 @@ moosh config-set message_provider_tool_messageinbound_invalidrecipienthandler_lo
 moosh config-set messmailmessage_provider_tool_messageinbound_invalidrecipienthandler_loggedoff popup,airnotifier message
 moosh config-set message_provider_tool_messageinbound_messageprocessingerror_loggedoff popup,airnotifier message
 
+# Quitamos analítica (enableanalytics)
+moosh config-set enableanalytics 0
+
 #Update capability student configuration for avoiding emails between them
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then

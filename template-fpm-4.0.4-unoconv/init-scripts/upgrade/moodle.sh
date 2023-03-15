@@ -35,4 +35,7 @@ echo >&2 "Activating android and ios app link"
 moosh -n config-set iosappid '1586956480' tool_mobile
 moosh -n config-set androidappid 'es.aragon.aeducar' tool_mobile
 
+echo >&2 "Deactivating analytics"
+moosh config-set enableanalytics 0
+
 echo >&2 "moodle.sh done"
