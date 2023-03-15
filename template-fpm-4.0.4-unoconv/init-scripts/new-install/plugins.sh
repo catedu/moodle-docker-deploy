@@ -152,11 +152,11 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_choicegroup"
                 "mod_board"
                 "local_mail"
-                "block_grade_me" #Lo dejo comentado. No está para moodle4.1
-                "atto_fontsize" #Lo dejo comentado. No está para moodle4.1 ni 4.0
-                "atto_fontfamily" #Lo dejo comentado. No está para moodle4.1
+                "block_grade_me" 
+                "atto_fontsize" #Lo dejo comentado. No está para moodle4.0
+                "atto_fontfamily" 
                 "atto_fullscreen" 
-                "mod_pdfannotator" #Lo dejo comentado. No está para moodle4.1
+                "mod_pdfannotator" 
                 "qtype_gapfill"
                 "mod_attendance"
                 "mod_checklist"
