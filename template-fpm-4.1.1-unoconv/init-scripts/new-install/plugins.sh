@@ -212,7 +212,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_choicegroup"
                 "mod_board"
                 "local_mail"
-                # "block_grade_me" #Lo dejo comentado. No está para moodle4.1
+                "block_grade_me"
                 # "atto_fontsize" #Lo dejo comentado. No está para moodle4.1 ni 4.0
                 # "atto_fontfamily" #Lo dejo comentado. No está para moodle4.1
                 "atto_fullscreen" 
@@ -235,6 +235,10 @@ echo >&2 "Plugins installed!"
 #  CONFIGURE PLUGINS
 if [[ "${SCHOOL_TYPE}" != "FPD" ]];
     then
+        #Forzamos la instalación de plugins de versiones anteriores:
+        # moosh plugin-install -f atto_fontfamily
+        # moosh plugin-install -f atto_fontsize
+
         echo "Configuring plugins..."
         echo "Configuring editor atto..."
         moosh config-set toolbar "collapse = collapse
