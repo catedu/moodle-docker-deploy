@@ -1,17 +1,68 @@
 #!/bin/bash
 
-# Copying new footer template without yellow moodle div
-echo >&2 "Updating footer.mustache..."
-cp /init-scripts/themes/footer.mustache /var/www/html/theme/moove/templates
+#Uso el nombre completo del fichero tar.gz para evitar ambigüedades con el de versiones anteriores
+cp /init-scripts/themes/moove_settings_1678709978.tar.gz /var/www/html/        
+moosh theme-settings-import --targettheme moove moove_settings_1678709978.tar.gz
+cp /init-scripts/themes/frontpage.mustache /var/www/html/theme/moove/templates
+cp /init-scripts/themes/booFont/* /var/www/html/theme/moove/fonts/
 
-# Fixing error with contacts at moove
-# echo >&2 "Updating mypublic.mustache..."
-# cp /init-scripts/themes/mypublic.mustache /var/www/html/theme/moove/templates
+#Quitamos la imagen de fondo de la página de login. Añadido para moodle4.
+moosh config-set loginbgimg '' theme_moove
+moosh config-set brandcolor '#457b9d' theme_moove
 
-#Updating Escolar typography
-echo >&2 "Updating Escolar typography..."
-cp /init-scripts/themes/booFont/Boo.* /var/www/html/theme/moove/fonts/
+moosh config-set scss "
+    input[value|='CC'] {
+        display: none !important;
+    }
 
+    input[value|='Para'] {
+        display: none !important;
+    }
+
+    input[value|='Responder Todos'] {
+        display: none !important;
+    }
+
+    @font-face {
+    font-family: 'Boo';
+    src: url([[font:theme|Boo.eot]]);
+    src: url([[font:theme|Boo.eot]]) format('embedded-opentype'),
+    url([[font:theme|Boo.woff]]) format('woff'),
+    url([[font:theme|Boo.woff2]]) format('woff2'),
+    url([[font:theme|Boo.ttf]]) format('truetype'),
+    url([[font:theme|Boo.svg]]) format('svg');
+    font-weight: normal;
+    font-style: normal;
+    }
+    .madeby {
+        display: none;
+    }
+    .contact {
+        display: none;
+    }
+    .socialnetworks {
+        display: none;
+    }
+    .supportemail {
+        display: none;
+    }
+    .path-login {
+        #page {
+            max-width: 100%;
+        }
+        .login-container {
+            .login-logo {
+            justify-content: center;
+            }
+        }
+        .login-identityprovider-btn.facebook {
+            background-color: $facebook-color;
+            color: #fff;
+        }
+    }
+    " theme_moove
+
+echo >&2 "Theme configured."
 
 
 

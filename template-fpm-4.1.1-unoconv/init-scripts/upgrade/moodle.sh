@@ -18,4 +18,24 @@ echo 'expect eof' >> actualiza
 chmod 744 actualiza
 ./actualiza
 
+#Añadido para moodle4
+echo >&2 "Deactivate coure enddate by default"
+moosh config-set courseenddateenabled 0 moodlecourse
+
+echo >&2 "Topic format by default"
+moosh config-set format topics moodlecourse
+
+echo >&2 "Activating time limit at assign activities"
+moosh config-set enabletimelimit 1 assign
+
+echo >&2 "Max file size 192MB"
+moosh config-set maxbytes 201326592
+
+echo >&2 "Activating android and ios app link"
+moosh -n config-set iosappid '1586956480' tool_mobile
+moosh -n config-set androidappid 'es.aragon.aeducar' tool_mobile
+
+echo >&2 "Deactivating analytics"
+moosh config-set enableanalytics 0
+
 echo >&2 "moodle.sh done"
