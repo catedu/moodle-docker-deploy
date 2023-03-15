@@ -3,7 +3,7 @@
 
 # GET PLUGIN LIST
 echo >&2 "Downloading plugin list..."
-moosh -n  plugin-list >/dev/null
+moosh plugin-list >/dev/null
 echo >&2 "Plugin list downloaded!"
 
 # INSTALL PLUGINS (theme is installed in theme.sh)
@@ -39,31 +39,41 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         )
     else
         echo >&2 "Not FPD..."
-        moosh -n plugin-install -d -f --release 2020110900 "theme_moove" 
-        moosh -n plugin-install -d "format_tiles"
-        moosh -n plugin-install -d "mod_jitsi"
-        moosh -n plugin-install -d "mod_hvp"
-        moosh -n plugin-install -d "block_xp"
-        moosh -n plugin-install -d "availability_xp"
-        moosh -n plugin-install -d "booktool_wordimport"
-        moosh -n plugin-install -d "block_configurable_reports"
-        moosh -n plugin-install -d "report_coursestats" 
-        moosh -n plugin-install -d "quizaccess_onesession"
-        moosh -n plugin-install -d "mod_choicegroup"
-        moosh -n plugin-install -d "mod_board"
-        moosh -n plugin-install -d -f --release 2021051702 "block_grade_me"
-        moosh -n plugin-install -d -f --release 2021113000 "mod_pdfannotator" 
-        moosh -n plugin-install -d -f --release 2017121407 "local_mail"
-        moosh -n plugin-install -d -f "atto_fontsize"
-        moosh -n plugin-install -d -f "atto_fontfamily"
-        moosh -n plugin-install -d -f "atto_fullscreen"
-        moosh -n plugin-install -d -f "tool_migratehvp2h5p"
-        moosh -n plugin-uninstall "atto_styles"
-        fi
+        PLUGINS=( 
+                "theme_moove" 
+                "format_tiles"
+                "mod_jitsi" 
+                "block_xp"
+                "availability_xp"
+                "booktool_wordimport"
+                "quizaccess_onesession"
+                "mod_choicegroup"
+                "mod_board"
+                "block_grade_me" 
+                # "mod_pdfannotator" # No disponible para 4.1
+                "local_mail"
+		        # "atto_fontsize" # No disponible para 4.0
+                # "atto_fontfamily" # No disponible para 4.1
+                "atto_fullscreen"
+                "qtype_gapfill"
+                "mod_attendance"
+                "mod_checklist"
+                "mod_checklist" #repito porque si no el último plugin no termina de instalarse ok
+        )
+        
+        # moosh plugin-install -f atto_fontfamily
+        # moosh plugin-install -f atto_fontsize
+        moosh plugin-uninstall "tool_migratehvp2h5p"
+        moosh plugin-uninstall "mod_hvp"
+        moosh plugin-uninstall "block_configurable_reports"
+        moosh plugin-uninstall "report_coursestats" 
+        moosh plugin-uninstall "block_completion_progress"
+        moosh plugin-uninstall "atto_morefontcolors"  
+    fi
 
 for PLUGIN in "${PLUGINS[@]}"
 do
-    moosh -n plugin-install -d ${PLUGIN} 
+    moosh plugin-install -d ${PLUGIN} 
 done
 
 

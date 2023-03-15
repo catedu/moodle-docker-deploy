@@ -3,7 +3,7 @@
 
 # GET PLUGIN LIST
 echo >&2 "Downloading plugin list..."
-moosh -n  plugin-list >/dev/null
+moosh plugin-list >/dev/null
 echo >&2 "Plugin list downloaded!"
 
 # INSTALL PLUGINS (theme is installed in theme.sh)
@@ -52,7 +52,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "block_grade_me" 
                 "mod_pdfannotator"
                 "local_mail"
-		        # "atto_fontsize" No disponible para 4.0
+		# "atto_fontsize" No disponible para 4.0
                 "atto_fontfamily"
                 "atto_fullscreen"
                 "qtype_gapfill"
@@ -60,17 +60,19 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_checklist"
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse ok
         )
-        moosh -n plugin-uninstall "tool_migratehvp2h5p"
-        moosh -n plugin-uninstall "mod_hvp"
-        moosh -n plugin-uninstall "block_configurable_reports"
-        moosh -n plugin-uninstall "report_coursestats" 
-        moosh -n plugin-uninstall "block_completion_progress"
-        moosh -n plugin-uninstall "atto_morefontcolors"
+        
+        # moosh plugin-install -f atto_fontsize
+        moosh plugin-uninstall "tool_migratehvp2h5p"
+        moosh plugin-uninstall "mod_hvp"
+        moosh plugin-uninstall "block_configurable_reports"
+        moosh plugin-uninstall "report_coursestats" 
+        moosh plugin-uninstall "block_completion_progress"
+        moosh plugin-uninstall "atto_morefontcolors"
 fi
 
 for PLUGIN in "${PLUGINS[@]}"
 do
-    moosh -n plugin-install -d ${PLUGIN} 
+    moosh plugin-install -d ${PLUGIN} 
 done
 
 

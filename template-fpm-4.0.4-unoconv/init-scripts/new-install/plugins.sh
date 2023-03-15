@@ -65,7 +65,7 @@ actions_asociated_to_plugin(){
                     moosh config-set tilecolour6 "\#EA0009" format_tiles
                     moosh config-set colourname6 "Rojo" format_tiles
                     #desactivamos la navegación javascript en moodle4
-                    moosh -n config-set usejavascriptnav 0 format_tiles
+                    moosh config-set usejavascriptnav 0 format_tiles
             fi
             
             moosh config-set modalresources pdf,url,html format_tiles
@@ -82,11 +82,11 @@ actions_asociated_to_plugin(){
             moosh config-set usevotes 1 mod_pdfannotator
             ;;
         "mod_board")
-            moosh -n config-set new_column_icon fa-plus mod_board
-            moosh -n config-set new_note_icon fa-plus mod_board
-            moosh -n config-set media_selection 1 mod_board
-            moosh -n config-set post_max_length 250 mod_board
-            moosh -n config-set history_refresh 60 mod_board
+            moosh config-set new_column_icon fa-plus mod_board
+            moosh config-set new_note_icon fa-plus mod_board
+            moosh config-set media_selection 1 mod_board
+            moosh config-set post_max_length 250 mod_board
+            moosh config-set history_refresh 60 mod_board
             ;;
         *)
             echo "No additional actions for plugin ${1}"
