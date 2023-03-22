@@ -120,6 +120,10 @@ moosh config-set completiondefault 0
 
 # assign. Añadido para moodle4
 moosh config-set enabletimelimit 1 assign
+moosh config-set duedate_enabled '' assign
+moosh config-set cutoffdate_enabled '' assign
+moosh config-set gradingduedate_enabled '' assign
+
 
 # grades
 moosh config-set gradeexport ods,txt,xml
