@@ -22,6 +22,13 @@ chmod 744 actualiza
 echo >&2 "Deactivate coure enddate by default"
 moosh config-set courseenddateenabled 0 moodlecourse
 
+echo >&2 "Deactivate dates for assign"
+moosh config-set enabletimelimit 1 assign
+moosh config-set duedate_enabled '' assign
+moosh config-set cutoffdate_enabled '' assign
+moosh config-set gradingduedate_enabled '' assign
+
+
 echo >&2 "Topic format by default"
 moosh config-set format topics moodlecourse
 
