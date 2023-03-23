@@ -672,14 +672,14 @@ do
     echo "CATEGORY '${CATEGORY}' - SHORTNAME '${SHORTNAME}' - FULLNAME '${FULLNAME}' - VISIBLE '${VISIBLE}'"
     COURSE_ID=""
     
-    if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz" ]; then
+    if [ ! -f "/var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.kkk.mbz" ]; then
         # Si no existe el curso, lo creo
-        echo "***** The course /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz doesn't exist, creating empty course ${COURSE} into category ${CATEGORY}"
+        echo "***** The course /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.kkk.mbz doesn't exist, creating empty course ${COURSE} into category ${CATEGORY}"
         COURSE_ID=$(moosh course-create --category "${!CATEGORY}" --fullname "${FULLNAME}" --description "${FULLNAME}" "${SHORTNAME}")
     else
         # Si existe el curso lo restauro
-        echo "***** Restoring /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz course to category ${CATEGORY}"
-        COURSE_ID=$(moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz "${!CATEGORY}")
+        echo "***** Restoring /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.kkk.mbz course to category ${CATEGORY}"
+        COURSE_ID=$(moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.kkk.mbz "${!CATEGORY}")
         COURSE_ID=$(echo "${COURSE_ID}" | tail -n 1 | cut -d ':' -f 2 | cut -d ' ' -f 2)
         # Configuro full y short names por si al restaurar había datos erróneos en origen
         moosh course-config-set course "${COURSE_ID}" shortname "${SHORTNAME}"

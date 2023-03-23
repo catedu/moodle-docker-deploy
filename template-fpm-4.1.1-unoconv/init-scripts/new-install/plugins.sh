@@ -137,69 +137,27 @@ PLUGINS=( )
 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
         PLUGINS=( 
-                "format_tiles" # ok
-                "block_xp" # ok
-                "availability_xp" # ok
-                "booktool_wordimport" # ok
-                "block_configurable_reports" # This plugin is not supported for your Moodle version (release 4.1
-                "report_coursestats" # ok
-                "quizaccess_onesession" # This plugin is not supported for your Moodle version (release 4.1
-                "mod_choicegroup" # ok
-                "block_completion_progress" # ok
-                "atto_fontsize" # This plugin is not supported for your Moodle version (release 4.1
-                "atto_fontfamily" # This plugin is not supported for your Moodle version (release 4.1
-                "atto_fullscreen" # ok
-                "qtype_gapfill" # ok
+                "theme_moove"
+                "format_tiles"
+                "block_xp"
+                "availability_xp"
+                "block_configurable_reports" # block_configurable_reports is not available for 4.1
+                "report_coursestats"
+                "quizaccess_onesession"
+                "mod_choicegroup"
+                "mod_board"
+                "local_mail"
+                "mod_pdfannotator" # mod_pdfannotator is not available for 4.1
+                "block_grade_me"
+                "block_completion_progress"
+                "atto_fontsize" # This plugin is not supported for your Moodle version (release 4.1 - version 2022112801). Specify a different plugin version, or use the -f flag to force installation of (this) unsupported version.
+                "atto_fontfamily" # atto_fontfamily is not available for 4.1
+                "atto_fullscreen"
                 "qtype_gapfill"
+                "mod_attendance"
+                "mod_checklist"
+                "mod_checklist" #repito porque si no el último plugin no termina de instalarse
         )
-        
-        moosh plugin-install -d -f --release 2022112801 "theme_moove"  # ok
-
-        moosh plugin-install -d -f --release 2021051702 "block_grade_me" # ok
-        echo "Configuring block_grade_me..."
-        moosh config-set block_grade_me_maxcourses 10  # ok
-        moosh config-set block_grade_me_enableassign 1  # ok
-        moosh config-set block_grade_me_enableassignment 1  # ok
-        moosh config-set block_grade_me_enablequiz 1 # ok
-        
-        moosh plugin-install -d -f --release 2022120500 "mod_pdfannotator" # ok
-        echo "Configuring mod_pdfannotator..."
-        moosh config-set usevotes 1 mod_pdfannotator # ok
-
-        # TODO: ¿dejamos local_mail? o lo quitamos para facilitar el tema de la APP?
-        moosh plugin-install -d -f --release 2017121407 "local_mail" # ok
-        echo "Configuring local_mail..."
-        moosh config-set maxfiles 5 local_mail # ok
-        moosh config-set maxbytes 2097152 local_mail # ok
-        moosh config-set enablebackup 1 local_mail # ok
-        echo "Updating default notification preferences for local_mail"
-        moosh config-set message_provider_local_mail_mail_loggedin    popup   message # ok
-        moosh config-set message_provider_local_mail_mail_loggedoff    popup   message # ok
-
-        echo "Configuring editor atto..."
-        moosh config-set toolbar "collapse = collapse
-        style1 = title, fontsize, fontfamily, fontcolor, backcolor, bold, italic
-        list = unorderedlist, orderedlist
-        links = link
-        files = image, media, recordrtc, managefiles
-        h5p = h5p
-        style2 = underline, strike, subscript, superscript
-        align = align
-        indent = indent
-        insert = equation, charmap, table, clear
-        undo = undo
-        accessibility = accessibilitychecker, accessibilityhelper
-        other = html, fullscreen" editor_atto # ok
-
-        # TODO: This plugin is not supported for your Moodle version (release 4.1
-        moosh config-set fontselectlist "Arial=Arial, Helvetica, sans-serif;
-        Times=Times New Roman, Times, serif;
-        Courier=Courier New, Courier, mono;
-        Georgia=Georgia, Times New Roman, Times, serif;
-        Verdana=Verdana, Geneva, sans-serif;
-        Trebuchet=Trebuchet MS, Helvetica, sans-serif;
-        Escolar=Boo;" atto_fontfamily # ok
-
     else
         PLUGINS=( 
                 "theme_moove"
@@ -226,20 +184,47 @@ fi
 
 for PLUGIN in "${PLUGINS[@]}"
 do
-    moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
+    moosh plugin-list | grep ${PLUGIN} | grep ${VERSION_MINOR} >/dev/null  && echo "trying to install ${PLUGIN} ..."  && moosh plugin-install -d ${PLUGIN} && actions_asociated_to_plugin ${PLUGIN} || echo "${PLUGIN} is not available for ${VERSION_MINOR}"
 done
 
 echo >&2 "Plugins installed!"
 
 
 #  CONFIGURE PLUGINS
-if [[ "${SCHOOL_TYPE}" != "FPD" ]];
+echo "Configuring plugins..."
+
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
+        echo "Configuring editor_atto..."
+
+        moosh config-set toolbar "collapse = collapse
+        style1 = title, fontsize, fontfamily, fontcolor, backcolor, bold, italic
+        list = unorderedlist, orderedlist
+        links = link
+        files = image, media, recordrtc, managefiles
+        h5p = h5p
+        style2 = underline, strike, subscript, superscript
+        align = align
+        indent = indent
+        insert = equation, charmap, table, clear
+        undo = undo
+        accessibility = accessibilitychecker, accessibilityhelper
+        other = html, fullscreen" editor_atto
+
+        echo "Configuring atto_fontfamily..."
+        
+        moosh config-set fontselectlist "Arial=Arial, Helvetica, sans-serif;
+        Times=Times New Roman, Times, serif;
+        Courier=Courier New, Courier, mono;
+        Georgia=Georgia, Times New Roman, Times, serif;
+        Verdana=Verdana, Geneva, sans-serif;
+        Trebuchet=Trebuchet MS, Helvetica, sans-serif;
+        Escolar=Boo;" atto_fontfamily
+    else
         #Forzamos la instalación de plugins de versiones anteriores:
         # moosh plugin-install -f atto_fontfamily
         # moosh plugin-install -f atto_fontsize
 
-        echo "Configuring plugins..."
         echo "Configuring editor atto..."
         moosh config-set toolbar "collapse = collapse
         style1 = title, fontsize, fontfamily, fontcolor, backcolor, bold, italic
@@ -265,8 +250,6 @@ if [[ "${SCHOOL_TYPE}" != "FPD" ]];
 fi 
 
 
-#Añadir bloque de informes configurables
-# TODO Default exception handler: No se puede encontrar registro de datos en la tabla block de la base de datos. Debug: SELECT * FROM {block} WHERE name = ?
 # moosh block-add course 1 configurable_reports site-index side-pre 1
 if [[ "${SCHOOL_TYPE}" != "FPD" ]];
     then
