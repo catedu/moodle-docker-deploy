@@ -26,20 +26,18 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
     then
         echo "... for FPD..."
         # echo "  restaurando tema"
-        # cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
-        # moosh theme-settings-import --targettheme moove moove*tar.gz
+        cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
+        moosh theme-settings-import --targettheme moove moove*tar.gz
         # echo "  copiando imágenes y logos"
-        # cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
+        cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
         # echo "  copiando plantillas"
-        # cp /init-scripts/themes/fpdist/inc_start.mustache /var/www/html/theme/moove/templates
-        # cp /init-scripts/themes/fpdist/header.mustache /var/www/html/theme/moove/templates
         cp /init-scripts/themes/fpdist/footer.mustache /var/www/html/theme/moove/templates
         
         echo "  copiando política de privacidad"
         cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
         
         # echo "  configurando página principal"
-        # moosh config-set frontpage none
+        moosh config-set frontpage none
         
         # # set the default img for courses in lists. Doesn't modify course header
         # echo "  estableciendo imagen por defecto para los cursos"
@@ -54,6 +52,45 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         
         # images
         echo "  images"
+
+        #Añadido desde madeby para moodle4
+        moosh -n config-set scss "
+        input[value|='CC'] {
+            display: none !important;
+        }
+
+        input[value|='Para'] {
+            display: none !important;
+        }
+
+        input[value|='Responder Todos'] {
+            display: none !important;
+        }
+        
+        .madeby {
+            display: none;
+        }
+        .contact {
+            display: none;
+        }
+        .socialnetworks {
+            display: none;
+        }
+        .path-login {
+	    #page {
+    	    max-width: 100%;
+	    }
+	    .login-container {
+    	    .login-logo {
+        	justify-content: center;
+    	    }
+	    }
+	    .login-identityprovider-btn.facebook {
+    	    background-color: $facebook-color;
+    	    color: #fff;
+	    }
+}
+        " theme_moove
     else
         echo "... for not FPD..."     
         cp /init-scripts/themes/*tar.gz /var/www/html/        
