@@ -148,30 +148,26 @@ ID_CATEGORY_mm_is=$(moosh category-create -p "${ID_CATEGORY_mm}" -v 1 -d "SSC303
 # Añadir el campo personalizado a los usuarios y asignar a cada jefe de estudios el suyo 
 echo "Creating custom fields for jefatura estudios..."
 # # Creo el campo personalizado
-moosh userprofilefields-import /init-scripts/themes/fpdist/themes/custom-fields/user_profile_fields.csv
+moosh userprofilefields-import /init-scripts/themes/fpdist/custom-fields/user_profile_fields.csv
 
 # # Asignar a cada usuario el valor que le corresponde en el campo personalizado
-# TODO: Ver si hay algún modo de poner a cada jefe de estudios el que le corresponda
-
-# # TODO: Default exception handler: Error escribiendo a la base de datos Debug: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' 1, 4, 0)' at line 1        
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SG_USER_ID, 1, $ID_CATEGORY_sg, 0)"
-# # TODO: Default exception handler: Error escribiendo a la base de datos Debug: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' 1, 6, 0)' at line 1
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SE_USER_ID, 1, $ID_CATEGORY_se, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_TM_USER_ID, 1, $ID_CATEGORY_tm, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_LE_USER_ID, 1, $ID_CATEGORY_le, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_CA_USER_ID, 1, $ID_CATEGORY_ca, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_PI_USER_ID, 1, $ID_CATEGORY_pi, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SB_USER_ID, 1, $ID_CATEGORY_sb, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MI_USER_ID, 1, $ID_CATEGORY_mi, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_PS_USER_ID, 1, $ID_CATEGORY_ps, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_BA_USER_ID, 1, $ID_CATEGORY_ba, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_RG_USER_ID, 1, $ID_CATEGORY_rg, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_VT_USER_ID, 1, $ID_CATEGORY_vt, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_LB_USER_ID, 1, $ID_CATEGORY_lb, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MO_USER_ID, 1, $ID_CATEGORY_mo, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MV_USER_ID, 1, $ID_CATEGORY_mv, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_AV_USER_ID, 1, $ID_CATEGORY_av, 0)"
-# moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MM_USER_ID, 1, $ID_CATEGORY_mm, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SG_USER_ID, 1, $ID_CATEGORY_sg, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SE_USER_ID, 1, $ID_CATEGORY_se, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_TM_USER_ID, 1, $ID_CATEGORY_tm, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_LE_USER_ID, 1, $ID_CATEGORY_le, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_CA_USER_ID, 1, $ID_CATEGORY_ca, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_PI_USER_ID, 1, $ID_CATEGORY_pi, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_SB_USER_ID, 1, $ID_CATEGORY_sb, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MI_USER_ID, 1, $ID_CATEGORY_mi, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_PS_USER_ID, 1, $ID_CATEGORY_ps, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_BA_USER_ID, 1, $ID_CATEGORY_ba, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_RG_USER_ID, 1, $ID_CATEGORY_rg, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_VT_USER_ID, 1, $ID_CATEGORY_vt, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_LB_USER_ID, 1, $ID_CATEGORY_lb, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MO_USER_ID, 1, $ID_CATEGORY_mo, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MV_USER_ID, 1, $ID_CATEGORY_mv, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_AV_USER_ID, 1, $ID_CATEGORY_av, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MM_USER_ID, 1, $ID_CATEGORY_mm, 0)"
 
 
 #############################################################################################
