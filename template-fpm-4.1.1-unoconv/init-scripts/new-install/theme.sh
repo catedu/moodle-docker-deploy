@@ -28,6 +28,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         # echo "  restaurando tema"
         cp /init-scripts/themes/fpdist/moove*tar.gz /var/www/html/
         moosh theme-settings-import --targettheme moove moove*tar.gz
+        # Las siguientes instrucciones se deben a que en la exportación-importación el tema no se comporta correctamente y deben forzarse
+        moosh config-set displaymarketingbox 1 theme_moove
         # echo "  copiando imágenes y logos"
         cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
         # echo "  copiando plantillas"
@@ -35,7 +37,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         
         echo "  copiando política de privacidad"
         cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
-        
+
         # echo "  configurando página principal"
         moosh config-set frontpage none
         
@@ -49,12 +51,17 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         mkdir /var/www/html/soporte/
         cp -R /init-scripts/themes/fpdist/soporte /var/www/html/soporte
         cp /init-scripts/themes/fpdist/soporte/secret-sample.php /var/www/html/soporte/secret.php 
+
+        # FAQs
+        echo "  FAQs"
+        mkdir /var/www/html/faqs/
+        cp -R /init-scripts/themes/fpdist/faqs /var/www/html/faqs
         
         # images
         echo "  images"
 
         #Añadido desde madeby para moodle4
-        moosh -n config-set scss "
+        moosh config-set scss "
         input[value|='CC'] {
             display: none !important;
         }
