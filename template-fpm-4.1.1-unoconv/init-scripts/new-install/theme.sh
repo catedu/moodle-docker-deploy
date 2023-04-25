@@ -34,6 +34,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         cp -R /init-scripts/themes/fpdist/style /var/www/html/theme/moove
         # echo "  copiando plantillas"
         cp /init-scripts/themes/fpdist/footer.mustache /var/www/html/theme/moove/templates
+        cp /init-scripts/themes/fpdist/frontpage.mustache /var/www/html/theme/moove/templates
         
         echo "  copiando política de privacidad"
         cp /init-scripts/themes/fpdist/politica-privacidad.php /var/www/html/politica-privacidad.php
