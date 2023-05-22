@@ -64,7 +64,12 @@ fi
 
 # Config navigation
 echo >&2 "Configuring navigation..."
-moosh config-set defaulthomepage 1
+if [[ "${SCHOOL_TYPE}" = "FPD" ]];
+    then
+        moosh config-set defaulthomepage 0
+    else
+        moosh config-set defaulthomepage 1
+fi
 moosh config-set searchincludeallcourses 1
 moosh config-set navshowfullcoursenames 1
 moosh config-set navshowcategories 0
