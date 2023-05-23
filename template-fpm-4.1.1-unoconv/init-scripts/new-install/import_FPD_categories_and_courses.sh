@@ -654,6 +654,8 @@ COURSES=(
     "ID_CATEGORY_miscelanea*STI_Inglés_1*(STI) Lengua Extranjera profesional: Inglés 1*1"
     "ID_CATEGORY_miscelanea*Interno*Pruebas_Internas*1"
     "ID_CATEGORY_miscelanea*restauraciones*Restauraciones*1"
+    # TODO: Añadir en esta posición los módulos de 2º de CFGM LE de Actividades comerciales
+    # TODO: Añadir en esta posición los cursos del campus
 
 )
 
