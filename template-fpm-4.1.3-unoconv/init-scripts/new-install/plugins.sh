@@ -162,7 +162,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         PLUGINS=( 
                 "theme_moove"
                 "format_tiles"
-                "mod_jitsi"
+                # "mod_jitsi" Desde Mayo2023 la conexión gratuita de Jitsi sólo permite 5min
                 "block_xp"
                 "availability_xp"
                 "booktool_wordimport"
@@ -222,8 +222,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         Escolar=Boo;" atto_fontfamily
     else
         #Forzamos la instalación de plugins de versiones anteriores:
-        # moosh plugin-install -f atto_fontfamily
-        # moosh plugin-install -f atto_fontsize
+        moosh plugin-install -f atto_fontfamily
+        moosh plugin-install -f atto_fontsize
 
         echo "Configuring editor atto..."
         moosh config-set toolbar "collapse = collapse
@@ -247,6 +247,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         Verdana=Verdana, Geneva, sans-serif;
         Trebuchet=Trebuchet MS, Helvetica, sans-serif;
         Escolar=Boo;" atto_fontfamily
+
+        moosh module-manage show bigbluebuttonbn
 fi 
 
 # Prohibit to write to each other

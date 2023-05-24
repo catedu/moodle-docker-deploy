@@ -69,7 +69,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         moosh plugin-uninstall "mod_hvp"
         moosh plugin-uninstall "block_configurable_reports"
         moosh plugin-uninstall "report_coursestats" 
-        moosh plugin-uninstall "atto_morefontcolors"  
+        moosh plugin-uninstall "atto_morefontcolors"
+
+        moosh module-manage show bigbluebuttonbn
+        moosh module-manage hide jitsi
     fi
 
 for PLUGIN in "${PLUGINS[@]}"
