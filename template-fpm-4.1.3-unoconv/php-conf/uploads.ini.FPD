@@ -1,0 +1,6 @@
+file_uploads = On
+memory_limit = 512M
+upload_max_filesize = 192M
+post_max_size = 192M
+max_execution_time = 600
+max_input_vars = 5000
