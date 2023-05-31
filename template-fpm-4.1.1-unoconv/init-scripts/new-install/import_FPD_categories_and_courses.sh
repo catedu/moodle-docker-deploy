@@ -654,7 +654,14 @@ COURSES=(
     "ID_CATEGORY_miscelanea*STI_Inglés_1*(STI) Lengua Extranjera profesional: Inglés 1*1"
     "ID_CATEGORY_miscelanea*Interno*Pruebas_Internas*1"
     "ID_CATEGORY_miscelanea*restauraciones*Restauraciones*1"
-    # TODO: Añadir en esta posición los módulos de 2º de CFGM LE de Actividades comerciales
+    # módulos de 2º de CFGM LE de Actividades comerciales
+    "ID_CATEGORY_le_ac*50010314-COM201-13948*Aplicaciones informáticas para el comercio*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13947*Dinamización del punto de venta*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13946*Formación y orientación laboral*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13945*Gestión de compras*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13944*Inglés*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13943*Marketing en la actividad comercial*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13942*Procesos de venta*1"
     # TODO: Añadir en esta posición los cursos del campus
 
 )
