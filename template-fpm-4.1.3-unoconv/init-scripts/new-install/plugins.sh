@@ -147,7 +147,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_choicegroup"
                 "mod_board"
                 "local_mail"
-                "mod_pdfannotator" # mod_pdfannotator is not available for 4.1
+                "mod_pdfannotator"
                 "block_grade_me"
                 "block_completion_progress"
                 "atto_fontsize" # This plugin is not supported for your Moodle version (release 4.1 - version 2022112801). Specify a different plugin version, or use the -f flag to force installation of (this) unsupported version.
@@ -174,7 +174,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_fontsize" #Lo descomento. No está para moodle4.1 ni 4.0 pero permite instalar
                 "atto_fontfamily" #Lo descomento. No está para moodle4.1 pero permite instalar
                 "atto_fullscreen" 
-                # "mod_pdfannotator" #Lo dejo comentado. No está para moodle4.1
+                "mod_pdfannotator"
                 "qtype_gapfill"
                 "mod_attendance"
                 "mod_checklist"
