@@ -663,12 +663,12 @@ COURSES=(
     "ID_CATEGORY_miscelanea*Interno*Pruebas_Internas*1"
     "ID_CATEGORY_miscelanea*restauraciones*Restauraciones*1"
     # módulos de 2º de CFGM LE de Actividades comerciales
-    "ID_CATEGORY_le_ac*50010314-COM201-7639*Comercio electrónico*1"
-    "ID_CATEGORY_le_ac*50010314-COM201-7642*Formación en centros de trabajo*1"
-    "ID_CATEGORY_le_ac*50010314-COM201-7631*Gestión de un pequeño comercio*1"
-    "ID_CATEGORY_le_ac*50010314-COM201-7638*Servicios de atención comercial*1"
-    "ID_CATEGORY_le_ac*50010314-COM201-7632*Técnicas de almacén*1"
-    "ID_CATEGORY_le_ac*50010314-COM201-7634*Venta técnica*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13954*Comercio electrónico*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13953*Formación en centros de trabajo*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13952*Gestión de un pequeño comercio*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13951*Servicios de atención comercial*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13950*Técnicas de almacén*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13949*Venta técnica*1"
     # Campus digital
     "ID_CATEGORY_cd_smr*50020125-IFC201-627t*Coordinación - Tutoría*1"
     "ID_CATEGORY_cd_smr*50020125-IFC201-5349*Aplicaciones ofimáticas*1"
