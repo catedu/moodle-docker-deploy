@@ -141,6 +141,14 @@ ID_CATEGORY_av_ei=$(moosh category-create -p "${ID_CATEGORY_av}" -v 1 -d "SSC302
 ID_CATEGORY_mm=$(moosh category-create -p 0 -v 1 -d "50008642" "IES MARÍA MOLINER")
 ID_CATEGORY_mm_is=$(moosh category-create -p "${ID_CATEGORY_mm}" -v 1 -d "SSC303" "Integración Social")
 
+ID_CATEGORY_cd=$(moosh category-create -p 0 -v 1 -d "50020125" "Campus Digital FP")
+ID_CATEGORY_cd_smr=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "IFC201" "Sistemas Microinformáticos y Redes")
+ID_CATEGORY_cd_asir=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "IFC301" "Administración de Sistemas Informáticos en Red")
+ID_CATEGORY_cd_dam=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "IFC302" "Desarrollo de Aplicaciones Multiplataforma")
+ID_CATEGORY_cd_daw=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "IFC303" "Desarrollo de Aplicaciones WEB")
+ID_CATEGORY_cd_iabd=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "CESIFC02" "Inteligencia Artificial y Big Data")
+ID_CATEGORY_cd_ceti=$(moosh category-create -p "${ID_CATEGORY_cd}" -v 1 -d "CESIFC01" "Ciberseguridad en Entornos de las Tecnologías de la Información")
+
 #############################################################################################
 # A los usuarios jefes de estudios les cambio su campo personalizado para que tengan el valor correspondiente a su categoría
 #############################################################################################
@@ -654,8 +662,91 @@ COURSES=(
     "ID_CATEGORY_miscelanea*STI_Inglés_1*(STI) Lengua Extranjera profesional: Inglés 1*1"
     "ID_CATEGORY_miscelanea*Interno*Pruebas_Internas*1"
     "ID_CATEGORY_miscelanea*restauraciones*Restauraciones*1"
-    # TODO: Añadir en esta posición los módulos de 2º de CFGM LE de Actividades comerciales
-    # TODO: Añadir en esta posición los cursos del campus
+    # módulos de 2º de CFGM LE de Actividades comerciales
+    "ID_CATEGORY_le_ac*50010314-COM201-13954*Comercio electrónico*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13953*Formación en centros de trabajo*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13952*Gestión de un pequeño comercio*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13951*Servicios de atención comercial*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13950*Técnicas de almacén*1"
+    "ID_CATEGORY_le_ac*50010314-COM201-13949*Venta técnica*1"
+    # Campus digital
+    "ID_CATEGORY_cd_smr*50020125-IFC201-627t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5349*Aplicaciones ofimáticas*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5355*SMR - Formación y orientación laboral*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5359*Lengua extranjera profesional: inglés 1*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5347*Montaje y mantenimiento de equipos*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5351*Redes locales*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5348*Sistemas operativos monopuesto*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4995*Aplicaciones Web*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4997*SMR - Empresa e iniciativa emprendedora*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4998*Formación en centros de trabajo*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-5001*Lengua extranjera profesional: inglés 2*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4993*Seguridad informática*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4994*Servicios en red*1"
+    "ID_CATEGORY_cd_smr*50020125-IFC201-4991*Sistemas operativos en red*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-643t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5283*Formación y orientación laboral*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5274*Fundamentos de hardware.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5275*Gestión de bases de datos.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5272*Implantación de sistemas operativos.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5286*Lengua extranjera profesional: inglés 1*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5276*Lenguajes de marcas y sistemas de gestión de información.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5273*Planificación y administración de redes.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5054*Administración de sistemas gestores de bases de datos.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5051*Administración de sistemas operativos.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5058*Empresa e iniciativa emprendedora*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5059*Formación en centros de trabajo*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5053*Implantación de aplicaciones web.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5061*Lengua extranjera profesional: inglés 2*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5056*Proyecto de administración de sistemas informáticos en red.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5055*Seguridad y alta disponibilidad.*1"
+    "ID_CATEGORY_cd_asir*50020125-IFC301-5052*Servicios de red e Internet.*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-681t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5290*Bases de datos*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5293*Entornos de desarrollo*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5173*Formación y Orientación Laboral*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5176*Lengua Extranjera profesional: Inglés 1*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5288*Lenguajes de marcas y sistemas de gestión de información*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5291*Programación*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5289*Sistemas informáticos*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5066*Acceso a datos*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5068*Desarrollo de interfaces*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5074*Empresa e iniciativa emprendedora*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5075*Formación en centros de trabajo*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5077*Lengua Extranjera profesional: Inglés 2*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5070*Programación de servicios y procesos*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5069*Programación multimedia y dispositivos móviles*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5072*Proyecto de desarrollo de aplicaciones multiplataforma*1"
+    "ID_CATEGORY_cd_dam*50020125-IFC302-5071*Sistemas de gestión empresarial*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-682t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5180*Bases de datos*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5182*Entornos de desarrollo*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5188*DAW - Formación y orientación laboral*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5191*Lengua Extranjera profesional: Inglés 1*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5178*Lenguajes de marcas y sistemas de gestión de información*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5181*Programación*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5179*Sistemas informáticos*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5083*Desarrollo web  en entorno cliente*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5084*Desarrollo web  en entorno servidor*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5085*Despliegue de aplicaciones web*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5086*Diseño de interfaces Web*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5089*DAW - Empresa e iniciativa emprendedora*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5090*Formación en centros de trabajo*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5092*Lengua Extranjera profesional: Inglés 2*1"
+    "ID_CATEGORY_cd_daw*50020125-IFC303-5087*Proyecto de desarrollo de aplicaciones Web*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-866t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14339*Incidentes de ciberseguridad.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14340*Bastionado de redes y sistemas.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14341*Puesta en producción segura.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14342*Análisis forense informático.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14343*Hacking ético.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14344*Normativa de ciberseguridad.*1"
+    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-873t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14345*Modelos de Inteligencia Artificial.*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14346*Sistemas de Big Data.*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14347*Big Data aplicado.*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14348*Sistemas de aprendizaje automático.*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14349*Programación de Inteligencia Artificial.*1"
 
 )
 
