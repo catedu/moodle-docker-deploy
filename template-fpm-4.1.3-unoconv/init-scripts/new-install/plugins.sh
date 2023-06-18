@@ -171,6 +171,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_board"
                 "local_mail"
                 "block_grade_me"
+                "block_completion_progress"
                 "atto_fontsize" #Lo descomento. No está para moodle4.1 ni 4.0 pero permite instalar
                 "atto_fontfamily" #Lo descomento. No está para moodle4.1 pero permite instalar
                 "atto_fullscreen" 

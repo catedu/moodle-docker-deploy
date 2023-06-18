@@ -50,10 +50,11 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_choicegroup"
                 "mod_board"
                 "block_grade_me" 
-                # "mod_pdfannotator" # No disponible para 4.1
+                "mod_pdfannotator"
+                "block_completion_progress"
                 "local_mail"
-		        # "atto_fontsize" # No disponible para 4.0
-                # "atto_fontfamily" # No disponible para 4.1
+		        "atto_fontsize" # No disponible para 4.0
+                "atto_fontfamily" # No disponible para 4.1
                 "atto_fullscreen"
                 "qtype_gapfill"
                 "mod_attendance"
@@ -61,10 +62,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse ok
         )
         
-        moosh plugin-install -f atto_fontfamily
-        moosh plugin-install -f atto_fontsize
-        #Quedará pendiente la instalación de mod_pdfannotation, no está para 4.1 y da problemas si se fuerza.
-
+        
         moosh plugin-uninstall "tool_migratehvp2h5p"
         moosh plugin-uninstall "mod_hvp"
         moosh plugin-uninstall "block_configurable_reports"
