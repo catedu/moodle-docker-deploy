@@ -62,6 +62,9 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse ok
         )
         
+        #Forzamos la instalación de plugins de versiones anteriores:
+        moosh plugin-install -f atto_fontfamily
+        moosh plugin-install -f atto_fontsize
         
         moosh plugin-uninstall "tool_migratehvp2h5p"
         moosh plugin-uninstall "mod_hvp"
