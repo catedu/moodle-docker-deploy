@@ -54,6 +54,7 @@ get_parameter(){
                     [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Cc][Ii][Ff][Pp][Aa] ]] && MOODLE_URL="https://cifpa.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Dd][Ee][Pp][Oo][Rr][Tt][Ii][Vv][Aa][Ss] ]] && MOODLE_URL="https://deportivas.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Mm][Oo][Oo][Dd][Ll][Ee] ]] && MOODLE_URL="https://moodle.campusdigitalfp.com"
                     [[ "${MOODLE_URL}" = "" ]] && \
                     { echo "Incorrect moodle url type..."; usage; exit 1;}
                 else
@@ -132,7 +133,7 @@ check_url(){
 check_create_dir_exist(){
     if [ -d "${1}" ]; then
         echo "Caution: Deploy Duplicate!!. Directory $1 exists"
-        # Comment to continue (override docker-compose, for upgrade)
+        # Comment to continue (override docker compose, for upgrade)
         exit 1
         elif ! [ -d ./template ]; then
         echo "Caution: No template deploy in this Directory. Nothing to do"
@@ -338,7 +339,7 @@ else
 fi
 
 #up_services
-if (cd "${VIRTUALHOST}" && docker-compose up -d); then
+if (cd "${VIRTUALHOST}" && docker compose up -d); then
     echo "DEPLOY ${MOODLE_URL} UP!"
 else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
