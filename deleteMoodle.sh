@@ -79,7 +79,7 @@ set -a; [ -f "${WORKDIR}/.env" ] && . "${WORKDIR}/.env"; set +a
 install_pkg mariadb-client rsync
 
 ## Stopservice
-if (cd "${WORKDIR}" && docker-compose down); then
+if (cd "${WORKDIR}" && docker compose down); then
     echo "# $(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
 else
     echo "# $(basename $0) - stop services: DEPLOY ${WORKDIR} FAIL at DOWN!"
