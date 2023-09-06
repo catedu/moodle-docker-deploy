@@ -338,7 +338,7 @@ else
 fi
 
 #up_services
-if (cd "${VIRTUALHOST}" && docker-compose up -d); then
+if (cd "${VIRTUALHOST}" && docker compose up -d); then
     echo "DEPLOY ${MOODLE_URL} UP!"
 else
     echo "DEPLOY ${MOODLE_URL} FAIL!"; exit 1
