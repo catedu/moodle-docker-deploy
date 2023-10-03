@@ -69,7 +69,7 @@ actions_asociated_to_plugin(){
                     #desactivamos la navegación javascript en moodle4
                     moosh -n config-set usejavascriptnav 0 format_tiles
                     moosh -n config-set phototilesaltstyle 1 format_tiles
-                    moosh -n config-set phototiletitletransarency 0.3 format_tiles"
+                    moosh -n config-set phototiletitletransarency 0.3 format_tiles
             fi
             
             moosh config-set modalresources pdf,url,html format_tiles
