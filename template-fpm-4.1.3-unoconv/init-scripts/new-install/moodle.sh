@@ -104,6 +104,7 @@ moosh config-set hiddenuserfields email
 moosh config-set showuseridentity username
 moosh config-set block_online_users_timetosee 10
 # moosh config-set guestloginbutton 1
+moosh config-set defaultenrol 0 enrol_guest
 
 # statistics
 moosh config-set enablestats 1
@@ -142,8 +143,14 @@ moosh config-set gradepointdefault 10
 # themes
 moosh config-set allowthemechangeonurl 1
 
+# bbb
+moosh config-set bigbluebuttonbn_participant_moderator_default 3
+
 # # Disabling messaging
 # moosh config-set messaging 0
+
+# support email
+moosh -n config-set supportemail catedu_noreply@educa.aragon.es
 
 # Site Policyhandler
 moosh config-set sitepolicyhandler tool_policy
