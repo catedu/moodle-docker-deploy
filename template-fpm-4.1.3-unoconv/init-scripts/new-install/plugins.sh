@@ -26,17 +26,17 @@ actions_asociated_to_plugin(){
             moosh config-set  message_provider_local_mail_mail_loggedin    popup   message
             moosh config-set  message_provider_local_mail_mail_loggedoff    popup   message
             ;;
-        "mod_jitsi")
-            echo "Configuring jitsi..."
-            moosh config-set jitsi_livebutton 1
-            moosh config-set jitsi_shareyoutube 1
-            moosh config-set jitsi_id nameandsurname
-            moosh config-set jitsi_finishandreturn 1
-            moosh config-set jitsi_sesionname 0,1,2
-            moosh config-set jitsi_domain meet.jit.si
-            moosh config-set jitsi_watermarklink https://jitsi.org
-            moosh config-set jitsi_channellastcam 4
-            ;;
+        # "mod_jitsi")
+        #     echo "Configuring jitsi..."
+        #     moosh config-set jitsi_livebutton 1
+        #     moosh config-set jitsi_shareyoutube 1
+        #     moosh config-set jitsi_id nameandsurname
+        #     moosh config-set jitsi_finishandreturn 1
+        #     moosh config-set jitsi_sesionname 0,1,2
+        #     moosh config-set jitsi_domain meet.jit.si
+        #     moosh config-set jitsi_watermarklink https://jitsi.org
+        #     moosh config-set jitsi_channellastcam 4
+        #     ;;
         "block_grade_me")
             echo "Configuring block_grade_me..."
             moosh config-set block_grade_me_maxcourses 10
@@ -68,6 +68,8 @@ actions_asociated_to_plugin(){
                     moosh config-set colourname6 "Rojo" format_tiles
                     #desactivamos la navegación javascript en moodle4
                     moosh -n config-set usejavascriptnav 0 format_tiles
+                    moosh -n config-set phototilesaltstyle 1 format_tiles
+                    moosh -n config-set phototiletitletransarency 0.3 format_tiles
             fi
             
             moosh config-set modalresources pdf,url,html format_tiles

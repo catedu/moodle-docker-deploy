@@ -72,7 +72,7 @@ install_pkg() {
 }
 
 up_service(){
-    if (cd "${WORKDIR}" && docker-compose up -d); then
+    if (cd "${WORKDIR}" && docker compose up -d); then
         echo "DEPLOY ${MOODLE_URL} UP!"; return 0
     else
         echo "DEPLOY ${MOODLE_URL} UP FAIL!"; return 1
@@ -89,7 +89,7 @@ rollback(){
             return 0
         ;;
         template)
-            (cd "${WORKDIR}" && docker-compose down || true)
+            (cd "${WORKDIR}" && docker compose down || true)
             
             echo "$(basename $0) - exit: Restore DB"
             mysqldump --lock-tables=false --user ${MOODLE_MYSQL_USER} --password="${MOODLE_MYSQL_PASSWORD}" --host="${MOODLE_DB_HOST}" --databases "${MOODLE_DB_NAME}" < ${BACKUPDIR}/${WORKDIR}_db.sql > /dev/null || { echo "$(basename $0) - exit: Restore DB ${WORKDIR} FAIL!"; return 1; }
@@ -190,9 +190,9 @@ install_pkg mariadb-client rsync
 
 
 ## Stopservice
-if (cd "${WORKDIR}" && docker-compose stop web moodle redis && echo "Y" | docker-compose rm web moodle redis); then
+if (cd "${WORKDIR}" && docker compose stop web moodle redis && echo "Y" | docker compose rm web moodle redis); then
     echo "$(basename $0) - stop services: Deploy ${WORKDIR} DOWN!"
-elif (cd "${WORKDIR}" && [ -z "$(docker-compose ps -q)" ] ); then
+elif (cd "${WORKDIR}" && [ -z "$(docker compose ps -q)" ] ); then
     # Service stopped before
     echo "$(basename $0) - stop services: DEPLOY ${WORKDIR} DOWN BEFORE!"
     ( $YES || (read -r -p "Do you want to continue UPDATE?...[s/N] " RESP && [[ "$RESP" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]] )) || exit 1
