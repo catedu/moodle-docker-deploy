@@ -68,6 +68,7 @@ JE_MO_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefat
 JE_MV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARTÍNEZ VARGAS" prof_je_mv)
 JE_AV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES AVEMPACE" prof_je_av)
 JE_MM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARÍA MOLINER" prof_je_mm)
+JE_CD_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "CAMPUS DIGITAL FP" prof_je_cd)
 
 #############################################################################################
 # Creo las categorías:
@@ -176,6 +177,7 @@ moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat
 moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MV_USER_ID, 1, $ID_CATEGORY_mv, 0)"
 moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_AV_USER_ID, 1, $ID_CATEGORY_av, 0)"
 moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_MM_USER_ID, 1, $ID_CATEGORY_mm, 0)"
+moosh sql-run "INSERT INTO mdl_user_info_data (userid, fieldid, data, dataformat) values ($JE_CD_USER_ID, 1, $ID_CATEGORY_cd, 0)"
 
 
 #############################################################################################
@@ -215,6 +217,12 @@ moosh cohort-create -d "50010511-ADG201" -i 50010511-ADG201 -c "${ID_CATEGORY_tm
 moosh cohort-create -d "50018829-ADG301" -i 50018829-ADG301 -c "${ID_CATEGORY_ca}" "50018829-ADG301"
 moosh cohort-create -d "50018829-ADG302" -i 50018829-ADG302 -c "${ID_CATEGORY_ca}" "50018829-ADG302"
 moosh cohort-create -d "50018829-QUI301" -i 50018829-QUI301 -c "${ID_CATEGORY_ca}" "50018829-QUI301"
+moosh cohort-create -d "50020125-IFC201" -i 50020125-IFC201 -c "${ID_CATEGORY_cd}" "50020125-IFC201"
+moosh cohort-create -d "50020125-IFC301" -i 50020125-IFC301 -c "${ID_CATEGORY_cd}" "50020125-IFC301"
+moosh cohort-create -d "50020125-IFC302" -i 50020125-IFC302 -c "${ID_CATEGORY_cd}" "50020125-IFC302"
+moosh cohort-create -d "50020125-IFC303" -i 50020125-IFC303 -c "${ID_CATEGORY_cd}" "50020125-IFC303"
+moosh cohort-create -d "50020125-CESIFC02" -i 50020125-CESIFC02 -c "${ID_CATEGORY_cd}" "50020125-CESIFC02"
+moosh cohort-create -d "50020125-CESIFC01" -i 50020125-CESIFC01 -c "${ID_CATEGORY_cd}" "50020125-CESIFC01"
 
 #############################################################################################
 # Añado a la cohorte de jefatura de estudios a los diferentes usuarios de jefes de estudios
@@ -238,6 +246,7 @@ moosh cohort-enrol -u "${JE_MO_USER_ID}" "jefaturas"
 moosh cohort-enrol -u "${JE_MV_USER_ID}" "jefaturas"
 moosh cohort-enrol -u "${JE_AV_USER_ID}" "jefaturas"
 moosh cohort-enrol -u "${JE_MM_USER_ID}" "jefaturas"
+moosh cohort-enrol -u "${JE_CD_USER_ID}" "jefaturas"
 
 
 #############################################################################################
@@ -741,7 +750,7 @@ COURSES=(
     "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14342*Análisis forense informático.*1"
     "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14343*Hacking ético.*1"
     "ID_CATEGORY_cd_ceti*50020125-CESIFC01-14344*Normativa de ciberseguridad.*1"
-    "ID_CATEGORY_cd_ceti*50020125-CESIFC01-873t*Coordinación - Tutoría*1"
+    "ID_CATEGORY_cd_iabd*50020125-CESIFC02-873t*Coordinación - Tutoría*1"
     "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14345*Modelos de Inteligencia Artificial.*1"
     "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14346*Sistemas de Big Data.*1"
     "ID_CATEGORY_cd_iabd*50020125-CESIFC02-14347*Big Data aplicado.*1"
@@ -899,6 +908,10 @@ do
             "50008642") # IES MARÍA MOLINER
                 echo "****** Enrolling the user ${JE_MM_USER_ID} into the course_id ${COURSE_ID} with role jefatura-estudios"
                 moosh course-enrol -r jefatura-estudios -i "${COURSE_ID}" "${JE_MM_USER_ID}"
+                ;;
+            "50020125") # CAMPUS DIGITAL
+                echo "****** Enrolling the user ${JE_CD_USER_ID} into the course_id ${COURSE_ID} with role jefatura-estudios"
+                moosh course-enrol -r jefatura-estudios -i "${COURSE_ID}" "${JE_CD_USER_ID}"
                 ;;
         esac
     fi
