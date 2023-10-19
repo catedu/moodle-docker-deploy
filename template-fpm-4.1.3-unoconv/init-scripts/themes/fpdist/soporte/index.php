@@ -4,9 +4,9 @@
 
 require_once(__DIR__ . '/../config.php');
 
-// Comprueba si el usuario está autenticado en Moodle.
+// Comprueba si el usuario está autenticado en Moodle y no es el invitado
 $existe_user_en_Moodle = false;
-if ($USER->id) {
+if ($USER->id && $USER->id != 1 ) {
     $existe_user_en_Moodle = true;
 }
 
