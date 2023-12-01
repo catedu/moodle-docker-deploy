@@ -1,9 +1,23 @@
 <?php
 
+//session_start();
 
-session_start();
+require_once(__DIR__ . '/../config.php');
+
+// Comprueba si el usuario está autenticado en Moodle y no es el invitado
+$existe_user_en_Moodle = false;
+if ($USER->id && $USER->id != 1 ) {
+    $existe_user_en_Moodle = true;
+}
+
+$userid = $USER->id;
+$username = $USER->username;
+$userfirstname = $USER->firstname;
+$userlastname = $USER->lastname;
+$useremail = $USER->email;
 
 $sessionid = session_id();
+
 ?>
 <!DOCTYPE html>
     <html  dir="ltr" lang="es" xml:lang="es">
@@ -63,6 +77,12 @@ $sessionid = session_id();
                                     <div role="main">
                                         <span id="maincontent"></span>
                                         <form action="accion.php" method="post" id="form_soporte" name="form_soporte" >
+<?php
+//si existe el usuario en sesión creo un input hidden
+if ($existe_user_en_Moodle) {
+    echo "<input type='hidden' name='existe' value='1'>";
+}
+?>
                                             <div class="settingsform">
                                                 <h2>Soporte</h2>
                                                 <p class="box py-3 generalbox alert alert-error alert alert-danger">Asegúrese de introducir su correo electrónico correctamente.</p>
@@ -95,7 +115,7 @@ $sessionid = session_id();
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="text" name="nombre_solicitante" value="" size="30" id="nombre_solicitante" class="form-control text-ltr" required>
+                                                                <input type="text" <?php echo ($existe_user_en_Moodle)?"readonly":"" ?> name="nombre_solicitante" value="<?php echo ($existe_user_en_Moodle)?$userfirstname:"" ?>" size="30" id="nombre_solicitante" class="form-control text-ltr" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -106,7 +126,7 @@ $sessionid = session_id();
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="text" name="pape_solicitante" value="" size="30" id="pape_solicitante" class="form-control text-ltr" required >
+                                                                <input type="text" <?php echo ($existe_user_en_Moodle)?"readonly":"" ?> name="pape_solicitante" value="<?php echo ($existe_user_en_Moodle)?$userlastname:"" ?>" size="30" id="pape_solicitante" class="form-control text-ltr" required >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -117,7 +137,7 @@ $sessionid = session_id();
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="text" name="sape_solicitante" value="" size="30" id="sape_solicitante" class="form-control text-ltr" >
+                                                                <input type="text" <?php echo ($existe_user_en_Moodle)?"readonly":"" ?> name="sape_solicitante" value="" size="30" id="sape_solicitante" class="form-control text-ltr" >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,7 +148,7 @@ $sessionid = session_id();
                                                         </div>
                                                         <div class="form-setting col-sm-9">
                                                             <div class="form-text defaultsnext">
-                                                                <input type="email" name="email_solicitante" req value="" size="30" id="email_solicitante" class="form-control text-ltr" required>
+                                                                <input type="email" <?php echo ($existe_user_en_Moodle)?"readonly":"" ?> name="email_solicitante" req value="<?php echo ($existe_user_en_Moodle)?$useremail:"" ?>" size="30" id="email_solicitante" class="form-control text-ltr" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -141,6 +161,14 @@ $sessionid = session_id();
                                                             <div class="form-select defaultsnext">
                                                                 <select  id="ciclo" name="ciclo" class="custom-select" required>
                                                                     <option value="">Selecciona el centro</option>
+
+                                                                    <option value="Campus Digital FP: Sistemas Microinformáticos y Redes">Campus Digital FP: Sistemas Microinformáticos y Redes</option>
+                                                                    <option value="Campus Digital FP: Administración de Sistemas Informáticos y Redes">Campus Digital FP: Administración de Sistemas Informáticos y Redes</option>
+                                                                    <option value="Campus Digital FP: Desarrollo de Aplicaciones Multiplataforma">Campus Digital FP: Desarrollo de Aplicaciones Multiplataforma</option>
+                                                                    <option value="Campus Digital FP: Desarrollo de Aplicaciones Web">Campus Digital FP: Desarrollo de Aplicaciones Web</option>
+                                                                    <option value="Campus Digital FP: Ciberseguridad en Entornos de las Tecnologías de la Información">Campus Digital FP: Ciberseguridad en Entornos de las Tecnologías de la Información</option>
+                                                                    <option value="Campus Digital FP: Inteligencia Artificial y Big Data">Campus Digital FP: Inteligencia Artificial y Big Data</option>
+
                                                                     <option value="CPIFP Bajo Aragón: Desarrollo de Aplicaciones Multiplataforma">CPIFP Bajo Aragón: Desarrollo de Aplicaciones Multiplataforma</option>
 
                                                                     <option value="CPIFP Corona de Aragón: Administración y Finanzas">CPIFP Corona de Aragón: Administración y Finanzas</option>
@@ -415,6 +443,9 @@ $sessionid = session_id();
                                                     <!-- -->
                                                     <!-- -->
                                                 </fieldset>
+<?php
+if(!$existe_user_en_Moodle){
+?>
                                                 <div class="row">
                                                     <div class="offset-sm-3 col-sm-3">
                                                         <img src="" alt="CAPTCHA" class="captcha-image">
@@ -431,6 +462,9 @@ $sessionid = session_id();
                                                         </div>
                                                     </div>
                                                 </div>
+<?php
+}
+?>
                                                 <div class="row">
                                                     <div class="offset-sm-3 col-sm-3">
                                                         <button type="submit" class="btn btn-primary">Enviar</button>
@@ -554,11 +588,16 @@ $sessionid = session_id();
             miFormulario.addEventListener("submit", comprobacionesPreEnvio, true);
 
             repaint();
-            
+<?php
+if(!$existe_user_en_Moodle){
+?>            
             //Refresh Captcha
             function refreshCaptcha(){
                 document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
             }
+<?php
+}
+?>
             // Fichero adjunto
             document.getElementById("adjunto").onchange = function(){
 

@@ -157,6 +157,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "atto_fullscreen"
                 "qtype_gapfill"
                 "mod_attendance"
+                "block_sharing_cart"
                 "mod_checklist"
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse
         )

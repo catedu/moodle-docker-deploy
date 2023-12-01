@@ -3,12 +3,20 @@
 
     require_once(__DIR__ . '/../config.php');
     require_once('secret.php');
+    
+
+    $existe_user_en_Moodle = false;
+    if ($_POST['existe'] == 1) {
+        $existe_user_en_Moodle = true;
+    }
 
     $logFile = fopen("log.txt", 'a');
     fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: -------------------------------------------------------------------------");
     fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: captcha_challenge (POST): " . $_POST['captcha_challenge']);
     fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: captcha_text (SESSION): " . $_SESSION['captcha_text']);
+    fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " accion.php: existe_user_en_Moodle: " . $existe_user_en_Moodle);
 
+    //Comprobamos si el captcha es correcto
     $captchaCorrecto = FALSE;
 
     if(isset($_POST['captcha_challenge']) && $_POST['captcha_challenge'] == $_SESSION['captcha_text']) {
@@ -45,6 +53,24 @@
         // 3-"Acceso a los contenidos o módulos";
         elseif($motivo == "2" || $motivo == "3" ){
             switch ($ciclo) {
+                case "Campus Digital FP: Sistemas Microinformáticos y Redes":
+                    return $GLOBALS["idUserCoordinacion_Campus_SMR"];
+                    break;
+                case "Campus Digital FP: Administración de Sistemas Informáticos y Redes":
+                    return $GLOBALS["idUserCoordinacion_Campus_ASIR"];
+                    break;
+                case "Campus Digital FP: Desarrollo de Aplicaciones Multiplataforma":
+                    return $GLOBALS["idUserCoordinacion_Campus_DAM"];
+                    break;
+                case "Campus Digital FP: Desarrollo de Aplicaciones Web":
+                    return $GLOBALS["idUserCoordinacion_Campus_DAW"];
+                    break;
+                case "Campus Digital FP: Ciberseguridad en Entornos de las Tecnologías de la Información":
+                    return $GLOBALS["idUserCoordinacion_Campus_CIBER"];
+                    break;
+                case "Campus Digital FP: Inteligencia Artificial y Big Data":
+                    return $GLOBALS["idUserCoordinacion_Campus_IABD"];
+                    break;
                 case "CPIFP Bajo Aragón: Desarrollo de Aplicaciones Multiplataforma":
                     return $GLOBALS["idUserCoordinacion_CPIFP_Bajo_Aragon_DAM"];
                     break;
@@ -288,7 +314,7 @@
         $camposObligatoriosRellenos = false;
     }
 
-    if($accesoPermitido && $camposObligatoriosRellenos && $captchaCorrecto){
+    if($accesoPermitido && $camposObligatoriosRellenos && ($captchaCorrecto || $existe_user_en_Moodle) ){
         //////////////////////////////
         // Creo variables iniciales
         //////////////////////////////
@@ -513,7 +539,7 @@
         $h3 = 'Acceso no permitido a coordinación. Solicite la clave al departamento';
     }elseif(!$camposObligatoriosRellenos){
         $h3 =  'Debe rellenar todos los campos obligatorios. Incidencia NO procesada.';
-    }elseif(!$captchaCorrecto){
+    }elseif(!$captchaCorrecto && !$existe_user_en_Moodle){
         $h3 =  'El código de captcha no es correcto. Incidencia NO procesada.';
     }elseif($exitoCreandoIncidencia && $exitoEnviandoEmail){
         $h3 =  'Incidencia ' . $incidenciaCreadaId . ' creada. Se le ha enviado un email con copia de la misma.';
