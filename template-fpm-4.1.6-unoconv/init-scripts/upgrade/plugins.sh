@@ -53,9 +53,10 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_pdfannotator"
                 "block_completion_progress"
                 "local_mail"
-		        "atto_fontsize" # No disponible para 4.0
+		        "atto_fontsize" 
                 "atto_fontfamily" # No disponible para 4.1
                 "atto_fullscreen"
+                "atto_styles"
                 "qtype_gapfill"
                 "mod_attendance"
                 "mod_checklist"
@@ -64,14 +65,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         
         #Forzamos la instalación de plugins de versiones anteriores:
         moosh plugin-install -f atto_fontfamily
-        moosh plugin-install -f atto_fontsize
+        moosh plugin-install -d -f --release 2023010502 "atto_styles"
         
-        moosh plugin-uninstall "tool_migratehvp2h5p"
-        moosh plugin-uninstall "mod_hvp"
-        moosh plugin-uninstall "block_configurable_reports"
-        moosh plugin-uninstall "report_coursestats" 
-        moosh plugin-uninstall "atto_morefontcolors"
-
         moosh module-manage show bigbluebuttonbn
         moosh module-manage hide jitsi
     fi
