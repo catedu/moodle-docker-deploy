@@ -44,6 +44,12 @@ actions_asociated_to_plugin(){
             moosh config-set block_grade_me_enableassignment 1
             moosh config-set block_grade_me_enablequiz 1
             ;;
+        "local_reminders")
+            echo "Configuring local_reminders..."
+            moosh config-set local_reminders_messagetitleprefix "Recordatorio FP Virtual" local_reminders
+            moosh config-set local_reminders_sendas "70" local_reminders # Dirección sin respuesta
+            moosh config-set local_reminders_sendasname "No contestar" local_reminders
+            ;;
         "format_tiles")
             echo "Configuring format_tiles..."
 
@@ -158,6 +164,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "qtype_gapfill"
                 "mod_attendance"
                 "block_sharing_cart"
+                "local_reminders"
                 "mod_checklist"
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse
         )
@@ -224,6 +231,11 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
         Verdana=Verdana, Geneva, sans-serif;
         Trebuchet=Trebuchet MS, Helvetica, sans-serif;
         Escolar=Boo;" atto_fontfamily
+
+        echo "Configuring atto_table..." # Dotar de accesibilidad a las tablas creadas en atto
+        moosh config-set allowborders 1 atto_table
+        moosh config-set allowbackgroundcolour 1 atto_table
+        moosh config-set allowwidth 1 atto_table
     else
         #Forzamos la instalación de plugins de versiones anteriores:
         moosh plugin-install -f atto_fontfamily
