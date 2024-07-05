@@ -5,6 +5,7 @@ node_modules
 myutils
 *.aeducar.es
 *adistanciafparagon.es
+*fpvirtualaragon.es
 zz_*
 template-*/init-scripts/themes/fpdist/soporte/secret.php
 template-*/init-scripts/themes/fpdist/itainnova_tool/secret/credenciales.php
