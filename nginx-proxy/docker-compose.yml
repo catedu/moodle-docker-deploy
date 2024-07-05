@@ -43,7 +43,7 @@ services:
     hostname: phpmyadmin
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
-    restart: always
+    restart: no
     volumes:
       - /sessions
     networks:
