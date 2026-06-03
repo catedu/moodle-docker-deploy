@@ -256,9 +256,11 @@ moosh cohort-enrol -u "${JE_CD_USER_ID}" "jefaturas"
 # IMPORTANTE (Lee abajo)
 # IMPORTANTE (Lee abajo)
 # IMPORTANTE (Lee abajo)
+
 # La siguiente lista de cursos NO puede ser modificada en su orden. Si un curso desaparece se cambiará 
 # el 1 del final por un 0. Si se añaden nuevos cursos se añadirán al final, nunca 
 # junto a los de su centro o estudio pues eso cambiaría el orden
+
 # IMPORTANTE (Lee arriba)
 # IMPORTANTE (Lee arriba)
 # IMPORTANTE (Lee arriba)

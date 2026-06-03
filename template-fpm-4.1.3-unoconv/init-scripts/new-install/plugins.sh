@@ -165,6 +165,8 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "mod_attendance"
                 "block_sharing_cart"
                 "local_reminders"
+                "mod_labelcollapsed" # Posibilidad de colapsar textos incrustados dentro del curso
+                "format_buttons" # Formato de botones para los cursos
                 "mod_checklist"
                 "mod_checklist" #repito porque si no el último plugin no termina de instalarse
         )

@@ -15,3 +15,8 @@ moodle.campusdigitalfp.com*
 nohup.out
 *.sql
 dockprom*
+.vscode
+soporte/
+directoriosZz_ftp_ministerio_htmls.txt
+materiales_campus.sftp.old/
+nginx-proxy/output.log
