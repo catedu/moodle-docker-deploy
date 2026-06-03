@@ -1,0 +1,2 @@
+id,shortname,name,datatype,description,descriptionformat,categoryid,sortorder,required,locked,visible,forceunique,signup,defaultdata,defaultdataformat,param1,param2,param3,param4,param5,categoryname,categorysortorder
+1,jefatura_estudios,"Jefaturas de estudios",text,"<p dir=""ltr"" style=""text-align:left;"">ID de la categoría a la que el/la jefe de estudios</p>",1,1,1,0,1,0,1,0,,0,4,4,0,,,"Otros campos",1
