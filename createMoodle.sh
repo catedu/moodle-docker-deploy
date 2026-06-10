@@ -48,12 +48,10 @@ get_parameter(){
                 if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 then
                     MOODLE_URL=""
-                    [[ "${OPTARG}" =~ ^[Ww][Ww][Ww] ]] && MOODLE_URL="https://www.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo] ]] && MOODLE_URL="https://nuevo.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Cc][Ii][Ff][Pp][Aa] ]] && MOODLE_URL="https://cifpa.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Dd][Ee][Pp][Oo][Rr][Tt][Ii][Vv][Aa][Ss] ]] && MOODLE_URL="https://deportivas.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Ww][Ww][Ww] ]] && MOODLE_URL="https://www.fpvirtualaragon.es"
+                    [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo] ]] && MOODLE_URL="https://nuevo.fpvirtualaragon.es"
+                    [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.fpvirtualaragon.es"
+                    [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Mm][Oo][Oo][Dd][Ll][Ee] ]] && MOODLE_URL="https://moodle.campusdigitalfp.com"
                     [[ "${MOODLE_URL}" = "" ]] && \
                     { echo "Incorrect moodle url type..."; usage; exit 1;}
@@ -233,10 +231,6 @@ FPD_PASSWORD="${FPD_PASSWORD}"
 FPD_EMAIL="${FPD_EMAIL}"
 APP_PASSWORD="${APP_PASSWORD}"
 APP_TEACHER_PASSWORD="${APP_TEACHER_PASSWORD}"
-
-BLACKBOARD_URL="${BLACKBOARD_URL}"
-BLACKBOARD_KEY="${BLACKBOARD_KEY}"
-BLACKBOARD_SECRET="${BLACKBOARD_SECRET}"
 
 EOF
     
