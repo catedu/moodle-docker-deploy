@@ -49,7 +49,7 @@ get_parameter(){
                 then
                     MOODLE_URL=""
                     [[ "${OPTARG}" =~ ^[Ww][Ww][Ww] ]] && MOODLE_URL="https://www.adistanciafparagon.es"
-                    [[ "${OPTARG}" =~ ^[Gg][Tt] ]] && MOODLE_URL="https://gt.adistanciafparagon.es"
+                    [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo] ]] && MOODLE_URL="https://nuevo.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.adistanciafparagon.es"
                     [[ "${OPTARG}" =~ ^[Cc][Ii][Ff][Pp][Aa] ]] && MOODLE_URL="https://cifpa.adistanciafparagon.es"
@@ -307,14 +307,14 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
 then
     echo "setting repositories..."
     REPOSITORIES=( 
-                "cursos_ministerio" 
+#                "cursos_ministerio" 
                 "ftp_ministerio"
                 "ftp_ministerio_htmls"
                 "mbzs_curso_anterior"
-                "mbzs_20210920"
-                "mbzs_20220628"
-                "mbzs_20230629"
-                "mbzs_ita_20210728"
+#                "mbzs_20210920"
+#                "mbzs_20220628"
+#                "mbzs_20230629"
+#                "mbzs_ita_20210728"
         )
     
     for REPOSITORY in "${REPOSITORIES[@]}"
