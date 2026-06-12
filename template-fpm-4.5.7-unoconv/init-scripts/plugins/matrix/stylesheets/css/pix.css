@@ -1,0 +1,45 @@
+#id_refresh_matrix {
+    background-image: url([[pix:a/refresh]]);
+    background-repeat: no-repeat;
+    background-position: 1px center;
+    padding-left: 20px;
+}
+
+.path-question-type #id_submitbutton {
+    background-image: url([[pix:qtype_matrix|save]]);
+    background-repeat: no-repeat;
+    background-position: 1px center;
+    padding-left: 20px;
+}
+
+.path-question-type #id_makecopy {
+    background-image: url([[pix:qtype_matrix|copy]]);
+    background-repeat: no-repeat;
+    background-position: 1px center;
+    padding-left: 20px;
+}
+
+.path-question-type #id_cancel {
+    background-image: url([[pix:qtype_matrix|cancel]]);
+    background-repeat: no-repeat;
+    background-position: 1px center;
+    padding-left: 20px;
+}
+
+.pbutton.close {
+    background-image: url([[pix:qtype_matrix|close]]);
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: super;
+    width: 20px;
+    height: 20px;
+    color: transparent;
+}
+
+.button.add {
+    background-image: url([[pix:qtype_matrix|add]]);
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    min-width: 25px;
+}

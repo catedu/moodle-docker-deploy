@@ -1,0 +1,62 @@
+<?php
+// This file is part of the Checklist plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Export the checklist items.
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package mod_checklist
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+require_once(__DIR__ . '/../../config.php');
+global $DB, $PAGE, $CFG;
+require_once($CFG->dirroot . '/mod/checklist/importexportfields.php');
+require_once($CFG->libdir . '/csvlib.class.php');
+$id = required_param('id', PARAM_INT); // Course module id.
+
+$cm = get_coursemodule_from_id('checklist', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
+$checklist = $DB->get_record('checklist', ['id' => $cm->instance], '*', MUST_EXIST);
+
+$url = new moodle_url('/mod/checklist/export.php', ['id' => $cm->id]);
+$PAGE->set_url($url);
+require_login($course, true, $cm);
+
+$context = context_module::instance($cm->id);
+require_capability('mod/checklist:edit', $context);
+
+$items = $DB->get_records_select('checklist_item', "checklist = ? AND userid = 0", [$checklist->id], 'position');
+if (!$items) {
+    throw new moodle_exception('noitems', 'mod_checklist');
+}
+
+$csv = new csv_export_writer();
+$strchecklist = get_string('checklist', 'checklist');
+$csv->filename = clean_filename("{$course->shortname} $strchecklist {$checklist->name}") . '.csv';
+
+// Output the headings.
+$csv->add_data($fields);
+
+foreach ($items as $item) {
+    $output = [];
+    foreach ($fields as $field => $unused) {
+        $output[] = $item->$field;
+    }
+    $csv->add_data($output);
+}
+
+$csv->download_file();

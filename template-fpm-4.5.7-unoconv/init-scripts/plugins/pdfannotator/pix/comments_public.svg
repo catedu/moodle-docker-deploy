@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 100 100" fill="none">
+  <path d="
+    M7 15 
+    a5 5 0 0 1 5 -5 
+    h76
+    a5 5 0 0 1 5 5 
+    v60 
+    a5 5 0 0 1 -5 5 
+    H40 
+    L15 90
+    V80 
+    H12 
+    a5 5 0 0 1 -5 -5 
+    V60 
+    z"
+    stroke="#999999" stroke-width="13" fill="none"/>
+
+  <g transform="translate(23,18) scale(0.85)">
+    <circle cx="32" cy="32" r="28" stroke="rgb(153,153,153)" stroke-width="7" fill="none"/>
+    <path d="M32 4a28 28 0 0 0 0 56" stroke="rgb(153,153,153)" stroke-width="7"/>
+    <ellipse cx="32" cy="32" rx="10" ry="28" stroke="rgb(153,153,153)" stroke-width="7"/>
+    <line x1="4" y1="32" x2="60" y2="32" stroke="rgb(153,153,153)" stroke-width="7"/>
+  </g>
+</svg>

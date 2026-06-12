@@ -1,0 +1,77 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_tiles/single_section
+
+    Single Section content template.
+
+    The purpose of this template is to render the content of a single section
+    (i.e. the contents of one "tile" represeting a course topic".
+    This is a separate template because it is called from externallib.php (i.e. from web service via JS)
+    as well as being called from other templates (i.e. single_section_page) when rendering from PHP
+
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * tileid
+        * title
+        * hidden_section
+        * from_ajax
+        * editing
+        * secid
+        * canedit
+        * tileicon
+        * defaulttileicon
+        * sesskey
+        * courseid
+        * useSubtiles
+        * course_modules
+        * single_sec_add_cm_control_html
+        * single_sec_content_is_long
+        * alt
+        * completion_help
+
+    Example context (json):
+    {
+        "tileid": 1,
+        "title": "Section 1",
+        "hidden_section": 0,
+        "from_ajax": 0,
+        "editing": 0,
+        "secid": 101,
+        "canedit": 1,
+        "tileicon": "user",
+        "defaulttileicon": "pie-chart",
+        "sesskey": "12345678",
+        "courseid": 99,
+        "useSubtiles": 0,
+        "course_modules": [],
+        "single_sec_add_cm_control_html": "",
+        "single_sec_content_is_long": 0,
+        "alt": "",
+        "completion_help": ""
+        }
+}}
+{{! this has to be an li for drag and drop sections to work properly (or at all) }}
+<li id="section-{{tileid}}" data-section="{{tileid}}" data-sectionid="{{secid}}" class="section course-section main clearfix">
+    {{>format_tiles/single_section_content}}
+</li>

@@ -1,0 +1,34 @@
+{
+  "_global-!~{003}~.js": {
+    "file": "global-DuzdCNhf.css",
+    "src": "_global-!~{003}~.js"
+  },
+  "_global-CUTJa-Jf.js": {
+    "file": "global-CUTJa-Jf.js",
+    "name": "global",
+    "css": [
+      "global-DuzdCNhf.css"
+    ]
+  },
+  "src/navigation.ts": {
+    "file": "navigation-B1fmmdTo.js",
+    "name": "navigation",
+    "src": "src/navigation.ts",
+    "isEntry": true,
+    "imports": [
+      "_global-CUTJa-Jf.js"
+    ]
+  },
+  "src/view.ts": {
+    "file": "view-DMzXmcM2.js",
+    "name": "view",
+    "src": "src/view.ts",
+    "isEntry": true,
+    "imports": [
+      "_global-CUTJa-Jf.js"
+    ],
+    "css": [
+      "view-D5mHcvEW.css"
+    ]
+  }
+}

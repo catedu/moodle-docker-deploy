@@ -1,0 +1,84 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/completion_button
+
+    Course module completion icon template
+
+    The purpose of this template is to render a check box
+    for the user to check which will be used to toggle completion
+    via AJAX
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * cmid - course module id
+        * tileid - which tile for
+        * completionstate is completion complete or not
+        * completionstateInverse inverse of previous
+        * editing - is user editing
+        * sesskey - sesskey
+        * activityname - title of this module (i.e. activity name)
+        * completionIsManual - is completion set to manual or not
+        * completionstring - string to display on hover
+
+    Example context (json):
+    {
+        "cmid": 123,
+        "tileid": 1,
+        "completionstate": "0",
+        "completionstateInverse": "1",
+        "editing": 0,
+        "sesskey": 1234567890,
+        "activityname": "Lecture 1 slides",
+        "completionIsManual": 1,
+        "completionstring": "Click to toggle completion status"
+    }
+}}
+{{^editing}}
+    {{#completionIsManual}}
+        <button class="completioncheckbox{{#iscomplete}} complete{{/iscomplete}} background-course-base"
+                data-action="tiles-toggle-manual-completion-subtile" data-cmid="{{cmid}}" data-toggletype="{{#completionstate}}manual:undo{{/completionstate}}{{^completionstate}}manual:mark-done{{/completionstate}}" data-complete="{{completionstate}}"
+                data-activityname="{{activityname}}" title="{{#completionstate}}{{#str}}togglecompletioncomplete, format_tiles{{/str}}{{/completionstate}}{{^completionstate}}{{#str}}togglecompletionincomplete, format_tiles{{/str}}{{/completionstate}}">
+            {{#pix}}completion-check, format_tiles, {{completionstring}}{{/pix}}
+        </button>
+    {{/completionIsManual}}
+    {{^completionIsManual}}
+        <span class="completioncheckbox completion-auto completion-check-{{cmid}}{{#iscomplete}} complete{{/iscomplete}} background-course-base {{#isfail}} fail{{/isfail}}"
+             title="{{#completionstring}}{{completionstring}}{{/completionstring}}{{^completionstring}}{{#str}}togglecompletion, format_tiles{{/str}}{{/completionstring}}"
+             data-ismanual="0" data-toggletype="{{#completionstate}}manual:undo{{/completionstate}}{{^completionstate}}manual:mark-done{{/completionstate}}">
+            {{^isfail}}
+                {{#pix}}completion-check, format_tiles{{/pix}}
+            {{/isfail}}
+            {{#isfail}}
+                {{#pix}}completion-fail, format_tiles{{/pix}}
+            {{/isfail}}
+        </span>
+    {{/completionIsManual}}
+{{/editing}}
+{{#editing}}
+    <button class="completioncheckbox completion-check-{{cmid}}{{#iscomplete}} complete{{/iscomplete}} background-course-base"
+        data-toggletype="{{#completionstate}}manual:undo{{/completionstate}}{{^completionstate}}manual:mark-done{{/completionstate}}" data-action="tiles-toggle-manual-completion-subtile" data-cmid="{{cmid}}"
+        title="{{#completionstring}}{{completionstring}}{{/completionstring}}{{^completionstring}}{{#str}}togglecompletion, format_tiles{{/str}}{{/completionstring}}" data-ismanual="0">
+            {{#pix}}completion-check, format_tiles{{/pix}}
+    </button>
+{{/editing}}

@@ -1,0 +1,124 @@
+<?php
+// This file is part of the Checklist plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Backup steps.
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package mod_checklist
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/**
+ * Define all the backup steps that will be used by the backup_forum_activity_task
+ */
+
+/**
+ * Define the complete checklist structure for backup, with file and id annotations
+ */
+class backup_checklist_activity_structure_step extends backup_activity_structure_step {
+    /**
+     * Define the backup structure
+     * @return backup_nested_element
+     * @throws base_element_struct_exception
+     * @throws base_step_exception
+     */
+    protected function define_structure() {
+
+        // To know if we are including userinfo.
+        $userinfo = $this->get_setting_value('userinfo');
+
+        // Define each element separated.
+
+        $checklist = new backup_nested_element('checklist', ['id'], [
+            'name', 'intro', 'introformat', 'timecreated', 'timemodified', 'useritemsallowed', 'studentcomments',
+            'teacheredit', 'theme', 'duedatesoncalendar', 'teachercomments', 'maxgrade',
+            'autopopulate', 'autoupdate', 'completionpercent', 'completionpercenttype', 'emailoncomplete', 'lockteachermarks',
+        ]);
+
+        $items = new backup_nested_element('items');
+
+        $item = new backup_nested_element(
+            'item',
+            ['id'],
+            [
+                                              'userid', 'displaytext', 'position', 'indent',
+                                              'itemoptional', 'duetime', 'colour', 'moduleid', 'hidden',
+                                              'linkcourseid', 'linkurl', 'openlinkinnewwindow',
+            ]
+        );
+
+        $checks = new backup_nested_element('checks');
+
+        $check = new backup_nested_element('check', ['id'], [
+            'userid', 'usertimestamp', 'teachermark', 'teachertimestamp', 'teacherid',
+        ]);
+
+        $comments = new backup_nested_element('comments');
+
+        $comment = new backup_nested_element('comment', ['id'], [
+            'userid', 'commentby', 'text',
+        ]);
+
+        $studentcomments = new backup_nested_element('studentcomments');
+        $studentcomment = new backup_nested_element('studentcomment', ['id'], [
+            'usermodified', 'text', 'timecreated', 'timemodified',
+        ]);
+
+        // Build the tree.
+        $checklist->add_child($items);
+        $items->add_child($item);
+
+        $item->add_child($checks);
+        $checks->add_child($check);
+
+        $item->add_child($comments);
+        $comments->add_child($comment);
+
+        $item->add_child($studentcomments);
+        $studentcomments->add_child($studentcomment);
+
+        // Define sources.
+        $checklist->set_source_table('checklist', ['id' => backup::VAR_ACTIVITYID]);
+
+        if ($userinfo) {
+            $item->set_source_table('checklist_item', ['checklist' => backup::VAR_PARENTID]);
+            $check->set_source_table('checklist_check', ['item' => backup::VAR_PARENTID]);
+            $comment->set_source_table('checklist_comment', ['itemid' => backup::VAR_PARENTID]);
+            $studentcomment->set_source_table('checklist_comment_student', ['itemid' => backup::VAR_PARENTID]);
+        } else {
+            $item->set_source_sql(
+                'SELECT * FROM {checklist_item} WHERE userid = 0 AND checklist = ?',
+                [backup::VAR_PARENTID]
+            );
+        }
+
+        // Define id annotations.
+        $item->annotate_ids('user', 'userid');
+        $item->annotate_ids('course_modules', 'moduleid');
+        $check->annotate_ids('user', 'userid');
+        $check->annotate_ids('user', 'teacherid');
+        $comment->annotate_ids('user', 'userid');
+        $comment->annotate_ids('user', 'commentby');
+        $studentcomment->annotate_ids('user', 'usermodified');
+
+        // Define file annotations.
+
+        $checklist->annotate_files('mod_checklist', 'intro', null); // This file area hasn't itemid.
+
+        // Return the root element (forum), wrapped into standard activity structure.
+        return $this->prepare_activity_structure($checklist);
+    }
+}

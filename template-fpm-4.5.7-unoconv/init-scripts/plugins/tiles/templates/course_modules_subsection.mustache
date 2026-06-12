@@ -1,0 +1,48 @@
+<div class="tiles-subsection-content">
+    <div class="d-flex align-items-center position-relative">
+        <a role="button"
+           data-toggle="collapse"
+           data-for="sectiontoggler"
+           href="#coursecontentcollapse{{secid}}"
+           id="collapssesection{{secid}}"
+           data-sub-section-id="{{secid}}"
+           aria-expanded="{{^contentcollapsed}}true{{/contentcollapsed}}{{#contentcollapsed}}false{{/contentcollapsed}}"
+           aria-controls="coursecontentcollapse{{num}}"
+           class="btn btn-icon me-3 icons-collapse-expand justify-content-center
+                        {{#contentcollapsed}} collapsed {{/contentcollapsed}}"
+           aria-label="{{name}}">
+                <span class="expanded-icon icon-no-margin p-2" title="{{#str}} collapse, core {{/str}}">
+                    {{#pix}} t/expandedchevron, core {{/pix}}
+                    <span class="sr-only">{{#str}} collapse, core {{/str}}</span>
+                </span>
+                <span class="collapsed-icon icon-no-margin p-2" title="{{#str}} expand, core {{/str}}">
+                    <span class="dir-rtl-hide">{{#pix}} t/collapsedchevron, core {{/pix}}</span>
+                    <span class="dir-ltr-hide">{{#pix}} t/collapsedchevron_rtl, core {{/pix}}</span>
+                    <span class="sr-only">{{#str}} expand, core {{/str}}</span>
+                </span>
+        </a>
+        <h{{headinglevel}} class="h4 sectionname course-content-item d-flex align-self-stretch align-items-center mb-0"
+                           id="sectionid-{{secid}}-title" data-for="section_title" data-id="{{secid}}" data-number="{{singlesectionnum}}">
+            {{{title}}}
+        </h{{headinglevel}}>
+    </div>
+    <div id="coursecontentcollapse{{secid}}" class="content course-content-item-content collapse">
+        {{#availabilitymessage}}
+            {{{availabilitymessage}}}
+        {{/availabilitymessage}}
+        <ul class="format-tiles-cm-list mt-2 {{^useSubtiles}}no{{/useSubtiles}}subtiles">
+            {{#course_modules}}
+                {{>format_tiles/course_module}}
+            {{/course_modules}}
+            {{#useSubtiles}}
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+                <li class="activity subtile spacer" aria-hidden="true"></li>
+            {{/useSubtiles}}
+        </ul>
+    </div>
+</div>

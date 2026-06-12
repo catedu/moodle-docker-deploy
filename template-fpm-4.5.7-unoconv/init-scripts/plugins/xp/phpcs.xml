@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+    <description>The coding rules for Level Up XP.</description>
+
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/classes/local/compat/*</exclude-pattern>
+    <exclude-pattern>*/db/upgrade.php</exclude-pattern>
+
+    <rule ref="moodle">
+        <!-- Keep extra spacing for code readability. -->
+        <exclude name="PSR12.Classes.OpeningBraceSpace.Found" />
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine" />
+        <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody" />
+        <exclude name="PSR2.Methods.FunctionCallSignature.ContentAfterOpenBracket" />
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen" />
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose" />
+    </rule>
+
+    <rule ref="moodle.Files">
+        <exclude name="moodle.Files.BoilerplateComment" />
+    </rule>
+
+    <rule ref="moodle.Commenting">
+        <exclude name="moodle.Commenting.Package.Missing" />
+        <exclude name="moodle.Commenting.MissingDocblock" />
+        <exclude name="moodle.Commenting.TodoComment" />
+        <exclude name="moodle.Commenting.VariableComment" />
+        <exclude name="moodle.Commenting.InlineComment" />
+    </rule>
+
+    <config name="testVersion" value="8.2-" />
+</ruleset>

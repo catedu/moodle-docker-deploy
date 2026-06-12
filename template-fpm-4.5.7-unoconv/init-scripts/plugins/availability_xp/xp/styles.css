@@ -1,0 +1,9 @@
+.availability_xp_frontend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.availability_xp_frontend select {
+  display: inline;
+  width: auto;
+}

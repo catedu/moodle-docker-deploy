@@ -1,0 +1,15 @@
+.format-tiles.theme-snap ul.tiles .tile h3,
+.format-tiles.theme-snap ul.tiles .subtile h4,
+.format-tiles.theme-snap ul.tiles .tile .tile-textinner.longtitle h3 {
+    font-size: 1em;
+}
+.format-tiles .course-content ul li.section.main.moveablesection {
+    visibility: visible;
+}
+.format-tiles ul.tiles li.section .format_tiles_section_content:not(.collapse) {
+    /*For snap theme*/
+    display: block;
+}
+.format-tiles.theme-snap .course-content {
+    max-width: inherit;
+}

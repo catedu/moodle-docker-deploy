@@ -1,0 +1,131 @@
+/*
+ * SPDX-FileCopyrightText: 2023-2024 Proyecto UNIMOODLE <direccion.area.estrategia.digital@uva.es>
+ * SPDX-FileCopyrightText: 2024-2025 Albert Gasset <albertgasset@fsfe.org>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+:root {
+    --local-mail-color-gray-bg: #dee2e6;
+    --local-mail-color-blue-bg: #9ec5fe;
+    --local-mail-color-indigo-bg: #c29ffa;
+    --local-mail-color-purple-bg: #c5b3e6;
+    --local-mail-color-pink-bg: #efadce;
+    --local-mail-color-red-bg: #f1aeb5;
+    --local-mail-color-orange-bg: #fecba1;
+    --local-mail-color-yellow-bg: #ffe69c;
+    --local-mail-color-green-bg: #a3cfbb;
+    --local-mail-color-teal-bg: #a6e9d5;
+    --local-mail-color-cyan-bg: #9eeaf9;
+
+    --local-mail-color-gray-fg: #343a40;
+    --local-mail-color-blue-fg: #052c65;
+    --local-mail-color-indigo-fg: #290661;
+    --local-mail-color-purple-fg: #2c1a4d;
+    --local-mail-color-pink-fg: #561435;
+    --local-mail-color-red-fg: #58151c;
+    --local-mail-color-orange-fg: #653208;
+    --local-mail-color-yellow-fg: #664d03;
+    --local-mail-color-green-fg: #0a3622;
+    --local-mail-color-teal-fg: #0d503c;
+    --local-mail-color-cyan-fg: #055160;
+}
+
+.local-mail {
+    --bs-list-group-border-width: 1px;
+    --bs-list-group-border-color: rgba(0, 0, 0, 0.125);
+    --bs-secondary-border-subtle: rgba(0, 0, 0, 0.125);
+}
+
+.local-mail .btn:disabled {
+    opacity: 0.4;
+}
+
+.local-mail .btn-light:disabled {
+    opacity: 0.2;
+}
+
+.local-mail .dropdown-menu {
+    top: 100%;
+    margin-top: 0.125rem;
+    background-color: var(--light, var(--bs-gray-100));
+}
+
+.local-mail .dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+.local-mail .dropup .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: 0.125rem;
+}
+
+.local-mail .dropdown-item:not(:focus):hover {
+    color: inherit;
+    background-color: #eee;
+}
+
+.local-mail .fa {
+    font-size: 16px;
+}
+
+.local-mail .form-control {
+    height: auto;
+}
+
+.local-mail input.form-control:not(.is-invalid),
+.local-mail .fp-navbar,
+.local-mail .filemanager-container {
+    border-color: rgba(0, 0, 0, 0.125);
+}
+
+.local-mail .dropdown-menu {
+    z-index: 1040;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.local-mail-busy {
+    cursor: wait !important;
+}
+
+.local-mail-busy * {
+    pointer-events: none;
+}
+
+#page-local-mail-view #topofscroll {
+    padding: 0;
+    margin-bottom: 0;
+}
+#page-local-mail-view #region-main-bo {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#page-local-mail-view #page-header {
+    display: none;
+}
+
+#page-local-mail-view #page.drawers {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#page-local-mail-view #page.drawers .main-inner {
+    margin-top: 0;
+}
+
+#page-local-mail-view .btn-footer-popover {
+    display: block;
+    position: static;
+    margin: 2rem 2rem 2rem auto;
+}
+
+#page-local-mail-view.pagelayout-embedded,
+#page-local-mail-view.pagelayout-embedded .btn,
+#page-local-mail-view.pagelayout-embedded .dropdown-menu,
+#page-local-mail-view.pagelayout-embedded .form-control {
+    font-size: 1rem;
+}

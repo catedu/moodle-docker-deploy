@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="course/format/tiles/db" VERSION="20200801" COMMENT="XMLDB file for Moodle course/format/tiles"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="format_tiles_tile_options"
+           COMMENT="Options for individual tiles (e.g. photo file names for each section).
+            We use this in preference to course_format_options, since then we do not lose data when other format is selected.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" NEXT="optiontype"/>
+        <FIELD NAME="optiontype" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" NEXT="elementid"
+               COMMENT="Numeric type of this option e.g. section photo, course module photo"/>
+        <FIELD NAME="elementid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" NEXT="optionvalue"
+               COMMENT="Id of the course item this relates to e.g. section id or course module id"/>
+        <FIELD NAME="optionvalue" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="id"
+               COMMENT="Value for this option e.g. 'apples.jpg' for a particular section photo"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="elementid-optiontype" UNIQUE="false" FIELDS="elementid, optiontype"/>
+        <INDEX NAME="courseid-elementid-optiontype" UNIQUE="true" FIELDS="courseid, elementid, optiontype"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

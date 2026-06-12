@@ -1,0 +1,64 @@
+{{!
+    SPDX-FileCopyrightText: 2023-2024 Proyecto UNIMOODLE <direccion.area.estrategia.digital@uva.es>
+
+    SPDX-License-Identifier: GPL-3.0-or-later
+}}
+{{!
+    @template local_mail/notification_html
+
+    HTML notification template.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * coursename
+    * courseurl
+    * sendername
+    * senderurl
+    * date
+    * subject
+    * content
+    * attachments: [{path, size, url, icon}]
+    * viewurl
+}}
+<div style="font-family: sans-serif">
+    <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; line-height: 1.5">
+        <tr>
+            <td style="vertical-align: top; padding-right: 1em">{{#str}} from, local_mail {{/str}}:</td>
+            <td><a target="_blank" href="{{{ senderurl }}}">{{ sendername }}</a></td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; padding-right: 1em">{{#str}} subject, local_mail {{/str}}:</td>
+            <td>
+                <a target="_blank" href="{{ viewurl }}">
+                    {{ subject }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; padding-right: 1em">{{#str}} course, local_mail {{/str}}:</td>
+            <td><a target="_blank" href="{{{ courseurl }}}">{{ coursename }}</a></td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; padding-right: 1em">{{#str}} date, local_mail {{/str}}:</td>
+            <td>{{ date }}</td>
+        </tr>
+    </table>
+    <hr size="1">
+    {{{ content }}}
+    {{# hasattachments }}
+    <hr size="1">
+    {{# attachments }}
+        <div style="margin: 8px 0">
+            <img aria-hidden="true" alt="" src="{{ icon }}" width="24" height="24" style="vertical-align: middle">
+            <a target="_blank" href="{{ url }}">{{ path }}</a> ({{ size }})
+        </div>
+    {{/ attachments }}
+    {{/ hasattachments }}
+    <hr size="1">
+    <a target="_blank" href="{{ viewurl }}">{{#str}} viewmessage, local_mail {{/str}}</a>
+</div>
