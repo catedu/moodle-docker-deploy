@@ -129,21 +129,23 @@ while IFS=, read -r LFP LOE; do
     sql_output=$(docker exec --user www-data "$CONTAINER" moosh sql-run \
         "SELECT id, shortname FROM mdl_course WHERE shortname LIKE '%${LOE}%'")
 
-    # tail -n +2 descarta la línea de cabecera que devuelve moosh sql-run.
-    # grep filtra líneas en blanco. || true evita que set -e aborte si no hay resultados.
-    mapfile -t rows < <(echo "$sql_output" | tail -n +2 | grep -v '^\s*$' || true)
+    # moosh sql-run devuelve objetos PHP serializados en formato multilínea:
+    #   Record N stdClass Object ( [id] => X [shortname] => Y )
+    # Se extraen todos los pares id/shortname del bloque completo de salida.
+    mapfile -t ids        < <(echo "$sql_output" | grep -oP '\[id\] => \K\S+'        || true)
+    mapfile -t shortnames < <(echo "$sql_output" | grep -oP '\[shortname\] => \K\S+' || true)
 
-    if [[ ${#rows[@]} -eq 0 ]]; then
+    if [[ ${#ids[@]} -eq 0 ]]; then
         log WARN  "No se encontró ningún curso con shortname que contenga '${LOE}'"
         continue
     fi
 
     # Por cada curso encontrado se construye el nuevo shortname y se aplica.
-    for row in "${rows[@]}"; do
-        id=$(echo "$row" | awk '{print $1}')
-        old_shortname=$(echo "$row" | awk '{print $2}')
+    for i in "${!ids[@]}"; do
+        id="${ids[$i]}"
+        old_shortname="${shortnames[$i]}"
 
-        # Saltarse filas que moosh devuelva malformadas o vacías.
+        # Saltarse entradas malformadas o vacías.
         if [[ -z "$id" || -z "$old_shortname" ]]; then
             continue
         fi
