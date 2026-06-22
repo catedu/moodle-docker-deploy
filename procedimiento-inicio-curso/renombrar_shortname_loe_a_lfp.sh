@@ -60,6 +60,9 @@ EJEMPLOS:
   # Ejecución en segundo plano con nohup (stdout/stderr van al log del script):
   nohup ./$(basename "$0") --csv ./otro_fichero.csv > /dev/null 2>&1 &
   echo "PID: \$!"
+
+  # Ejemplo de ejecución
+  ./$(basename "$0") --container nuevofpvirtualaragones-moodle-1
 EOF
 }
 
