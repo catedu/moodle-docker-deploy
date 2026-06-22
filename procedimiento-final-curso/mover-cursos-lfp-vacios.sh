@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# Nombre: mover-cursos-loe-no-usados.sh
+# Nombre: mover-cursos-lfp-vacios.sh
 # Propósito: Lee un fichero CSV con códigos LFP en la primera columna, busca
 #            ficheros cuyo nombre contenga dichos códigos en un directorio base
 #            y los mueve a la carpeta LFP.old.
 #
 # Uso:
-#   ./mover-cursos-loe-no-usados.sh [OPCIONES]
-#   ./mover-cursos-loe-no-usados.sh --help
+#   ./mover-cursos-lfp-vacios.sh [OPCIONES]
+#   ./mover-cursos-lfp-vacios.sh --help
 #
 # Opciones:
 #   --csv, -c <ruta>      Ruta al fichero CSV (por defecto: CSV en el mismo
@@ -62,8 +62,8 @@ log() {
 # Función de ayuda
 show_help() {
     cat << 'EOF'
-Uso: mover-cursos-loe-no-usados.sh [OPCIONES]
-       mover-cursos-loe-no-usados.sh --help
+Uso: mover-cursos-lfp-vacios.sh [OPCIONES]
+       mover-cursos-lfp-vacios.sh --help
 
 Descripción:
   Lee un fichero CSV con códigos LFP en la primera columna, busca ficheros
@@ -83,19 +83,19 @@ Configuración mediante variables de entorno:
 
 Ejemplos:
   # Ejecución síncrona con valores por defecto
-  ./mover-cursos-loe-no-usados.sh
+  ./mover-cursos-lfp-vacios.sh
 
   # Especificando CSV y directorio base
-  ./mover-cursos-loe-no-usados.sh --csv /ruta/al/fichero.csv --base-dir /datos/cursos
+  ./mover-cursos-lfp-vacios.sh --csv /ruta/al/fichero.csv --base-dir /datos/cursos
 
   # Abreviado
-  ./mover-cursos-loe-no-usados.sh -c fichero.csv -b /datos/cursos
+  ./mover-cursos-lfp-vacios.sh -c fichero.csv -b /datos/cursos
 
   # Ejecución en segundo plano con nohup
-  nohup ./mover-cursos-loe-no-usados.sh --base-dir /datos/cursos > /dev/null 2>&1 &
+  nohup ./mover-cursos-lfp-vacios.sh --base-dir /datos/cursos > /dev/null 2>&1 &
 
   # Ejecución con nohup y redirección a un fichero de salida personalizado
-  nohup ./mover-cursos-loe-no-usados.sh -c fichero.csv -b /datos/cursos > salida.log 2>&1 &
+  nohup ./mover-cursos-lfp-vacios.sh -c fichero.csv -b /datos/cursos > salida.log 2>&1 &
 EOF
     exit 0
 }
