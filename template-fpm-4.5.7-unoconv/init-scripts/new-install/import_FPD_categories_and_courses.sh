@@ -770,7 +770,8 @@ do
     else
         # Si existe el curso lo restauro
         echo "***** Restoring /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz course to category ${CATEGORY}"
-        COURSE_ID=$(moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz "${!CATEGORY}" | tail -n 1 | grep -o '[0-9]*' | tail -1)
+        RESTORE_OUTPUT=$(moosh course-restore /var/www/moodledata/repository/mbzs_curso_anterior/${SHORTNAME}.mbz "${!CATEGORY}")
+        COURSE_ID=$(echo "${RESTORE_OUTPUT}" | grep "^Restoring" | sed 's/.*): //' | cut -d',' -f1)
         # Configuro full y short names por si al restaurar había datos erróneos en origen
         moosh course-config-set course "${COURSE_ID}" shortname "${SHORTNAME}"
         moosh course-config-set course "${COURSE_ID}" fullname "${FULLNAME}"
