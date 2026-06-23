@@ -22,7 +22,6 @@ materiales_campus.sftp.old/
 nginx-proxy/output.log
 backups/
 fpm-conf/
-init-scripts/
 mariadb-10.11.13/
 mariadb-10.11.16/
 moodle-api-test/
