@@ -16,7 +16,6 @@ nohup.out
 *.sql
 dockprom*
 .vscode
-soporte/
 directoriosZz_ftp_ministerio_htmls.txt
 materiales_campus.sftp.old/
 nginx-proxy/output.log
@@ -32,6 +31,5 @@ nginx/
 php-conf/
 restauraciones/
 template-fpm-4.1.3-unoconv/template
-template-fpm-4.5.7-unoconv/template
 test_api-backups/
 procedimiento-final-curso/*.log
