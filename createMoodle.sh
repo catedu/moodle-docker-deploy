@@ -51,6 +51,7 @@ get_parameter(){
                     [[ "${OPTARG}" =~ ^[Ww][Ww][Ww] ]] && MOODLE_URL="https://www.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo] ]] && MOODLE_URL="https://nuevo.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo][2] ]] && MOODLE_URL="https://nuevo2.fpvirtualaragon.es"
+                    [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo][3] ]] && MOODLE_URL="https://nuevo3.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Mm][Oo][Oo][Dd][Ll][Ee] ]] && MOODLE_URL="https://moodle.campusdigitalfp.com"
