@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Uso el nombre completo del fichero tar.gz para evitar ambigüedades con el de versiones anteriores
-cp /init-scripts/themes/moove_settings_1678709978.tar.gz /var/www/html/        
-moosh theme-settings-import --targettheme moove moove_settings_1678709978.tar.gz
+cp /init-scripts/themes/moove_settings_1782210003.tar.gz /var/www/html/        
+moosh theme-settings-import --targettheme moove moove_settings_1782210003.tar.gz
 cp /init-scripts/themes/frontpage.mustache /var/www/html/theme/moove/templates
 cp /init-scripts/themes/booFont/* /var/www/html/theme/moove/fonts/
 cp /init-scripts/themes/fpdist/pix/favicon.ico /var/www/html/theme/moove/pix/favicon.ico

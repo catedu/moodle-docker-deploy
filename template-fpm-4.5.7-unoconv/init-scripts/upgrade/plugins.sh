@@ -34,7 +34,7 @@ if [[ "${SCHOOL_TYPE}" = "FPD" ]];
                 "quizaccess_onesession"
                 "mod_choicegroup"
                 "mod_pdfannotator"
-		"mod_pdfannotator"
+		        "mod_pdfannotator"
                 # for moodle 3.8 "tool_opcache"
         )
     else
