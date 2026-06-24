@@ -19,6 +19,7 @@ Opciones:
   -h, --help              Muestra esta ayuda y sale
 
 Ejemplo de uso:
+  /var/moodle-docker-deploy/procedimiento-final-curso/backup_to_mbz_moodle_courses.sh --contenedor "wwwfpvirtualaragones_2-moodle-1" --destino /var/moodle-docker-deploy/zz_mbzs_20260625
   ./backup_to_mbz_moodle_courses.sh --contenedor "predesarrollofpvirtualaragones-moodle-1" --filtro "CPIFP CORONA DE ARAGÓN"
   nohup ./backup_to_mbz_moodle_courses.sh --contenedor "predesarrollofpvirtualaragones-moodle-1" --filtro "CPIFP CORONA DE ARAGÓN" &
 EOF
