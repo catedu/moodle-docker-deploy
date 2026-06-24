@@ -2,7 +2,7 @@
 set -euo pipefail
 
 CONTENEDOR_POR_DEFECTO="wwwfpvirtualaragones_2-moodle-1"
-MOODLE_MAINTENANCE="/var/www/moodle/admin/cli/maintenance.php"
+MOODLE_MAINTENANCE="/var/www/html/admin/cli/maintenance.php"
 USUARIO_CONTENEDOR="www-data"
 RUTA_SCRIPT="/var/moodle-docker-deploy/procedimiento-final-curso/activar_mantenimiento_moodle.sh"
 
@@ -27,7 +27,7 @@ Ejemplos:
     ./activar_mantenimiento_moodle.sh
 
   Ejecución indicando explícitamente el contenedor:
-    ./activar_mantenimiento_moodle.sh wwwfpvirtualaragones_2-moodle-1
+    ./activar_mantenimiento_moodle.sh testfpvirtualaragones-moodle-1
 
   Ejecución desde ruta absoluta:
     /var/moodle-docker-deploy/procedimiento-final-curso/activar_mantenimiento_moodle.sh
