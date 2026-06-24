@@ -27,7 +27,7 @@ Ejemplos:
     ./activar_mantenimiento_moodle.sh
 
   Ejecución indicando explícitamente el contenedor:
-    ./activar_mantenimiento_moodle.sh wwwfpvirtualaragones_2-moodle-1
+    ./activar_mantenimiento_moodle.sh testfpvirtualaragones-moodle-1
 
   Ejecución desde ruta absoluta:
     /var/moodle-docker-deploy/procedimiento-final-curso/activar_mantenimiento_moodle.sh
