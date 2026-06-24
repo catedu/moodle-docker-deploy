@@ -69,6 +69,11 @@ JE_MV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefat
 JE_AV_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES AVEMPACE" prof_je_av | grep -o '[0-9]*' | tail -1)
 JE_MM_USER_ID=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Jefatura de estudios" --lastname "IES MARÍA MOLINER" prof_je_mm | grep -o '[0-9]*' | tail -1)
 
+ADMIN2=$(moosh user-create --password "${MANAGER_PASSWORD}" --email fpdistancia@aragon.es --digest 2 --city Aragón --country ES --firstname "Administrador" --lastname "Campus Digital FP - Virtual" admin2 | grep -o '[0-9]*' | tail -1)
+ADMIN3=$(moosh user-create --password "${MANAGER_PASSWORD}" --email amcandialq@campusdigitalfp.com --digest 2 --city Aragón --country ES --firstname "Administrador" --lastname "Ana María Candial" admin3 | grep -o '[0-9]*' | tail -1)
+ADMIN4=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Administrador" --lastname "Darío Axel Ureña" admin4 | grep -o '[0-9]*' | tail -1)
+ADMIN5=$(moosh user-create --password "${MANAGER_PASSWORD}" --email jefaturas@educa.aragon.es --digest 2 --city Aragón --country ES --firstname "Administrador" --lastname "Prácticas" admin5 | grep -o '[0-9]*' | tail -1)
+
 #############################################################################################
 # Creo las categorías:
 #############################################################################################
