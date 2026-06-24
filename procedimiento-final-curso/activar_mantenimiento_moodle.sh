@@ -2,7 +2,7 @@
 set -euo pipefail
 
 CONTENEDOR_POR_DEFECTO="wwwfpvirtualaragones_2-moodle-1"
-MOODLE_MAINTENANCE="/var/www/moodle/admin/cli/maintenance.php"
+MOODLE_MAINTENANCE="/var/www/html/admin/cli/maintenance.php"
 USUARIO_CONTENEDOR="www-data"
 RUTA_SCRIPT="/var/moodle-docker-deploy/procedimiento-final-curso/activar_mantenimiento_moodle.sh"
 
