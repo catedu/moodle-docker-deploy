@@ -105,16 +105,19 @@ log INFO "Log        : $LOG_FILE"
 
 # Lectura del CSV fila a fila. IFS=, separa las columnas por coma.
 # La primera fila (cabecera) se salta con el flag first_row.
+# Si el CSV tiene más de dos columnas, el resto se captura en "_resto"
+# y se ignora; solo se usan las dos primeras (LFP y LOE).
 first_row=true
-while IFS=, read -r LFP LOE; do
+while IFS=, read -r LFP LOE _resto; do
     if $first_row; then
         first_row=false
         continue
     fi
 
-    # Eliminar posibles espacios en blanco alrededor de los valores.
-    LFP="${LFP// /}"
-    LOE="${LOE// /}"
+    # Eliminar espacios y retornos de carro (CSV con finales de línea CRLF
+    # de Windows), que de lo contrario quedan pegados al final de LOE.
+    LFP="${LFP//[$'\r ']/}"
+    LOE="${LOE//[$'\r ']/}"
 
     # Ignorar filas vacías o incompletas.
     if [[ -z "$LFP" || -z "$LOE" ]]; then
