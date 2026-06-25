@@ -1,6 +1,6 @@
 id,shortname,name,datatype,description,descriptionformat,categoryid,sortorder,required,locked,visible,forceunique,signup,defaultdata,defaultdataformat,param1,param2,param3,param4,param5,categoryname,categorysortorder
 1,jefatura_estudios,"Jefaturas de estudios",text,"<p dir=""ltr"" style=""text-align:left;"">ID de la categoría a la que el/la jefe de estudios</p>",1,1,1,0,1,0,1,0,,0,4,4,0,,,"Otros campos",1
-2,dni_cnd,"DNI para CND",text,,1,1,2,0,0,1,0,0,,0,30,2048,0,,,"Otros campos",1
+2,dni_cdd,"DNI para CDD",text,,1,1,2,0,0,1,0,0,,0,30,2048,0,,,"Otros campos",1
 3,consentimiento_cdd,"Consiento consultar mis datos de uso de la plataforma para la acreditación de la Competencia Digital Docente",checkbox,,1,1,3,0,0,1,0,0,0,0,,,,,,"Otros campos",1
 4,email_sigad,"Email en SIGAD",text,,1,1,4,0,0,0,0,0,,0,30,2048,0,,,"Otros campos",1
 5,id_sigad,"Número ID en SIGAD",text,,1,1,5,0,0,0,0,0,,0,20,20,0,,,"Otros campos",1
