@@ -161,7 +161,7 @@ while IFS=, read -r LFP LOE _resto; do
 
         # Aplica el nuevo shortname directamente en la base de datos de Moodle
         # a través de moosh course-config-set.
-        docker exec --user www-data "$CONTAINER" moosh course-config-set "$id" shortname "$new_shortname"
+        docker exec --user www-data "$CONTAINER" moosh course-config-set course "$id" shortname "$new_shortname"
         log INFO  "Curso id=${id} renombrado correctamente."
     done
 
