@@ -62,6 +62,7 @@ services:
       FPD_EMAIL: "${FPD_EMAIL}"
       APP_PASSWORD: "${APP_PASSWORD}"
       APP_TEACHER_PASSWORD: "${APP_TEACHER_PASSWORD}"
+      EDUCAARAGON_RESOURCES_PATH: "${EDUCAARAGON_RESOURCES_PATH:-./recursos-editables}"
       BLACKBOARD_URL: "${BLACKBOARD_URL}"
       BLACKBOARD_KEY: "${BLACKBOARD_KEY}"
       BLACKBOARD_SECRET: "${BLACKBOARD_SECRET}"
@@ -76,6 +77,7 @@ services:
       - moodle_network
     volumes:
       - ./moodle-data:/var/www/moodledata
+      - ${EDUCAARAGON_RESOURCES_PATH:-./recursos-editables}:/var/www/moodledata/repository/recursos-editables
       - ./moodle-code:/var/www/html
       - ./fpm-conf:/usr/local/etc/php-fpm.d
       - ./php-conf/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini

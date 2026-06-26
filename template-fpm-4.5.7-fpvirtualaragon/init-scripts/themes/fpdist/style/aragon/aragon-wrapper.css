@@ -1,0 +1,62 @@
+/*
+     * author: Enrique Meléndez Estrada
+     * company: Instituto Tecnológico de Aragón (ITAINNOVA)
+     * version: 1.0.0 (2017-03-22)
+     * license: MIT (leave this comment, as is, in your CSS)
+     */
+    .aragob_header_wrapper {
+       /* position: fixed;*/
+        top: 0;
+        z-index: 9999;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        width: 100%!important;
+        background-color: #fff;
+		position: fixed;
+		padding: 0px;
+		border-bottom: 4px red;
+    }
+    .aragob_header{
+        max-width: 960px; /* ( 662px + 40px + 178px + 80px ) */
+        background: transparent url('fondo_aragob.png') no-repeat top right; /* width: 960px x height: 80px */
+    }
+    .aragob_header::before{
+        content: "";
+        display: block;
+        background: transparent url('logo_arago.png') no-repeat right center; /* width: 178px x height: 80px */
+        height: 80px;
+        width: calc(100vw - 80px);
+    }
+
+    /*start  estilos para moodle more */
+    .nav-inicio {
+  		margin-top: 80px !important;
+      position: relative !important;
+      background-color: #fff;
+
+  }
+  .container-fluid{
+    margin-top: 0px !important;
+  }
+  /*end estilos para modle more */
+
+	/* small mobile :320px. */
+@media (max-width: 767px) {
+	.aragob_header{
+        background: transparent url('fondo_aragob-p.png') no-repeat top right; /* width: 960px x height: 80px */
+    }
+	.aragob_header::before{
+        background: transparent url('logo_arago-p.png') no-repeat right center; /* width: 178px x height: 80px */
+		height: 40px;
+		width: calc(100vw - 40px);
+    }
+    /*start  estilos para moodle more */
+	.nav-inicio{
+		margin-top: 40px !important;
+    position: relative !important;
+    background-color: #fff;
+  }
+    .container-fluid{
+      margin-top: 0px !important;
+    }
+    /*end  estilos para moodle more */
+}

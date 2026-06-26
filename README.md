@@ -77,3 +77,40 @@ Con estos cambios, todas las variables quedan únicamente con el número de ID, 
 
 ¿Quieres que aplique la misma corrección a los demás scripts (`import_IES_categories_and_courses.sh`, etc.) si los hubiera, o actualice también el archivo `_backup`?
 
+
+## Sistema de gestión de plugins
+
+A partir de junio de 2026, la plantilla `template-fpm-4.5.7-fpvirtualaragon` (y `template-fpm-4.5.7-unoconv`) utiliza un catálogo centralizado de plugins:
+
+- **`init-scripts/plugins.json`**: catálogo maestro con metadatos de cada plugin (`name`, `component`, `moodle_path`, `default_enabled`, `school_types`, `install_types`, etc.).
+- **`init-scripts/lib/plugins-lib.sh`**: helpers para leer el catálogo y determinar qué plugins están habilitados según variables `PLUGIN_*` del `.env`.
+- **`init-scripts/new-install/plugins.sh`** y **`init-scripts/upgrade/plugins.sh`**: instalan y configuran los plugins habilitados mediante `moosh`.
+
+### Habilitar/deshabilitar plugins
+
+En el `.env` de cada instancia (generado por `createMoodle.sh`):
+
+```env
+PLUGIN_MOD_GOOGLEMEET=true
+# PLUGIN_MOD_GOOGLEMEET_LEGACY=true
+```
+
+- `true`: el plugin se instala/configura.
+- `false` o línea comentada: se omite.
+- Si no se define la variable, se usa `default_enabled` de `plugins.json`.
+
+### Plugin `local_educaaragon` (FPD)
+
+Para centros FPD, el plugin `local_educaaragon` se configura automáticamente durante la instalación/upgrade. Requiere:
+
+1. Variable `EDUCAARAGON_RESOURCES_PATH` en `.env` (por defecto `./recursos-editables`).
+2. Que el directorio apuntado exista en el host.
+3. Que `createMoodle.sh` pueda montarlo en `moodle-data/repository/recursos-editables`.
+
+### Añadir un nuevo plugin
+
+1. Incluir el plugin en `template/init-scripts/plugins.json`.
+2. Si necesita acciones post-instalación, añadir el caso en `template/init-scripts/new-install/plugins.sh`.
+3. Añadir la variable `PLUGIN_<NOMBRE>` a `env-sample` si se quiere controlar por `.env`.
+4. Reconstruir/actualizar las instancias afectadas.
+

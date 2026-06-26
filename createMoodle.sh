@@ -52,6 +52,7 @@ get_parameter(){
                     [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo] ]] && MOODLE_URL="https://nuevo.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo][2] ]] && MOODLE_URL="https://nuevo2.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo][3] ]] && MOODLE_URL="https://nuevo3.fpvirtualaragon.es"
+                    [[ "${OPTARG}" =~ ^[Nn][Uu][Ee][Vv][Oo][4] ]] && MOODLE_URL="https://nuevo4.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Tt][Ee][Ss][Tt] ]] && MOODLE_URL="https://test.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Pp][Rr][Ee][Dd][Ee][Ss][Aa][Rr][Rr][Oo][Ll][Ll][Oo] ]] && MOODLE_URL="https://predesarrollo.fpvirtualaragon.es"
                     [[ "${OPTARG}" =~ ^[Mm][Oo][Oo][Dd][Ll][Ee] ]] && MOODLE_URL="https://moodle.campusdigitalfp.com"
@@ -234,6 +235,16 @@ FPD_EMAIL="${FPD_EMAIL}"
 APP_PASSWORD="${APP_PASSWORD}"
 APP_TEACHER_PASSWORD="${APP_TEACHER_PASSWORD}"
 
+# API REST user
+API_USER_PASSWORD="${API_USER_PASSWORD}"
+
+# Plugin local_educaaragon (Educa Aragon)
+EDUCAARAGON_RESOURCES_PATH="${EDUCAARAGON_RESOURCES_PATH:-./recursos-editables}"
+
+# Plugins opcionales
+PLUGIN_MOD_GOOGLEMEET="${PLUGIN_MOD_GOOGLEMEET:-true}"
+# PLUGIN_MOD_GOOGLEMEET_LEGACY="${PLUGIN_MOD_GOOGLEMEET_LEGACY:-false}"
+
 EOF
     
     fi
@@ -280,6 +291,9 @@ MANAGER_PASSWORD="${MANAGER_PASSWORD}"
 ASESORIA_PASSWORD="${ASESORIA_PASSWORD}"
 ASESORIA_EMAIL="${ASESORIA_EMAIL}"
 
+# API REST user
+API_USER_PASSWORD="${API_USER_PASSWORD}"
+
 EOF
     
     fi
@@ -318,6 +332,19 @@ then
         echo "  creating path ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}"
         [ ! -d ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY} ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/${REPOSITORY}
     done
+
+    # Recursos editables para plugin local_educaaragon
+    echo "  creating path ${VIRTUALHOST}/moodle-data/repository/recursos-editables"
+    [ ! -d ${VIRTUALHOST}/moodle-data/repository/recursos-editables ] && sudo mkdir -p ${VIRTUALHOST}/moodle-data/repository/recursos-editables
+
+    EDUCAARAGON_SRC="$(readlink -f "${EDUCAARAGON_RESOURCES_PATH}")"
+    if [ -d "${EDUCAARAGON_SRC}" ]; then
+        echo "  mounting ${EDUCAARAGON_SRC} in /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/recursos-editables"
+        ! grep -F /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/recursos-editables /proc/mounts >/dev/null && \
+            sudo mount -o bind "${EDUCAARAGON_SRC}" /var/moodle-docker-deploy/${VIRTUALHOST}/moodle-data/repository/recursos-editables
+    else
+        echo "  WARNING: ${EDUCAARAGON_SRC} does not exist. local_educaaragon may not work."
+    fi
 
     echo "  setting permissions to repositories"
     sudo chown -R www-data:www-data ${VIRTUALHOST}/moodle-data/repository

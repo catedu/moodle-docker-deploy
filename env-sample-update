@@ -1,2 +1,15 @@
 ## ADD/MOD VARIABLES FOR UPDATE
 # This variables will be added or modified the .env site
+
+# Plugin local_educaaragon (Educa Aragon) - solo FPD
+# Ruta en el host del directorio con los recursos editables.
+# Se montara dentro del contenedor como /var/www/moodledata/repository/recursos-editables
+EDUCAARAGON_RESOURCES_PATH=./recursos-editables
+
+# Plugins opcionales (control via .env del sitio)
+# PLUGIN_MOD_GOOGLEMEET=true          # Fork hyukudan (por defecto en FPD)
+# PLUGIN_MOD_GOOGLEMEET_LEGACY=true   # Version original ronefel (Moodle 4.1). Solo una debe estar activa.
+
+
+# API REST user
+API_USER_PASSWORD=myverystrongpass
