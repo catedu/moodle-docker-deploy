@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PATH="question/type/matrix/db" VERSION="20090313"
+       COMMENT="XMLDB file for Moodle question/type/matrix"
+       xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <TABLE NAME="qtype_matrix" COMMENT="Contains info about matrix questions" NEXT="qtype_matrix_cols">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"
+                       NEXT="questionid"/>
+                <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="FK to question table" PREVIOUS="id" NEXT="grademethod"/>
+                <FIELD NAME="grademethod" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="what the grading method is for this question.  Should match a constant in phpcode, QTYPE_MATRIX_GRADING_*"
+                       PREVIOUS="questionid" NEXT="multiple"/>
+                <FIELD NAME="multiple" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false"
+                       COMMENT="whether this question is allowed multiple choice (eg checkboxes rather than radio buttons)"
+                       PREVIOUS="grademethod" NEXT="usedndui"/>
+                <FIELD NAME="usedndui" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"
+                       SEQUENCE="false" COMMENT="Use drag and drop UI?" PREVIOUS="multiple" NEXT="shuffleanswers"/>
+                <FIELD NAME="shuffleanswers" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1"
+                       SEQUENCE="false" COMMENT="Shuffle answer statements?" PREVIOUS="usedndui"
+                       NEXT="renderer"/>
+                <FIELD NAME="renderer" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="the type of renderer to use to draw the student ui (eg, could be drag and drop later, but is 'matrix' for now).  should match a class: qtype_matrix_renderer_{$value}"
+                       PREVIOUS="multiple"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="questionidfk"/>
+                <KEY NAME="questionidfk" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"
+                     COMMENT="fk to question table" PREVIOUS="primary"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="qtype_matrix_cols" COMMENT="Column definitions for the question matrix"
+               PREVIOUS="qtype_matrix" NEXT="qtype_matrix_rows">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"
+                       NEXT="matrixid"/>
+                <FIELD NAME="matrixid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="fk to qtype_matrix table" PREVIOUS="id" NEXT="shorttext"/>
+                <FIELD NAME="shorttext" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="short word to fit in the matrix" PREVIOUS="matrixid" NEXT="description"/>
+                <FIELD NAME="description" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false"
+                       COMMENT="longer text to explain shorttext." PREVIOUS="shorttext"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="matrixidfk"/>
+                <KEY NAME="matrixidfk" TYPE="foreign" FIELDS="matrixid" REFTABLE="qtype_matrix" REFFIELDS="id"
+                     COMMENT="fk to qtype_matrix table." PREVIOUS="primary"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="qtype_matrix_rows" COMMENT="Row definitions for the question matrix"
+               PREVIOUS="qtype_matrix_cols" NEXT="qtype_matrix_weights">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"
+                       NEXT="matrixid"/>
+                <FIELD NAME="matrixid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="fk to qtype_matrix table" PREVIOUS="id" NEXT="shorttext"/>
+                <FIELD NAME="shorttext" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false"
+                       COMMENT="short word to fit in the matrix" PREVIOUS="matrixid" NEXT="description"/>
+                <FIELD NAME="description" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false"
+                       COMMENT="longer text to explain shorttext." PREVIOUS="shorttext" NEXT="feedback"/>
+                <FIELD NAME="feedback" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false"
+                       COMMENT="feedback." PREVIOUS="description"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="matrixidfk"/>
+                <KEY NAME="matrixidfk" TYPE="foreign" FIELDS="matrixid" REFTABLE="qtype_matrix" REFFIELDS="id"
+                     COMMENT="fk to qtype_matrix table." PREVIOUS="primary"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="qtype_matrix_weights" COMMENT="weightings for the cells if necessary."
+               PREVIOUS="qtype_matrix_rows">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"
+                       NEXT="rowid"/>
+                <FIELD NAME="rowid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="fk to qtype_matrix_rows" PREVIOUS="id" NEXT="colid"/>
+                <FIELD NAME="colid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       COMMENT="fk to qtype_matrix_cols" PREVIOUS="rowid" NEXT="weight"/>
+                <FIELD NAME="weight" TYPE="float" LENGTH="4" NOTNULL="true" UNSIGNED="false" DEFAULT="0"
+                       SEQUENCE="false" DECIMALS="3" COMMENT="percentage weighting for this cell."
+                       PREVIOUS="colid"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="rowidfk"/>
+                <KEY NAME="rowidfk" TYPE="foreign" FIELDS="rowid" REFTABLE="qtype_matrix_rows" REFFIELDS="id"
+                     COMMENT="fk to qtype_matrix_rows" PREVIOUS="primary" NEXT="colidfk"/>
+                <KEY NAME="colidfk" TYPE="foreign" FIELDS="colid" REFTABLE="qtype_matrix_cols" REFFIELDS="id"
+                     COMMENT="fk to qtype_matrix_cols" PREVIOUS="rowidfk"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>

@@ -1,0 +1,147 @@
+name: Moodle Plugin CI
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: codeberg-medium-lazy
+
+    services:
+      pgsql:
+        image: code.forgejo.org/oci/postgres:17
+        env:
+          POSTGRES_HOST_AUTH_METHOD: 'trust'
+      selenium:
+        image: selenium/standalone-chrome:4
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - moodle-branch: 'MOODLE_405_STABLE'
+            php: '8.1'
+            webserver-root: 'moodle'
+          - moodle-branch: 'MOODLE_500_STABLE'
+            php: '8.3'
+            webserver-root: 'moodle'
+          - moodle-branch: 'MOODLE_501_STABLE'
+            php: '8.4'
+            webserver-root: 'moodle/public'
+
+    env:
+      MOODLE_START_BEHAT_SERVERS: 'NO'
+      MOODLE_BEHAT_SELENIUM_IMAGE: 'selenium'
+      MOODLE_BEHAT_WDHOST: "http://selenium:4444/wd/hub"
+      MOODLE_BEHAT_PORT: '8000'
+      NVM_VERSION: 'v0.40.4'
+
+    steps:
+      - name: Check out repository code
+        uses: https://data.forgejo.org/actions/checkout@v4
+        with:
+          path: plugin
+
+      - name: Install locales
+        run: apt update && apt install -y locales postgresql-client
+
+      - name: Setup PHP
+        uses: https://github.com/shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: gd
+          ini-values: max_input_vars=5000
+          # If you are not using code coverage, keep "none". Otherwise, use "pcov" (Moodle 3.10 and up) or "xdebug".
+          # If you try to use code coverage with "none", it will fallback to phpdbg (which has known problems).
+          coverage: none
+
+      - name: Initialise moodle-plugin-ci
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
+          . $HOME/.nvm/nvm.sh
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo $(cd ci/bin; pwd) >> $GITHUB_PATH
+          echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
+          sudo locale-gen en_AU.UTF-8
+          echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.OAUTH_TOKEN_GITHUB }}"}}'
+          GITHUB_TOKEN: ${{ secrets.OAUTH_TOKEN_GITHUB }}
+
+      - name: Detect job container name and set MOODLE_BEHAT_WWWROOT
+        run: |
+          {
+            job_container_ip=$(hostname -I | awk '{print $1}')
+            echo "JOB_CONTAINER_IP=$job_container_ip"
+            echo "MOODLE_BEHAT_WWWROOT=http://$job_container_ip:$MOODLE_BEHAT_PORT"
+          } >>"$FORGEJO_ENV"
+
+      - name: Install moodle-plugin-ci
+        run: |
+          moodle-plugin-ci add-plugin --clone https://github.com/ecampbell/moodle-booktool_wordimport --branch master
+          moodle-plugin-ci install --plugin ./plugin --db-type=pgsql --db-host=pgsql
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.OAUTH_TOKEN_GITHUB }}"}}'
+          GITHUB_TOKEN: ${{ secrets.OAUTH_TOKEN_GITHUB }}
+          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+
+      - name: PHP Lint
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phplint
+
+      - name: PHP Mess Detector
+        continue-on-error: true # This step will show errors but will not fail
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpmd
+
+      - name: Moodle Code Checker
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpcs --max-warnings 0
+
+      - name: Moodle PHPDoc Checker
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpdoc --max-warnings 0
+
+      - name: Validating
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci validate
+
+      - name: Check upgrade savepoints
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci savepoints
+
+      - name: Mustache Lint
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci mustache
+
+      - name: Grunt
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci grunt --max-lint-warnings 0
+
+      - name: PHPUnit tests
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpunit --fail-on-warning
+
+      - name: Behat features
+        id: behat
+        if: ${{ !cancelled() }}
+        run: |
+          echo "\$CFG->behat_increasetimeout = 3;" >> moodle/config.php
+          php -S "$JOB_CONTAINER_IP:$MOODLE_BEHAT_PORT" -t ${{ matrix.webserver-root }} > /dev/null 2>&1 &
+          sleep 2
+          moodle-plugin-ci behat --profile chrome
+
+      - name: Upload Behat Faildump
+        if: ${{ failure() && steps.behat.outcome == 'failure' }}
+        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          name: Behat Faildump (${{ join(matrix.*, ', ') }})
+          path: ${{ github.workspace }}/moodledata/behat_dump
+          if-no-files-found: ignore
+
+      - name: Mark cancelled jobs as failed.
+        if: ${{ cancelled() }}
+        run: exit 1

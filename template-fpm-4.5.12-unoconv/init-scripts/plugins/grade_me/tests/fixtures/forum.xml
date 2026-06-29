@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="block_grade_me">
+        <column>id</column>
+        <column>itemname</column>
+        <column>itemtype</column>
+        <column>itemmodule</column>
+        <column>iteminstance</column>
+        <column>courseid</column>
+        <column>coursename</column>
+        <column>coursemoduleid</column>
+        <!-- Item awaiting grading. -->
+        <row>
+            <value>1</value>
+            <value>forumitem1</value>
+            <value>mod</value>
+            <value>forum</value>
+            <value>0</value>
+            <value>0</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+    </table>
+    <table name="forum">
+        <column>id</column>
+        <column>course</column>
+        <column>assessed</column>
+        <column>intro</column>
+        <row>
+            <value>1</value>
+            <value>0</value>
+            <value>1</value>
+            <value></value>
+        </row>
+    </table>
+    <table name="forum_discussions">
+        <column>id</column>
+        <column>userid</column>
+        <column>course</column>
+        <column>forum</column>
+        <row>
+            <value>1</value>
+            <value>0</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>0</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>0</value>
+            <value>0</value>
+            <value>0</value>
+        </row>
+    </table>
+    <table name="forum_posts">
+        <column>id</column>
+        <column>userid</column>
+        <column>discussion</column>
+        <column>message</column>
+        <row>
+            <value>1</value>
+            <value>0</value>
+            <value>1</value>
+            <value>message</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>0</value>
+            <value>2</value>
+            <value>message</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>0</value>
+            <value>3</value>
+            <value>message</value>
+        </row>
+    </table>
+    <table name="rating">
+        <column>id</column>
+        <column>contextid</column>
+        <column>component</column>
+        <column>itemid</column>
+        <column>scaleid</column>
+        <column>rating</column>
+        <column>userid</column>
+        <column>timecreated</column>
+        <column>timemodified</column>
+        <row>
+            <value>1</value>
+            <value>0</value>
+            <value>mod_forum</value>
+            <value>3</value>
+            <value>100</value>
+            <value>80</value>
+            <value>0</value>
+            <value>1424895694</value>
+            <value>1424895694</value>
+        </row>
+    </table>
+</dataset>

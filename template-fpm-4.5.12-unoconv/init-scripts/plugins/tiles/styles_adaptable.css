@@ -1,0 +1,36 @@
+.format-tiles li.tile .badge-info {
+    color: #fff;
+}
+.format-tiles .subtile .completioncheckbox .icon {
+    height: 19px;
+    margin-top: 3px;
+}
+.format-tiles .nosubtiles .completioncheckbox .btn:hover,
+.format-tiles .nosubtiles .completioncheckbox .btn:active {
+    /* stylelint-disable-next-line declaration-no-important */
+    background-color: inherit !important;
+}
+.format-tiles .embed_cm_modal .modal-header .btn-close {
+    color: #fff;
+}
+.format-tiles #page .course-content ul li.section.main {
+    background-color: #fff;
+    border: 0;
+}
+.format-tiles li.section .sectionname {
+    background-color: inherit;
+}
+.format-tiles .embed_cm_modal .modal-header .btn-close {
+    /* stylelint-disable-next-line declaration-no-important */
+    color: #fff !important;
+}
+.format-tiles li.activity.subtile .badge-info {
+    color: #fff;
+}
+body.format-tiles.path-course-view.format-tiles-tile-open #page-content aside.block {
+    /* Avoid empty white blocks showing on grey overlay at bottom of page*/
+    background-color: inherit;
+}
+.format-tiles .expand-collapse-all-btns .btn-secondary {
+    min-height: unset;
+}

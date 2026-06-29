@@ -1,0 +1,30 @@
+{{!
+    Gap feedback modal template for gapfill question type.
+    This template renders the modal content for configuring gap-specific feedback.
+    @package    qtype_gapfill
+    @copyright  2025 Marcus Green
+    @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+}}
+{{!
+    @template qtype_gapfill/gapfeedback_modal
+    Example context (json):
+    {
+        "correct": "Correct feedback label",
+        "incorrect": "Incorrect feedback label"
+    }
+}}
+<div class="container-fluid" role="dialog" aria-modal="true" aria-labelledby="gapfill-modal-title" tabindex="-1">
+     <h2 id="gapfill-modal-title" class="sr-only">{{correct}}</h2>
+     <div class="form-group row mb-3">
+         <label for="gapfill-feedback-correct" class="col-md-12 col-form-label font-weight-bold">{{correct}}</label>
+         <div class="col-md-12">
+             <textarea id="gapfill-feedback-correct" class="form-control" rows="6"></textarea>
+         </div>
+     </div>
+     <div class="form-group row mb-3">
+         <label for="gapfill-feedback-incorrect" class="col-md-12 col-form-label font-weight-bold">{{incorrect}}</label>
+         <div class="col-md-12">
+             <textarea id="gapfill-feedback-incorrect" class="form-control" rows="6"></textarea>
+         </div>
+     </div>
+ </div>

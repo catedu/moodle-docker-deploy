@@ -1,0 +1,40 @@
+{{!
+    SPDX-FileCopyrightText: 2023-2024 Proyecto UNIMOODLE <direccion.area.estrategia.digital@uva.es>
+
+    SPDX-License-Identifier: GPL-3.0-or-later
+}}
+{{!
+    @template local_mail/notification_html
+
+    Text notification template.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * coursename
+    * sendername
+    * date
+    * subject
+    * content
+    * attachments: [{path, size, url}]
+    * viewurl
+}}
+{{#str}} from, local_mail {{/str}}: {{{ sendername }}}
+{{#str}} subject, local_mail {{/str}}:  {{{ subject }}}
+{{#str}} course, local_mail {{/str}}: {{{ coursename }}}
+{{#str}} date, local_mail {{/str}}: {{{ date }}}
+
+{{{ content }}}
+{{# hasattachments }}
+
+{{# attachments }}
+{{{ path }}} ({{{ size }}}): {{{ url }}}
+{{/ attachments }}
+{{/ hasattachments }}
+
+---------
+{{#str}} viewmessage, local_mail {{/str}}: {{{ viewurl }}}

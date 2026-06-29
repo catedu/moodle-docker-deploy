@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/mail/tests" VERSION="20120926" COMMENT="-"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_mail_labels" COMMENT="-" NEXT="local_mail_messages">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" PREVIOUS="userid" NEXT="color"/>
+        <FIELD NAME="color" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" PREVIOUS="name"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_mail_messages" COMMENT="-" PREVIOUS="local_mail_labels" NEXT="local_mail_message_labels">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="subject"/>
+        <FIELD NAME="subject" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" PREVIOUS="courseid" NEXT="content"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" PREVIOUS="subject" NEXT="format"/>
+        <FIELD NAME="format" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" PREVIOUS="content" NEXT="draft"/>
+        <FIELD NAME="draft" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" PREVIOUS="format" NEXT="time"/>
+        <FIELD NAME="time" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="draft"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_mail_message_labels" COMMENT="-" PREVIOUS="local_mail_messages" NEXT="local_mail_message_refs">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="messageid"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="labelid"/>
+        <FIELD NAME="labelid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="messageid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="messageid" UNIQUE="false" FIELDS="messageid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_mail_message_refs" COMMENT="-" PREVIOUS="local_mail_message_labels" NEXT="local_mail_message_users">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="messageid"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="reference"/>
+        <FIELD NAME="reference" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="messageid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="messageid" UNIQUE="false" FIELDS="messageid" NEXT="reference"/>
+        <INDEX NAME="reference" UNIQUE="false" FIELDS="reference" PREVIOUS="messageid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_mail_message_users" COMMENT="-" PREVIOUS="local_mail_message_refs" NEXT="local_mail_index">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="messageid"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="messageid" NEXT="role"/>
+        <FIELD NAME="role" TYPE="char" LENGTH="4" NOTNULL="true" SEQUENCE="false" PREVIOUS="userid" NEXT="unread"/>
+        <FIELD NAME="unread" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" PREVIOUS="role" NEXT="starred"/>
+        <FIELD NAME="starred" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" PREVIOUS="unread" NEXT="deleted"/>
+        <FIELD NAME="deleted" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" PREVIOUS="starred"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="messageid" UNIQUE="false" FIELDS="messageid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_mail_index" COMMENT="-" PREVIOUS="local_mail_message_users">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="type"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="userid" NEXT="item"/>
+        <FIELD NAME="item" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="type" NEXT="messageid"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="item" NEXT="time"/>
+        <FIELD NAME="time" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="messageid" NEXT="unread"/>
+        <FIELD NAME="unread" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" PREVIOUS="time"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="messageid_userid" UNIQUE="false" FIELDS="messageid, userid" NEXT="userid_type_item_time"/>
+        <INDEX NAME="userid_type_item_time" UNIQUE="false" FIELDS="userid, type, item, time" PREVIOUS="messageid_userid" NEXT="userid_type_item_unread"/>
+        <INDEX NAME="userid_type_item_unread" UNIQUE="false" FIELDS="userid, type, item, unread" PREVIOUS="userid_type_item_time"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

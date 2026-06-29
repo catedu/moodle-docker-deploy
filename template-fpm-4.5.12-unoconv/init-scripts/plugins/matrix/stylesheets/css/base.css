@@ -1,0 +1,194 @@
+.que.matrix {
+    /*tooltip*/
+}
+
+.que.matrix table {
+    display: inline-table;
+}
+
+.que.matrix,
+.que.matrix td,
+.que.matrix th {
+    border-style: none;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #848484;
+}
+
+.que.matrix td,
+.que.matrix th {
+    text-align: left;
+    padding: 5px;
+    min-width: 50px;
+}
+
+.que.matrix th {
+    border-width: 3px;
+}
+
+.que.matrix .r0 {
+    background-color: transparent;
+}
+
+.que.matrix .lastcol p {
+    display: inline;
+    margin: 0;
+    margin-left: 5px;
+}
+
+.que.matrix th,
+.que.matrix td {
+    position: relative;
+}
+
+.que.matrix .description {
+    display: none;
+    position: fixed !important;
+    background-color: #eee;
+    border: 1px solid #848484;
+    font-weight: normal;
+    padding: 8px;
+    z-index: 1000;
+}
+
+.que.matrix .description p {
+    margin: 0;
+}
+
+.que.matrix th .description {
+    margin-top: 6px;
+}
+
+.que.matrix th:hover .description {
+    display: inline-block;
+}
+
+.que.matrix td .description {
+    margin-left: 8px;
+    margin-top: -8px;
+}
+
+.que.matrix td:hover .description {
+    display: inline-block;
+}
+
+/** edit matrix **/
+.mform fieldset {
+    overflow: visible !important;
+}
+
+#page-content {
+    overflow: visible !important;
+}
+
+#page-content .region-content {
+    overflow: visible !important;
+}
+
+#page-content #region-main {
+    overflow: visible !important;
+}
+
+#matrixheader .fitemtitle {
+    display: none;
+}
+
+#matrixheader .fitem .felement {
+    margin-left: 0;
+}
+
+.quedit.matrix .input-group {
+    display: table;
+}
+
+.quedit.matrix .input-group > * {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.quedit.matrix th {
+    border-style: none;
+    border-bottom-style: solid;
+    border-width: 3px;
+    border-color: #848484;
+}
+
+.quedit.matrix input[type="submit"]:hover,
+.quedit.matrix input[type="submit"]:active,
+.quedit.matrix input[type="submit"]:focus {
+    background-position: center center;
+}
+
+.quedit.matrix > tbody > tr > td,
+.quedit.matrix > thead > tr > th {
+    padding: 5px;
+    padding-left: 15px;
+    min-width: 180px;
+    text-align: left;
+}
+
+.quedit.matrix input,
+.quedit.matrix select {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.quedit.matrix .pbutton {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 2px;
+    border: none;
+    color: #000;
+    font-weight: normal;
+    cursor: pointer;
+    min-width: 12px;
+    text-align: center;
+}
+
+.quedit.matrix .pbutton:active {
+    background-color: #848484;
+    color: #000;
+}
+
+.quedit.matrix .popup {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 383px;
+    padding: 0;
+    margin-left: 0;
+}
+
+.quedit.matrix .popup .title {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 8px;
+    padding-top: 6px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-color: #bbb;
+    border-width: 1px;
+    border-style: solid;
+    border-bottom-style: none;
+}
+
+.quedit.matrix .popup .pbutton.close {
+    float: right;
+    color: #000;
+    min-width: 16px;
+    margin: 3px;
+}
+
+.button {
+    border-style: solid;
+    border-width: 1px;
+    padding: 2px;
+}
+
+.button:active {
+    background-color: #848484;
+    color: #000;
+}

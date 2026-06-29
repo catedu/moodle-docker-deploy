@@ -1,0 +1,108 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/dynamic_styles
+
+    Dynamic styles for individual course colours.
+
+    The purpose of this template is to render extra styles e.g. to change the colour
+    of various items according to plugin or course settings
+    These can be changed by the user so have to be included dynamically rather than
+    in a status css file
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * base_colour_rgb - base colour for this course (i.e. tile top border colour)
+        * shade_heading_bar - do we add a coloured bar to left of headings? (course setting)
+        * isstyle1or2 - Is this tile style 1 or 2 (admin setting)
+        * allowphototiles - Photo tiles allowed? (admin setting)
+        * phototiletextpadding - Photo tile text padding (admin setting)
+        * phototiletextlineheight - Photo tile test line height (admin setting)
+        * photo_tile_text_bg_opacity - Photo tile text bg opacity (admin setting)
+
+    Example context (json):
+    {
+        "base_colour_rgb": "119,37,131",
+        "shade_heading_bar": 0,
+        "isstyle1or2": 1,
+        "allowphototiles": 1,
+        "phototiletextpadding": 0,
+        "phototiletextlineheight": 30,
+        "photo_tile_text_bg_opacity": 0
+    }
+}}
+
+{{! Tile colours moved to main styles.css with variables var(...) }}
+
+:root {
+    {{! Tile course colour variables (depend on course settings)}}
+    {{! These values are used in styles.css }}
+    --format-tiles-colour-elems: {{base_colour_rgb}};
+    --format-tiles-colour: rgb({{base_colour_rgb}});
+    --format-tiles-colour-7: rgba({{base_colour_rgb}}, 0.7);
+    --format-tiles-colour-5: rgba({{base_colour_rgb}}, 0.5);
+    --format-tiles-colour-1: rgba({{base_colour_rgb}}, 0.1);
+    --format-tiles-colour-05: rgba({{base_colour_rgb}}, 0.05);
+    --format-tiles-photo-tile-text-bg-opacity: {{photo_tile_text_bg_opacity}};
+    --format-tiles-photo-tile-text-line-height: {{phototiletextlineheight}}px;
+    --format-tiles-photo-tile-text-padding: {{phototiletextpadding}}px;
+    --format-tiles-high-contrast-black: {{{high_contrast_black}}};
+}
+{{#shade_heading_bar}}
+    .format-tiles .course-content li.activity.label h1,
+    .format-tiles .course-content .section li.activity.label h2,
+    .format-tiles .course-content li.activity.label h3,
+    .format-tiles .course-content li.activity.label h4,
+    .format-tiles .editor_atto_content_wrap h1,
+    .format-tiles .editor_atto_content_wrap h2,
+    .format-tiles .editor_atto_content_wrap h3,
+    .format-tiles .editor_atto_content_wrap h4 {
+        border-left-color: var(--format-tiles-colour);
+        border-left-style: solid;
+        padding-left: 0.4em;
+        border-left-width: 10px;
+    }
+{{/shade_heading_bar}}
+
+{{! If we are not on a mobile device we may want to ensure that tiles are nicely fitted depending on our screen width.
+    E.g. avoid a row with one tile, centre the tiles on screen.  JS will handle this post page load.
+    However, we want to handle it pre-page load if we can to avoid tiles moving around once page is loaded.
+    So we have JS send the width via AJAX on first load, and we remember the value and apply it next time using inline CSS.
+    This will hide the main tiles window on page load and display a loading icon instead.
+    Then post page load, JS will get the screen width, re-arrange the tiles, then hide the loading icon and show the tiles.
+    If session width var has already been set (because JS already ran), we set that width initially.
+    Then we can load the page immediately at that width without hiding anything.
+    The skipcheck URL param is there in case anyone gets stuck at loading icon and clicks it - they escape it for session.
+}}
+{{#usingtilefitter}}
+    {{#tilefittermaxwidth}}
+        .format-tiles.course-{{courseid}}.jsenabled #format-tiles-multi-section-page {max-width: {{tilefittermaxwidth}}px;}
+    {{/tilefittermaxwidth}}
+    {{^tilefittermaxwidth}}
+        {{! If no session screen width has yet been set, we hide the tiles initially, so we can calculate correct width in JS.}}
+        {{! We will remove this opacity later in JS.}}
+        .format-tiles.course-{{courseid}}.jsenabled:not(.editing) #format-tiles-multi-section-page {opacity: 0;}";
+    {{/tilefittermaxwidth}}
+{{/usingtilefitter}}
+
+{{{pluginconfigcss}}}

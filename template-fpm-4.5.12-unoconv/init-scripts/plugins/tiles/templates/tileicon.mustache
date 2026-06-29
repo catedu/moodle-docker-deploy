@@ -1,0 +1,54 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/tileicon
+
+    Tile icon template.
+
+    The purpose of this template is to render a single icon for a tile
+    to be displayed in the tile template
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * editing - is the user editing
+        * secid - which section id in the sections table, not just the tile num in this course
+        * tileid - which tile num in this course
+        * title: - the section title for the icon alt text
+
+    Example context (json):
+    {
+        "editing": 0,
+        "secid": 33,
+        "tileid": 3,
+        "title": "Introduction"
+    }
+}}
+
+<span class="tile-icon{{#editing}} launchiconpicker{{/editing}}"{{#editing}} data-section="{{tileid}}" data-true-sectionid="{{secid}}"{{/editing}}>
+    {{! If we have tileicon but not icon, we are on a top level tile }}
+    {{^icon}}{{#tileicon}}{{#pix}}tileicon/{{{tileicon}}}, format_tiles{{/pix}}{{/tileicon}}{{/icon}}
+    {{! If we have icon but not tileicon, we are on a sub-tile }}
+    {{^tileicon}}{{#icon}}<img class="icon {{icon.iconclass}}" src="{{icon.url}}" alt="{{{icon.label}}}">{{/icon}}{{/tileicon}}
+    {{! If we have neither, use a default icon }}
+    {{^icon}}{{^tileicon}}{{#pix}}tileicon/{{{defaulttileicon}}}, format_tiles{{/pix}}{{/tileicon}}{{/icon}}
+</span>
