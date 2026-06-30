@@ -306,4 +306,5 @@ moosh -n config-set activitychooseractivefooter hidden
 moosh -n config-set allowedtypes audio,video,screen tiny_recordrtc
 #Habilitar proveedores de comunicación externo
 moosh -n config-set enablecommunicationsubsystem 1
-
+#No mostrar listado de cursos en la página principal
+moosh -n config-set frontpage ''
