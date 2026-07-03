@@ -55,6 +55,6 @@ moosh config-set activitychooseractivefooter hidden
 moosh -n config-set allowedtypes audio,video,screen tiny_recordrtc
 #Habilitamos proveedor de comunicaciones
 moosh -n config-set enablecommunicationsubsystem 1
-
+moosh -n config-set enableasyncbackup 1
 
 echo >&2 "moodle.sh done"
