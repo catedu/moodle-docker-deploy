@@ -1,0 +1,87 @@
+/*
+mod_ND : BEGIN
+// TODO add .qtype_matrix_dndui selector where needed
+*/
+.que.matrix.qtype_matrix_dndui table.matrix th {
+    border: none;
+    padding: 3em 5em;
+}
+
+.que.matrix.qtype_matrix_dndui table.matrix td {
+    border: none;
+    padding: 3em;
+}
+
+.que.matrix.qtype_matrix_dndui table.matrix td.cell input {
+    display: none;
+}
+
+.que.matrix.qtype_matrix_dndui .activated {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.que.matrix.qtype_matrix_dndui .hovered {
+    background-color: rgba(0, 0, 255, 0.3);
+}
+
+.que.matrix.qtype_matrix_dndui .qtype_matrix_dndui_item {
+    padding: 1em;
+    cursor: move;
+    border: 0.2em solid #999;
+    background-color: #fff;
+}
+
+.que.matrix.qtype_matrix_dndui .qtype_matrix_dndui_item.disabled {
+    cursor: auto;
+    opacity: 0.3;
+}
+
+.que.matrix.qtype_matrix_dndui .cell span {
+    padding: 1em 2em 1em 1em;
+    border: 0.2em solid #999;
+    position: relative;
+    background-color: #fff;
+}
+
+.que.matrix.qtype_matrix_dndui .cell span span {
+    font-family: sans-serif;
+    font-weight: bold;
+    position: absolute;
+    top: 0.2em;
+    right: 0.2em;
+    color: #999;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    line-height: 1em;
+}
+
+.que.matrix.qtype_matrix_dndui table.matrix .outerwalled {
+    border-left: 0.2em solid #000;
+    border-right: 0.2em solid #000;
+}
+
+.que.matrix.qtype_matrix_dndui table.matrix th.outerwalled {
+    border-top: 0.2em solid #000;
+}
+
+.que.matrix.qtype_matrix_dndui table.matrix tr.lastrow td.outerwalled {
+    border-bottom: 0.2em solid #000;
+}
+
+/* modifications nécessaires à l'affichage correct du mode édition avec le theme_unil */
+body#page-question-type-matrix #fgroup_id_matrix fieldset {
+    margin-left: 0;
+}
+
+body#page-question-type-matrix #page-content {
+    overflow-x: scroll;
+}
+
+body#page-question-type-matrix div#region-main {
+    overflow-x: scroll;
+}
+
+/*
+mod_ND : END
+*/

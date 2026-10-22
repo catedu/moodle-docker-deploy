@@ -1,0 +1,108 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/icon_picker_modal_body
+
+    Icon picker modal template.
+
+    The purpose of this template is to render the icons needed for the
+    modal window allowing the user to select one to be displayed
+    as the icon for the tile, or the default icon for the course
+
+    These are rendered as a hidden div on page load and then added to the
+    modal when it is later launched from javascript
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * icon_picker_icons - array of all available icons for icon_picker_icon.mustache
+        * show_photo_button - whether to render a button to link to the photo upload form.
+
+    Example context (json):
+    {
+        "icon_picker_icons": [],
+        "icon_picker_photos": [],
+        "showicons": 1,
+        "showphotos": 1
+    }
+}}
+<div id="icon-picker-modal-body" data-extra="0">
+    <ul class="nav nav-pills" role="tablist">
+    {{#showicons}}
+        <li class="nav-item">
+            <a class="nav-link active" id="show-icons-tab" href="#tileicons" data-toggle="tab" role="tab">{{#str}}tileicons, format_tiles{{/str}}</a>
+        </li>
+    {{/showicons}}
+    {{#showphotos}}
+        <li class="nav-item">
+            <a class="nav-link" id="show-tile-numbers-tab" href="#tilenumbers" data-toggle="tab" role="tab">{{#str}}numbers, format_tiles{{/str}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="launch-photo-library" href="#photolibrary" data-toggle="tab" role="tab">{{#pix}}camera, format_tiles{{/pix}} {{#str}}photolibrary, format_tiles{{/str}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="phototilebtn" href="#">{{#pix}}cloud-upload, format_tiles{{/pix}}{{#str}}uploadnewphoto, format_tiles{{/str}}</a>
+        </li>
+    {{/showphotos}}
+    </ul>
+
+
+    <div class="tab-content mt-5" id="icon-tab-content">
+    {{#showicons}}
+        <div class="tab-pane show active" id="tileicons" role="tabpanel">
+            <div class="iconpickerheader">
+                <label for="icon-search">
+                    {{#str}}search{{/str}}
+                    {{#pix}}a/search, core, {{#str}}search{{/str}}{{/pix}}
+                </label>
+                <input name="search" id="icon-search" type="text" class="iconsearch inline" style="width: 20em;">
+            </div>
+            <div class="iconpickericons" id="iconpickericons">
+                {{#icon_picker_icons}}
+                    {{> format_tiles/icon_picker_icon}}
+                {{/icon_picker_icons}}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tilenumbers" role="tabpanel">
+            <h3>{{#str}}numbers, format_tiles{{/str}}</h3>
+            <div>{{#str}}numbers_desc, format_tiles{{/str}}</div>
+            <div id="tile-numbers-container" class="d-flex flex-wrap m-auto">
+                {{#tilenumbers}}
+                    <span class="tile-number-container" id="tile-number-container-{{.}}">
+                        <button id="tile-number-{{.}}" class="tile-number m-2 pickericon" data-icon="number_{{.}}" data-dismiss="modal" data-imagetype="tileicon" title="{{#str}}icontitle-number, format_tiles, {{.}}{{/str}}">{{.}}</button>
+                    </span>
+                {{/tilenumbers}}
+            </div>
+        </div>
+    {{/showicons}}
+    {{#showphotos}}
+        <div class="tab-pane fade" id="photolibrary" role="tabpanel">
+            {{!Leave blank for now will lazy load from JS if needed}}
+            <h3>{{#str}}photolibrary, format_tiles{{/str}}</h3>
+            <div>{{#str}}photolibrary_desc, format_tiles{{/str}}</div>
+            <div class="iconpickerphotos d-flex flex-wrap" id="iconpickerphotos">
+                <div class="alert alert-warning">{{#str}}none{{/str}}</div>
+            </div>
+        </div>
+    {{/showphotos}}
+    </div>
+</div>

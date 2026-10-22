@@ -1,0 +1,87 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/section_zero
+
+    Section zero template.
+
+    The purpose of this template is to render section zero
+    i.e. the top section of the course
+    which may be displayed on the course landing page or above any other section
+    It includes other items displayed at the top of the course such as filter buttons
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        * show - do we show section zero?
+        * editing: - is the user editing?
+        * secid - section id for section zero (from sections table)
+        * summary - summary text to display at top of section
+        * content - info for single_section template
+        * is_multi_section": - - is this a multi section page we are on?
+        * has_filter_buttons - does the course have filter buttons?
+        * filternumberedbuttons - filter buttons to display (numbered)
+        * filteroutcomebuttons - filter buttons to display (based on outcomes)
+        * overall_progress_indicator - indicator info for progress template
+        * section_zero_add_cm_control_html - html to add this control
+
+    Example context (json):
+    {
+        "show": 1,
+        "editing": 0,
+        "secid": 212,
+        "summary": "This is the section zero summary text",
+        "content": {},
+        "is_multi_section": 1,
+        "has_filter_buttons": 0,
+        "filternumberedbuttons": {},
+        "filteroutcomebuttons": {},
+        "overall_progress_indicator": {},
+        "section_zero_add_cm_control_html": ""
+    }
+}}
+{{#section_zero_show}}
+    {{#section_zero}}
+        <div id="section-0" data-section="0" data-sectionid="{{section_zero.secid}}" class="section course-section main clearfix">
+            {{#title}}<h3>{{{title}}}</h3>{{/title}}
+            {{#editing}}
+                <a title="{{#str}}editsummary, core{{/str}}" href="{{{config.wwwroot}}}/course/editsection.php?id={{secid}}&sr={{tileid}}">
+                    {{#pix}}i/settings, core{{/pix}}
+                </a>
+            {{/editing}}
+            <div class="content">
+                <div class="summary">{{{summary}}}</div>
+                <ul id="sec-zero-cm-list" class="ps-0 {{#usesubtilesseczero}}subtiles{{/usesubtilesseczero}}{{^usesubtilesseczero}}nosubtiles{{/usesubtilesseczero}}
+                    {{#useSubtiles}}{{#usesubtilesseczero}}subtiles{{/usesubtilesseczero}}{{/useSubtiles}}">
+                    {{#content}}
+                        {{#course_modules}}
+                            {{>format_tiles/course_module}}
+                        {{/course_modules}}
+                    {{/content}}
+                </ul>
+                {{#editing}}
+                    {{{section_zero_add_cm_control_html}}}
+                {{/editing}}
+            </div>
+        </div>
+    {{/section_zero}}
+{{/section_zero_show}}

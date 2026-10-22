@@ -1,0 +1,108 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template format_tiles/multi_section_tile
+
+    Tile template for display on multi section page to represent one section/topic.
+
+    The purpose of this template is to render a single tile, representing
+    a course section on the main course landing page
+
+    This is not used for "sub tiles" representing course modules - for those see course_module.mustache
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+        hidden - is this tile hidden?
+        isactive - is this tile current?
+        tileid - tile id in course
+        courseid - cours id
+        restricted - is the tile restricted?
+
+    Example context (json):
+    {   "hidden": 0,
+        "isactive": 1,
+        "tileid": 3,
+        "courseid": 5,
+        "restricted": 0
+        }
+}}
+<li class="tile{{#hidden}} tile-hidden{{/hidden}}{{#restrictionlock}} tile-restricted{{/restrictionlock}}{{#isactive}} current{{/isactive}}{{#userclickable}} tile-clickable{{/userclickable}}{{#progress.isComplete}} is-complete{{/progress.isComplete}} {{extraclasses}}"
+    id="tile-{{tileid}}" data-section="{{tileid}}" data-true-sectionid="{{secid}}" {{#hastilephoto}}{{{phototileinlinestyle}}}{{/hastilephoto}}>
+    {{^hastilephoto}}<div class="tile-bg"></div>{{/hastilephoto}}
+    <a class="tile-link"{{#userclickable}} href="{{{config.wwwroot}}}/course/section.php?id={{secid}}"{{/userclickable}}
+       data-section="{{tileid}}" id="sectionlink-{{tileid}}" aria-label="{{tilearialabel}}">
+
+        {{^hastilephoto}}
+            <div class="tile-content" id="tilecontent-{{tileid}}">
+                <div class="tile-top" id="tileTop-{{tileid}}">
+                    <div class="tileiconcontainer" id="tileicon_{{tileid}}"
+                        {{#editing}}data-toggle="tooltip" data-placement="left"
+                         data-original-title="{{^allowphototiles}}{{#str}}picknewicon, format_tiles{{/str}}{{/allowphototiles}}{{#allowphototiles}}{{#str}}picknewiconphoto, format_tiles{{/str}}{{/allowphototiles}}"
+                        {{/editing}}>
+                        {{#tilenumber}}{{>format_tiles/tilenumber}}{{/tilenumber}}
+                        {{^tilenumber}}{{>format_tiles/tileicon}}{{/tilenumber}}
+                    </div>
+                    <div class="tiletopright" id="tiletopright-{{tileid}}" aria-hidden="true">
+                        {{>format_tiles/progress_spacer}}
+                        {{#progress}}{{^hidden}}
+                            {{> format_tiles/progress}}
+                        {{/hidden}}{{/progress}}
+                    </div>
+                </div>
+                <div class="tile-text" id="tileText-{{tileid}}">
+                    <div class="tile-textinner{{titleclass}}" id="tileTextin-{{tileid}}">
+                        {{#title}}<h3{{^title}} title="{{{tilearialabel}}}"{{/title}}>{{{title}}}</h3>{{/title}}
+                    </div>
+                    {{#availabilitymessage}}
+                        {{>format_tiles/availability_info}}
+                    {{/availabilitymessage}}
+                </div>
+            </div>
+        {{/hastilephoto}}
+
+        {{#hastilephoto}}
+            {{#availabilitymessage}}
+                {{>format_tiles/availability_info}}
+            {{/availabilitymessage}}
+            <div id="tileText-{{tileid}}">
+            <div class="photo-tile-text {{titleclass}}" id="tileTextin-{{tileid}}">
+                {{>format_tiles/progress_spacer}}
+                {{#title}}<h3>{{{title}}}</h3>{{/title}}
+            </div>
+                <div class="tile-text">
+                {{! This ensures that the bottom section of the tile shows the activity summary on hover, too}}
+                </div>
+            </div>
+            {{#showprogressphototiles}}
+                {{#progress}}
+                    {{> format_tiles/progress}}
+                {{/progress}}
+            {{/showprogressphototiles}}
+        {{/hastilephoto}}
+    </a>
+    {{>format_tiles/progress_all_complete}}
+    {{#jsnavadminallowed}}{{#userenabledjsnav}}
+        {{! This is added as empty for now - JS will populate and de-populate as necessary and add image to it using template.}}
+        <span class="tile-loading-icon" id="loading-icon-{{tileid}}" style="display: none;"></span>
+    {{/userenabledjsnav}}{{/jsnavadminallowed}}
+</li>

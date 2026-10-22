@@ -1,0 +1,30 @@
+{{#section_zero_show}}{{#section_zero.is_collapsible}}
+    <button class="sectionbutton buttonhidesec0 open float-end ms-1" data-section="0">
+        <span class="sec-zero-open-icon justify-content-center align-items-center h-100" title="{{#str}}closetopsection, format_tiles{{/str}}">
+            {{#pix}}close, format_tiles, {{#str}}closetopsection, format_tiles{{/str}}{{/pix}}
+        </span>
+        <span class="sec-zero-closed-icon justify-content-center align-items-center h-100" title="{{#str}}expandtopsection, format_tiles{{/str}}">
+            {{#pix}}sort, format_tiles, {{#str}}expand, format_tiles{{/str}}{{/pix}}
+        </span>
+
+    </button>
+{{/section_zero.is_collapsible}}{{/section_zero_show}}
+
+{{#hasabovetilescontrols}}
+    <div class="btn-group align-top">
+        <button type="button" class="sectionbutton align-top" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{#str}}controls, format_tiles{{/str}}">
+            <span class="d-flex justify-content-center align-items-center h-100">
+                <i class="icon fa fa-ellipsis-h fa-fw m-0" aria-hidden="true"></i>
+            </span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            {{#abovetilescontrols}}
+                <a class="dropdown-item" href="{{{url}}}">
+                    <div class="custom-control custom-switch{{#checked}} checked{{/checked}}">
+                        <span class="custom-control-label">{{label}}</span>
+                    </div>
+                </a>
+            {{/abovetilescontrols}}
+        </div>
+    </div>
+{{/hasabovetilescontrols}}

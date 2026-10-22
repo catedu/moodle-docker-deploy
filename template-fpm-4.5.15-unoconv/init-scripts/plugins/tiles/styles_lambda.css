@@ -1,0 +1,8 @@
+.format-tiles .activity-information {
+    float: none;
+}
+.format-tiles .course-content ul#multi_section_tiles.tiles .tile {
+    /* Override the min width which Lambda theme has applied. */
+    /* Otherwise it artificially restricts number of tiles per row. */
+    min-width: unset;
+}

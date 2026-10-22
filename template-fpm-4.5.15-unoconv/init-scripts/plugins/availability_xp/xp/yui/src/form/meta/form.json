@@ -1,0 +1,11 @@
+{
+  "moodle-availability_xp-form": {
+    "requires": [
+        "base",
+        "node",
+        "event",
+        "handlebars",
+        "moodle-core_availability-form"
+    ]
+  }
+}

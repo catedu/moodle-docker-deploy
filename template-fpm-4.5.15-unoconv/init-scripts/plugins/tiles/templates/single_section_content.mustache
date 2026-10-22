@@ -1,0 +1,111 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_tiles/single_section_content
+
+    Single section content (single section non JS mode).
+
+    Example context (json):
+    {
+        "hidden_section": true,
+        "showprogressphototiles": true,
+        "title": "some title",
+        "inplace_editable_title": "some title",
+        "editing": false,
+        "usingjsnav": true,
+        "canedit": true,
+        "tileid": 1,
+        "secid": 1,
+        "useSubtiles": true,
+        "sesskey": 12345
+    }
+}}
+<div class="format_tiles_section_content">
+    <div class="left side"></div>
+    {{#hidden_section}}
+        {{#str}}notavailable{{/str}}
+    {{/hidden_section}}
+    {{^hidden_section}}
+        {{#usingjsnav}}
+            <div class="pagesechead">
+                <div class="sectiontitlecontainer">
+                    <div class="sectiontitle" id="sectiontitle{{tileid}}">
+                        <h2>{{#editing}}{{{inplace_editable_title}}}{{/editing}}{{^editing}}{{{title}}}{{/editing}}</h2>
+                        {{#hidden}}<span class="icon20" id="hiddeneye" title="Hidden"></span>{{/hidden}}
+                    </div>
+                </div>
+            </div>
+        {{/usingjsnav}}
+        {{#current}}
+            <span class="badge badge-pill badge-primary order-1">{{#str}}highlighted{{/str}}</span>
+        {{/current}}
+        {{^visible}}
+            <span class="badge badge-pill badge-warning order-2">{{#str}}hiddenfromstudents{{/str}}</span>
+        {{/visible}}
+        {{#visible}}
+            {{#availabilitymessage}}
+                <span class="badge badge-pill badge-secondary order-3">{{#str}}restricted{{/str}}</span>
+            {{/availabilitymessage}}
+        {{/visible}}
+    {{/hidden_section}}
+    {{! Right side needs to be after pagesechead in HTML to facilitate keyboard navigation (tabbing from section head to close button). }}
+    <div class="right side">
+        {{#usingjsnav}}
+            <div class="sectionbuttons">
+                {{#canedit}}
+                    {{^editing}}
+                        <a class="sectionbutton d-none d-md-inline-block" id="editsectiontbtn-{{tileid}}"
+                           href="{{{ config.wwwroot }}}/course/view.php?id={{courseid}}&sesskey={{sesskey}}&edit=on&expandsection={{tileid}}#section-{{tileid}}">
+                        <span class="d-flex justify-content-center align-items-center h-100">
+                            {{#pix}}pencil, format_tiles, {{#str}}edit{{/str}}{{/pix}}
+                        </span>
+                        </a>
+                    {{/editing}}
+                {{/canedit}}
+                <button class="sectionbutton closesectionbtn" id="closesectionbtn-{{tileid}}"
+                   title="{{#str}}close, format_tiles{{/str}}" data-section="{{tileid}}">
+                <span class="d-flex justify-content-center align-items-center h-100">
+                    {{#pix}}close, format_tiles, {{#str}}close, format_tiles{{/str}}{{/pix}}
+                </span>
+                </button>
+            </div>
+        {{/usingjsnav}}
+    </div>
+    {{^hidden_section}}
+        {{{availabilitymessage}}}
+        <div class="summary{{^visible}} dimmed{{/visible}}">{{{summary}}}</div>
+        {{#editing}}
+            <a title="{{#str}}editsummary, core{{/str}}"
+               href="{{{config.wwwroot}}}/course/editsection.php?id={{secid}}&sr={{tileid}}">{{#pix}}
+            i/settings, core{{/pix}}
+            </a>
+        {{/editing}}
+        <ul class="format-tiles-cm-list {{^useSubtiles}}no{{/useSubtiles}}subtiles">
+            {{>format_tiles/course_modules}}
+        </ul>
+
+        {{#editing}}
+            {{{single_sec_add_cm_control_html}}}
+        {{/editing}}
+        {{^from_ajax}}
+            {{#single_sec_content_is_long}}
+            {{!repeat nav arrows at bottom of page if it is long}}
+                {{>format_tiles/single_section_nav}}
+            {{/single_sec_content_is_long}}
+        {{/from_ajax}}
+
+    {{/hidden_section}}
+</div>
